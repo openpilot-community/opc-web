@@ -195,9 +195,9 @@ Trestle.configure do |config|
   #   { value: user.remember_token, expires: user.remember_token_expires_at }
   # }
 
-  # config.hook("view.header") do
-  #   render "admin/header"
-  # end
+  config.hook("view.header") do
+    render "admin/header"
+  end
   require 'trestle-devise/controller_methods'
   Trestle::ApplicationController.send(:include, Trestle::Auth::ControllerMethods)
 end

@@ -19,6 +19,7 @@
 #
 
 class VehicleConfig < ApplicationRecord
+  has_paper_trail
   paginates_per 400
   # default_scope{ includes(:vehicle_make, :vehicle_model, :vehicle_trim, :vehicle_config_type).order("vehicle_makes.name, vehicle_models.name, vehicle_trims.name, year, vehicle_config_types.difficulty_level") }
   extend FriendlyId
@@ -26,12 +27,12 @@ class VehicleConfig < ApplicationRecord
   friendly_id :name_for_slug, use: :slugged
   belongs_to :vehicle_make
   belongs_to :vehicle_model
-  belongs_to :parent, :class_name => "VehicleConfig"
+  belongs_to :parent, :class_name => "VehicleConfig", :optional => true
   has_many :vehicle_config_vehicle_trims, -> { order('vehicle_trims.name') }, dependent: :delete_all
   has_many :vehicle_trims, :through => :vehicle_config_vehicle_trims
   has_many :forks, :class_name => "VehicleConfig", :foreign_key => :parent_id, dependent: :delete_all
   belongs_to :vehicle_config_status
-  belongs_to :vehicle_make_package
+  belongs_to :vehicle_make_package, :optional => true
   belongs_to :vehicle_config_type
   accepts_nested_attributes_for :forks
   before_save :set_title

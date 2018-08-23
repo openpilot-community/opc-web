@@ -225,6 +225,12 @@ Trestle.resource(:vehicle_configs) do
           column :name
         end
       end if vehicle_config.parent
+      
+      tab :changes do
+        table vehicle_config.versions, admin: :vehicle_config_versions do
+          column :name
+        end
+      end
       sidebar do
         render "fork_links", :instance => vehicle_config
         concat(

@@ -26,13 +26,19 @@ class User < ApplicationRecord
     new_user.email = auth.info.email
     # new_user.password = Devise.friendly_token[0,20]
     new_user.name = auth.info.name   # assuming the user model has a name
-    avatar_img_file = open(auth.info.image)
     new_user.github_username = auth.info.nickname
     new_user.slack_username = auth.info.nickname
-    new_user.avatar.attach(
-      io: avatar_img_file,
-      filename: auth.info.nickname
-    )
+    # if new_user.avatar.blank?
+      # address_parsed = Addressable::URI.parse(auth.info.image)
+      avatar_img_file = open(auth.info.image)
+      mime_type = MimeMagic.by_magic(avatar_img_file)
+      new_user.avatar.attach(
+        io: avatar_img_file,
+        filename: "#{auth.info.nickname}.#{mime_type.extensions.last}",
+        content_type: mime_type.type
+
+      )
+    # end
     new_user.save
     new_user
   end
@@ -42,5 +48,13 @@ class User < ApplicationRecord
         user.email = data["email"] if user.email.blank?
       end
     end
+  end
+
+  def name
+    github_username
+  end
+
+  def full_name
+    self.name
   end
 end

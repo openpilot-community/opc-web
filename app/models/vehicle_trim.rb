@@ -1,4 +1,5 @@
 class VehicleTrim < ApplicationRecord
+  has_paper_trail
   default_scope{ order(:year,:sort_order) }
   belongs_to :vehicle_model
   has_many :vehicle_config_trims

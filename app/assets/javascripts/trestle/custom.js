@@ -6,6 +6,7 @@
 //
 //  e.g. //= require "trestle/custom/my_custom_js"
 var setupVehicleConfigYear = function() {
+  console.warn('setupVehicleConfigYear');
   var $year_start = $("#vehicle_config_year");
   var $year_start_column = $(".col-class-year-start");
   var $year_start_select2_container = $year_start_column.find('.select2-container');

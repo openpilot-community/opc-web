@@ -1,4 +1,5 @@
 class VehicleTrimStyle < ApplicationRecord
+  has_paper_trail
   # default_scope{ order(:name) }
   belongs_to :vehicle_trim
   has_many :vehicle_trim_style_specs

@@ -55,6 +55,8 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     acts_as_votable (0.11.1)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
     amoeba (3.1.0)
       activerecord (>= 3.2.6)
     arel (9.0.0)
@@ -165,6 +167,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2018.0812)
     mimemagic (0.3.2)
+    mini_magick (4.8.0)
     mini_mime (1.0.1)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
@@ -203,6 +206,7 @@ GEM
     paper_trail-association_tracking (1.0.0)
     parslet (1.8.2)
     pg (0.21.0)
+    public_suffix (3.0.3)
     puma (3.12.0)
     rack (2.0.5)
     rack-cors (1.0.2)
@@ -315,6 +319,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_votable (~> 0.11.1)
+  addressable
   amoeba
   awesome_nested_set
   aws-sdk-s3
@@ -329,6 +334,8 @@ DEPENDENCIES
   jquery-rails
   listen
   mechanize
+  mimemagic
+  mini_magick
   omniauth-github
   paper_trail
   paper_trail-association_tracking

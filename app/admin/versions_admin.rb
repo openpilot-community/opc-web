@@ -1,19 +1,21 @@
-Trestle.resource(:repositories) do
+Trestle.resource(:versions) do
   menu do
-    item :repositories, icon: "fa fa-github", group: :other
+    item :versions, icon: "fa fa-list", group: :other
   end
 
   # Customize the table columns shown on the index view.
-  #
-  # table do
-  #   column :name
-  #   column :created_at, align: :center
-  #   actions
-  # end
+  
+  table do
+    column :item
+    column :item_type
+    column :user
+    column :created_at, align: :center
+    actions
+  end
 
   # Customize the form fields shown on the new/edit views.
   #
-  # form do |repository|
+  # form do |version|
   #   text_field :name
   #
   #   row do
@@ -30,6 +32,6 @@ Trestle.resource(:repositories) do
   #   http://guides.rubyonrails.org/action_controller_overview.html#strong-parameters
   #
   # params do |params|
-  #   params.require(:repository).permit(:name, ...)
+  #   params.require(:version).permit(:name, ...)
   # end
 end

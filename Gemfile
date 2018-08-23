@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.10'
+gem 'rails', '5.2.1'
 # Use sqlite3 as the database for Active Record
 gem 'pg', '0.21.0'
 # Use SCSS for stylesheets
@@ -11,6 +11,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
+
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 # Use jquery as the JavaScript library
@@ -19,6 +20,9 @@ gem 'trestle'
 gem 'trestle-simplemde'
 gem 'trestle-search'
 gem 'devise'
+gem 'omniauth-github'
+gem "aws-sdk-s3", require: false
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 gem 'cars', :git => 'git://github.com/openpilot-community/cars_abstraction.git'

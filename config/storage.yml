@@ -1,0 +1,6 @@
+amazon:
+  service: S3
+  access_key_id: <%=ENV['OPC_AWS_ACCESS_KEY_ID']%>
+  secret_access_key: <%=ENV['OPC_AWS_SECRET_ACCESS_KEY']%>
+  region: <%=ENV['OPC_AWS_REGION']%>
+  bucket: <%=ENV['OPC_S3_BUCKET_NAME']%>

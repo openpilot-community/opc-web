@@ -1,0 +1,19 @@
+# == Schema Information
+#
+# Table name: vehicle_config_videos
+#
+#  id                :bigint(8)        not null, primary key
+#  vehicle_config_id :bigint(8)
+#  video_id          :bigint(8)
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
+class VehicleConfigVideo < ApplicationRecord
+  belongs_to :vehicle_config
+  belongs_to :video
+
+  def name
+    video.title
+  end
+end

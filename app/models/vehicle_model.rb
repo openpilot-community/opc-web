@@ -77,7 +77,7 @@ class VehicleModel < ApplicationRecord
             new_style.save!
 
             if !new_style.has_specs?
-              specs = Cars::VehicleStyle.retrieve(style[:link].gsub('https://www.cars.com/research/',''))[:specs]
+              specs = Cars::VehicleStyle.retrieve(style[:link].gsub("#{ENV['VEHICLE_ROOT_URL']}/",''))[:specs]
 
               specs.each do |spec|
                 new_spec = new_style.vehicle_trim_style_specs.find_or_initialize_by(:name => spec[:name])

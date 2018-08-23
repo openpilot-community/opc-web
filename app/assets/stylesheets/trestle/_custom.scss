@@ -6,6 +6,25 @@
 //
 //    @import "trestle/custom/my_custom_css";
 //
+.app-header {
+  .nav {
+    .user-dropdown {
+      padding-left:40px;
+    }
+    .user-icon {
+      position:absolute;
+      display:block;
+      width:32px;
+      height:32px;
+      left:0;
+      top:50%;
+      transform:translateY(-50%);
+      img {
+        max-width:100%;
+      }
+    }
+  }
+}
 .scopes {
   flex-wrap: wrap;
 }
@@ -104,7 +123,8 @@
 }
 h1.path-heading {
   position: relative;
-  float: left;
+  // float: left;
+  flex: 0 0 50%;
   max-width: 635px;
   padding-left: 18px;
   font-size: 18px;
@@ -265,6 +285,9 @@ h1.path-heading {
   box-shadow: inset 0 0.15em 0.3em rgba(27,31,35,0.15);
 }
 .content-header {
+  flex-direction: row-reverse;
+  padding-top:0;
+  padding-bottom:0;
   .primary-toolbar, .secondary-toolbar {
     .btn {
       font-size: 14px;

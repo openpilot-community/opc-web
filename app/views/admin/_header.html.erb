@@ -1,1 +1,16 @@
-<%=current_user.github_username%>
+<ul class="nav nav-pills">
+  <li role="presentation" class="dropdown">
+    <a class="user-dropdown dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+      <span class="user-icon"><%=image_tag(current_user.avatar.service_url)%></span>
+      <%=current_user.github_username%>
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li><%=link_to('Logout', '/sign_out')%></a></li>
+      <%# <li><a href="#">Another action</a></li>
+      <li><a href="#">Something else here</a></li>
+      <li role="separator" class="divider"></li>
+      <li><a href="#">Separated link</a></li> %>
+    </ul>
+  </li>
+</ul>

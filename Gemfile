@@ -20,9 +20,10 @@ gem 'trestle'
 gem 'trestle-simplemde'
 gem 'trestle-search'
 gem 'devise'
+gem 'puma'
 gem 'omniauth-github'
 gem "aws-sdk-s3", require: false
-
+# gem 'bootstrap', '~> 4.0.0'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 gem 'cars', :git => 'https://github.com/openpilot-community/cars_abstraction'

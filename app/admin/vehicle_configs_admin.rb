@@ -55,7 +55,7 @@ Trestle.resource(:vehicle_configs) do
   end
 
   routes do
-    get :refresh_trim_styles, :on => :member
+    get :refresh_trims, :on => :member
     get :fork, :on => :member
     get :clone, :on => :member
   end

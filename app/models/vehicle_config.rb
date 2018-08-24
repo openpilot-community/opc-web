@@ -105,7 +105,7 @@ class VehicleConfig < ApplicationRecord
     !self.year_end.blank?
   end
 
-  def year_range=(ystart, yend)
+  def year_range=(ystart, year_end)
     if !ystart.blank? && !yend.blank?
       self.year = ystart
       self.year_end = yend
@@ -123,7 +123,13 @@ class VehicleConfig < ApplicationRecord
 
   def year_range
     if !year.blank? && !year_end.blank?
-      (year..(has_year_end? ? year_end : year))
+      (year..year_end)
+    elsif year.blank? && !year_end.blank?
+      (year_end..year_end)
+    elsif !year.blank? && year_end.blank?
+      (year..year)
+    else
+      (1917..1917)
     end
   end
 

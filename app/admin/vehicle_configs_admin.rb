@@ -1,7 +1,7 @@
 Trestle.resource(:vehicle_configs) do
   
   menu do
-    item :vehicle_configs, icon: "fa fa-car", group: :vehicles, label: "Research / Support"
+    item :vehicle_configs, icon: "fa fa-car", group: :vehicles, label: "Research / Support", priority: :first
   end
 
   #####
@@ -29,16 +29,13 @@ Trestle.resource(:vehicle_configs) do
 
   controller do
     # include Pundit
-    def update
-      authorize instance
-      super
-    end
     def refresh_trims
       vehicle_config_root = admin.find_instance(params).root
       vehicle_config_root.scrape_info
       flash[:message] = "Vehicle trim_styles list has been reloaded."
       redirect_to admin.path(:show, id: vehicle_config_root.id)
     end
+
     def fork
       vehicle_config_root = admin.find_instance(params).root
       new_config = vehicle_config_root.fork_config

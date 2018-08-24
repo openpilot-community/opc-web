@@ -38,7 +38,7 @@
   </head>
 
   <body<%=raw " class=\"sidebar-#{cookies["trestle:sidebar"]}\"" if cookies["trestle:sidebar"] %>>
-    <div class="app-wrapper">
+    <div class="app-wrapper <%if current_user.is_visitor?%>is-visitor<% end %>">
       <%= render "trestle/shared/sidebar" %>
 
       <div class="app-container">

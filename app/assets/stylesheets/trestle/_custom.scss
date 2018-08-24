@@ -7,6 +7,22 @@
 //    @import "trestle/custom/my_custom_css";
 //
 .app-wrapper {
+  &.is-visitor {
+    .primary-toolbar {
+      opacity:0;
+    }
+    .tab-toolbar {
+      display:none;
+      .actions {
+        opacity:0;
+      }
+    }
+    .app-nav {
+      ul:last-child {
+        display:none;
+      }
+    }
+  }
   .changeset {
     .changeset-change {
       display:flex;
@@ -467,6 +483,17 @@
         //   }
         // }
       }
+    }
+  }
+  .unauthorized-alert {
+    .fa-exclamation {
+      font-size:30px;
+      padding:30px;
+    }
+    > a {
+
+      margin-right:25px;
+      display:block!important;
     }
   }
   .app-sidebar-header {

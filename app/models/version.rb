@@ -5,7 +5,11 @@ class Version < ApplicationRecord
 
   def user
     if !whodunnit.blank?
-      User.find(whodunnit)
+      scope = User.where(id: whodunnit)
+
+      if !scope.blank?
+        scope.first
+      end
     end
   end
   

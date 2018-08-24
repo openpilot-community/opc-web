@@ -19,6 +19,9 @@ jQuery.fn.removeClass = function(){
 //
 //  e.g. //= require "trestle/custom/my_custom_js"
 var setupVehicleConfigYear = function() {
+  if ($('.app-wrapper.is-visitor').length) {
+    $(".main-content .form-control,.modal-body .form-control").attr('disabled',true);
+  }
   console.warn('setupVehicleConfigYear');
   var $year_start = $("#vehicle_config_year");
   var $year_start_column = $(".col-class-year-start");
@@ -113,7 +116,7 @@ var setupVehicleConfigYear = function() {
 
 $(Trestle).on("init",function() {
   setupVehicleConfigYear();
-
+  
   var trims;
   var models;
   var $elems = {}

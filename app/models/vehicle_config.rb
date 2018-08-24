@@ -39,7 +39,9 @@ class VehicleConfig < ApplicationRecord
   before_save :set_title
   before_save :update_forks
   before_save :set_default
-
+  validates_presence_of :year
+  validates_presence_of :vehicle_model
+  validates_presence_of :vehicle_make
   # MODIFICATIONS
   has_many :vehicle_config_modifications, dependent: :delete_all
   has_many :modifications, :through => :vehicle_config_modifications
@@ -104,17 +106,23 @@ class VehicleConfig < ApplicationRecord
   end
 
   def year_range=(ystart, yend)
-    self.year = ystart
-    self.year_end   = yend
+    if !ystart.blank? && !yend.blank?
+      self.year = ystart
+      self.year_end   = yend
+    end
   end
 
   def year_range
-    (year..(has_year_end? ? year_end : year))
+    if !year.blank? && !year_end.blank?
+      (year..(has_year_end? ? year_end : year))
+    end
   end
 
   def year_range_str
     if has_year_end? && year != year_end
       "#{year}-#{year_end}"
+    elsif has_year_end? && year.blank?
+      "#{year_end}"
     else
       "#{year}"
     end
@@ -190,7 +198,11 @@ class VehicleConfig < ApplicationRecord
   end
 
   def trim_styles_count
-    trim_styles.count
+    if !trim_styles.blank?
+      trim_styles.count
+    else
+      0
+    end
   end
 
   def specs
@@ -205,7 +217,11 @@ class VehicleConfig < ApplicationRecord
   # end
 
   def trim_styles
+    if (year_range)
     VehicleTrimStyle.joins(:vehicle_trim).where('vehicle_trims.year IN (:years) AND vehicle_trim_id IN (:trim_ids)',{ :years => year_range, :trim_ids => vehicle_model.vehicle_trims.map(&:id) }).order("vehicle_trims.year, vehicle_trims.sort_order, vehicle_trim_styles.name")
+    else
+      nil
+    end
   end
 
   def scrape_info

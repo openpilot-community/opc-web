@@ -226,7 +226,7 @@ class VehicleConfig < ApplicationRecord
   # end
 
   def trim_styles
-    if (year_range)
+    if (year && year_end && vehicle_model.vehicle_trims)
       VehicleTrimStyle.joins(:vehicle_trim).where('vehicle_trims.year IN (:years) AND vehicle_trim_id IN (:trim_ids)',{ :years => year_range, :trim_ids => vehicle_model.vehicle_trims.map(&:id) }).order("vehicle_trims.year, vehicle_trims.sort_order, vehicle_trim_styles.name")
     else
       nil

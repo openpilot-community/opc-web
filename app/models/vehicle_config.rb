@@ -226,13 +226,13 @@ class VehicleConfig < ApplicationRecord
       INNER JOIN vehicle_trim_style_specs ON vehicle_trim_style_specs.vehicle_trim_style_id = vehicle_trim_styles.id
       ")
   end
-
+  VehicleModel.find_by(name: "Civic").vehicle_trims.map(&:id)
   # def capability_groups
   #   vehicle_trim_styles.joins(:vehicle_trim_style_specs).group(:id,:group)
   # end
 
   def trim_styles
-    if (year && year_end && vehicle_model.vehicle_trims)
+    if (!year_range.blank? && year && year_end && vehicle_model.vehicle_trims)
       VehicleTrimStyle.joins(:vehicle_trim).where('vehicle_trims.year IN (:years) AND vehicle_trim_id IN (:trim_ids)',{ :years => year_range, :trim_ids => vehicle_model.vehicle_trims.map(&:id) }).order("vehicle_trims.year, vehicle_trims.sort_order, vehicle_trim_styles.name")
     else
       nil

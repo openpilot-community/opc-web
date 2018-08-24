@@ -77,6 +77,34 @@ class VehicleConfig < ApplicationRecord
       vehicle_config_status.name == 'Upstreamed'
     end
   end
+  def is_community_supported?
+    if !vehicle_config_status.blank?
+      vehicle_config_status.name == 'Community'
+    end
+  end
+  def is_pull_request?
+    if !vehicle_config_status.blank?
+      vehicle_config_status.name == 'Pull Request'
+    end
+  end
+  def latest_repository
+    if !vehicle_config_repositories.blank?
+      if repositories = vehicle_config_repositories.joins(:repository).order("repositories.id DESC")
+        if !repositories.blank?
+          repositories.first.repository
+        end
+      end
+    end
+  end
+  def latest_open_pull_request
+    if !vehicle_config_pull_requests.blank?
+      if open_prs = vehicle_config_pull_requests.joins(:pull_request).where(pull_requests: { state: "open" }).order("pull_requests.number DESC")
+        if !open_prs.blank?
+          open_prs.first.pull_request
+        end
+      end
+    end
+  end
   def set_year_end
     if year > year_end
       self.year_end = self.year

@@ -12,4 +12,8 @@
 class VehicleConfigPullRequest < ApplicationRecord
   belongs_to :vehicle_config
   belongs_to :pull_request
+
+  def name
+    pull_request.name
+  end
 end

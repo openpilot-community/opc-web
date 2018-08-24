@@ -70,7 +70,15 @@ Trestle.resource(:vehicle_configs) do
     # column :vehicle_trim_names, header: "Trim(s)"
     # column :vehicle_make_package, header: "Required Option"
     column :trim_styles_count, header: "Possible Trims"
-    column :is_upstreamed?, header: "Upstreamed"
+    column :status, header: "Status" do |vehicle_config|
+      if vehicle_config.is_upstreamed?
+        "<a target=\"_blank\" class=\"label label-success repo-link\" href=\"https://github.com/commaai/openpilot\"><span class=\"fa fa-check\"></span> commaai/openpilot</a>".html_safe
+      elsif vehicle_config.is_pull_request?
+        "#{vehicle_config.latest_open_pull_request ? "<a target=\"_blank\" class=\"label label-default repo-link\" href=\"#{vehicle_config.latest_open_pull_request.html_url}\"><span class=\"fa fa-code\"></span> ##{vehicle_config.latest_open_pull_request.number}</a>" : "<span class=\"fa fa-code\"></span> Pull Request"}".html_safe
+      elsif vehicle_config.is_community_supported?
+        "#{vehicle_config.latest_repository ? "<a target=\"_blank\" class=\"label label-default repo-link\" href=\"#{vehicle_config.latest_repository.url}\"><span class=\"fa fa-github\"></span> #{vehicle_config.latest_repository.full_name}</a>" : "<span class=\"fa fa-github\"></span> Community"}".html_safe
+      end
+    end
     column :full_support_difficulty, header: "Full Support Difficulty"
     # actions
   end
@@ -202,8 +210,30 @@ Trestle.resource(:vehicle_configs) do
         collection_select :vehicle_config_status_id, VehicleConfigStatus.order(:name), :id, :name, include_blank: true, label: "Status of the codebase"
 
         table vehicle_config.vehicle_config_repositories, admin: :vehicle_config_repositories do
-          column :name
+          column :name, header: "Repositories" do |vcr|
+            link_to vcr.repository.url, target: "_blank" do
+              "#{image_tag(vcr.repository.owner_avatar_url, width: "20")} #{vcr.repository.full_name}".html_safe
+            end
+          end
         end
+
+        table vehicle_config.vehicle_config_pull_requests, admin: :vehicle_config_pull_requests do
+            column :name, header: "Pull Requests" do |vcr|
+              link_to vcr.pull_request.html_url, target: "_blank" do
+                vcr.pull_request.name
+              end
+            end
+            column :status do |vcr|
+              vcr.pull_request.state
+            end
+            column :user do |vcr|
+              vcr.pull_request.user
+            end
+
+            column :body do |vcr|
+              vcr.pull_request.body
+            end
+          end
       end
       
       tab :history do

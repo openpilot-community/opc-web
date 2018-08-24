@@ -1,6 +1,6 @@
 Trestle.resource(:pull_requests) do
   menu do
-    item :pull_requests, icon: "fa fa-github", group: :development, badge: PullRequest.all.count
+    item :pull_requests, icon: "fa fa-github", group: :development
   end
 
   # Customize the table columns shown on the index view.

@@ -87,6 +87,11 @@ class VehicleConfig < ApplicationRecord
       vehicle_config_status.name == 'Pull Request'
     end
   end
+  def is_in_development?
+    if !vehicle_config_status.blank?
+      vehicle_config_status.name == 'In Development'
+    end
+  end
   def latest_repository
     if !vehicle_config_repositories.blank?
       if repositories = vehicle_config_repositories.joins(:repository).order("repositories.id DESC")

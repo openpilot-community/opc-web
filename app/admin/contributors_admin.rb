@@ -1,6 +1,6 @@
 Trestle.resource(:contributors) do
   menu do
-    item :contributors, icon: "fa fa-users", group: :development, badge: Contributor.all.count
+    item :contributors, icon: "fa fa-users", group: :development
   end
 
   # Customize the table columns shown on the index view.

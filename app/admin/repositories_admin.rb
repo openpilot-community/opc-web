@@ -1,6 +1,6 @@
 Trestle.resource(:repositories) do
   menu do
-    item :repositories, icon: "fa fa-github", group: :development, badge: Repository.all.count
+    item :repositories, icon: "fa fa-github", group: :development
   end
 
   # Customize the table columns shown on the index view.

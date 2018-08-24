@@ -77,6 +77,8 @@ Trestle.resource(:vehicle_configs) do
         "#{vehicle_config.latest_open_pull_request ? "<a target=\"_blank\" class=\"label label-default repo-link\" href=\"#{vehicle_config.latest_open_pull_request.html_url}\"><span class=\"fa fa-code\"></span> ##{vehicle_config.latest_open_pull_request.number}</a>" : "<span class=\"fa fa-code\"></span> Pull Request"}".html_safe
       elsif vehicle_config.is_community_supported?
         "#{vehicle_config.latest_repository ? "<a target=\"_blank\" class=\"label label-default repo-link\" href=\"#{vehicle_config.latest_repository.url}\"><span class=\"fa fa-github\"></span> #{vehicle_config.latest_repository.full_name}</a>" : "<span class=\"fa fa-github\"></span> Community"}".html_safe
+      elsif vehicle_config.is_in_development?
+        "#{vehicle_config.latest_repository ? "<a target=\"_blank\" class=\"label label-default repo-link\" href=\"#{vehicle_config.latest_repository.url}\"><span class=\"fa fa-github\"></span> #{vehicle_config.latest_repository.full_name}</a>" : "<span class=\"fa fa-github\"></span> In Development"}".html_safe
       end
     end
     column :full_support_difficulty, header: "Full Support Difficulty"

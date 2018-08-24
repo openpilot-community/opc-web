@@ -1,6 +1,6 @@
 Trestle.resource(:videos) do
   menu do
-    item :videos, icon: "fa fa-play", group: :documentation, badge: Video.all.count
+    item :videos, icon: "fa fa-play", group: :documentation
   end
 
   # Customize the table columns shown on the index view.

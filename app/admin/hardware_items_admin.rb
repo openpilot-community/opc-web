@@ -1,6 +1,6 @@
 Trestle.resource(:hardware_items) do
   menu do
-    item :hardware_items, icon: "fa fa-microchip", group: :documentation, label: "Hardware Items", badge: HardwareItem.all.count
+    item :hardware_items, icon: "fa fa-microchip", group: :documentation, label: "Hardware Items"
   end
 
   # Customize the table columns shown on the index view.

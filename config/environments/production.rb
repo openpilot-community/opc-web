@@ -38,7 +38,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
@@ -55,7 +55,10 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "opc-api_#{Rails.env}"
 
   config.action_mailer.perform_caching = false
-
+  config.middleware.use Rack::HostRedirect, {
+    %w(vehicledb-app.herokuapp.com vehicledb.opc.ai db.opc.ai) => 'database.opc.ai'
+  }
+  
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
@@ -84,4 +87,4 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 end
 Rails.application.routes.default_url_options[:protocol] = 'https'
-Rails.application.routes.default_url_options[:host] = 'opc-vehicledb-api.herokuapp.com'
+Rails.application.routes.default_url_options[:host] = 'database.opc.ai'

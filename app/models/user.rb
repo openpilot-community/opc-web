@@ -19,7 +19,26 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :omniauthable, omniauth_providers: %i[github]
-  has_one :login
+  # has_one :login
+  belongs_to :user_role
+  # before_create :set_role
+
+
+  def is_visitor?
+    user_role.name == 'Visitor'
+  end
+
+  def is_editor?
+    user_role.name == 'Editor'
+  end
+  
+  def is_admin?
+    user_role.name == 'Admin'
+  end
+
+  def is_super_admin?
+    user_role.name == 'Super Admin'
+  end
 
   def self.from_omniauth(auth)
     new_user = User.find_or_initialize_by(provider: auth.provider, uid: auth.uid)
@@ -38,6 +57,12 @@ class User < ApplicationRecord
         content_type: mime_type.type
 
       )
+    end
+    is_contributor = Contributor.find_by(username: new_user.github_username)
+    if is_contributor
+      new_user.user_role = UserRole.find_by(name: "Admin")
+    else
+      new_user.user_role = UserRole.find_by(name: "Visitor")
     end
     new_user.save
     new_user

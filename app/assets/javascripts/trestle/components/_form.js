@@ -4,79 +4,80 @@ $(document).on('keypress', 'form[data-behavior="trestle-form"] :input:not(textar
     e.preventDefault();
   }
 });
+if (Trestle) {
+  Trestle.init(function(e, root) {
+    var form = $(root).find('form[data-behavior="trestle-form"]');
+    
+    form
+      .on('ajax:complete', function(e, xhr, status) {
+        var contentType = xhr.getResponseHeader("Content-Type").split(";")[0];
 
-Trestle.init(function(e, root) {
-  var form = $(root).find('form[data-behavior="trestle-form"]');
-  
-  form
-    .on('ajax:complete', function(e, xhr, status) {
-      var contentType = xhr.getResponseHeader("Content-Type").split(";")[0];
+        if (contentType == "text/html") {
+          if (/<html/i.test(xhr.responseText)) {
+            // Response is a full HTML page, likely an error page. Render within an iframe.
 
-      if (contentType == "text/html") {
-        if (/<html/i.test(xhr.responseText)) {
-          // Response is a full HTML page, likely an error page. Render within an iframe.
+            var context = $(this).closest('[data-context]');
+            var iframe = $("<iframe>").addClass('error-iframe').get(0);
+            context.html(iframe);
 
-          var context = $(this).closest('[data-context]');
-          var iframe = $("<iframe>").addClass('error-iframe').get(0);
-          context.html(iframe);
+            iframe.contentWindow.document.documentElement.innerHTML = xhr.responseText;
+          } else {
+            // Find the parent context and replace content
+            var context = $(this).closest('[data-context]');
+            context.html(xhr.responseText);
 
-          iframe.contentWindow.document.documentElement.innerHTML = xhr.responseText;
-        } else {
-          // Find the parent context and replace content
-          var context = $(this).closest('[data-context]');
-          context.html(xhr.responseText);
+            // Initialize replaced elements within the context
+            $(Trestle).trigger('init', context);
 
-          // Initialize replaced elements within the context
-          $(Trestle).trigger('init', context);
+            // Focus the correct tab
+            Trestle.focusActiveTab();
 
-          // Focus the correct tab
-          Trestle.focusActiveTab();
-
-          if (form.attr('data-remote')) {
-            try {
-              Trestle.activeDialog.hide();
-              Trestle.activeDialog.setContent(null);
-            } catch (e) {
-              console.warn(e);
+            if (form.attr('data-remote')) {
+              try {
+                Trestle.activeDialog.hide();
+                Trestle.activeDialog.setContent(null);
+              } catch (e) {
+                console.warn(e);
+              }
             }
           }
+        } else {
+          // Assume an error response
+          var title = xhr.status + " (" + xhr.statusText + ")";
+          Trestle.Dialog.showError(title, xhr.responseText);
+
+          // Reset submit button
+          form.find(':submit').prop('disabled', false).removeClass('loading');
         }
-      } else {
-        // Assume an error response
-        var title = xhr.status + " (" + xhr.statusText + ")";
-        Trestle.Dialog.showError(title, xhr.responseText);
+      })
+      .on('ajax:success', function(e, data, status, xhr) {
+        var context = $(this).closest('[data-context]');
+        var location = xhr.getResponseHeader("X-Trestle-Location");
+        console.log("nearest context:",context);
+        if (location) {
+          // Update the URL in the browser and context
+          history.replaceState({}, "", location);
+          context.data('context', location);
+        }
 
-        // Reset submit button
-        form.find(':submit').prop('disabled', false).removeClass('loading');
-      }
-    })
-    .on('ajax:success', function(e, data, status, xhr) {
-      var context = $(this).closest('[data-context]');
-      var location = xhr.getResponseHeader("X-Trestle-Location");
-      console.log("nearest context:",context);
-      if (location) {
-        // Update the URL in the browser and context
-        history.replaceState({}, "", location);
-        context.data('context', location);
-      }
+        
 
-      
+        // Refresh the main context
+        if (!context.hasClass('app-main')) {
+          Trestle.refreshMainContext();
+        }
+      });
 
-      // Refresh the main context
-      if (!context.hasClass('app-main')) {
-        Trestle.refreshMainContext();
-      }
+    // Loading indicator
+    form.find(':submit').click(function() {
+      var button = $(this);
+
+      // Delay to ensure form is still submitted
+      setTimeout(function() {
+        if (form[0].checkValidity()) {
+          button.prop('disabled', true).addClass('loading');
+        }
+      }, 1);
     });
-
-  // Loading indicator
-  form.find(':submit').click(function() {
-    var button = $(this);
-
-    // Delay to ensure form is still submitted
-    setTimeout(function() {
-      if (form[0].checkValidity()) {
-        button.prop('disabled', true).addClass('loading');
-      }
-    }, 1);
   });
-});
+}

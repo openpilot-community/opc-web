@@ -28,6 +28,11 @@ Trestle.resource(:vehicle_configs) do
   end
 
   controller do
+    # include Pundit
+    def update
+      authorize instance
+      super
+    end
     def refresh_trims
       vehicle_config_root = admin.find_instance(params).root
       vehicle_config_root.scrape_info
@@ -245,7 +250,10 @@ Trestle.resource(:vehicle_configs) do
             render "changeset", changeset: version.changeset
           end
           column :author do |version|
-            User.find(version.whodunnit)
+            scope = User.where(id: version.whodunnit)
+            if !scope.blank? 
+              scope.first
+            end
           end
           column :created_at
         end

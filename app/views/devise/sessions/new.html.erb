@@ -1,28 +1,22 @@
-<h2>Log in</h2>
-<% if false %>
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="col-lg-6 col-md-8 col-sm-10 mx-auto">
+  <div class="login-logo"><%=image_tag('logo@2x.png', class: "img-fluid")%></div>
+
+  
+
+  <div class="alert alert-dark comma-message">
+    <a href="https://www.opc.ai">The Openpilot Community</a> and <a href="https://vehicledb.opc.ai/">The Openpilot Database</a> are community supported projects.
+    <br><br>
+    The "Comma", "Openpilot", "ChffrPlus", "EON", "Panda", and "Giraffe" are registered trademarks of <a href="https://comma.ai">Comma.ai, Inc.</a>
+    This website, and it's affiliated links are not endorsed, or supported by Comma.ai, Inc.
+    <br><br>
+    Nothing on this website or it's affiliated websites will enable your vehicle to be super-human and drive itself.  
+    You must keep your eyes on the road and your hands on the wheel at all times.
+    This documentation is for research purposes only.
+    <br><br>
+    Use this information at your own risk.
   </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end -%>
-
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-    
-  </div>
-<% end %>
-<% end %>
-<%= link_to "Sign in with GitHub", user_github_omniauth_authorize_path %>
+  <%= link_to user_github_omniauth_authorize_path, class: "btn btn-dark login-button" do %>
+    <%=icon('fab', 'github')%> Sign in with GitHub
+  <% end %>
+</div>

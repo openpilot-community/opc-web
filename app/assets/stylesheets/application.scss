@@ -13,3 +13,30 @@
  *= require_tree .
  *= require_self
  */
+ @import "bootstrap";
+ @import "font-awesome-sprockets";
+ @import "font-awesome";
+ body {
+  background-color: darken(#343a40,20);
+  color:#FFF;
+ }
+  .login-logo {
+    // background-image:url(/assets/);
+    max-width:500px;
+    margin:0 auto;
+  }
+  .login-button {
+    margin:0 auto;
+    display:block;
+  }
+ .comma-message {
+   margin-top:0;
+   margin-bottom:25px;
+   font-size:14px;
+   background-color:darken(#343a40,10);
+   color:lighten(#343a40,20);
+   a {
+    color:lighten(#343a40,20)
+   }
+   border-color:var(--gray-dark);
+ }

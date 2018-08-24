@@ -11,9 +11,9 @@ GIT
 
 GIT
   remote: https://github.com/openpilot-community/cars_abstraction
-  revision: 4ed7dbcb053a53e283a9a6157b23c81b786c7b09
+  revision: 260c812dec1d50183b925c0e2c58026477e6523e
   specs:
-    cars (0.1.1)
+    cars (0.1.2)
       mechanize
       rails (> 4.2.10)
       reverse_markdown

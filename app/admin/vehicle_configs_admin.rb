@@ -9,12 +9,12 @@ Trestle.resource(:vehicle_configs) do
   #####
   scope :all, -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level") }, default: true
   
-  VehicleMake.with_configs.each do |make|
-    scope :"#{make.name.underscore}", -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).where("vehicle_makes.name = '#{make.name}'").order("vehicle_models.name, year, vehicle_config_types.difficulty_level") }
-    # VehicleModel.where(:vehicle_make => make).with_configs.each do |model|
-    #   scope :"#{make.name.underscore}_#{model.name.underscore}", -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).where("vehicle_makes.name = '#{make.name}' AND vehicle_models.name = '#{model.name}'").order("vehicle_models.name, year, vehicle_config_types.difficulty_level") }
-    # end
-  end
+  # VehicleMake.with_configs.each do |make|
+  #   scope :"#{make.name.underscore}", -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).where("vehicle_makes.name = '#{make.name}'").order("vehicle_models.name, year, vehicle_config_types.difficulty_level") }
+  #   # VehicleModel.where(:vehicle_make => make).with_configs.each do |model|
+  #   #   scope :"#{make.name.underscore}_#{model.name.underscore}", -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).where("vehicle_makes.name = '#{make.name}' AND vehicle_models.name = '#{model.name}'").order("vehicle_models.name, year, vehicle_config_types.difficulty_level") }
+  #   # end
+  # end
   
   #####
   # SEARCH

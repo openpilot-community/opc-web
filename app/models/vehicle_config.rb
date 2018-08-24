@@ -267,7 +267,7 @@ class VehicleConfig < ApplicationRecord
       INNER JOIN vehicle_trim_style_specs ON vehicle_trim_style_specs.vehicle_trim_style_id = vehicle_trim_styles.id
       ")
   end
-  VehicleModel.find_by(name: "Civic").vehicle_trims.map(&:id)
+  # VehicleModel.find_by(name: "Civic").vehicle_trims.map(&:id)
   # def capability_groups
   #   vehicle_trim_styles.joins(:vehicle_trim_style_specs).group(:id,:group)
   # end

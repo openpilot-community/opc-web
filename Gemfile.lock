@@ -1,5 +1,17 @@
-PATH
-  remote: /Users/joshua/Projects/cars_abstraction
+GIT
+  remote: https://github.com/jfrux/trestle
+  revision: cdca22cd892d37785e1ff45ee2f432f6bf621548
+  specs:
+    trestle (0.8.10)
+      activemodel (>= 4.2.0)
+      autoprefixer-rails (>= 7.1.2)
+      kaminari (~> 1.1.0)
+      railties (>= 4.2.0)
+      sass-rails (>= 5.0.6)
+
+GIT
+  remote: https://github.com/openpilot-community/cars_abstraction
+  revision: 4ed7dbcb053a53e283a9a6157b23c81b786c7b09
   specs:
     cars (0.1.1)
       mechanize
@@ -8,16 +20,6 @@ PATH
       sanitize
       upmark
       watir
-
-PATH
-  remote: /Users/joshua/Projects/trestle
-  specs:
-    trestle (0.8.10)
-      activemodel (>= 4.2.0)
-      autoprefixer-rails (>= 7.1.2)
-      kaminari (~> 1.1.0)
-      railties (>= 4.2.0)
-      sass-rails (>= 5.0.6)
 
 GEM
   remote: https://rubygems.org/

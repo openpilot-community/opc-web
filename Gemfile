@@ -18,14 +18,14 @@ gem 'addressable'
 gem 'jquery-rails'
 gem 'mimemagic'
 gem 'mini_magick'
-gem 'trestle', :path => '/Users/joshua/Projects/trestle'
+# gem 'trestle', :path => '/Users/joshua/Projects/trestle'
+gem 'trestle', :git => 'https://github.com/jfrux/trestle'
 gem 'trestle-simplemde'
 gem 'trestle-search'
 gem 'devise'
 gem 'puma'
 gem 'omniauth-github'
 gem "aws-sdk-s3", require: false
-# gem 'bootstrap', '~> 4.0.0'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 gem 'rack-cors'
@@ -54,12 +54,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'cars', :path => '/Users/joshua/Projects/cars_abstraction'
+  # gem 'cars', :path => '/Users/joshua/Projects/cars_abstraction'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 end
 group :production do
-# gem 'cars', :git => 'https://github.com/openpilot-community/cars_abstraction'
+gem 'cars', :git => 'https://github.com/openpilot-community/cars_abstraction'
 end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views

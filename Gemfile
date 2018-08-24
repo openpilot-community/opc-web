@@ -53,13 +53,13 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'cars', :git => 'https://github.com/openpilot-community/cars_abstraction'
 group :development, :test do
   # gem 'cars', :path => '/Users/joshua/Projects/cars_abstraction'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 end
 group :production do
-gem 'cars', :git => 'https://github.com/openpilot-community/cars_abstraction'
 end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views

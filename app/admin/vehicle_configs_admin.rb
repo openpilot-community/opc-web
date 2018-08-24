@@ -28,7 +28,7 @@ Trestle.resource(:vehicle_configs) do
   end
 
   controller do
-    def refresh_trim_styles
+    def refresh_trims
       vehicle_config_root = admin.find_instance(params).root
       vehicle_config_root.scrape_info
       flash[:message] = "Vehicle trim_styles list has been reloaded."
@@ -104,8 +104,9 @@ Trestle.resource(:vehicle_configs) do
         hidden_field :vehicle_model_id
         hidden_field :vehicle_trim_id
       end
-
-      collection_select :vehicle_make_package_id, VehicleMakePackage.where(vehicle_make: vehicle_config.vehicle_make).order(:name), :id, :name, include_blank: true, label: "Required Factory Installed Option"
+      if vehicle_config.persisted?
+        collection_select :vehicle_make_package_id, VehicleMakePackage.where(vehicle_make: vehicle_config.vehicle_make).order(:name), :id, :name, include_blank: true, label: "Required Factory Installed Option"
+      end
     end
     
     unless vehicle_config.new_record? || vehicle_config.vehicle_config_type.blank?

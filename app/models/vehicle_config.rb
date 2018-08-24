@@ -32,9 +32,9 @@ class VehicleConfig < ApplicationRecord
   has_many :vehicle_config_vehicle_trims, -> { order('vehicle_trims.name') }, dependent: :delete_all
   has_many :vehicle_trims, :through => :vehicle_config_vehicle_trims
   has_many :forks, :class_name => "VehicleConfig", :foreign_key => :parent_id, dependent: :delete_all
-  belongs_to :vehicle_config_status
+  belongs_to :vehicle_config_status, :optional => true
   belongs_to :vehicle_make_package, :optional => true
-  belongs_to :vehicle_config_type
+  belongs_to :vehicle_config_type, :optional => true
   accepts_nested_attributes_for :forks
   before_save :set_title
   before_save :update_forks

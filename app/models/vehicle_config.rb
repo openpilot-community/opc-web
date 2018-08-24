@@ -37,11 +37,11 @@ class VehicleConfig < ApplicationRecord
   belongs_to :vehicle_config_type, :optional => true
   accepts_nested_attributes_for :forks
   before_save :set_title
+  before_save :set_year_end
   before_save :update_forks
   before_save :set_default
-  validates_presence_of :year
-  validates_presence_of :vehicle_model
-  validates_presence_of :vehicle_make
+  validates_numericality_of :year
+  validates_numericality_of :year_end, :greater_than_or_equal_to => :year
   # MODIFICATIONS
   has_many :vehicle_config_modifications, dependent: :delete_all
   has_many :modifications, :through => :vehicle_config_modifications
@@ -77,7 +77,11 @@ class VehicleConfig < ApplicationRecord
       vehicle_config_status.name == 'Upstreamed'
     end
   end
-  
+  def set_year_end
+    if year > year_end
+      self.year_end = self.year
+    end
+  end
   def name
     new_name = "Untitled"
     if vehicle_config_type && vehicle_make && vehicle_model
@@ -123,7 +127,11 @@ class VehicleConfig < ApplicationRecord
 
   def year_range
     if !year.blank? && !year_end.blank?
-      (year..year_end)
+      if (year <= year_end)
+        (year..year_end)
+      else
+        (year..year)
+      end
     elsif year.blank? && !year_end.blank?
       (year_end..year_end)
     elsif !year.blank? && year_end.blank?
@@ -198,7 +206,7 @@ class VehicleConfig < ApplicationRecord
 
   def set_default
     if self.parent.blank? && self.vehicle_config_type.blank?
-      self.vehicle_config_type = VehicleConfigType.find_by(:name => "Standard")
+      self.vehicle_config_type = VehicleConfigType.find_by(:name => "Factory")
     end
   end
 
@@ -232,11 +240,7 @@ class VehicleConfig < ApplicationRecord
   # end
 
   def trim_styles
-    if (!year_range.blank? && year && year_end && vehicle_model.vehicle_trims)
-      VehicleTrimStyle.joins(:vehicle_trim).where('vehicle_trims.year IN (:years) AND vehicle_trim_id IN (:trim_ids)',{ :years => year_range, :trim_ids => vehicle_model.vehicle_trims.map(&:id) }).order("vehicle_trims.year, vehicle_trims.sort_order, vehicle_trim_styles.name")
-    else
-      nil
-    end
+    VehicleTrimStyle.joins(:vehicle_trim).where('vehicle_trims.year IN (:years) AND vehicle_trim_id IN (:trim_ids)',{ :years => year_range, :trim_ids => vehicle_model.vehicle_trims.map(&:id) }).order("vehicle_trims.year, vehicle_trims.sort_order, vehicle_trim_styles.name")
   end
 
   def scrape_info

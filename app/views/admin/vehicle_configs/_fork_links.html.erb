@@ -4,14 +4,15 @@
   <% config = vehicle_config_levels.select {|level| config_type.name == level.vehicle_config_type.name }.first %>
   <% if config %>
     <%=link_to(admin.path(:show, id: config.id), method: :get, class: (instance.vehicle_config_type.name == config_type.name) ? "btn btn-fork-link btn-default btn-block disabled" : "btn btn-fork-link btn-default btn-block") do %>
-      <span class="fa fa-chevron-right"></span> <%= config.vehicle_config_type.name %>
+      <%if config.vehicle_config_type.name != "Factory" %> <span class="fa fa-check"></span><% end %>
+      <span class="fa fa-chevron-right"></span> <%= config.vehicle_config_type.name %><%if config.vehicle_config_type.name != "Factory" %> Openpilot Support<% end %>
       <span style="display:block;white-space: normal;font-size:10px;line-height: 1em;font-weight:normal;">
         <%= config.vehicle_config_type.description %>
       </span>
     <% end %>
   <% else %>
     <%=link_to(admin.path(:fork, id: instance.root.id, config_type: config_type.id), method: :get, class: "btn btn-default btn-block") do %>
-      <span class="fa fa-plus"></span> Add <%=config_type.name %>
+      <span class="fa fa-plus"></span> Add <%=config_type.name %> Openpilot Support
       <span style="display:block;white-space: normal;font-size:10px;line-height: 1em;font-weight:normal;">
         <%= config_type.description %>
       </span>

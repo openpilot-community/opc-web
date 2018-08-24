@@ -22,7 +22,7 @@ class VehicleConfig < ApplicationRecord
   include ActiveSupport::Inflector
   has_paper_trail
   paginates_per 400
-  # default_scope{ includes(:vehicle_make, :vehicle_model, :vehicle_trim, :vehicle_config_type).order("vehicle_makes.name, vehicle_models.name, vehicle_trims.name, year, vehicle_config_types.difficulty_level") }
+  default_scope { includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level") }
   extend FriendlyId
   acts_as_nested_set dependent: :destroy
   friendly_id :name_for_slug, use: :slugged

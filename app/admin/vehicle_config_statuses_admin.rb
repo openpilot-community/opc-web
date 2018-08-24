@@ -1,7 +1,7 @@
 Trestle.resource(:vehicle_config_statuses) do
-  # menu do
-  #   item :vehicle_config_statuses, icon: "fa fa-star", group: :other
-  # end
+  menu do
+    item :vehicle_config_statuses, icon: "fa fa-star", group: :documentation, label: "Support Statuses"
+  end
 
   # Customize the table columns shown on the index view.
   #

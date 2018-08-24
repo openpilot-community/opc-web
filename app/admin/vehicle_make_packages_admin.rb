@@ -1,6 +1,6 @@
 Trestle.resource(:vehicle_make_packages) do
   menu do
-    item :vehicle_make_packages, icon: "fa fa-star", group: :vehicles,label: "Makes Packages", badge: VehicleMakePackage.all.count
+    item :vehicle_make_packages, icon: "fa fa-star", group: :vehicles,label: "Makes Packages"
   end
 
   # Customize the table columns shown on the index view.

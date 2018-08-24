@@ -1,6 +1,6 @@
 Trestle.resource(:vehicle_makes) do
   menu do
-    item :vehicle_makes, icon: "fa fa-car", group: :vehicles, label: "Makes", badge: VehicleMake.all.count
+    item :vehicle_makes, icon: "fa fa-car", group: :vehicles, label: "Makes"
   end
 
   # Customize the table columns shown on the index view.

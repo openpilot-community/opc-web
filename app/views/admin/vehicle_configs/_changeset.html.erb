@@ -1,0 +1,14 @@
+<div class="changeset">
+<% changeset.keys.each do |key| %>
+<div class="changeset-change">
+  <div class="changeset-change-key">
+    <%=key.titleize%>
+  </div>
+  <div class="changeset-change-changes">
+    <div class="from"><%= changeset[key][0]%></div>
+    <div class="sep">=></div>
+    <div class="to"><%= changeset[key][1] %></div>
+  </div>
+</div>
+<% end %>
+</div>

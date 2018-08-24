@@ -3,9 +3,9 @@ Trestle.resource(:vehicle_trims) do
   #   item :vehicle_trims, icon: "fa fa-car", group: :vehicle_info, label: "Trims"
   # end
 
-  VehicleModel.order(:name).each do |model|
-    scope :"#{model.id}", -> { VehicleTrim.includes(:vehicle_model).where(:vehicle_model => model).order("name") }
-  end
+  # VehicleModel.order(:name).each do |model|
+  #   scope :"#{model.id}", -> { VehicleTrim.includes(:vehicle_model).where(:vehicle_model => model).order("name") }
+  # end
   # Customize the table columns shown on the index view.
   #
   table do

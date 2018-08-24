@@ -12,4 +12,9 @@
 #
 
 class Contributor < ApplicationRecord
+  # belongs_to :user, :foreign_key => :github_username
+
+  def name
+    username
+  end
 end

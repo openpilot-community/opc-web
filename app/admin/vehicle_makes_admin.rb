@@ -1,15 +1,16 @@
 Trestle.resource(:vehicle_makes) do
   menu do
-    item :vehicle_makes, icon: "fa fa-car", group: :vehicle_info, label: "Makes"
+    item :vehicle_makes, icon: "fa fa-car", group: :vehicles, label: "Makes", badge: VehicleMake.all.count
   end
 
   # Customize the table columns shown on the index view.
   #
-  # table do
-  #   column :name
-  #   column :created_at, align: :center
-  #   actions
-  # end
+  table do
+    column :name
+    column :active_count, header: "Active Models"
+    column :inactive_count, header: "Inactive Models"
+    column :slack_channel, header: "Comma Slack"
+  end
   
   search do |query|
     if query

@@ -1,7 +1,7 @@
 Trestle.resource(:versions) do
-  menu do
-    item :versions, icon: "fa fa-list", group: :other
-  end
+  # menu do
+  #   item :versions, icon: "fa fa-list", group: :other
+  # end
 
   # Customize the table columns shown on the index view.
   

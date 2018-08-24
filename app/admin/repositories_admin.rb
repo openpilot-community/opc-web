@@ -1,15 +1,18 @@
 Trestle.resource(:repositories) do
   menu do
-    item :repositories, icon: "fa fa-github", group: :other
+    item :repositories, icon: "fa fa-github", group: :development, badge: Repository.all.count
   end
 
   # Customize the table columns shown on the index view.
   #
-  # table do
-  #   column :name
-  #   column :created_at, align: :center
-  #   actions
-  # end
+  table do
+    column :avatar do |repo|
+      image_tag(repo.owner_avatar_url, width: "50")
+    end
+    column :name
+    
+    # actions
+  end
 
   # Customize the form fields shown on the new/edit views.
   #

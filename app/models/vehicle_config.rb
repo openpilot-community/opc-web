@@ -19,6 +19,7 @@
 #
 
 class VehicleConfig < ApplicationRecord
+  include ActiveSupport::Inflector
   has_paper_trail
   paginates_per 400
   # default_scope{ includes(:vehicle_make, :vehicle_model, :vehicle_trim, :vehicle_config_type).order("vehicle_makes.name, vehicle_models.name, vehicle_trims.name, year, vehicle_config_types.difficulty_level") }
@@ -37,7 +38,8 @@ class VehicleConfig < ApplicationRecord
   accepts_nested_attributes_for :forks
   before_save :set_title
   before_save :update_forks
-  before_save :set_factory
+  before_save :set_default
+
   # MODIFICATIONS
   has_many :vehicle_config_modifications, dependent: :delete_all
   has_many :modifications, :through => :vehicle_config_modifications
@@ -63,6 +65,7 @@ class VehicleConfig < ApplicationRecord
   
   has_many :vehicle_config_videos, dependent: :delete_all
   # validates_with VehicleUniqueValidator
+
   # FORK CONFIGURATION
   amoeba do
   end
@@ -170,9 +173,9 @@ class VehicleConfig < ApplicationRecord
     forks.exists?(:vehicle_config_type => VehicleConfigType.find_by(:name => "Advanced"))
   end
 
-  def set_factory
+  def set_default
     if self.parent.blank? && self.vehicle_config_type.blank?
-      self.vehicle_config_type = VehicleConfigType.find_by(:name => "Factory")
+      self.vehicle_config_type = VehicleConfigType.find_by(:name => "Standard")
     end
   end
 
@@ -185,18 +188,35 @@ class VehicleConfig < ApplicationRecord
 
     difficulty_pts
   end
+
   def compatible_trims_count
     compatible_trims.count
   end
-  def compatible_trims
-    VehicleTrim.joins(:vehicle_trim_styles).where(year: year_range, vehicle_model: vehicle_model).distinct(:name)
+
+  def specs
+    vehicle_model.vehicle_trims.joins("
+      INNER JOIN vehicle_trim_styles ON vehicle_trim_styles.vehicle_trim_id = vehicle_trims.id
+      INNER JOIN vehicle_trim_style_specs ON vehicle_trim_style_specs.vehicle_trim_style_id = vehicle_trim_styles.id
+      ")
   end
+
+  # def capability_groups
+  #   vehicle_trim_styles.joins(:vehicle_trim_style_specs).group(:id,:group)
+  # end
+
+  def compatible_trims
+    VehicleTrimStyle.joins(:vehicle_trim).where('vehicle_trims.year IN (:years) AND vehicle_trim_id IN (:trim_ids)',{ :years => year_range, :trim_ids => vehicle_model.vehicle_trims.map(&:id) }).order("vehicle_trims.year, vehicle_trims.sort_order, vehicle_trim_styles.name")
+  end
+
   def scrape_info
     year_range.each do |year|
       trims = []
       
-      begin
-        trim_info = Cars::Vehicle.retrieve("#{vehicle_make.name.parameterize('_').downcase}-#{vehicle_model.name.gsub('-','_').parameterize('_').downcase}-#{year}/trims")
+      # begin
+        make_name_parameter = vehicle_make.name.parameterize(separator: '_').downcase
+        model_name_parameter = vehicle_model.name.gsub('-',' ').parameterize(separator: '_').downcase
+        model_parameter = "#{make_name_parameter}-#{model_name_parameter}-#{year}"
+        trim_info = Cars::Vehicle.retrieve("#{model_parameter}/trims")
 
         trim_info[:trims].each_with_index do |trim, index|
           vehicle_trim = VehicleTrim.find_or_initialize_by(name: trim.name, year: year, vehicle_model: self.vehicle_model)
@@ -214,22 +234,23 @@ class VehicleConfig < ApplicationRecord
             
             new_style.save!
 
-            # if !new_style.has_specs?
+            if !new_style.has_specs?
               specs = Cars::VehicleStyle.retrieve(style[:link].gsub("#{ENV['VEHICLE_ROOT_URL']}/",''))[:specs]
 
               specs.each do |spec|
                 new_spec = new_style.vehicle_trim_style_specs.find_or_initialize_by(:name => spec[:name])
                 new_spec.value = spec[:value]
+                new_spec.group = spec[:type]
                 new_spec.inclusion = spec[:inclusion]
                 new_spec.save!
               end
-            # end
+            end
           end
         end
-        puts trim_info
-      rescue
+        # puts trim_info
+      # rescue
 
-      end
+      # end
     end
   end
 

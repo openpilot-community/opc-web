@@ -6,6 +6,35 @@
 //
 //    @import "trestle/custom/my_custom_css";
 //
+.changeset {
+  .changeset-change {
+    display:flex;
+    border-bottom:1px solid #CCC;
+    padding:5px;
+    .changeset-change-key {
+      flex:0 0 30%;
+    }
+    .changeset-change-changes {
+      flex:0 0 70%;
+      display:flex;
+
+      .from {
+        flex:0 0 35%;
+        text-align:right;
+        white-space:nowrap;
+      }
+      .sep {
+        text-align:center;
+        flex: 0 0 15%;
+        white-space:nowrap;
+      }
+      .to {
+        flex:0 0 35%;
+        white-space:nowrap;
+      }
+    }
+  }
+}
 .app-header {
   .nav {
     .user-dropdown {
@@ -286,8 +315,8 @@ h1.path-heading {
 }
 .content-header {
   flex-direction: row-reverse;
-  padding-top:0;
-  padding-bottom:0;
+  padding-top: 15px;
+  padding-bottom: 3px;
   .primary-toolbar, .secondary-toolbar {
     .btn {
       font-size: 14px;

@@ -1,11 +1,11 @@
 Trestle.resource(:vehicle_models) do
-  menu do
-    item :vehicle_models, icon: "fa fa-car", group: :vehicle_info, label: "Models"
-  end
+  # menu do
+  #   item :vehicle_models, icon: "fa fa-car", group: :vehicle_info, label: "Models"
+  # end
 
-  VehicleMake.order(:name).each do |make|
-    scope :"#{make.id}", -> { VehicleModel.includes(:vehicle_make).where(:vehicle_make => make).order("name") }
-  end
+  # VehicleMake.order(:name).each do |make|
+  #   scope :"#{make.id}", -> { VehicleModel.includes(:vehicle_make).where(:vehicle_make => make).order("name") }
+  # end
   # Customize the table columns shown on the index view.
   #
   # table do

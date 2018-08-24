@@ -22,12 +22,15 @@ class VehicleMake < ApplicationRecord
   has_many :vehicle_configs
   has_many :vehicle_trims
   scope :with_configs, -> { VehicleMake.joins(:vehicle_configs).where("vehicle_configs.id IS NOT NULL") }
+  
   def active_count
     vehicle_models.where(status: 1).count()
   end
+
   def inactive_count
     vehicle_models.where(status: 0).count()
   end
+  
   def vehicle_models_with_configs
     with_configs.vehicle_models.with_configs
     # left_outer_joins(:vehicle_configs).where.not(vehicle_configs: {id: nil})

@@ -24,6 +24,10 @@ class Video < ApplicationRecord
   validates_uniqueness_of :video_url
   before_save :embed
   # has_many :hardware_items, :through => :video_hardware
+  
+  def name
+    title
+  end
 
   def embed
     # if !self.video_url.blank? && self.html.blank?

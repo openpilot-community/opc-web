@@ -13,14 +13,27 @@ Trestle.resource(:vehicle_trim_styles) do
 
   # Customize the form fields shown on the new/edit views.
   #
-  # form do |vehicle_trim_style|
-  #   text_field :name
-  #
-  #   row do
-  #     col(xs: 6) { datetime_field :updated_at }
-  #     col(xs: 6) { datetime_field :created_at }
-  #   end
-  # end
+  form(dialog: true) do |vehicle_trim_style|
+    tab :general do
+      text_field :name
+      text_field :inventory_prices
+      text_field :mpg
+      text_field :engine
+      text_field :trans
+      text_field :drive
+      text_field :colors
+      text_field :seats
+    end
+    tab :specs do
+      table vehicle_trim_style.vehicle_trim_style_specs.blank? ? [] : vehicle_trim_style.vehicle_trim_style_specs, admin: :vehicle_trim_style_specs do
+        # column :id
+        column :group
+        column :name
+        column :value
+        column :inclusion
+      end
+    end
+  end
 
   # By default, all parameters passed to the update and create actions will be
   # permitted. If you do not have full trust in your users, you should explicitly

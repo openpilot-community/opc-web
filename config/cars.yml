@@ -1,5 +1,5 @@
 development:
-  base_url: <%= ENV['VEHICLE_ROOT_URL'] %>
+  base_url: <%= ENV.fetch("VEHICLE_ROOT_URL") %>
 
 production:
-  base_url: <%= ENV['VEHICLE_ROOT_URL'] %>
+  base_url: <%= ENV.fetch("VEHICLE_ROOT_URL") %>

@@ -2,7 +2,7 @@ class VehicleTrim < ApplicationRecord
   has_paper_trail
   default_scope{ order(:year,:sort_order) }
   belongs_to :vehicle_model
-  has_many :vehicle_config_trims
+  has_many :vehicle_config_vehicle_trims
   has_many :vehicle_trim_styles
 
   def name_for_list

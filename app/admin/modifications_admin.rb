@@ -1,6 +1,6 @@
 Trestle.resource(:modifications) do
   menu do
-    item :modifications, icon: "fa fa-pencil", group: :other
+    item :modifications, icon: "fa fa-wrench", group: :documentation, badge: Modification.all.count
   end
 
   # Customize the table columns shown on the index view.
@@ -19,6 +19,7 @@ Trestle.resource(:modifications) do
       editor :description
       editor :instructions
     end
+    
     tab :hardware_types do
       render "tab_toolbar", {
         :groups => [
@@ -44,25 +45,4 @@ Trestle.resource(:modifications) do
       end
     end
   end
-  # Customize the form fields shown on the new/edit views.
-  #
-  # form do |modification|
-  #   text_field :name
-  #
-  #   row do
-  #     col(xs: 6) { datetime_field :updated_at }
-  #     col(xs: 6) { datetime_field :created_at }
-  #   end
-  # end
-
-  # By default, all parameters passed to the update and create actions will be
-  # permitted. If you do not have full trust in your users, you should explicitly
-  # define the list of permitted parameters.
-  #
-  # For further information, see the Rails documentation on Strong Parameters:
-  #   http://guides.rubyonrails.org/action_controller_overview.html#strong-parameters
-  #
-  # params do |params|
-  #   params.require(:modification).permit(:name, ...)
-  # end
 end

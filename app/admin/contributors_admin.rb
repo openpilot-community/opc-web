@@ -1,15 +1,17 @@
 Trestle.resource(:contributors) do
   menu do
-    item :contributors, icon: "fa fa-users", group: :other
+    item :contributors, icon: "fa fa-users", group: :development, badge: Contributor.all.count
   end
 
   # Customize the table columns shown on the index view.
   #
-  # table do
-  #   column :name
-  #   column :created_at, align: :center
-  #   actions
-  # end
+  table do
+    column :avatar do |repo|
+      image_tag(repo.avatar_url, width: "50")
+    end
+    column :username
+    # actions
+  end
 
   # Customize the form fields shown on the new/edit views.
   #

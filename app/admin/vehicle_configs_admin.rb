@@ -1,7 +1,7 @@
 Trestle.resource(:vehicle_configs) do
   
   menu do
-    item :vehicle_configs, icon: "fa fa-car", group: :vehicle_configs, label: "Openpilot Support"
+    item :vehicle_configs, icon: "fa fa-car", group: :vehicles, label: "Research / Support", badge: VehicleConfig.where(parent_id: nil).count
   end
 
   #####
@@ -11,9 +11,9 @@ Trestle.resource(:vehicle_configs) do
   
   VehicleMake.with_configs.each do |make|
     scope :"#{make.name.underscore}", -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).where("vehicle_makes.name = '#{make.name}'").order("vehicle_models.name, year, vehicle_config_types.difficulty_level") }
-    VehicleModel.where(:vehicle_make => make).with_configs.each do |model|
-      scope :"#{make.name.underscore}_#{model.name.underscore}", -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).where("vehicle_makes.name = '#{make.name}' AND vehicle_models.name = '#{model.name}'").order("vehicle_models.name, year, vehicle_config_types.difficulty_level") }
-    end
+    # VehicleModel.where(:vehicle_make => make).with_configs.each do |model|
+    #   scope :"#{make.name.underscore}_#{model.name.underscore}", -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).where("vehicle_makes.name = '#{make.name}' AND vehicle_models.name = '#{model.name}'").order("vehicle_models.name, year, vehicle_config_types.difficulty_level") }
+    # end
   end
   
   #####
@@ -121,56 +121,36 @@ Trestle.resource(:vehicle_configs) do
           ]
         }
         
-        table vehicle_config.compatible_trims.blank? ? [] : vehicle_config.compatible_trims, admin: :vehicle_trims do
-          column :id
+        table vehicle_config.compatible_trims.blank? ? [] : vehicle_config.compatible_trims, admin: :vehicle_trim_styles do
+          # column :id
           column :year
-          column :name, header: "Name"
-          column :driver_assisted_style_names, header: "ACC/LKAS Trim(s) Option or Standard"
-          
-          column :has_driver_assist?, header: "Available Driver Assist", align: :center
+          column :trim_name, header: "Trim"
+          column :name_for_list, header: "Style"
+          column :driver_assist_inclusion, header: "ACC/LKAS"
+          column :price
+          # column :driver_assisted_style_names, header: "ACC/LKAS Trim(s) Option or Standard"
+          # column :has_driver_assist?, header: "Available Driver Assist", align: :center
           # column :speed
           # column :timeout_friendly, :header => "Timeout"
           # column :confirmed
         end
       end
-      tab :capabilities, badge: vehicle_config.vehicle_config_capabilities.blank? ? nil : vehicle_config.vehicle_config_capabilities.size do
-        render "tab_toolbar", {
-          :groups => [
-            {
-              :class => "actions",
-              :items => [
-                admin_link_to("Add Capability", admin: :vehicle_config_capabilities, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
-              ]
-            }
-          ]
-        }
+      # tab :specs, badge: vehicle_config.specs.blank? ? nil : vehicle_config.specs.size do
+      #   # render "tab_toolbar", {
+      #   #   :groups => [
+      #   #     {
+      #   #       :class => "actions",
+      #   #       :items => [
+      #   #         admin_link_to("Add Capability", admin: :vehicle_config_capabilities, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
+      #   #       ]
+      #   #     }
+      #   #   ]
+      #   # }
         
-        table vehicle_config.vehicle_config_capabilities.blank? ? [] : vehicle_config.vehicle_config_capabilities.includes(:vehicle_capability).order('vehicle_capabilities.name'), admin: :vehicle_config_capabilities do
-          column :name
-          column :speed
-          column :timeout_friendly, :header => "Timeout"
-          column :confirmed
-        end
-      end
-      tab :capabilities, badge: vehicle_config.vehicle_config_capabilities.blank? ? nil : vehicle_config.vehicle_config_capabilities.size do
-        render "tab_toolbar", {
-          :groups => [
-            {
-              :class => "actions",
-              :items => [
-                admin_link_to("Add Capability", admin: :vehicle_config_capabilities, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
-              ]
-            }
-          ]
-        }
-        
-        table vehicle_config.vehicle_config_capabilities.blank? ? [] : vehicle_config.vehicle_config_capabilities.includes(:vehicle_capability).order('vehicle_capabilities.name'), admin: :vehicle_config_capabilities do
-          column :name
-          column :speed
-          column :timeout_friendly, :header => "Timeout"
-          column :confirmed
-        end
-      end
+      #   table vehicle_config.specs.blank? ? [] : vehicle_config.specs, admin: :vehicle_trim_style_specs do
+      #     column :name
+      #   end
+      # end
       tab :modifications, badge: vehicle_config.vehicle_config_modifications.blank? ? nil : vehicle_config.vehicle_config_modifications.size do
         render "tab_toolbar", {
           :groups => [
@@ -186,35 +166,34 @@ Trestle.resource(:vehicle_configs) do
           column :modification, dialog: true
           column :hardware_item_names
         end
-        tab :children, badge: vehicle_config.forks.blank? ? nil : vehicle_config.forks.size do
-          # render "tab_toolbar", {
-          #   :groups => [
-          #     {
-          #       :class => "actions",
-          #       :items => [
-          #         admin_link_to("Add Capability", admin: :vehicle_config_capabilities, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
-          #       ]
-          #     }
-          #   ]
-          # }
-          
-          table vehicle_config.forks.blank? ? [] : vehicle_config.forks.order(:id), admin: :vehicle_configs do
-            column :name
-            actions
-          end
-        end
-      end if vehicle_config.parent
-
+      end
+      # tab :children, badge: vehicle_config.forks.blank? ? nil : vehicle_config.forks.size do
+      #   # render "tab_toolbar", {
+      #   #   :groups => [
+      #   #     {
+      #   #       :class => "actions",
+      #   #       :items => [
+      #   #         admin_link_to("Add Capability", admin: :vehicle_config_capabilities, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
+      #   #       ]
+      #   #     }
+      #   #   ]
+      #   # }
+        
+      #   table vehicle_config.forks.blank? ? [] : vehicle_config.forks.order(:id), admin: :vehicle_configs do
+      #     column :name
+      #     actions
+      #   end
+      # end
       #####
       # CODE TAB
       #####
-      tab :code do
+      tab :code, badge: vehicle_config.vehicle_config_repositories.blank? ? nil : vehicle_config.vehicle_config_repositories.size do
         render "tab_toolbar", {
           :groups => [
             {
               :class => "actions",
               :items => [
-                admin_link_to("Link Codebase", admin: :vehicle_config_repositories, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
+                admin_link_to("Link Repository", admin: :vehicle_config_repositories, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
               ]
             }
           ]
@@ -224,11 +203,18 @@ Trestle.resource(:vehicle_configs) do
         table vehicle_config.vehicle_config_repositories, admin: :vehicle_config_repositories do
           column :name
         end
-      end if vehicle_config.parent
+      end
       
-      tab :changes do
-        table vehicle_config.versions, admin: :vehicle_config_versions do
-          column :name
+      tab :history do
+        table vehicle_config.versions, admin: :versions do
+          # column :user
+          column :changeset do |version|
+            render "changeset", changeset: version.changeset
+          end
+          column :author do |version|
+            User.find(version.whodunnit)
+          end
+          column :created_at
         end
       end
       sidebar do

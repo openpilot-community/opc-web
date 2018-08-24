@@ -28,7 +28,7 @@ class User < ApplicationRecord
     new_user.name = auth.info.name   # assuming the user model has a name
     new_user.github_username = auth.info.nickname
     new_user.slack_username = auth.info.nickname
-    # if new_user.avatar.blank?
+    if !new_user.avatar.attached?
       # address_parsed = Addressable::URI.parse(auth.info.image)
       avatar_img_file = open(auth.info.image)
       mime_type = MimeMagic.by_magic(avatar_img_file)
@@ -38,7 +38,7 @@ class User < ApplicationRecord
         content_type: mime_type.type
 
       )
-    # end
+    end
     new_user.save
     new_user
   end

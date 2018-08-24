@@ -1,7 +1,7 @@
 Trestle.resource(:vehicle_config_pull_requests) do
-  menu do
-    item :vehicle_config_pull_requests, icon: "fa fa-star", group: :other
-  end
+  # menu do
+  #   item :vehicle_config_pull_requests, icon: "fa fa-star", group: :other
+  # end
 
   # Customize the table columns shown on the index view.
   #

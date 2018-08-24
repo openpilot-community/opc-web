@@ -13,19 +13,22 @@ Trestle.resource(:vehicle_models) do
   #   column :created_at, align: :center
   #   actions
   # end
-  # controller do
-  #   def fork
-  #     vehicle_model = admin.find_instance(params)
-  #     # puts "DUPLICATING to type: #{params[:config_type]}"
-  #     new_config = vehicle_config.amoeba_dup(:config_type => params[:config_type])
-  #     veh_conf_type = VehicleConfigType.find(params[:config_type])
-  #     # puts veh_conf_type.to_yaml
-  #     new_config.vehicle_config_type = veh_conf_type
-  #     new_config.save
-  #     flash[:message] = "Vehicle has been forked."
-  #     redirect_to admin.path(:show, id: new_config.id)
-  #   end
-  # end
+  controller do
+    def index
+      # byebug
+      if !params['make'].blank?
+        collection = VehicleModel.where(vehicle_make: VehicleMake.find(params['make'].to_i))
+      end
+      respond_to do |format|
+        format.html
+        format.json { render json: collection }
+        format.js
+      end
+    end
+    def get_by_make
+      VehicleModel.where(:vehicle_make_id => params['vehicle_make_id']).to_json
+    end
+  end
   form(dialog: true) do |vehicle_model|
     tab :general do
       if vehicle_model.vehicle_make.blank?
@@ -77,9 +80,9 @@ Trestle.resource(:vehicle_models) do
     end
   end
 
-  # routes do
-  #   get :fork, :on => :member
-  # end
+  routes do
+    get :get_by_make, :path => "/get_by_make", :controller => :vehicle_models_admin
+  end
   # Customize the form fields shown on the new/edit views.
   #
   

@@ -189,8 +189,8 @@ class VehicleConfig < ApplicationRecord
     difficulty_pts
   end
 
-  def compatible_trims_count
-    compatible_trims.count
+  def trim_styles_count
+    trim_styles.count
   end
 
   def specs
@@ -204,7 +204,7 @@ class VehicleConfig < ApplicationRecord
   #   vehicle_trim_styles.joins(:vehicle_trim_style_specs).group(:id,:group)
   # end
 
-  def compatible_trims
+  def trim_styles
     VehicleTrimStyle.joins(:vehicle_trim).where('vehicle_trims.year IN (:years) AND vehicle_trim_id IN (:trim_ids)',{ :years => year_range, :trim_ids => vehicle_model.vehicle_trims.map(&:id) }).order("vehicle_trims.year, vehicle_trims.sort_order, vehicle_trim_styles.name")
   end
 

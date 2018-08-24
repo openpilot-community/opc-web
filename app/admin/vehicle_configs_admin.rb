@@ -28,10 +28,10 @@ Trestle.resource(:vehicle_configs) do
   end
 
   controller do
-    def refresh_trims
+    def refresh_trim_styles
       vehicle_config_root = admin.find_instance(params).root
       vehicle_config_root.scrape_info
-      flash[:message] = "Vehicle trims list has been reloaded."
+      flash[:message] = "Vehicle trim_styles list has been reloaded."
       redirect_to admin.path(:show, id: vehicle_config_root.id)
     end
     def fork
@@ -55,7 +55,7 @@ Trestle.resource(:vehicle_configs) do
   end
 
   routes do
-    get :refresh_trims, :on => :member
+    get :refresh_trim_styles, :on => :member
     get :fork, :on => :member
     get :clone, :on => :member
   end
@@ -69,10 +69,10 @@ Trestle.resource(:vehicle_configs) do
     column :vehicle_model, header: "Model", link: false
     # column :vehicle_trim_names, header: "Trim(s)"
     # column :vehicle_make_package, header: "Required Option"
-    column :compatible_trims_count, header: "Possible Trims"
+    column :trim_styles_count, header: "Possible Trims"
     column :is_upstreamed?, header: "Upstreamed"
     column :full_support_difficulty, header: "Full Support Difficulty"
-    actions
+    # actions
   end
   
   #####
@@ -92,7 +92,7 @@ Trestle.resource(:vehicle_configs) do
           col(sm: 5) { collection_select :vehicle_model_id, vehicle_config.vehicle_make.blank? ? [] : vehicle_config.vehicle_make.vehicle_models.order(:name), :id, :name, include_blank: true }
           # col(sm: 5) do
           #   select :vehicle_trim_ids, (vehicle_config.vehicle_model.blank? ? [] : VehicleTrim.where(:vehicle_model => vehicle_config.vehicle_model.id).order(:name)), { label: "Trim(s)" }, { multiple: true, data: { tags: true } }
-          #   # tag_select :vehicle_config_trims
+          #   # tag_select :vehicle_config_trim_styles
           # end
         end
       else
@@ -109,19 +109,19 @@ Trestle.resource(:vehicle_configs) do
     end
     
     unless vehicle_config.new_record? || vehicle_config.vehicle_config_type.blank?
-      tab :found_trims, badge: vehicle_config.compatible_trims_count do
+      tab :trim_styles, badge: vehicle_config.trim_styles_count do
         render "tab_toolbar", {
           :groups => [
             {
               :class => "actions",
               :items => [
-                link_to("Refresh Trims", admin.path(:refresh_trims, id: instance.root.id), method: :get, class: "btn btn-default btn-block")
+                link_to("Scan For Trims", admin.path(:refresh_trims, id: instance.root.id), method: :get, class: "btn btn-default btn-block")
               ]
             }
           ]
         }
         
-        table vehicle_config.compatible_trims.blank? ? [] : vehicle_config.compatible_trims, admin: :vehicle_trim_styles do
+        table vehicle_config.trim_styles.blank? ? [] : vehicle_config.trim_styles, admin: :vehicle_trim_styles do
           # column :id
           column :year
           column :trim_name, header: "Trim"

@@ -1,3 +1,16 @@
+var originalAddClassMethod = jQuery.fn.addClass;
+var originalRemoveClassMethod = jQuery.fn.removeClass;
+
+jQuery.fn.addClass = function(){
+  var result = originalAddClassMethod.apply( this, arguments );
+  jQuery(this).trigger('classAdded');
+  return result;
+}
+jQuery.fn.removeClass = function(){
+  var result = originalRemoveClassMethod.apply( this, arguments );
+  jQuery(this).trigger('classRemoved');
+  return result;
+}
 // This file may be used for providing additional customizations to the Trestle
 // admin. It will be automatically included within all admin pages.
 //
@@ -15,29 +28,18 @@ var setupVehicleConfigYear = function() {
   var $year_end_select2_container = $year_end_column.find('.select2-container');
   var $year_range = $('.col-class-year-range');
   var $add_year_end_link = $("<a class=\"year-end-link\" href=\"javascript:void(0);\">+ Add End Year</a>");
-  var originalAddClassMethod = jQuery.fn.addClass;
-  var originalRemoveClassMethod = jQuery.fn.removeClass;
-  jQuery.fn.addClass = function(){
-    // Execute the original method.
-    var result = originalAddClassMethod.apply( this, arguments );
+  
+  console.warn("$year_start:", $year_start);
+  console.warn("$year_start_column:", $year_start);
+  console.warn("$year_start_select2_container:", $year_start);
+  console.warn("$year_end:", $year_end);
+  console.warn("$year_end_column:", $year_end);
+  console.warn("$year_end_select2_container:", $year_end);
 
-    // trigger a custom event
-    jQuery(this).trigger('classAdded');
-
-    // return the original result
-    return result;
-  }
-  jQuery.fn.removeClass = function(){
-    // Execute the original method.
-    var result = originalRemoveClassMethod.apply( this, arguments );
-
-    // trigger a custom event
-    jQuery(this).trigger('classRemoved');
-
-    // return the original result
-    return result;
-  }
+  console.warn("$year_range:", $year_range);
+  console.warn("$add_year_end_link:", $add_year_end_link);
   var onYearOpen = function(ev) {
+    console.warn("onYearOpen");
     $year_range.addClass('open');
   }
   // var onYearFocus = function(ev) {
@@ -49,6 +51,7 @@ var setupVehicleConfigYear = function() {
   //   $year_range.removeClass('focus');
   // }
   var onYearClose = function(ev) {
+    console.warn("onYearClose");
     $year_range.removeClass('open');
   }
   // $year_start.on("focus", onYearFocus);
@@ -74,6 +77,7 @@ var setupVehicleConfigYear = function() {
   $year_end_select2_container.on('classRemoved', function(){ 
     refresh_classes();
   });
+
   $($year_start,$year_end).on("select2:open",onYearOpen);
   $($year_start,$year_end).on("select2:close",onYearClose);
 
@@ -109,8 +113,7 @@ var setupVehicleConfigYear = function() {
 
 $(Trestle).on("init",function() {
   setupVehicleConfigYear();
-})
-jQuery(function() {
+
   var trims;
   var models;
   var $elems = {}
@@ -132,17 +135,17 @@ jQuery(function() {
   $elems['models'] = $('select#vehicle_config_vehicle_model_id');
   $elems['vehicle_models'] = $('#vehicle_trim_vehicle_model_id');
 
-  var getOptions = function(type,scope) {
-    $.getJSON("/admin/vehicle_" + type + "s.json?scope=" + scope).then(function(records) {
+  var getModelsForMake = function(make) {
+    $.getJSON("/admin/vehicle_models.json?make=" + make).then(function(records) {
       var options = records.map(function(record) {
         return $("<option value=\"" + record.id + "\">" + record.name + "</option>");
       });
       options.unshift($("<option value=\"\"></option>"));
       if (options) {
-        $elems[type + "s"].select2("val","");
-        return $elems[type + "s"].html(options);
+        $elems["models"].select2("val","");
+        return $elems["models"].html(options);
       } else {
-        return $elems[type + "s"].empty();
+        return $elems["models"].empty();
       }
     });
   }
@@ -150,7 +153,7 @@ jQuery(function() {
   $elems['models'].change(function() {
     var model, options;
     var modelId = $('#vehicle_config_vehicle_model_id').val();
-    getOptions('trim',modelId);
+    // getModelsForMake('trim',modelId);
   });
 
   $elems['makes'].change(function() {
@@ -161,7 +164,7 @@ jQuery(function() {
     var make, options;
     make = $this.val();
     // // console.log(options);
-    getOptions('model', make);
+    getModelsForMake(make);
   });
 
   function sortUsingNestedText(parent, childSelector, keySelector) {

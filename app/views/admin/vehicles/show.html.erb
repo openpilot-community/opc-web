@@ -19,13 +19,12 @@ To chat about the <%=title%> with the community, checkout the <a href="slack://c
 
 <h2>Research and Support</h2>
 
-<p>We're always researching new and exciting vehicles to support.  Some of them we've cracked, and some of them are in progress.</p>
-<p>Below is a list of models we have began supporting and/or researching.</p>
+<p>We've found the following trims for this configuration.</p>
+<p>Although most model trims have similar factory hardware, some may differe slightly so ensure you check the trim pages for specifics.</p>
 
+<h3>Specific Trim(s)</h3>
 <ul>
-  <% @model.vehicle_configs.where(parent_id: nil).each do |config| %>
-  <li>
-    <%=config.name%>
-  </li>
+  <% @config.trim_styles.each do |trim| %>
+  <li><%=trim.year%> <%=trim.name%><%if trim.driver_assist_inclusion == "option" %> w/ <%=@config.vehicle_make_package.blank? ? "ACC/LKAS" : @config.vehicle_make_package.name %><% end %></li>
   <% end %>
 </ul>

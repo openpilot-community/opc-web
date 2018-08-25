@@ -1,5 +1,8 @@
 <% content_for(:content) do %>
 <div class="documentation">
+  <div class="alert alert-warning">
+  These pages are newly created, and are a work in progress so please check back as we add more information.
+  </div>
   <%= content_for?(:docs_content) ? yield(:docs_content) : yield %>
 </div>
 <% end %>

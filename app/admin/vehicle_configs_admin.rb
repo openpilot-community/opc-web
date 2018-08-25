@@ -1,13 +1,13 @@
 Trestle.resource(:vehicle_configs) do
   
   menu do
-    item :vehicle_configs, icon: "fa fa-car", group: :vehicles, label: "Research / Support", priority: :first
+    item :vehicle_configs, icon: "fa fa-car", group: :vehicles, label: "Research / Support"
   end
 
   #####
   # SCOPES
   #####
-  # scope :all, -> { VehicleConfig. }, default: true
+  scope :all, -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level") }, default: true
   
   # VehicleMake.with_configs.each do |make|
   #   scope :"#{make.name.underscore}", -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).where("vehicle_makes.name = '#{make.name}'").order("vehicle_models.name, year, vehicle_config_types.difficulty_level") }

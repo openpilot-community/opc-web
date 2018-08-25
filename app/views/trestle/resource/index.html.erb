@@ -7,13 +7,7 @@
   <% end if admin.actions.include?(:new) %>
 <% end %>
 <div class="list-content-wrap<% if admin.scopes.any?%> show-scopes<% end %>">
-    <% if admin.scopes.any? %>
-      <div class="list-content-scopes" style="flex:0 0 20%;">
-      <%= render "scopes" if admin.scopes.any? %>
-      </div>
-    <% end %>
-    
-    <div class="list-content-table"  style="<%=(admin.scopes.any? ? 'flex:0 0 80%;' : 'flex: 0 0 100%;')%>">
+    <div class="list-content-table"  style="<%=(admin.scopes.any? ? 'flex:0 0 100%;' : 'flex: 0 0 100%;')%>">
       <%= render layout: "layout" do %>
         <% if hook?("resource.index.header") %>
           <header class="main-content-header">

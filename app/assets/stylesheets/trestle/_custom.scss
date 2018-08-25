@@ -7,6 +7,18 @@
 //    @import "trestle/custom/my_custom_css";
 //
 .app-wrapper {
+  .app-nav {
+    ul:last-child {
+      display:none;
+    }
+  }
+  &.is-super-admin {
+    .app-nav {
+      ul:last-child {
+        display:block;
+      }
+    }
+  }
   &.is-visitor {
     .primary-toolbar {
       opacity:0;
@@ -15,11 +27,6 @@
       display:none;
       .actions {
         opacity:0;
-      }
-    }
-    .app-nav {
-      ul:last-child {
-        display:none;
       }
     }
   }

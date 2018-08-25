@@ -9,7 +9,11 @@ Trestle.resource(:vehicle_makes) do
     column :name
     column :active_count, header: "Active Models"
     column :inactive_count, header: "Inactive Models"
-    column :slack_channel, header: "Comma Slack"
+    column :slack_channel, header: "Comma Slack" do |make|
+      if make.slack_channel
+        "<a href=\"slack://channel?team=comma&id=#{make.slack_channel}\">##{make.slack_channel}</a>".html_safe
+      end
+    end
   end
   
   search do |query|
@@ -28,6 +32,7 @@ Trestle.resource(:vehicle_makes) do
   form do |vehicle_make|
     tab :general do
       text_field :name
+      text_field :slack_channel
     end
 
     unless vehicle_make.new_record?

@@ -2,14 +2,30 @@ Trestle.resource(:pull_requests) do
   menu do
     item :pull_requests, icon: "fa fa-github", group: :development
   end
-
+  scope :all, -> { PullRequest.order(:pr_updated_at => :desc) }, default: true
+  
   # Customize the table columns shown on the index view.
   #
-  # table do
-  #   column :name
-  #   column :created_at, align: :center
-  #   actions
-  # end
+  table do
+    column :name, header: "Title" do |pull_request|
+      link_to pull_request.html_url, target: "_blank" do
+        pull_request.name
+      end
+    end
+    column :vehicles
+    column :status do |pull_request|
+      pull_request.state
+    end
+    column :user do |pull_request|
+      pull_request.user
+    end
+    column :pr_updated_at, header: "Created"
+    column :pr_created_at, header: "Updated"
+
+    # column :body do |pull_request|
+    #   pull_request.body
+    # end
+  end
 
   # Customize the form fields shown on the new/edit views.
   #

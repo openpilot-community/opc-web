@@ -25,4 +25,10 @@
 class PullRequest < ApplicationRecord
   has_many :vehicle_config_pull_requests
   has_many :vehicle_configs, :through => :vehicle_config_pull_requests
+
+  def vehicles
+    if !vehicle_configs.blank?
+      vehicle_configs.map(&:name).join(", ")
+    end
+  end
 end

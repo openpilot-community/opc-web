@@ -2,14 +2,17 @@ Trestle.resource(:contributors) do
   menu do
     item :contributors, icon: "fa fa-users", group: :development
   end
-
+  scope :all, -> { Contributor.order(:contributions => :desc) }, default: true
+  
   # Customize the table columns shown on the index view.
   #
   table do
-    column :avatar do |repo|
-      image_tag(repo.avatar_url, width: "50")
+    column :name do |contributor|
+      link_to contributor.html_url, target: "_blank" do
+        "#{image_tag(contributor.avatar_url, width: "50")} #{contributor.username}".html_safe
+      end
     end
-    column :username
+    column :contributions
     # actions
   end
 

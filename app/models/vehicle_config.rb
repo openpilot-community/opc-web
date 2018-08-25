@@ -60,6 +60,7 @@ class VehicleConfig < ApplicationRecord
   # REPOSITORIES
   has_many :vehicle_config_pull_requests, dependent: :delete_all
   has_many :pull_requests, :through => :vehicle_config_pull_requests
+  friendly_id :name_for_slug, use: :slugged
   
   # OPTIONS
   # has_many :vehicle_model_options, :through => :vehicle_model
@@ -71,7 +72,11 @@ class VehicleConfig < ApplicationRecord
   # FORK CONFIGURATION
   amoeba do
   end
-
+  def name_for_slug
+    if vehicle_config_type && vehicle_make && vehicle_model
+      "#{id} #{year} #{vehicle_make.name} #{vehicle_model.name} #{vehicle_config_type.name}"
+    end
+  end
   def is_upstreamed?
     if !vehicle_config_status.blank?
       vehicle_config_status.name == 'Upstreamed'

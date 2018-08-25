@@ -7,6 +7,7 @@ module Trestle
         include Pundit
         before_action :authenticate_user!, except: [:show, :index]
         before_action :set_paper_trail_whodunnit
+        before_action :require_super_admin!, only: [:destroy]
         before_action :require_edit_permissions!, only: [:new, :create, :update]
       end
 

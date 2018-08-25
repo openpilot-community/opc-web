@@ -96,13 +96,13 @@
 .app-wrapper {
   background-color: #f6f8fa !important;
   .app-nav {
-    ul:last-child {
+    ul.super-admin {
       display:none;
     }
   }
   &.is-super-admin {
     .app-nav {
-      ul:last-child {
+      ul.super-admin {
         display:block;
       }
     }

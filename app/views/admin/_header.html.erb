@@ -1,4 +1,5 @@
-<ul class="nav">
+<ul class="nav navbar-nav">
+  <% if !current_user.blank? %>
   <li role="presentation" class="dropdown">
     <a class="user-dropdown dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
       <span class="user-icon"><%=image_tag(current_user.avatar.service_url)%></span>
@@ -13,4 +14,12 @@
       <li><a href="#">Separated link</a></li> %>
     </ul>
   </li>
+  <% else %>
+  <li role="presentation" class="dropdown">
+    <%=link_to '/sign_in' do %>
+      <%=icon('fa','fa-github')%>
+      Sign In with GitHub
+    <% end %>
+  </li>
+  <% end %>
 </ul>

@@ -20,9 +20,10 @@ jQuery.fn.removeClass = function(){
 //  e.g. //= require "trestle/custom/my_custom_js"
 var setupVehicleConfigYear = function() {
   if ($('.app-wrapper.is-visitor').length) {
+    $(".trestle-table .actions > *").remove();
     $(".main-content .form-control,.modal-body .form-control").attr('disabled',true);
   }
-  console.warn('setupVehicleConfigYear');
+  // console.warn('setupVehicleConfigYear');
   var $year_start = $("#vehicle_config_year");
   var $year_start_column = $(".col-class-year-start");
   var $year_start_select2_container = $year_start_column.find('.select2-container');
@@ -32,15 +33,15 @@ var setupVehicleConfigYear = function() {
   var $year_range = $('.col-class-year-range');
   var $add_year_end_link = $("<a class=\"year-end-link\" href=\"javascript:void(0);\">+ Add End Year</a>");
   
-  console.warn("$year_start:", $year_start);
-  console.warn("$year_start_column:", $year_start);
-  console.warn("$year_start_select2_container:", $year_start);
-  console.warn("$year_end:", $year_end);
-  console.warn("$year_end_column:", $year_end);
-  console.warn("$year_end_select2_container:", $year_end);
+  // console.warn("$year_start:", $year_start);
+  // console.warn("$year_start_column:", $year_start);
+  // console.warn("$year_start_select2_container:", $year_start);
+  // console.warn("$year_end:", $year_end);
+  // console.warn("$year_end_column:", $year_end);
+  // console.warn("$year_end_select2_container:", $year_end);
 
-  console.warn("$year_range:", $year_range);
-  console.warn("$add_year_end_link:", $add_year_end_link);
+  // console.warn("$year_range:", $year_range);
+  // console.warn("$add_year_end_link:", $add_year_end_link);
   var onYearOpen = function(ev) {
     console.warn("onYearOpen");
     $year_range.addClass('open');
@@ -54,7 +55,7 @@ var setupVehicleConfigYear = function() {
   //   $year_range.removeClass('focus');
   // }
   var onYearClose = function(ev) {
-    console.warn("onYearClose");
+    // console.warn("onYearClose");
     $year_range.removeClass('open');
   }
   // $year_start.on("focus", onYearFocus);

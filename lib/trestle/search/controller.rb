@@ -3,8 +3,8 @@ module Trestle
     module Controller
       def index
         super
-        puts "searching..."
-        puts admin.methods
+        # puts "searching..."
+        # puts admin.methods
         if admin.searchable? && params[:q].present?
           breadcrumb t("admin.search.results", default: "Search Results"), { q: params[:q] }
         end

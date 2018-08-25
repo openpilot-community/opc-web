@@ -1,0 +1,37 @@
+<% title = @make.name %>
+<% content_for(:title, title) %>
+<% breadcrumb(title) %>
+
+<h1><%=title%></h1>
+
+<p>
+Openpilot has some compatibility with <strong><%=@make.name%></strong> model(s) so browse the model pages below for additional specifics. 
+</p>
+<p>
+The goal is to always support as many vehicles as possible.<br />If you have development experience, or even if you don't - we would love to help you port more cars.
+</p>
+
+<% if !@make.slack_channel.blank? %>
+<p>
+To chat about <%=@make.name%>'s with the community, checkout the <a href="slack://channel?team=comma&id=<%=@make.slack_channel%>">#<%=@make.slack_channel%></a> channel in the <a href="https://slack.comma.ai" target="_blank">Comma Slack</a>.
+</p>
+<% end %>
+
+<h2>Research and Support</h2>
+
+<p>We're always researching new and exciting vehicles to support.  Some of them we've cracked, and some of them are in progress.</p>
+<p>Below is a list of models we have began supporting and/or researching.</p>
+
+<ul>
+<% @make.vehicle_models_with_configs.each do |model| %>
+  <li><%=link_to(model.name, vehicles_admin_model_path(make_slug: @make.slug, model_slug: model.slug))%></li>
+<% end %>
+</ul>
+
+<h2>How to add support for a vehicle</h2>
+<p>
+If you own an unsupported vehicle but are interested in discussing porting it to openpilot, join us in the NEW openpilot community chat support system and the always popular Comma.ai Slack if you prefer it.
+</p>
+<p>
+There will also be some great info on porting models in Development Guides.
+</p>

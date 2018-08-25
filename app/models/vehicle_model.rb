@@ -22,9 +22,9 @@ class VehicleModel < ApplicationRecord
   has_many :vehicle_configs
   has_many :vehicle_model_options
   has_many :vehicle_options, :through => :vehicle_model_options
-  scope :with_configs, -> { VehicleModel.joins(:vehicle_configs).where("vehicle_configs.id IS NOT NULL") }
+  scope :with_configs, -> { VehicleModel.joins(:vehicle_configs).where("vehicle_configs.id IS NOT NULL").order("vehicle_models.name") }
 
-  def has_configs
+  def has_configs?
     !vehicle_configs.blank?
   end
 
@@ -43,10 +43,10 @@ class VehicleModel < ApplicationRecord
   def has_driver_assist?
     !driver_assist.blank?
   end
-
+  
   def driver_assist
-    vehicle_trims.map do |vt|
-      vt if !vt.driver_assist.blank?
+    vehicle_trims.select do |vt|
+      !vt.driver_assist.blank?
     end
   end
 

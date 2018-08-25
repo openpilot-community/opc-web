@@ -1,0 +1,31 @@
+<% title = "#{@make.name} #{@model.name}" %>
+<% content_for(:title, title) %>
+<% breadcrumb(title) %>
+
+<h1><%=title%></h1>
+
+<p>
+Openpilot has some compatibility with the <strong><%=@model.name %></strong> and this page serves as a general overview of the model.<br />
+To get more specific details on compatibility of a particular trim ensure you check the trim links below to learn more.
+</p>
+
+<p>The goal is to always support as many vehicles as possible.</p>
+
+<% if !@make.slack_channel.blank? %>
+<p>
+To chat about the <%=title%> with the community, checkout the <a href="slack://channel?team=comma&id=<%=@make.slack_channel%>">#<%=@make.slack_channel%></a> channel in the <a href="https://slack.comma.ai" target="_blank">Comma Slack</a>.
+</p>
+<% end %>
+
+<h2>Research and Support</h2>
+
+<p>We're always researching new and exciting vehicles to support.<br />Some of them are ported, and some of them will take work.</p>
+<p>Below is a list of models we have began supporting and/or researching.</p>
+
+<ul>
+  <% @model.vehicle_configs.where(parent_id: nil).each do |config| %>
+  <li>
+    <%=link_to config.name, vehicles_admin_show_path(config.slug)%>
+  </li>
+  <% end %>
+</ul>

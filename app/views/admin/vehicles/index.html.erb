@@ -1,0 +1,14 @@
+<div class="vehicles">
+<% @makes.each do |make| %>
+  <div class="make-box">
+    <div class="make-box-header"><%=link_to(make.name, vehicles_admin_make_path(make_slug: make.slug))%></div>
+    <ul class="make-box-models">
+      <% make.vehicle_models_with_configs.each do |model| %>
+        <li>
+          <%=link_to(model.name, vehicles_admin_model_path(make_slug: make.slug, model_slug: model.slug))%>
+        </li>
+      <% end%>
+    </ul>
+  </div>
+<% end %>
+</div>

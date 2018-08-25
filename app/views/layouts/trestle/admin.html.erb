@@ -21,13 +21,12 @@
     <%= javascript_include_tag "turbolinks" if Trestle.config.turbolinks %>
     <%= javascript_include_tag "trestle/admin", 'data-turbolinks-track': 'reload' %>
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script type="text/javascript">
-      <% Trestle.config.javascript_i18n_keys.each do |key| %>
+    <% Trestle.config.javascript_i18n_keys.each do |key| %>
       Trestle.i18n['<%= key %>'] = "<%= escape_javascript(t(key, default: t(key, locale: :en))) %>";
-      <% end %>
-
-      Trestle.localize(<%= i18n_fallbacks.map { |l| "'#{l}'" }.join(", ").html_safe %>);
+    <% end %>
+    Trestle.localize(<%= i18n_fallbacks.map { |l| "'#{l}'" }.join(", ").html_safe %>);
     </script>
 
     <%= hook :javascripts %>
@@ -38,14 +37,14 @@
   </head>
 
   <body<%=raw " class=\"sidebar-#{cookies["trestle:sidebar"]}\"" if cookies["trestle:sidebar"] %>>
-    <div class="app-wrapper <%if current_user.is_visitor?%>is-visitor<% end %> <%if current_user.is_admin?%>is-admin<% end %> <%if current_user.is_editor?%>is-editor<% end %> <%if current_user.is_super_admin?%>is-super-admin<% end %>">
+    <div class="app-wrapper <% if !current_user.blank? %><%if current_user.is_visitor?%>is-visitor<% end %> <%if current_user.is_admin?%>is-admin<% end %> <%if current_user.is_editor?%>is-editor<% end %> <%if current_user.is_super_admin?%>is-super-admin<% end %><% else %>is-visitor<% end %>">
       <%= render "trestle/shared/sidebar" %>
 
       <div class="app-container">
         <%= render "trestle/shared/header" %>
 
         <main class="app-main" data-context="<%= request.fullpath %>">
-          <%= yield %>
+          <%= content_for?(:content) ? yield(:content) : yield %>
         </main>
 
         <%= render "trestle/shared/footer" %>

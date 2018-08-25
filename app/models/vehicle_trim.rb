@@ -26,7 +26,9 @@ class VehicleTrim < ApplicationRecord
       driver_assist.map(&:name_for_list).join(", ")
     end
   end
-  
+  def is_adas_option?
+    driver_assist.select{|da| da.driver_assist_inclusion == "option" }
+  end
   def driver_assist
     vehicle_trim_styles.joins(:vehicle_trim_style_specs).where("vehicle_trim_style_specs.name LIKE '%Adaptive Cruise%' OR vehicle_trim_style_specs.name LIKE '% pacing %'").group(:id,:name)
   end

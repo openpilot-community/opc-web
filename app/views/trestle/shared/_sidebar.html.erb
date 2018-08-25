@@ -1,0 +1,42 @@
+<aside class="app-sidebar">
+  <header class="app-sidebar-header">
+    <button class="navbar-toggle">
+      <span class="sr-only"><%= t("trestle.ui.toggle_navigation", default: "Toggle navigation") %></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+
+    <%= link_to Trestle.config.root, class: "navbar-brand" do %>
+      <%= hook("view.title") { render "trestle/shared/title" } %>
+    <% end %>
+  </header>
+
+  <div class="app-sidebar-inner">
+    <nav class="app-nav">
+      <% collapsed = cookies["trestle:navigation:collapsed"].try(:split, ",") || [] %>
+      <% Trestle.navigation.visible(self).each do |group, items| %>
+        <ul<% if group.present? && collapsed.include?(group.id) %> class="collapsed"<% end %>>
+          <% if group.present? %>
+            <li class="nav-header"><%= link_to group.label, "##{group.id}" %><%=icon('fa','fa-caret-down')%></li>
+          <% end %>
+
+          <% items.each do |item| %>
+            <li<% if current_navigation_item?(item) %> class="active"<% end %>>
+              <%= link_to item.path do %>
+                <%= icon("nav-icon", item.icon) %>
+                <span class="nav-label"><%= item.label %></span>
+
+                <%= content_tag(:span, item.badge.text, class: ["nav-badge", item.badge.html_class]) if item.badge? %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </nav>
+
+    <button class="toggle-sidebar">
+      <span class="sr-only"><%= t("trestle.ui.toggle_sidebar", default: "Toggle sidebar") %></span>
+    </button>
+  </div>
+</aside>

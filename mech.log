@@ -426,3 +426,9 @@ D, [2018-08-24T10:03:45.865831 #69929] DEBUG -- : saved cookie: TS01952cdc=01fce
 D, [2018-08-24T10:03:45.865862 #69929] DEBUG -- : saved cookie: TS01bf77fc=01fce1e7c436e243fe74b9e04ea1bbe437a79af23ae3655c27ba78ae9fd63b0baa4615715f1ee0f1a9b16f5f5b1af457612aa119f14b9bbf9f0e0ae4f37117dbe41cd2f9219bbdc08ffc7141c4fcdcabee29ca1a58534b22b4b5e0d2b6f8081efbb66e71801996d744297dfff690f1feb5f3625eca
 D, [2018-08-24T10:03:45.865997 #69929] DEBUG -- : saved cookie: bm_mi=FAB02FFBD3513184BDA31AFF112366FE~2N3zoVr9+GImI62enKFmQsgiDkjyHTAasUFCVivJ2GHZNTxMy0e+b74DX2FRZrwj6ggkMfgNBBvZhjUucZNWpZMHQ2RrkajyJ0dJ5oHKOWX80qGEc7SeaWJRMz2S9cZZxKdoXiaQxgh9/XQ5dR6qioyhK4E/uRCrME95UPVh3NZ+hMTCoMBehQLHvDsqu02sUJMeiDQ9zhIxHvQZrSIuZkIUbzoBueQzeZaKmhpm9pemS17QhG4roGzIG5SEdbRhAnOBP9TkUqrY//efOu9pd7moUC4E2ftBXi/rDeog3/E=
 D, [2018-08-24T10:03:45.866115 #69929] DEBUG -- : saved cookie: bm_sv=727D4F31FE8B4794318339581C34AEE0~ua9xYuIFYkzceatf4SWIH3ttvtX9JfpqhLslgQfrjHhgK11ZgA7QAhys5cW76vXJvieXQpnTVSUTeSeZ2zPYJmPWu3E2Tpo16DwnvU9muoIKuQGw5wZlCJz/KZLKZ8GhYiBhUBxmet/SQh19s/0a5R7Szl5hKtCacQbNMwPCxrw=
+I, [2018-08-25T09:10:02.999031 #91416]  INFO -- : Mechanize::FileRequest: //Users/joshua/Projects/vehicledb-admin/log/scrapes/_acura-ilx-2016_trims.html
+I, [2018-08-25T09:10:03.001660 #91416]  INFO -- : status: Mechanize::FileResponse 0 200 OK
+D, [2018-08-25T09:10:03.002881 #91416] DEBUG -- : Read 124649 bytes (124649 total)
+I, [2018-08-25T09:10:03.054071 #91416]  INFO -- : Mechanize::FileRequest: //Users/joshua/Projects/vehicledb-admin/log/scrapes/_acura-ilx-2017_trims.html
+I, [2018-08-25T09:10:03.054194 #91416]  INFO -- : status: Mechanize::FileResponse 0 200 OK
+D, [2018-08-25T09:10:03.055271 #91416] DEBUG -- : Read 156275 bytes (156275 total)

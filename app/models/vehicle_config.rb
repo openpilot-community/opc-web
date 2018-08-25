@@ -72,6 +72,35 @@ class VehicleConfig < ApplicationRecord
   # FORK CONFIGURATION
   amoeba do
   end
+  # def difficulty_level
+  #   vehicle_config_type.difficulty_level
+  # end
+  def difficulty_class
+    case minimum_difficulty
+    when "Advanced"
+      "danger"
+    when "Standard"
+      "info"
+    when "Basic"
+      "warning"
+    else
+      "danger"
+    end
+  end
+
+  def minimum_difficulty
+    if !forks.blank?
+      sorted_forks = forks.joins(:vehicle_config_type).order("vehicle_config_types.difficulty_level ASC")
+
+      if !sorted_forks.first.vehicle_config_type.name.blank?
+        sorted_forks.first.vehicle_config_type.name
+      else
+        'Advanced'
+      end
+    else
+      'Advanced'
+    end
+  end
   def name_for_slug
     if vehicle_config_type && vehicle_make && vehicle_model
       "#{id} #{year} #{vehicle_make.name} #{vehicle_model.name} #{vehicle_config_type.name}"
@@ -178,6 +207,7 @@ class VehicleConfig < ApplicationRecord
       end
     end
   end
+
   def latest_open_pull_request
     if !vehicle_config_pull_requests.blank?
       if open_prs = vehicle_config_pull_requests.joins(:pull_request).where(pull_requests: { state: "open" }).order("pull_requests.number DESC")
@@ -187,11 +217,13 @@ class VehicleConfig < ApplicationRecord
       end
     end
   end
+
   def set_year_end
     if year > year_end
       self.year_end = self.year
     end
   end
+
   def name
     new_name = "Untitled"
     if vehicle_config_type && vehicle_make && vehicle_model
@@ -326,13 +358,7 @@ class VehicleConfig < ApplicationRecord
   end
 
   def full_support_difficulty
-    difficulty_pts = 0
-    
-    forks.each do |fork|
-      difficulty_pts += 1
-    end
-
-    difficulty_pts
+    # forks.
   end
 
   def trim_styles_count

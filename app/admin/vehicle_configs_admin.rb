@@ -63,6 +63,9 @@ Trestle.resource(:vehicle_configs) do
     column :vehicle_make, header: "Make", link: false, sort: false
     column :vehicle_model, header: "Model", link: false, sort: false
     column :trim_styles_count, header: "Possible Trims", sort: false
+    column :minimum_difficulty, header: "Min. Difficulty", sort: false do |vehicle_config|
+      render "difficulty_label", vehicle_config: vehicle_config
+    end
     column :status, header: "Status" do |vehicle_config|
       render "config_status", vehicle_config: vehicle_config
     end

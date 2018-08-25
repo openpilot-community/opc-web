@@ -118,6 +118,15 @@
       }
     }
   }
+  .trestle-table {
+    span.label {
+      display: block;
+      text-align: left;
+      line-height: 19px;
+      font-size: 14px;
+      font-weight: bold !important;
+    }
+  }
   .changeset {
     .changeset-change {
       display:flex;
@@ -235,6 +244,13 @@
       border-bottom:0;
     }
     .trestle-table {
+      span.label {
+        display: block;
+        text-align: left;
+        line-height: 19px;
+        font-size: 14px;
+        font-weight: bold !important;
+      }
       thead {
         position: relative;
         margin-top: 20px;

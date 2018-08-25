@@ -117,13 +117,12 @@ var setupVehicleConfigYear = function() {
 
 $(Trestle).on("init",function() {
   setupVehicleConfigYear();
-  
   var trims;
   var models;
   var $elems = {}
   var $el = Trestle.Dialog.getElement();
 
-  
+  $('[data-toggle="tooltip"]').tooltip();
   
   $.fn.modal.Constructor.prototype.enforceFocus = function () {
     $(document)
@@ -140,7 +139,7 @@ $(Trestle).on("init",function() {
   $elems['vehicle_models'] = $('#vehicle_trim_vehicle_model_id');
 
   var getModelsForMake = function(make) {
-    $.getJSON("/admin/vehicle_models.json?make=" + make).then(function(records) {
+    $.getJSON("/vehicle_models.json?make=" + make).then(function(records) {
       var options = records.map(function(record) {
         return $("<option value=\"" + record.id + "\">" + record.name + "</option>");
       });

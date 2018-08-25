@@ -4,21 +4,14 @@ Trestle.resource(:vehicle_configs) do
     item :vehicle_configs, icon: "fa fa-car", group: :vehicles, label: "Research / Support", priority: :first
   end
 
-  #####
+  ########
   # SCOPES
-  #####
+  ########
   scope :all, -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level") }, default: true
   
-  # VehicleMake.with_configs.each do |make|
-  #   scope :"#{make.name.underscore}", -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).where("vehicle_makes.name = '#{make.name}'").order("vehicle_models.name, year, vehicle_config_types.difficulty_level") }
-  #   # VehicleModel.where(:vehicle_make => make).with_configs.each do |model|
-  #   #   scope :"#{make.name.underscore}_#{model.name.underscore}", -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).where("vehicle_makes.name = '#{make.name}' AND vehicle_models.name = '#{model.name}'").order("vehicle_models.name, year, vehicle_config_types.difficulty_level") }
-  #   # end
-  # end
-  
-  #####
+  ########
   # SEARCH
-  #####
+  ########
   search do |query|
     if query
       VehicleConfig.where("title ILIKE ?", "%#{query}%")
@@ -64,24 +57,14 @@ Trestle.resource(:vehicle_configs) do
 
   table do |a|
     row do |vehicle|
-      { class: "#{vehicle.vehicle_config_type.blank? ? "unknown" : vehicle.vehicle_config_type.slug} vehicle-config" }
+      { class: "#{vehicle.vehicle_config_status.blank? ? nil : vehicle.vehicle_config_status.name.parameterize} #{vehicle.vehicle_config_type.blank? ? "unknown" : vehicle.vehicle_config_type.slug} vehicle-config" }
     end
     column :year_range_str, header: "Year(s)", sort: false
     column :vehicle_make, header: "Make", link: false, sort: false
     column :vehicle_model, header: "Model", link: false, sort: false
-    # column :vehicle_trim_names, header: "Trim(s)"
-    # column :vehicle_make_package, header: "Required Option"
     column :trim_styles_count, header: "Possible Trims", sort: false
     column :status, header: "Status" do |vehicle_config|
-      if vehicle_config.is_upstreamed?
-        "<a target=\"_blank\" class=\"label label-success repo-link\" href=\"https://github.com/commaai/openpilot\"><span class=\"fa fa-check\"></span> commaai/openpilot</a>".html_safe
-      elsif vehicle_config.is_pull_request?
-        "#{vehicle_config.latest_open_pull_request ? "<a target=\"_blank\" class=\"label label-default repo-link\" href=\"#{vehicle_config.latest_open_pull_request.html_url}\"><span class=\"fa fa-code\"></span> ##{vehicle_config.latest_open_pull_request.number}</a>" : "<span class=\"fa fa-code\"></span> Pull Request"}".html_safe
-      elsif vehicle_config.is_community_supported?
-        "#{vehicle_config.latest_repository ? "<a target=\"_blank\" class=\"label label-default repo-link\" href=\"#{vehicle_config.latest_repository.url}\"><span class=\"fa fa-github\"></span> #{vehicle_config.latest_repository.full_name}</a>" : "<span class=\"fa fa-github\"></span> Community"}".html_safe
-      elsif vehicle_config.is_in_development?
-        "#{vehicle_config.latest_repository ? "<a target=\"_blank\" class=\"label label-default repo-link\" href=\"#{vehicle_config.latest_repository.url}\"><span class=\"fa fa-github\"></span> #{vehicle_config.latest_repository.full_name}</a>" : "<span class=\"fa fa-github\"></span> In Development"}".html_safe
-      end
+      render "config_status", vehicle_config: vehicle_config
     end
     # column :full_support_difficulty, header: "Full Support Difficulty"
     # actions

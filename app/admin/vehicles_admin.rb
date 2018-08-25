@@ -1,6 +1,6 @@
 Trestle.admin(:vehicles) do
   menu do
-    item :vehicles, icon: "fa fa-car", group: :documentation
+    item :vehicles, icon: "fa fa-car", group: :documentation, :priority => 1
   end
   controller do
     skip_before_action :authenticate_user!

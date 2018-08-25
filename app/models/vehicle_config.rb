@@ -41,7 +41,7 @@ class VehicleConfig < ApplicationRecord
   before_save :update_forks
   before_save :set_default
   validates_numericality_of :year
-  validates_numericality_of :year_end, :greater_than_or_equal_to => :year
+  # validates_numericality_of :year_end, :greater_than_or_equal_to => :year
   # MODIFICATIONS
   has_many :vehicle_config_modifications, dependent: :delete_all
   has_many :modifications, :through => :vehicle_config_modifications
@@ -97,6 +97,78 @@ class VehicleConfig < ApplicationRecord
       vehicle_config_status.name == 'In Development'
     end
   end
+
+  def status_classes
+    if !vehicle_config_status.blank?
+      case vehicle_config_status.name
+      when "Community"
+        {
+          :icon => "fa fa-users",
+          :color => "danger",
+          :url => latest_repository.blank? ? nil : latest_repository.url,
+          :tooltip => "Community Supported in #{latest_repository.blank? ? nil : latest_repository.full_name}",
+          :label => latest_repository.blank? ? nil : latest_repository.full_name
+        }
+      when "In Development"
+        {
+          :icon => "fa fa-code",
+          :color => "warning",
+          :tooltip => vehicle_config_status.name,
+          :url => latest_repository.blank? ? nil : latest_repository.url,
+          :label => latest_repository.blank? ? vehicle_config_status.name : "#{latest_repository.full_name}"
+        }
+      when "Pull Request"
+        {
+          :icon => "fa fa-hourglass",
+          :color => "info",
+          :tooltip => vehicle_config_status.name,
+          :url => latest_open_pull_request.blank? ? nil : latest_open_pull_request.html_url,
+          :label => latest_open_pull_request.blank? ? vehicle_config_status.name : "#{vehicle_config_status.name} ##{latest_open_pull_request.number}"
+        }
+      when "Upstreamed"
+        {
+          :icon => "fa fa-check",
+          :color => "success",
+          :tooltip => "Upstreamed to commaai/openpilot",
+          :url => "https://github.com/commaai/openpilot",
+          :label => "Upstreamed"
+        }
+      when "Researching"
+        {
+          :icon => "fa fa-globe",
+          :color => "default",
+          :tooltip => vehicle_config_status.name,
+          :url => "#",
+          :label => "Researching"
+        }
+      when "Archived"
+        {
+          :icon => "fa fa-archive",
+          :color => "default",
+          :tooltip => vehicle_config_status.name,
+          :url => "#",
+          :label => "fa fa-archive"
+        }
+      else
+        {
+          :icon => "fa fa-globe",
+          :color => "default",
+          :tooltip => "Researching",
+          :url => "#",
+          :label => "Researching"
+        }
+      end
+    else
+      {
+        :icon => "fa fa-globe",
+        :color => "default",
+        :tooltip => "Researching",
+        :url => "#",
+        :label => "Researching"
+      }
+    end
+  end
+  
   def latest_repository
     if !vehicle_config_repositories.blank?
       if repositories = vehicle_config_repositories.joins(:repository).order("repositories.id DESC")
@@ -218,18 +290,23 @@ class VehicleConfig < ApplicationRecord
   def capability_count
     vehicle_capabilities.size
   end
+
   def is_factory?
     vehicle_config_type.name == 'Factory'
   end
+
   def is_standard?
     vehicle_config_type.name == 'Standard'
   end
+
   def is_basic?
     vehicle_config_type.name == 'Basic'
   end
+
   def is_advanced?
     vehicle_config_type.name == 'Advanced'
   end
+
   def has_standard
     forks.exists?(:vehicle_config_type => VehicleConfigType.find_by(:name => "Standard"))
   end

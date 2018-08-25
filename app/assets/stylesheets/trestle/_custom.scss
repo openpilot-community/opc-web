@@ -242,6 +242,24 @@
         border: 1px solid #e1e4e8;
         border-radius: 3px 3px 0 0;
       }
+
+      tr {
+        &.researching {
+
+        }
+        &.community {
+
+        }
+        &.upstreamed {
+          
+        }
+        &.in-development {
+          
+        }
+        &.pull-request {
+          
+        }
+      }
     }
   }
   .edit_vehicle_config,.new_vehicle_config {

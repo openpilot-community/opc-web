@@ -432,3 +432,485 @@ D, [2018-08-25T09:10:03.002881 #91416] DEBUG -- : Read 124649 bytes (124649 tota
 I, [2018-08-25T09:10:03.054071 #91416]  INFO -- : Mechanize::FileRequest: //Users/joshua/Projects/vehicledb-admin/log/scrapes/_acura-ilx-2017_trims.html
 I, [2018-08-25T09:10:03.054194 #91416]  INFO -- : status: Mechanize::FileResponse 0 200 OK
 D, [2018-08-25T09:10:03.055271 #91416] DEBUG -- : Read 156275 bytes (156275 total)
+I, [2018-08-25T16:27:43.956204 #84387]  INFO -- : Net::HTTP::Get: /research/jeep-grand_cherokee-2018/trims
+D, [2018-08-25T16:27:43.956449 #84387] DEBUG -- : request-header: accept-encoding => gzip,deflate,identity
+D, [2018-08-25T16:27:43.956500 #84387] DEBUG -- : request-header: accept => */*
+D, [2018-08-25T16:27:43.956530 #84387] DEBUG -- : request-header: user-agent => Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9
+D, [2018-08-25T16:27:43.956565 #84387] DEBUG -- : request-header: accept-charset => ISO-8859-1,utf-8;q=0.7,*;q=0.7
+D, [2018-08-25T16:27:43.956594 #84387] DEBUG -- : request-header: accept-language => en-us,en;q=0.5
+D, [2018-08-25T16:27:43.956618 #84387] DEBUG -- : request-header: host => www.cars.com
+I, [2018-08-25T16:27:44.536917 #84387]  INFO -- : status: Net::HTTPMovedPermanently 1.1 301 Moved Permanently
+D, [2018-08-25T16:27:44.537013 #84387] DEBUG -- : response-header: content-length => 0
+D, [2018-08-25T16:27:44.537058 #84387] DEBUG -- : response-header: fly-request-id => bIZufLIbZ7HflWGdz96GN1ZOXt
+D, [2018-08-25T16:27:44.537093 #84387] DEBUG -- : response-header: location => //www.cars.com/research/jeep-grand_cherokee-2018/trims/
+D, [2018-08-25T16:27:44.537209 #84387] DEBUG -- : response-header: server => Fly.io/0.1.1
+D, [2018-08-25T16:27:44.537246 #84387] DEBUG -- : response-header: x-ua-compatible => IE=edge
+D, [2018-08-25T16:27:44.537282 #84387] DEBUG -- : response-header: content-type => text/plain; charset=utf-8
+D, [2018-08-25T16:27:44.537319 #84387] DEBUG -- : response-header: cache-control => max-age=86400
+D, [2018-08-25T16:27:44.537350 #84387] DEBUG -- : response-header: expires => Sun, 26 Aug 2018 20:27:44 GMT
+D, [2018-08-25T16:27:44.537388 #84387] DEBUG -- : response-header: date => Sat, 25 Aug 2018 20:27:44 GMT
+D, [2018-08-25T16:27:44.537462 #84387] DEBUG -- : response-header: connection => keep-alive
+D, [2018-08-25T16:27:44.537510 #84387] DEBUG -- : response-header: set-cookie => rollout=75;expires=Thu, 24-Aug-2023 20:27:44 GMT;path=/;, TS01952cdc=01fce1e7c41a3b83d7309fe3f168a81b5696b309d19cb4bcef952ab9b7bee9040ececb2619fab566a2ad2f39efeca5333a18a34ab9; Path=/, ak_bmsc=DBAE52214BAEB74A418938A9C6640F45423DA8D64B4E0000C0BB815B06E1B422~plqihdCNntrwL4AiMeMgMd4rwM92PnuYV9xwTQ2hAtMb0cz3eFaRlf1BAkNRi7ONA6pMUJm6qmgQjnLQAjNbrvAGZ/EvzIAi5Z3ZN4wGCfgwAnrF2QBIrW3aXY39udEe669N/72ZvtrETHcIRMMG1Fs0mVzkZA5x2mtuxOkcI/bdEjJlMzhzdxj2UBTfYlaX6ASOPlAy/4RsgnYqaOKsM/gO8r6Vc+GNZWf5pJj2/z4fw=; expires=Sat, 25 Aug 2018 22:27:44 GMT; max-age=7200; path=/; domain=.cars.com; HttpOnly, akaas_research_abtest=1535315264~rv=77~id=501ba02213cfbc65fa66a0e2ab455d91~rn=flyio-exp01; path=/; Expires=Sun, 26 Aug 2018 20:27:44 GMT
+D, [2018-08-25T16:27:44.537566 #84387] DEBUG -- : response-header: content-language => en-US
+D, [2018-08-25T16:27:44.537719 #84387] DEBUG -- : Read 0 bytes (0 total)
+D, [2018-08-25T16:27:44.565583 #84387] DEBUG -- : saved cookie: rollout=75
+D, [2018-08-25T16:27:44.565746 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c41a3b83d7309fe3f168a81b5696b309d19cb4bcef952ab9b7bee9040ececb2619fab566a2ad2f39efeca5333a18a34ab9
+D, [2018-08-25T16:27:44.565997 #84387] DEBUG -- : saved cookie: ak_bmsc=DBAE52214BAEB74A418938A9C6640F45423DA8D64B4E0000C0BB815B06E1B422~plqihdCNntrwL4AiMeMgMd4rwM92PnuYV9xwTQ2hAtMb0cz3eFaRlf1BAkNRi7ONA6pMUJm6qmgQjnLQAjNbrvAGZ/EvzIAi5Z3ZN4wGCfgwAnrF2QBIrW3aXY39udEe669N/72ZvtrETHcIRMMG1Fs0mVzkZA5x2mtuxOkcI/bdEjJlMzhzdxj2UBTfYlaX6ASOPlAy/4RsgnYqaOKsM/gO8r6Vc+GNZWf5pJj2/z4fw=
+D, [2018-08-25T16:27:44.566228 #84387] DEBUG -- : saved cookie: akaas_research_abtest=1535315264~rv=77~id=501ba02213cfbc65fa66a0e2ab455d91~rn=flyio-exp01
+I, [2018-08-25T16:27:44.566303 #84387]  INFO -- : follow redirect to: //www.cars.com/research/jeep-grand_cherokee-2018/trims/
+I, [2018-08-25T16:27:44.566805 #84387]  INFO -- : Net::HTTP::Get: /research/jeep-grand_cherokee-2018/trims/
+D, [2018-08-25T16:27:44.566843 #84387] DEBUG -- : request-header: accept-encoding => gzip,deflate,identity
+D, [2018-08-25T16:27:44.566870 #84387] DEBUG -- : request-header: accept => */*
+D, [2018-08-25T16:27:44.566895 #84387] DEBUG -- : request-header: user-agent => Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9
+D, [2018-08-25T16:27:44.566919 #84387] DEBUG -- : request-header: accept-charset => ISO-8859-1,utf-8;q=0.7,*;q=0.7
+D, [2018-08-25T16:27:44.566942 #84387] DEBUG -- : request-header: accept-language => en-us,en;q=0.5
+D, [2018-08-25T16:27:44.566965 #84387] DEBUG -- : request-header: cookie => TS01952cdc=01fce1e7c41a3b83d7309fe3f168a81b5696b309d19cb4bcef952ab9b7bee9040ececb2619fab566a2ad2f39efeca5333a18a34ab9; ak_bmsc=DBAE52214BAEB74A418938A9C6640F45423DA8D64B4E0000C0BB815B06E1B422~plqihdCNntrwL4AiMeMgMd4rwM92PnuYV9xwTQ2hAtMb0cz3eFaRlf1BAkNRi7ONA6pMUJm6qmgQjnLQAjNbrvAGZ/EvzIAi5Z3ZN4wGCfgwAnrF2QBIrW3aXY39udEe669N/72ZvtrETHcIRMMG1Fs0mVzkZA5x2mtuxOkcI/bdEjJlMzhzdxj2UBTfYlaX6ASOPlAy/4RsgnYqaOKsM/gO8r6Vc+GNZWf5pJj2/z4fw=; akaas_research_abtest=1535315264~rv=77~id=501ba02213cfbc65fa66a0e2ab455d91~rn=flyio-exp01; rollout=75
+D, [2018-08-25T16:27:44.566988 #84387] DEBUG -- : request-header: host => www.cars.com
+I, [2018-08-25T16:27:45.055494 #84387]  INFO -- : status: Net::HTTPOK 1.1 200 OK
+D, [2018-08-25T16:27:45.055584 #84387] DEBUG -- : response-header: content-encoding => gzip
+D, [2018-08-25T16:27:45.055628 #84387] DEBUG -- : response-header: content-type => text/html; charset=utf-8
+D, [2018-08-25T16:27:45.055665 #84387] DEBUG -- : response-header: etag => f262b6832d237abe923cf145e016f0023cf464aa
+D, [2018-08-25T16:27:45.055699 #84387] DEBUG -- : response-header: fly-age => 91
+D, [2018-08-25T16:27:45.055732 #84387] DEBUG -- : response-header: fly-cache => HIT
+D, [2018-08-25T16:27:45.055765 #84387] DEBUG -- : response-header: fly-request-id => bIZufLIUzWlIVDBW57v7FmPpv7
+D, [2018-08-25T16:27:45.055797 #84387] DEBUG -- : response-header: server => Fly.io/0.1.1
+D, [2018-08-25T16:27:45.055882 #84387] DEBUG -- : response-header: x-akamai-transformed => 9 - 0 pmb=mTOE,2
+D, [2018-08-25T16:27:45.055914 #84387] DEBUG -- : response-header: cache-control => max-age=86309
+D, [2018-08-25T16:27:45.055945 #84387] DEBUG -- : response-header: expires => Sun, 26 Aug 2018 20:26:13 GMT
+D, [2018-08-25T16:27:45.055976 #84387] DEBUG -- : response-header: date => Sat, 25 Aug 2018 20:27:44 GMT
+D, [2018-08-25T16:27:45.056005 #84387] DEBUG -- : response-header: transfer-encoding => chunked
+D, [2018-08-25T16:27:45.056036 #84387] DEBUG -- : response-header: connection => keep-alive, Transfer-Encoding
+D, [2018-08-25T16:27:45.056066 #84387] DEBUG -- : response-header: vary => Accept-Encoding
+D, [2018-08-25T16:27:45.056098 #84387] DEBUG -- : response-header: set-cookie => affiliate=national; Secure; SameSite=Strict; Domain=.www.cars.com; Path=/, BIGipServercars_dockerapp_swarm_prd=2369918124.20480.0000; path=/, TS01952cdc=01fce1e7c49fc56b0ca5eecdb02005fbc6fefb959374aee7c61a5f941185d8a34ac4dcadb795491255d9797af810b6934338cc836b; Path=/, TS01bf77fc=01fce1e7c4f2319f6108ee8c9bfe5c240ced014ebe0032855af49971bb448372e9de599296d443af86ce149ccb8cb4a89458a444cf; path=/; domain=.www.cars.com, BIGipServercars_docker_rendering_prd=4248966316.16389.0000; path=/, rollout=79;expires=Thu, 24-Aug-2023 20:26:13 GMT;path=/;, TS01952cdc=01fce1e7c4d94f8c9fbfec913e8bc47d7da72b00c85dfa512e15e3d3a2ebbf87690ec6fc78685666de4886d7002fe68c4b8e63e30a723d05b5f1d10959d4f46c9bd1cf8ff22be5d871100175a8b53c0215bb6cad9330b87d7c265ee2d88bd66c442db6c426; Path=/, TS01bf77fc=01fce1e7c4c96c37d168ad9564dca57dceea8ae2b95e00075d2347929f9d81f8489ad5a4152b6e4e631e52b362ddb6af54627824a2170cde1600f262cd4b7aab2c9314c4ad; path=/; domain=.www.cars.com, bm_mi=2523EB71C2AAFB6ADE874CDDE666AED7~A/K71IIV7EI8K4FU3fiCc33LqmJ4R4ax1AA2XXxTi8Z88vKrOhLLxi/qWoeRAbsui2iX4H7quLsXVJrEP8yr5Yqs9CzvlCURJ9Z3wzoDp18jve4NzYmQVCXLa9+7WZ0aoBq7gLQkjwX7+LUzdH5ouVTye/R/zfe/y6eOaYWCQpZXpwvpDqoGrjIXZ178v/LF/V0W0PaSP9jB9eaRY5r5PY80kMydYe863/5sMskb+GidjfLur8aBg4fChHzUMU2B2eMeHPmy7kKYlJEizAysGA==; Domain=.cars.com; Path=/; Max-Age=7200; HttpOnly, bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbinb5Y3oiOYOc1pMvymbHNiSBWhKfS6QTfzH4f27Nqwjqg==; Domain=.cars.com; Path=/; Max-Age=7200; HttpOnly
+D, [2018-08-25T16:27:45.056135 #84387] DEBUG -- : response-header: content-language => en-US
+D, [2018-08-25T16:27:45.056238 #84387] DEBUG -- : Read 14271 bytes (14271 total)
+D, [2018-08-25T16:27:45.097605 #84387] DEBUG -- : Read 10305 bytes (24576 total)
+D, [2018-08-25T16:27:45.107162 #84387] DEBUG -- : Read 16207 bytes (40783 total)
+D, [2018-08-25T16:27:45.149462 #84387] DEBUG -- : Read 14527 bytes (55310 total)
+D, [2018-08-25T16:27:45.170028 #84387] DEBUG -- : Read 12507 bytes (67817 total)
+D, [2018-08-25T16:27:45.170199 #84387] DEBUG -- : gzip response
+D, [2018-08-25T16:27:45.184981 #84387] DEBUG -- : saved cookie: affiliate=national
+D, [2018-08-25T16:27:45.185075 #84387] DEBUG -- : saved cookie: BIGipServercars_dockerapp_swarm_prd=2369918124.20480.0000
+D, [2018-08-25T16:27:45.185125 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c49fc56b0ca5eecdb02005fbc6fefb959374aee7c61a5f941185d8a34ac4dcadb795491255d9797af810b6934338cc836b
+D, [2018-08-25T16:27:45.185167 #84387] DEBUG -- : saved cookie: TS01bf77fc=01fce1e7c4f2319f6108ee8c9bfe5c240ced014ebe0032855af49971bb448372e9de599296d443af86ce149ccb8cb4a89458a444cf
+D, [2018-08-25T16:27:45.185206 #84387] DEBUG -- : saved cookie: BIGipServercars_docker_rendering_prd=4248966316.16389.0000
+D, [2018-08-25T16:27:45.185244 #84387] DEBUG -- : saved cookie: rollout=79
+D, [2018-08-25T16:27:45.185283 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c4d94f8c9fbfec913e8bc47d7da72b00c85dfa512e15e3d3a2ebbf87690ec6fc78685666de4886d7002fe68c4b8e63e30a723d05b5f1d10959d4f46c9bd1cf8ff22be5d871100175a8b53c0215bb6cad9330b87d7c265ee2d88bd66c442db6c426
+D, [2018-08-25T16:27:45.185321 #84387] DEBUG -- : saved cookie: TS01bf77fc=01fce1e7c4c96c37d168ad9564dca57dceea8ae2b95e00075d2347929f9d81f8489ad5a4152b6e4e631e52b362ddb6af54627824a2170cde1600f262cd4b7aab2c9314c4ad
+D, [2018-08-25T16:27:45.185486 #84387] DEBUG -- : saved cookie: bm_mi=2523EB71C2AAFB6ADE874CDDE666AED7~A/K71IIV7EI8K4FU3fiCc33LqmJ4R4ax1AA2XXxTi8Z88vKrOhLLxi/qWoeRAbsui2iX4H7quLsXVJrEP8yr5Yqs9CzvlCURJ9Z3wzoDp18jve4NzYmQVCXLa9+7WZ0aoBq7gLQkjwX7+LUzdH5ouVTye/R/zfe/y6eOaYWCQpZXpwvpDqoGrjIXZ178v/LF/V0W0PaSP9jB9eaRY5r5PY80kMydYe863/5sMskb+GidjfLur8aBg4fChHzUMU2B2eMeHPmy7kKYlJEizAysGA==
+D, [2018-08-25T16:27:45.185646 #84387] DEBUG -- : saved cookie: bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbinb5Y3oiOYOc1pMvymbHNiSBWhKfS6QTfzH4f27Nqwjqg==
+I, [2018-08-25T16:27:45.322048 #84387]  INFO -- : Net::HTTP::Get: /research/jeep-grand_cherokee-2018/specs/usc80jes051a0/
+D, [2018-08-25T16:27:45.322124 #84387] DEBUG -- : request-header: accept-encoding => gzip,deflate,identity
+D, [2018-08-25T16:27:45.322163 #84387] DEBUG -- : request-header: accept => */*
+D, [2018-08-25T16:27:45.322221 #84387] DEBUG -- : request-header: user-agent => Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9
+D, [2018-08-25T16:27:45.322261 #84387] DEBUG -- : request-header: accept-charset => ISO-8859-1,utf-8;q=0.7,*;q=0.7
+D, [2018-08-25T16:27:45.322307 #84387] DEBUG -- : request-header: accept-language => en-us,en;q=0.5
+D, [2018-08-25T16:27:45.322349 #84387] DEBUG -- : request-header: cookie => BIGipServercars_docker_rendering_prd=4248966316.16389.0000; BIGipServercars_dockerapp_swarm_prd=2369918124.20480.0000; TS01952cdc=01fce1e7c4d94f8c9fbfec913e8bc47d7da72b00c85dfa512e15e3d3a2ebbf87690ec6fc78685666de4886d7002fe68c4b8e63e30a723d05b5f1d10959d4f46c9bd1cf8ff22be5d871100175a8b53c0215bb6cad9330b87d7c265ee2d88bd66c442db6c426; TS01bf77fc=01fce1e7c4c96c37d168ad9564dca57dceea8ae2b95e00075d2347929f9d81f8489ad5a4152b6e4e631e52b362ddb6af54627824a2170cde1600f262cd4b7aab2c9314c4ad; affiliate=national; ak_bmsc=DBAE52214BAEB74A418938A9C6640F45423DA8D64B4E0000C0BB815B06E1B422~plqihdCNntrwL4AiMeMgMd4rwM92PnuYV9xwTQ2hAtMb0cz3eFaRlf1BAkNRi7ONA6pMUJm6qmgQjnLQAjNbrvAGZ/EvzIAi5Z3ZN4wGCfgwAnrF2QBIrW3aXY39udEe669N/72ZvtrETHcIRMMG1Fs0mVzkZA5x2mtuxOkcI/bdEjJlMzhzdxj2UBTfYlaX6ASOPlAy/4RsgnYqaOKsM/gO8r6Vc+GNZWf5pJj2/z4fw=; akaas_research_abtest=1535315264~rv=77~id=501ba02213cfbc65fa66a0e2ab455d91~rn=flyio-exp01; bm_mi=2523EB71C2AAFB6ADE874CDDE666AED7~A/K71IIV7EI8K4FU3fiCc33LqmJ4R4ax1AA2XXxTi8Z88vKrOhLLxi/qWoeRAbsui2iX4H7quLsXVJrEP8yr5Yqs9CzvlCURJ9Z3wzoDp18jve4NzYmQVCXLa9+7WZ0aoBq7gLQkjwX7+LUzdH5ouVTye/R/zfe/y6eOaYWCQpZXpwvpDqoGrjIXZ178v/LF/V0W0PaSP9jB9eaRY5r5PY80kMydYe863/5sMskb+GidjfLur8aBg4fChHzUMU2B2eMeHPmy7kKYlJEizAysGA==; bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbinb5Y3oiOYOc1pMvymbHNiSBWhKfS6QTfzH4f27Nqwjqg==; rollout=79
+D, [2018-08-25T16:27:45.322396 #84387] DEBUG -- : request-header: host => www.cars.com
+I, [2018-08-25T16:27:45.876110 #84387]  INFO -- : status: Net::HTTPOK 1.1 200 OK
+D, [2018-08-25T16:27:45.876215 #84387] DEBUG -- : response-header: content-encoding => gzip
+D, [2018-08-25T16:27:45.876268 #84387] DEBUG -- : response-header: content-type => text/html; charset=utf-8
+D, [2018-08-25T16:27:45.876343 #84387] DEBUG -- : response-header: etag => a0d1f69680208735ce39fa7efa1fd259dcc31833
+D, [2018-08-25T16:27:45.876382 #84387] DEBUG -- : response-header: fly-age => 4901
+D, [2018-08-25T16:27:45.876428 #84387] DEBUG -- : response-header: fly-cache => HIT+REFRESH (300s)
+D, [2018-08-25T16:27:45.876480 #84387] DEBUG -- : response-header: fly-request-id => bIZufLPbKLwDU2myk57yC543wL
+D, [2018-08-25T16:27:45.876536 #84387] DEBUG -- : response-header: server => Fly.io/0.1.1
+D, [2018-08-25T16:27:45.876587 #84387] DEBUG -- : response-header: x-akamai-transformed => 9 - 0 pmb=mTOE,2
+D, [2018-08-25T16:27:45.876663 #84387] DEBUG -- : response-header: cache-control => max-age=81499
+D, [2018-08-25T16:27:45.876707 #84387] DEBUG -- : response-header: expires => Sun, 26 Aug 2018 19:06:04 GMT
+D, [2018-08-25T16:27:45.876742 #84387] DEBUG -- : response-header: date => Sat, 25 Aug 2018 20:27:45 GMT
+D, [2018-08-25T16:27:45.876773 #84387] DEBUG -- : response-header: transfer-encoding => chunked
+D, [2018-08-25T16:27:45.876804 #84387] DEBUG -- : response-header: connection => keep-alive, Transfer-Encoding
+D, [2018-08-25T16:27:45.876854 #84387] DEBUG -- : response-header: vary => Accept-Encoding
+D, [2018-08-25T16:27:45.876896 #84387] DEBUG -- : response-header: set-cookie => BIGipServercars_dockerapp_swarm_prd=2420249772.20480.0000; path=/, TS01952cdc=01fce1e7c4ad13ef852399655b9e9fd9d72f058597cf43370f00b463b414f7174a90614170d0912544c90ac7f52fd75ef7a3cb5a49; Path=/, BIGipServercars_docker_rendering_prd=4198634668.16901.0000; path=/, TS01952cdc=01fce1e7c4bbd0ff89308270a184b7bd34331e536599737409bb47dda27243a84d0d4c6a63c1ac0f4f4e2aeec50a7b0fea042f29c04fd8a2ba32ec628745a9db1c842e9af0d034ffd4599188cd7c2cbedc5c74c177c3e2dd293ed0a868e259aa080861bac09065480f337a93f18a00d97598aa52f0a9ed9511280a55ecd95de2f555f58dc73307a72f0892a15ef2351903aa2a1f0ecca6e19e2b88578734f4ba7684054006; Path=/, bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbikB8p9Il33djOLfq9iG6pGLIfrARkqnUUCXr1+FEkTsDg==; Domain=.cars.com; Path=/; Max-Age=7199; HttpOnly
+D, [2018-08-25T16:27:45.876936 #84387] DEBUG -- : response-header: content-language => en-US
+D, [2018-08-25T16:27:45.877066 #84387] DEBUG -- : Read 14972 bytes (14972 total)
+D, [2018-08-25T16:27:45.877171 #84387] DEBUG -- : Read 9604 bytes (24576 total)
+D, [2018-08-25T16:27:45.877317 #84387] DEBUG -- : Read 16133 bytes (40709 total)
+D, [2018-08-25T16:27:45.926018 #84387] DEBUG -- : Read 14586 bytes (55295 total)
+D, [2018-08-25T16:27:45.952492 #84387] DEBUG -- : Read 16374 bytes (71669 total)
+D, [2018-08-25T16:27:45.952615 #84387] DEBUG -- : Read 10 bytes (71679 total)
+D, [2018-08-25T16:27:45.963935 #84387] DEBUG -- : Read 3888 bytes (75567 total)
+D, [2018-08-25T16:27:45.964157 #84387] DEBUG -- : gzip response
+D, [2018-08-25T16:27:45.983471 #84387] DEBUG -- : saved cookie: BIGipServercars_dockerapp_swarm_prd=2420249772.20480.0000
+D, [2018-08-25T16:27:45.983635 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c4ad13ef852399655b9e9fd9d72f058597cf43370f00b463b414f7174a90614170d0912544c90ac7f52fd75ef7a3cb5a49
+D, [2018-08-25T16:27:45.983680 #84387] DEBUG -- : saved cookie: BIGipServercars_docker_rendering_prd=4198634668.16901.0000
+D, [2018-08-25T16:27:45.983720 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c4bbd0ff89308270a184b7bd34331e536599737409bb47dda27243a84d0d4c6a63c1ac0f4f4e2aeec50a7b0fea042f29c04fd8a2ba32ec628745a9db1c842e9af0d034ffd4599188cd7c2cbedc5c74c177c3e2dd293ed0a868e259aa080861bac09065480f337a93f18a00d97598aa52f0a9ed9511280a55ecd95de2f555f58dc73307a72f0892a15ef2351903aa2a1f0ecca6e19e2b88578734f4ba7684054006
+D, [2018-08-25T16:27:45.983829 #84387] DEBUG -- : saved cookie: bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbikB8p9Il33djOLfq9iG6pGLIfrARkqnUUCXr1+FEkTsDg==
+I, [2018-08-25T16:27:47.529642 #84387]  INFO -- : Net::HTTP::Get: /research/jeep-grand_cherokee-2018/specs/usc80jes052a0/
+D, [2018-08-25T16:27:47.529701 #84387] DEBUG -- : request-header: accept-encoding => gzip,deflate,identity
+D, [2018-08-25T16:27:47.529730 #84387] DEBUG -- : request-header: accept => */*
+D, [2018-08-25T16:27:47.529754 #84387] DEBUG -- : request-header: user-agent => Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9
+D, [2018-08-25T16:27:47.529779 #84387] DEBUG -- : request-header: accept-charset => ISO-8859-1,utf-8;q=0.7,*;q=0.7
+D, [2018-08-25T16:27:47.529801 #84387] DEBUG -- : request-header: accept-language => en-us,en;q=0.5
+D, [2018-08-25T16:27:47.529832 #84387] DEBUG -- : request-header: cookie => BIGipServercars_docker_rendering_prd=4198634668.16901.0000; BIGipServercars_dockerapp_swarm_prd=2420249772.20480.0000; TS01952cdc=01fce1e7c4bbd0ff89308270a184b7bd34331e536599737409bb47dda27243a84d0d4c6a63c1ac0f4f4e2aeec50a7b0fea042f29c04fd8a2ba32ec628745a9db1c842e9af0d034ffd4599188cd7c2cbedc5c74c177c3e2dd293ed0a868e259aa080861bac09065480f337a93f18a00d97598aa52f0a9ed9511280a55ecd95de2f555f58dc73307a72f0892a15ef2351903aa2a1f0ecca6e19e2b88578734f4ba7684054006; TS01bf77fc=01fce1e7c4c96c37d168ad9564dca57dceea8ae2b95e00075d2347929f9d81f8489ad5a4152b6e4e631e52b362ddb6af54627824a2170cde1600f262cd4b7aab2c9314c4ad; affiliate=national; ak_bmsc=DBAE52214BAEB74A418938A9C6640F45423DA8D64B4E0000C0BB815B06E1B422~plqihdCNntrwL4AiMeMgMd4rwM92PnuYV9xwTQ2hAtMb0cz3eFaRlf1BAkNRi7ONA6pMUJm6qmgQjnLQAjNbrvAGZ/EvzIAi5Z3ZN4wGCfgwAnrF2QBIrW3aXY39udEe669N/72ZvtrETHcIRMMG1Fs0mVzkZA5x2mtuxOkcI/bdEjJlMzhzdxj2UBTfYlaX6ASOPlAy/4RsgnYqaOKsM/gO8r6Vc+GNZWf5pJj2/z4fw=; akaas_research_abtest=1535315264~rv=77~id=501ba02213cfbc65fa66a0e2ab455d91~rn=flyio-exp01; bm_mi=2523EB71C2AAFB6ADE874CDDE666AED7~A/K71IIV7EI8K4FU3fiCc33LqmJ4R4ax1AA2XXxTi8Z88vKrOhLLxi/qWoeRAbsui2iX4H7quLsXVJrEP8yr5Yqs9CzvlCURJ9Z3wzoDp18jve4NzYmQVCXLa9+7WZ0aoBq7gLQkjwX7+LUzdH5ouVTye/R/zfe/y6eOaYWCQpZXpwvpDqoGrjIXZ178v/LF/V0W0PaSP9jB9eaRY5r5PY80kMydYe863/5sMskb+GidjfLur8aBg4fChHzUMU2B2eMeHPmy7kKYlJEizAysGA==; bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbikB8p9Il33djOLfq9iG6pGLIfrARkqnUUCXr1+FEkTsDg==; rollout=79
+D, [2018-08-25T16:27:47.529857 #84387] DEBUG -- : request-header: host => www.cars.com
+I, [2018-08-25T16:27:48.298901 #84387]  INFO -- : status: Net::HTTPOK 1.1 200 OK
+D, [2018-08-25T16:27:48.298999 #84387] DEBUG -- : response-header: content-encoding => gzip
+D, [2018-08-25T16:27:48.299039 #84387] DEBUG -- : response-header: content-type => text/html; charset=utf-8
+D, [2018-08-25T16:27:48.299073 #84387] DEBUG -- : response-header: etag => af17db6360d81fac8ae1c7411faaa725838a18ca
+D, [2018-08-25T16:27:48.299106 #84387] DEBUG -- : response-header: fly-age => 59521
+D, [2018-08-25T16:27:48.299137 #84387] DEBUG -- : response-header: fly-cache => HIT+REFRESH (300s)
+D, [2018-08-25T16:27:48.299168 #84387] DEBUG -- : response-header: fly-request-id => bIZufM55oWH8IMdaPAma5ZAjoi
+D, [2018-08-25T16:27:48.299198 #84387] DEBUG -- : response-header: server => Fly.io/0.1.1
+D, [2018-08-25T16:27:48.299229 #84387] DEBUG -- : response-header: x-akamai-transformed => 9 - 0 pmb=mTOE,2
+D, [2018-08-25T16:27:48.299259 #84387] DEBUG -- : response-header: cache-control => max-age=26879
+D, [2018-08-25T16:27:48.299323 #84387] DEBUG -- : response-header: expires => Sun, 26 Aug 2018 03:55:46 GMT
+D, [2018-08-25T16:27:48.299354 #84387] DEBUG -- : response-header: date => Sat, 25 Aug 2018 20:27:47 GMT
+D, [2018-08-25T16:27:48.299385 #84387] DEBUG -- : response-header: transfer-encoding => chunked
+D, [2018-08-25T16:27:48.299415 #84387] DEBUG -- : response-header: connection => keep-alive, Transfer-Encoding
+D, [2018-08-25T16:27:48.299445 #84387] DEBUG -- : response-header: vary => Accept-Encoding
+D, [2018-08-25T16:27:48.299537 #84387] DEBUG -- : response-header: set-cookie => BIGipServercars_dockerapp_swarm_prd=2420249772.20480.0000; path=/, TS01952cdc=01fce1e7c455a83fa04f0bf9bb79c638248d47ff01036d631dd65149912497fca2c150f58c6c8eced688ead88d9a7495f7da75c0dc; Path=/, BIGipServercars_docker_rendering_prd=4198634668.16901.0000; path=/, TS01952cdc=01fce1e7c4a3327bca9f584636232d7dfd0246a0df6f164a2832f52556aba167c32a64dcbcd4949fe717ef02347e81934f7891ebb9d32d431943fbd87b80e5fbe7f1d43a2a0cb56087594f25ac0912851c06d6e51173cb93e13f0c21c03e9523835a190b1c115758aec4569d22103395c6991477cacc8ce66c916473bafcae80c46f891d83; Path=/, bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbinChm+4egtD5gvz2zabDDvk3ZlRTZGHpJ/mhgEJDvcgFA==; Domain=.cars.com; Path=/; Max-Age=7197; HttpOnly
+D, [2018-08-25T16:27:48.299605 #84387] DEBUG -- : response-header: content-language => en-US
+D, [2018-08-25T16:27:48.299705 #84387] DEBUG -- : Read 15035 bytes (15035 total)
+D, [2018-08-25T16:27:48.299803 #84387] DEBUG -- : Read 9541 bytes (24576 total)
+D, [2018-08-25T16:27:48.299917 #84387] DEBUG -- : Read 16133 bytes (40709 total)
+D, [2018-08-25T16:27:48.484462 #84387] DEBUG -- : Read 14586 bytes (55295 total)
+D, [2018-08-25T16:27:48.484684 #84387] DEBUG -- : Read 16374 bytes (71669 total)
+D, [2018-08-25T16:27:48.484763 #84387] DEBUG -- : Read 10 bytes (71679 total)
+D, [2018-08-25T16:27:48.484905 #84387] DEBUG -- : Read 4283 bytes (75962 total)
+D, [2018-08-25T16:27:48.485053 #84387] DEBUG -- : gzip response
+D, [2018-08-25T16:27:48.504421 #84387] DEBUG -- : saved cookie: BIGipServercars_dockerapp_swarm_prd=2420249772.20480.0000
+D, [2018-08-25T16:27:48.504520 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c455a83fa04f0bf9bb79c638248d47ff01036d631dd65149912497fca2c150f58c6c8eced688ead88d9a7495f7da75c0dc
+D, [2018-08-25T16:27:48.504573 #84387] DEBUG -- : saved cookie: BIGipServercars_docker_rendering_prd=4198634668.16901.0000
+D, [2018-08-25T16:27:48.504618 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c4a3327bca9f584636232d7dfd0246a0df6f164a2832f52556aba167c32a64dcbcd4949fe717ef02347e81934f7891ebb9d32d431943fbd87b80e5fbe7f1d43a2a0cb56087594f25ac0912851c06d6e51173cb93e13f0c21c03e9523835a190b1c115758aec4569d22103395c6991477cacc8ce66c916473bafcae80c46f891d83
+D, [2018-08-25T16:27:48.504774 #84387] DEBUG -- : saved cookie: bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbinChm+4egtD5gvz2zabDDvk3ZlRTZGHpJ/mhgEJDvcgFA==
+I, [2018-08-25T16:27:50.102173 #84387]  INFO -- : Net::HTTP::Get: /research/jeep-grand_cherokee-2018/specs/usc80jes051b0/
+D, [2018-08-25T16:27:50.102229 #84387] DEBUG -- : request-header: accept-encoding => gzip,deflate,identity
+D, [2018-08-25T16:27:50.102258 #84387] DEBUG -- : request-header: accept => */*
+D, [2018-08-25T16:27:50.102282 #84387] DEBUG -- : request-header: user-agent => Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9
+D, [2018-08-25T16:27:50.102305 #84387] DEBUG -- : request-header: accept-charset => ISO-8859-1,utf-8;q=0.7,*;q=0.7
+D, [2018-08-25T16:27:50.102328 #84387] DEBUG -- : request-header: accept-language => en-us,en;q=0.5
+D, [2018-08-25T16:27:50.102350 #84387] DEBUG -- : request-header: cookie => BIGipServercars_docker_rendering_prd=4198634668.16901.0000; BIGipServercars_dockerapp_swarm_prd=2420249772.20480.0000; TS01952cdc=01fce1e7c4a3327bca9f584636232d7dfd0246a0df6f164a2832f52556aba167c32a64dcbcd4949fe717ef02347e81934f7891ebb9d32d431943fbd87b80e5fbe7f1d43a2a0cb56087594f25ac0912851c06d6e51173cb93e13f0c21c03e9523835a190b1c115758aec4569d22103395c6991477cacc8ce66c916473bafcae80c46f891d83; TS01bf77fc=01fce1e7c4c96c37d168ad9564dca57dceea8ae2b95e00075d2347929f9d81f8489ad5a4152b6e4e631e52b362ddb6af54627824a2170cde1600f262cd4b7aab2c9314c4ad; affiliate=national; ak_bmsc=DBAE52214BAEB74A418938A9C6640F45423DA8D64B4E0000C0BB815B06E1B422~plqihdCNntrwL4AiMeMgMd4rwM92PnuYV9xwTQ2hAtMb0cz3eFaRlf1BAkNRi7ONA6pMUJm6qmgQjnLQAjNbrvAGZ/EvzIAi5Z3ZN4wGCfgwAnrF2QBIrW3aXY39udEe669N/72ZvtrETHcIRMMG1Fs0mVzkZA5x2mtuxOkcI/bdEjJlMzhzdxj2UBTfYlaX6ASOPlAy/4RsgnYqaOKsM/gO8r6Vc+GNZWf5pJj2/z4fw=; akaas_research_abtest=1535315264~rv=77~id=501ba02213cfbc65fa66a0e2ab455d91~rn=flyio-exp01; bm_mi=2523EB71C2AAFB6ADE874CDDE666AED7~A/K71IIV7EI8K4FU3fiCc33LqmJ4R4ax1AA2XXxTi8Z88vKrOhLLxi/qWoeRAbsui2iX4H7quLsXVJrEP8yr5Yqs9CzvlCURJ9Z3wzoDp18jve4NzYmQVCXLa9+7WZ0aoBq7gLQkjwX7+LUzdH5ouVTye/R/zfe/y6eOaYWCQpZXpwvpDqoGrjIXZ178v/LF/V0W0PaSP9jB9eaRY5r5PY80kMydYe863/5sMskb+GidjfLur8aBg4fChHzUMU2B2eMeHPmy7kKYlJEizAysGA==; bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbinChm+4egtD5gvz2zabDDvk3ZlRTZGHpJ/mhgEJDvcgFA==; rollout=79
+D, [2018-08-25T16:27:50.102373 #84387] DEBUG -- : request-header: host => www.cars.com
+I, [2018-08-25T16:27:50.390694 #84387]  INFO -- : status: Net::HTTPOK 1.1 200 OK
+D, [2018-08-25T16:27:50.390802 #84387] DEBUG -- : response-header: content-encoding => gzip
+D, [2018-08-25T16:27:50.390852 #84387] DEBUG -- : response-header: content-type => text/html; charset=utf-8
+D, [2018-08-25T16:27:50.390890 #84387] DEBUG -- : response-header: etag => 655654a2ca06cc47362ba9baadd172e40b95e191
+D, [2018-08-25T16:27:50.390926 #84387] DEBUG -- : response-header: fly-age => 12052
+D, [2018-08-25T16:27:50.390959 #84387] DEBUG -- : response-header: fly-cache => HIT+REFRESH (300s)
+D, [2018-08-25T16:27:50.390992 #84387] DEBUG -- : response-header: fly-request-id => bIZufN76Kh3Q0wrWq0PB2KOzIS
+D, [2018-08-25T16:27:50.391025 #84387] DEBUG -- : response-header: server => Fly.io/0.1.1
+D, [2018-08-25T16:27:50.391058 #84387] DEBUG -- : response-header: vary => Accept-Encoding
+D, [2018-08-25T16:27:50.391090 #84387] DEBUG -- : response-header: x-akamai-transformed => 9 - 0 pmb=mTOE,2
+D, [2018-08-25T16:27:50.391122 #84387] DEBUG -- : response-header: cache-control => max-age=74365
+D, [2018-08-25T16:27:50.391153 #84387] DEBUG -- : response-header: expires => Sun, 26 Aug 2018 17:07:15 GMT
+D, [2018-08-25T16:27:50.391185 #84387] DEBUG -- : response-header: date => Sat, 25 Aug 2018 20:27:50 GMT
+D, [2018-08-25T16:27:50.391268 #84387] DEBUG -- : response-header: transfer-encoding => chunked
+D, [2018-08-25T16:27:50.391304 #84387] DEBUG -- : response-header: connection => keep-alive, Transfer-Encoding
+D, [2018-08-25T16:27:50.391335 #84387] DEBUG -- : response-header: set-cookie => BIGipServercars_dockerapp_swarm_prd=2369918124.20480.0000; path=/, TS01952cdc=01fce1e7c4bd591e7c0870624a84c3af5567b4c9ea3333a250f1d5bb9396df6b158170bcd737b1369a0c050aef04531242561395db; Path=/, BIGipServercars_docker_rendering_prd=4215411884.18181.0000; path=/, TS01952cdc=01fce1e7c435de041f31b3180839240e65957e0b6c20b691291b0f3cba00f90ff3cb5efbbbb37ede16b248a69e0e255ea8c7c4cd26a6a7761cfa7d2f74261de2afa5e9fce9dcb9a21ef7a71728c42f31d9c270edb97ab24c90cdbf3478dbe6850a7724a8f7e50f36cd6282f8a024b4b20919cfbe705571544b0c7a14916f280392627e2e0e7e2b9dedaf909784794f4a3993ad8c0296df374bcaadd283502beb188a6a3cce; Path=/, bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbilnu3Mvhv0xlLsmyErPFItKY+h8TZDldf6ttlfFb3nKWQ==; Domain=.cars.com; Path=/; Max-Age=7194; HttpOnly
+D, [2018-08-25T16:27:50.391375 #84387] DEBUG -- : response-header: content-language => en-US
+D, [2018-08-25T16:27:50.391469 #84387] DEBUG -- : Read 14971 bytes (14971 total)
+D, [2018-08-25T16:27:50.409760 #84387] DEBUG -- : Read 9605 bytes (24576 total)
+D, [2018-08-25T16:27:50.431550 #84387] DEBUG -- : Read 16133 bytes (40709 total)
+D, [2018-08-25T16:27:50.444577 #84387] DEBUG -- : Read 14586 bytes (55295 total)
+D, [2018-08-25T16:27:50.463704 #84387] DEBUG -- : Read 16374 bytes (71669 total)
+D, [2018-08-25T16:27:50.463832 #84387] DEBUG -- : Read 10 bytes (71679 total)
+D, [2018-08-25T16:27:50.465155 #84387] DEBUG -- : Read 4490 bytes (76169 total)
+D, [2018-08-25T16:27:50.465327 #84387] DEBUG -- : gzip response
+D, [2018-08-25T16:27:50.484787 #84387] DEBUG -- : saved cookie: BIGipServercars_dockerapp_swarm_prd=2369918124.20480.0000
+D, [2018-08-25T16:27:50.484914 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c4bd591e7c0870624a84c3af5567b4c9ea3333a250f1d5bb9396df6b158170bcd737b1369a0c050aef04531242561395db
+D, [2018-08-25T16:27:50.485042 #84387] DEBUG -- : saved cookie: BIGipServercars_docker_rendering_prd=4215411884.18181.0000
+D, [2018-08-25T16:27:50.485106 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c435de041f31b3180839240e65957e0b6c20b691291b0f3cba00f90ff3cb5efbbbb37ede16b248a69e0e255ea8c7c4cd26a6a7761cfa7d2f74261de2afa5e9fce9dcb9a21ef7a71728c42f31d9c270edb97ab24c90cdbf3478dbe6850a7724a8f7e50f36cd6282f8a024b4b20919cfbe705571544b0c7a14916f280392627e2e0e7e2b9dedaf909784794f4a3993ad8c0296df374bcaadd283502beb188a6a3cce
+D, [2018-08-25T16:27:50.485296 #84387] DEBUG -- : saved cookie: bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbilnu3Mvhv0xlLsmyErPFItKY+h8TZDldf6ttlfFb3nKWQ==
+I, [2018-08-25T16:27:52.217483 #84387]  INFO -- : Net::HTTP::Get: /research/jeep-grand_cherokee-2018/specs/usc80jes052b0/
+D, [2018-08-25T16:27:52.217557 #84387] DEBUG -- : request-header: accept-encoding => gzip,deflate,identity
+D, [2018-08-25T16:27:52.217586 #84387] DEBUG -- : request-header: accept => */*
+D, [2018-08-25T16:27:52.217612 #84387] DEBUG -- : request-header: user-agent => Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9
+D, [2018-08-25T16:27:52.217636 #84387] DEBUG -- : request-header: accept-charset => ISO-8859-1,utf-8;q=0.7,*;q=0.7
+D, [2018-08-25T16:27:52.217659 #84387] DEBUG -- : request-header: accept-language => en-us,en;q=0.5
+D, [2018-08-25T16:27:52.217682 #84387] DEBUG -- : request-header: cookie => BIGipServercars_docker_rendering_prd=4215411884.18181.0000; BIGipServercars_dockerapp_swarm_prd=2369918124.20480.0000; TS01952cdc=01fce1e7c435de041f31b3180839240e65957e0b6c20b691291b0f3cba00f90ff3cb5efbbbb37ede16b248a69e0e255ea8c7c4cd26a6a7761cfa7d2f74261de2afa5e9fce9dcb9a21ef7a71728c42f31d9c270edb97ab24c90cdbf3478dbe6850a7724a8f7e50f36cd6282f8a024b4b20919cfbe705571544b0c7a14916f280392627e2e0e7e2b9dedaf909784794f4a3993ad8c0296df374bcaadd283502beb188a6a3cce; TS01bf77fc=01fce1e7c4c96c37d168ad9564dca57dceea8ae2b95e00075d2347929f9d81f8489ad5a4152b6e4e631e52b362ddb6af54627824a2170cde1600f262cd4b7aab2c9314c4ad; affiliate=national; ak_bmsc=DBAE52214BAEB74A418938A9C6640F45423DA8D64B4E0000C0BB815B06E1B422~plqihdCNntrwL4AiMeMgMd4rwM92PnuYV9xwTQ2hAtMb0cz3eFaRlf1BAkNRi7ONA6pMUJm6qmgQjnLQAjNbrvAGZ/EvzIAi5Z3ZN4wGCfgwAnrF2QBIrW3aXY39udEe669N/72ZvtrETHcIRMMG1Fs0mVzkZA5x2mtuxOkcI/bdEjJlMzhzdxj2UBTfYlaX6ASOPlAy/4RsgnYqaOKsM/gO8r6Vc+GNZWf5pJj2/z4fw=; akaas_research_abtest=1535315264~rv=77~id=501ba02213cfbc65fa66a0e2ab455d91~rn=flyio-exp01; bm_mi=2523EB71C2AAFB6ADE874CDDE666AED7~A/K71IIV7EI8K4FU3fiCc33LqmJ4R4ax1AA2XXxTi8Z88vKrOhLLxi/qWoeRAbsui2iX4H7quLsXVJrEP8yr5Yqs9CzvlCURJ9Z3wzoDp18jve4NzYmQVCXLa9+7WZ0aoBq7gLQkjwX7+LUzdH5ouVTye/R/zfe/y6eOaYWCQpZXpwvpDqoGrjIXZ178v/LF/V0W0PaSP9jB9eaRY5r5PY80kMydYe863/5sMskb+GidjfLur8aBg4fChHzUMU2B2eMeHPmy7kKYlJEizAysGA==; bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbilnu3Mvhv0xlLsmyErPFItKY+h8TZDldf6ttlfFb3nKWQ==; rollout=79
+D, [2018-08-25T16:27:52.217710 #84387] DEBUG -- : request-header: host => www.cars.com
+I, [2018-08-25T16:27:52.352078 #84387]  INFO -- : status: Net::HTTPOK 1.1 200 OK
+D, [2018-08-25T16:27:52.352191 #84387] DEBUG -- : response-header: content-encoding => gzip
+D, [2018-08-25T16:27:52.352246 #84387] DEBUG -- : response-header: content-type => text/html; charset=utf-8
+D, [2018-08-25T16:27:52.352301 #84387] DEBUG -- : response-header: etag => 699fc25f9607bc8a81187e227735ad942b041c2b
+D, [2018-08-25T16:27:52.352386 #84387] DEBUG -- : response-header: fly-age => 53702
+D, [2018-08-25T16:27:52.352438 #84387] DEBUG -- : response-header: fly-cache => HIT+REFRESH (300s)
+D, [2018-08-25T16:27:52.352477 #84387] DEBUG -- : response-header: fly-request-id => bIZufNlQPdsZFF6tXegAnvcipW
+D, [2018-08-25T16:27:52.352526 #84387] DEBUG -- : response-header: server => Fly.io/0.1.1
+D, [2018-08-25T16:27:52.352560 #84387] DEBUG -- : response-header: vary => Accept-Encoding
+D, [2018-08-25T16:27:52.352588 #84387] DEBUG -- : response-header: x-akamai-transformed => 9 - 0 pmb=mTOE,2
+D, [2018-08-25T16:27:52.352619 #84387] DEBUG -- : response-header: cache-control => max-age=32673
+D, [2018-08-25T16:27:52.352654 #84387] DEBUG -- : response-header: expires => Sun, 26 Aug 2018 05:32:25 GMT
+D, [2018-08-25T16:27:52.352683 #84387] DEBUG -- : response-header: date => Sat, 25 Aug 2018 20:27:52 GMT
+D, [2018-08-25T16:27:52.352710 #84387] DEBUG -- : response-header: transfer-encoding => chunked
+D, [2018-08-25T16:27:52.352737 #84387] DEBUG -- : response-header: connection => keep-alive, Transfer-Encoding
+D, [2018-08-25T16:27:52.352764 #84387] DEBUG -- : response-header: set-cookie => zipcode=21030; Secure; HttpOnly; SameSite=Strict; Path=/, TS01952cdc=01fce1e7c477454a7cb6c235048371865ccc41ec6e41569aaece4f1db7d144c6ed57c44c1f19e5aeb71c57ea9633bf90c4ff71970d; Path=/, TS01952cdc=01fce1e7c4baf3d2e8ae376a432700425fba12b200132d795db39433dfcc49ff4c1af5adaa7779b6c0db0762a9abf8b522613be79ad5560f2a7a0822db244d56ce22824ef7e167356f9be3c98619150f57c7b55e4f1ab7c33e11aa9ef280eea6f3080c93876479b42d5be7e6f89e722f75ba6fc0998a45b255bdb745f63f2e454e75e3078b221cc89aa843fa8a005c8750a46871c2aaa4fdd9273ebefd9cca9a2fec4ff841f63096da0d72287907d2663e070dc6f7; Path=/, bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbimRz4ES9CH3jnEf8lqLtbwxx7g5neesyZuxpa6BzcP9mA==; Domain=.cars.com; Path=/; Max-Age=7192; HttpOnly
+D, [2018-08-25T16:27:52.352820 #84387] DEBUG -- : response-header: content-language => en-US
+D, [2018-08-25T16:27:52.352910 #84387] DEBUG -- : Read 15016 bytes (15016 total)
+D, [2018-08-25T16:27:52.354448 #84387] DEBUG -- : Read 9560 bytes (24576 total)
+D, [2018-08-25T16:27:52.359938 #84387] DEBUG -- : Read 16133 bytes (40709 total)
+D, [2018-08-25T16:27:52.363842 #84387] DEBUG -- : Read 14586 bytes (55295 total)
+D, [2018-08-25T16:27:52.373469 #84387] DEBUG -- : Read 16374 bytes (71669 total)
+D, [2018-08-25T16:27:52.373561 #84387] DEBUG -- : Read 10 bytes (71679 total)
+D, [2018-08-25T16:27:52.376563 #84387] DEBUG -- : Read 5172 bytes (76851 total)
+D, [2018-08-25T16:27:52.376734 #84387] DEBUG -- : gzip response
+D, [2018-08-25T16:27:52.393722 #84387] DEBUG -- : saved cookie: zipcode=21030
+D, [2018-08-25T16:27:52.393813 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c477454a7cb6c235048371865ccc41ec6e41569aaece4f1db7d144c6ed57c44c1f19e5aeb71c57ea9633bf90c4ff71970d
+D, [2018-08-25T16:27:52.393893 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c4baf3d2e8ae376a432700425fba12b200132d795db39433dfcc49ff4c1af5adaa7779b6c0db0762a9abf8b522613be79ad5560f2a7a0822db244d56ce22824ef7e167356f9be3c98619150f57c7b55e4f1ab7c33e11aa9ef280eea6f3080c93876479b42d5be7e6f89e722f75ba6fc0998a45b255bdb745f63f2e454e75e3078b221cc89aa843fa8a005c8750a46871c2aaa4fdd9273ebefd9cca9a2fec4ff841f63096da0d72287907d2663e070dc6f7
+D, [2018-08-25T16:27:52.394067 #84387] DEBUG -- : saved cookie: bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbimRz4ES9CH3jnEf8lqLtbwxx7g5neesyZuxpa6BzcP9mA==
+I, [2018-08-25T16:27:54.238550 #84387]  INFO -- : Net::HTTP::Get: /research/jeep-grand_cherokee-2018/specs/usc80jes052c0/
+D, [2018-08-25T16:27:54.238616 #84387] DEBUG -- : request-header: accept-encoding => gzip,deflate,identity
+D, [2018-08-25T16:27:54.238645 #84387] DEBUG -- : request-header: accept => */*
+D, [2018-08-25T16:27:54.238670 #84387] DEBUG -- : request-header: user-agent => Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9
+D, [2018-08-25T16:27:54.238715 #84387] DEBUG -- : request-header: accept-charset => ISO-8859-1,utf-8;q=0.7,*;q=0.7
+D, [2018-08-25T16:27:54.238738 #84387] DEBUG -- : request-header: accept-language => en-us,en;q=0.5
+D, [2018-08-25T16:27:54.238761 #84387] DEBUG -- : request-header: cookie => BIGipServercars_docker_rendering_prd=4215411884.18181.0000; BIGipServercars_dockerapp_swarm_prd=2369918124.20480.0000; TS01952cdc=01fce1e7c4baf3d2e8ae376a432700425fba12b200132d795db39433dfcc49ff4c1af5adaa7779b6c0db0762a9abf8b522613be79ad5560f2a7a0822db244d56ce22824ef7e167356f9be3c98619150f57c7b55e4f1ab7c33e11aa9ef280eea6f3080c93876479b42d5be7e6f89e722f75ba6fc0998a45b255bdb745f63f2e454e75e3078b221cc89aa843fa8a005c8750a46871c2aaa4fdd9273ebefd9cca9a2fec4ff841f63096da0d72287907d2663e070dc6f7; TS01bf77fc=01fce1e7c4c96c37d168ad9564dca57dceea8ae2b95e00075d2347929f9d81f8489ad5a4152b6e4e631e52b362ddb6af54627824a2170cde1600f262cd4b7aab2c9314c4ad; affiliate=national; ak_bmsc=DBAE52214BAEB74A418938A9C6640F45423DA8D64B4E0000C0BB815B06E1B422~plqihdCNntrwL4AiMeMgMd4rwM92PnuYV9xwTQ2hAtMb0cz3eFaRlf1BAkNRi7ONA6pMUJm6qmgQjnLQAjNbrvAGZ/EvzIAi5Z3ZN4wGCfgwAnrF2QBIrW3aXY39udEe669N/72ZvtrETHcIRMMG1Fs0mVzkZA5x2mtuxOkcI/bdEjJlMzhzdxj2UBTfYlaX6ASOPlAy/4RsgnYqaOKsM/gO8r6Vc+GNZWf5pJj2/z4fw=; akaas_research_abtest=1535315264~rv=77~id=501ba02213cfbc65fa66a0e2ab455d91~rn=flyio-exp01; bm_mi=2523EB71C2AAFB6ADE874CDDE666AED7~A/K71IIV7EI8K4FU3fiCc33LqmJ4R4ax1AA2XXxTi8Z88vKrOhLLxi/qWoeRAbsui2iX4H7quLsXVJrEP8yr5Yqs9CzvlCURJ9Z3wzoDp18jve4NzYmQVCXLa9+7WZ0aoBq7gLQkjwX7+LUzdH5ouVTye/R/zfe/y6eOaYWCQpZXpwvpDqoGrjIXZ178v/LF/V0W0PaSP9jB9eaRY5r5PY80kMydYe863/5sMskb+GidjfLur8aBg4fChHzUMU2B2eMeHPmy7kKYlJEizAysGA==; bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbimRz4ES9CH3jnEf8lqLtbwxx7g5neesyZuxpa6BzcP9mA==; rollout=79; zipcode=21030
+D, [2018-08-25T16:27:54.238785 #84387] DEBUG -- : request-header: host => www.cars.com
+I, [2018-08-25T16:27:54.887784 #84387]  INFO -- : status: Net::HTTPOK 1.1 200 OK
+D, [2018-08-25T16:27:54.887944 #84387] DEBUG -- : response-header: content-encoding => gzip
+D, [2018-08-25T16:27:54.888000 #84387] DEBUG -- : response-header: content-type => text/html; charset=utf-8
+D, [2018-08-25T16:27:54.888038 #84387] DEBUG -- : response-header: etag => c1472f7d7f590e7bb5b3143a127bef364fc89c97
+D, [2018-08-25T16:27:54.888074 #84387] DEBUG -- : response-header: fly-age => 45538
+D, [2018-08-25T16:27:54.888107 #84387] DEBUG -- : response-header: fly-cache => HIT+REFRESH (300s)
+D, [2018-08-25T16:27:54.888189 #84387] DEBUG -- : response-header: fly-request-id => bIZufNAtk8KvLdRodhBhXKiLYV
+D, [2018-08-25T16:27:54.888226 #84387] DEBUG -- : response-header: server => Fly.io/0.1.1
+D, [2018-08-25T16:27:54.888256 #84387] DEBUG -- : response-header: x-akamai-transformed => 9 - 0 pmb=mTOE,2
+D, [2018-08-25T16:27:54.888284 #84387] DEBUG -- : response-header: cache-control => max-age=40862
+D, [2018-08-25T16:27:54.888313 #84387] DEBUG -- : response-header: expires => Sun, 26 Aug 2018 07:48:56 GMT
+D, [2018-08-25T16:27:54.888343 #84387] DEBUG -- : response-header: date => Sat, 25 Aug 2018 20:27:54 GMT
+D, [2018-08-25T16:27:54.888371 #84387] DEBUG -- : response-header: transfer-encoding => chunked
+D, [2018-08-25T16:27:54.888399 #84387] DEBUG -- : response-header: connection => keep-alive, Transfer-Encoding
+D, [2018-08-25T16:27:54.888426 #84387] DEBUG -- : response-header: vary => Accept-Encoding
+D, [2018-08-25T16:27:54.888454 #84387] DEBUG -- : response-header: set-cookie => affiliate=national; Secure; SameSite=Strict; Domain=.www.cars.com; Path=/, BIGipServercars_dockerapp_swarm_prd=2369918124.20480.0000; path=/, TS01952cdc=01fce1e7c40bf347fc537083b3337062ed28ab30231c8e9079b2dae5d16e26e92eae310f13b482c5b390bd7f49412d5b24117d9592; Path=/, TS01bf77fc=01fce1e7c40d903b4514b6c44a1d8cca6b91077218516b16ad6f09333727de13fcb09ae832e79db438329c27d1ae7052d5e7cd91d8; path=/; domain=.www.cars.com, BIGipServercars_docker_rendering_prd=4198634668.14597.0000; path=/, rollout=98;expires=Thu, 24-Aug-2023 07:48:56 GMT;path=/;, TS01952cdc=01fce1e7c4ce8049ca207bab7839e65e7c82ff52740d8e7abf0a65df2872011afa9c93449989b5dcae2b421f6702cfb89f37aaea405d5e3eb82948567174ba2373fb316e800e635f412dcc28e5f70af4e528d6e426ec55dc1430d5bc2910c534b34782581b; Path=/, TS01bf77fc=01fce1e7c417c681e49400dae5187e4d4283daefa366c54da00dee871458fef27fe501c583e4b758d52306ffe8913b272d06d9add519235f8d68b513d07bd3df0eb316f4e9; path=/; domain=.www.cars.com, bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbincHV61NqF+k3Jz2oIixp6fyyazZJkxGguiF+AgSU0UDA==; Domain=.cars.com; Path=/; Max-Age=7190; HttpOnly
+D, [2018-08-25T16:27:54.888484 #84387] DEBUG -- : response-header: content-language => en-US
+D, [2018-08-25T16:27:54.888570 #84387] DEBUG -- : Read 14636 bytes (14636 total)
+D, [2018-08-25T16:27:54.888704 #84387] DEBUG -- : Read 9940 bytes (24576 total)
+D, [2018-08-25T16:27:54.888811 #84387] DEBUG -- : Read 16133 bytes (40709 total)
+D, [2018-08-25T16:27:54.888912 #84387] DEBUG -- : Read 14586 bytes (55295 total)
+D, [2018-08-25T16:27:54.889027 #84387] DEBUG -- : Read 16374 bytes (71669 total)
+D, [2018-08-25T16:27:54.889083 #84387] DEBUG -- : Read 10 bytes (71679 total)
+D, [2018-08-25T16:27:54.889158 #84387] DEBUG -- : Read 4278 bytes (75957 total)
+D, [2018-08-25T16:27:54.889293 #84387] DEBUG -- : gzip response
+D, [2018-08-25T16:27:54.905331 #84387] DEBUG -- : saved cookie: affiliate=national
+D, [2018-08-25T16:27:54.905421 #84387] DEBUG -- : saved cookie: BIGipServercars_dockerapp_swarm_prd=2369918124.20480.0000
+D, [2018-08-25T16:27:54.905510 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c40bf347fc537083b3337062ed28ab30231c8e9079b2dae5d16e26e92eae310f13b482c5b390bd7f49412d5b24117d9592
+D, [2018-08-25T16:27:54.905553 #84387] DEBUG -- : saved cookie: TS01bf77fc=01fce1e7c40d903b4514b6c44a1d8cca6b91077218516b16ad6f09333727de13fcb09ae832e79db438329c27d1ae7052d5e7cd91d8
+D, [2018-08-25T16:27:54.905592 #84387] DEBUG -- : saved cookie: BIGipServercars_docker_rendering_prd=4198634668.14597.0000
+D, [2018-08-25T16:27:54.905631 #84387] DEBUG -- : saved cookie: rollout=98
+D, [2018-08-25T16:27:54.905668 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c4ce8049ca207bab7839e65e7c82ff52740d8e7abf0a65df2872011afa9c93449989b5dcae2b421f6702cfb89f37aaea405d5e3eb82948567174ba2373fb316e800e635f412dcc28e5f70af4e528d6e426ec55dc1430d5bc2910c534b34782581b
+D, [2018-08-25T16:27:54.905706 #84387] DEBUG -- : saved cookie: TS01bf77fc=01fce1e7c417c681e49400dae5187e4d4283daefa366c54da00dee871458fef27fe501c583e4b758d52306ffe8913b272d06d9add519235f8d68b513d07bd3df0eb316f4e9
+D, [2018-08-25T16:27:54.905843 #84387] DEBUG -- : saved cookie: bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbincHV61NqF+k3Jz2oIixp6fyyazZJkxGguiF+AgSU0UDA==
+I, [2018-08-25T16:27:56.817569 #84387]  INFO -- : Net::HTTP::Get: /research/jeep-grand_cherokee-2018/specs/usc80jes051c0/
+D, [2018-08-25T16:27:56.817623 #84387] DEBUG -- : request-header: accept-encoding => gzip,deflate,identity
+D, [2018-08-25T16:27:56.817652 #84387] DEBUG -- : request-header: accept => */*
+D, [2018-08-25T16:27:56.817676 #84387] DEBUG -- : request-header: user-agent => Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9
+D, [2018-08-25T16:27:56.817699 #84387] DEBUG -- : request-header: accept-charset => ISO-8859-1,utf-8;q=0.7,*;q=0.7
+D, [2018-08-25T16:27:56.817722 #84387] DEBUG -- : request-header: accept-language => en-us,en;q=0.5
+D, [2018-08-25T16:27:56.817744 #84387] DEBUG -- : request-header: cookie => BIGipServercars_docker_rendering_prd=4198634668.14597.0000; BIGipServercars_dockerapp_swarm_prd=2369918124.20480.0000; TS01952cdc=01fce1e7c4ce8049ca207bab7839e65e7c82ff52740d8e7abf0a65df2872011afa9c93449989b5dcae2b421f6702cfb89f37aaea405d5e3eb82948567174ba2373fb316e800e635f412dcc28e5f70af4e528d6e426ec55dc1430d5bc2910c534b34782581b; TS01bf77fc=01fce1e7c417c681e49400dae5187e4d4283daefa366c54da00dee871458fef27fe501c583e4b758d52306ffe8913b272d06d9add519235f8d68b513d07bd3df0eb316f4e9; affiliate=national; ak_bmsc=DBAE52214BAEB74A418938A9C6640F45423DA8D64B4E0000C0BB815B06E1B422~plqihdCNntrwL4AiMeMgMd4rwM92PnuYV9xwTQ2hAtMb0cz3eFaRlf1BAkNRi7ONA6pMUJm6qmgQjnLQAjNbrvAGZ/EvzIAi5Z3ZN4wGCfgwAnrF2QBIrW3aXY39udEe669N/72ZvtrETHcIRMMG1Fs0mVzkZA5x2mtuxOkcI/bdEjJlMzhzdxj2UBTfYlaX6ASOPlAy/4RsgnYqaOKsM/gO8r6Vc+GNZWf5pJj2/z4fw=; akaas_research_abtest=1535315264~rv=77~id=501ba02213cfbc65fa66a0e2ab455d91~rn=flyio-exp01; bm_mi=2523EB71C2AAFB6ADE874CDDE666AED7~A/K71IIV7EI8K4FU3fiCc33LqmJ4R4ax1AA2XXxTi8Z88vKrOhLLxi/qWoeRAbsui2iX4H7quLsXVJrEP8yr5Yqs9CzvlCURJ9Z3wzoDp18jve4NzYmQVCXLa9+7WZ0aoBq7gLQkjwX7+LUzdH5ouVTye/R/zfe/y6eOaYWCQpZXpwvpDqoGrjIXZ178v/LF/V0W0PaSP9jB9eaRY5r5PY80kMydYe863/5sMskb+GidjfLur8aBg4fChHzUMU2B2eMeHPmy7kKYlJEizAysGA==; bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbincHV61NqF+k3Jz2oIixp6fyyazZJkxGguiF+AgSU0UDA==; rollout=98; zipcode=21030
+D, [2018-08-25T16:27:56.817767 #84387] DEBUG -- : request-header: host => www.cars.com
+I, [2018-08-25T16:27:58.552504 #84387]  INFO -- : status: Net::HTTPOK 1.1 200 OK
+D, [2018-08-25T16:27:58.552636 #84387] DEBUG -- : response-header: content-encoding => gzip
+D, [2018-08-25T16:27:58.552708 #84387] DEBUG -- : response-header: content-type => text/html; charset=utf-8
+D, [2018-08-25T16:27:58.552764 #84387] DEBUG -- : response-header: etag => c59014b6b10a4c64d6ae5c4e5b89f4e8c31d9705
+D, [2018-08-25T16:27:58.552815 #84387] DEBUG -- : response-header: fly-cache => MISS
+D, [2018-08-25T16:27:58.552864 #84387] DEBUG -- : response-header: fly-request-id => bIZufNSdciaJWclzbTvc81A862
+D, [2018-08-25T16:27:58.552912 #84387] DEBUG -- : response-header: server => Fly.io/0.1.1
+D, [2018-08-25T16:27:58.552959 #84387] DEBUG -- : response-header: vary => accept-encoding
+D, [2018-08-25T16:27:58.553006 #84387] DEBUG -- : response-header: x-ua-compatible => IE=edge, IE=edge
+D, [2018-08-25T16:27:58.553075 #84387] DEBUG -- : response-header: x-akamai-transformed => 9 - 0 pmb=mTOE,2
+D, [2018-08-25T16:27:58.553123 #84387] DEBUG -- : response-header: cache-control => max-age=86400
+D, [2018-08-25T16:27:58.553169 #84387] DEBUG -- : response-header: expires => Sun, 26 Aug 2018 20:27:58 GMT
+D, [2018-08-25T16:27:58.553215 #84387] DEBUG -- : response-header: date => Sat, 25 Aug 2018 20:27:58 GMT
+D, [2018-08-25T16:27:58.553260 #84387] DEBUG -- : response-header: transfer-encoding => chunked
+D, [2018-08-25T16:27:58.553306 #84387] DEBUG -- : response-header: connection => keep-alive, Transfer-Encoding
+D, [2018-08-25T16:27:58.553354 #84387] DEBUG -- : response-header: set-cookie => zipcode=21030; Secure; HttpOnly; SameSite=Strict; Path=/, TS01952cdc=01fce1e7c4089d365fe98cfa1f526508fadaa86f6a2bddd3712080aeef92dcf121457868bfe7cca0b5ad13686fdf46829277e4c2f8; Path=/, TS01952cdc=01fce1e7c4a249435e694f253cd18dacd231c91a7dc2be29f616d31eb6d42aa59cc86c0615bf52f3fa63da21233b6ec394aa6e0fb44d5ce216e45fdb8f8c016388598471cfac939372fd34f3d07afb472d7826424df0cb0354dbe640b1329adff263cd474e56da2836c3580f7531e0c70130f97614; Path=/, bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbimr705opIyS25S+o4bSXhaa7HvGoPXdJohfgXJlSv5lzw==; Domain=.cars.com; Path=/; Max-Age=7186; HttpOnly
+D, [2018-08-25T16:27:58.553410 #84387] DEBUG -- : response-header: content-language => en-US
+D, [2018-08-25T16:27:58.553610 #84387] DEBUG -- : Read 15115 bytes (15115 total)
+D, [2018-08-25T16:27:58.553751 #84387] DEBUG -- : Read 9461 bytes (24576 total)
+D, [2018-08-25T16:27:58.553908 #84387] DEBUG -- : Read 16133 bytes (40709 total)
+D, [2018-08-25T16:27:58.603457 #84387] DEBUG -- : Read 14586 bytes (55295 total)
+D, [2018-08-25T16:27:58.603616 #84387] DEBUG -- : Read 16374 bytes (71669 total)
+D, [2018-08-25T16:27:58.603690 #84387] DEBUG -- : Read 10 bytes (71679 total)
+D, [2018-08-25T16:27:58.603769 #84387] DEBUG -- : Read 4513 bytes (76192 total)
+D, [2018-08-25T16:27:58.603956 #84387] DEBUG -- : gzip response
+D, [2018-08-25T16:27:58.619644 #84387] DEBUG -- : saved cookie: zipcode=21030
+D, [2018-08-25T16:27:58.619782 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c4089d365fe98cfa1f526508fadaa86f6a2bddd3712080aeef92dcf121457868bfe7cca0b5ad13686fdf46829277e4c2f8
+D, [2018-08-25T16:27:58.619873 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c4a249435e694f253cd18dacd231c91a7dc2be29f616d31eb6d42aa59cc86c0615bf52f3fa63da21233b6ec394aa6e0fb44d5ce216e45fdb8f8c016388598471cfac939372fd34f3d07afb472d7826424df0cb0354dbe640b1329adff263cd474e56da2836c3580f7531e0c70130f97614
+D, [2018-08-25T16:27:58.620022 #84387] DEBUG -- : saved cookie: bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbimr705opIyS25S+o4bSXhaa7HvGoPXdJohfgXJlSv5lzw==
+I, [2018-08-25T16:28:00.348864 #84387]  INFO -- : Net::HTTP::Get: /research/jeep-grand_cherokee-2018/specs/usc80jes052d0/
+D, [2018-08-25T16:28:00.348940 #84387] DEBUG -- : request-header: accept-encoding => gzip,deflate,identity
+D, [2018-08-25T16:28:00.348975 #84387] DEBUG -- : request-header: accept => */*
+D, [2018-08-25T16:28:00.349003 #84387] DEBUG -- : request-header: user-agent => Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9
+D, [2018-08-25T16:28:00.349029 #84387] DEBUG -- : request-header: accept-charset => ISO-8859-1,utf-8;q=0.7,*;q=0.7
+D, [2018-08-25T16:28:00.349054 #84387] DEBUG -- : request-header: accept-language => en-us,en;q=0.5
+D, [2018-08-25T16:28:00.349080 #84387] DEBUG -- : request-header: cookie => BIGipServercars_docker_rendering_prd=4198634668.14597.0000; BIGipServercars_dockerapp_swarm_prd=2369918124.20480.0000; TS01952cdc=01fce1e7c4a249435e694f253cd18dacd231c91a7dc2be29f616d31eb6d42aa59cc86c0615bf52f3fa63da21233b6ec394aa6e0fb44d5ce216e45fdb8f8c016388598471cfac939372fd34f3d07afb472d7826424df0cb0354dbe640b1329adff263cd474e56da2836c3580f7531e0c70130f97614; TS01bf77fc=01fce1e7c417c681e49400dae5187e4d4283daefa366c54da00dee871458fef27fe501c583e4b758d52306ffe8913b272d06d9add519235f8d68b513d07bd3df0eb316f4e9; affiliate=national; ak_bmsc=DBAE52214BAEB74A418938A9C6640F45423DA8D64B4E0000C0BB815B06E1B422~plqihdCNntrwL4AiMeMgMd4rwM92PnuYV9xwTQ2hAtMb0cz3eFaRlf1BAkNRi7ONA6pMUJm6qmgQjnLQAjNbrvAGZ/EvzIAi5Z3ZN4wGCfgwAnrF2QBIrW3aXY39udEe669N/72ZvtrETHcIRMMG1Fs0mVzkZA5x2mtuxOkcI/bdEjJlMzhzdxj2UBTfYlaX6ASOPlAy/4RsgnYqaOKsM/gO8r6Vc+GNZWf5pJj2/z4fw=; akaas_research_abtest=1535315264~rv=77~id=501ba02213cfbc65fa66a0e2ab455d91~rn=flyio-exp01; bm_mi=2523EB71C2AAFB6ADE874CDDE666AED7~A/K71IIV7EI8K4FU3fiCc33LqmJ4R4ax1AA2XXxTi8Z88vKrOhLLxi/qWoeRAbsui2iX4H7quLsXVJrEP8yr5Yqs9CzvlCURJ9Z3wzoDp18jve4NzYmQVCXLa9+7WZ0aoBq7gLQkjwX7+LUzdH5ouVTye/R/zfe/y6eOaYWCQpZXpwvpDqoGrjIXZ178v/LF/V0W0PaSP9jB9eaRY5r5PY80kMydYe863/5sMskb+GidjfLur8aBg4fChHzUMU2B2eMeHPmy7kKYlJEizAysGA==; bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbimr705opIyS25S+o4bSXhaa7HvGoPXdJohfgXJlSv5lzw==; rollout=98; zipcode=21030
+D, [2018-08-25T16:28:00.349109 #84387] DEBUG -- : request-header: host => www.cars.com
+I, [2018-08-25T16:28:00.681868 #84387]  INFO -- : status: Net::HTTPOK 1.1 200 OK
+D, [2018-08-25T16:28:00.681978 #84387] DEBUG -- : response-header: content-encoding => gzip
+D, [2018-08-25T16:28:00.682027 #84387] DEBUG -- : response-header: content-type => text/html; charset=utf-8
+D, [2018-08-25T16:28:00.682084 #84387] DEBUG -- : response-header: etag => 1b780d692b1978bac945bd37ed3f72716bf4491f
+D, [2018-08-25T16:28:00.682120 #84387] DEBUG -- : response-header: fly-age => 3564
+D, [2018-08-25T16:28:00.682155 #84387] DEBUG -- : response-header: fly-cache => HIT+REFRESH (300s)
+D, [2018-08-25T16:28:00.682192 #84387] DEBUG -- : response-header: fly-request-id => bIZufP13wYLXB6nguLbcwPHDyX
+D, [2018-08-25T16:28:00.682226 #84387] DEBUG -- : response-header: server => Fly.io/0.1.1
+D, [2018-08-25T16:28:00.682258 #84387] DEBUG -- : response-header: x-akamai-transformed => 9 - 0 pmb=mTOE,2
+D, [2018-08-25T16:28:00.682290 #84387] DEBUG -- : response-header: cache-control => max-age=82836
+D, [2018-08-25T16:28:00.682321 #84387] DEBUG -- : response-header: expires => Sun, 26 Aug 2018 19:28:36 GMT
+D, [2018-08-25T16:28:00.682353 #84387] DEBUG -- : response-header: date => Sat, 25 Aug 2018 20:28:00 GMT
+D, [2018-08-25T16:28:00.682384 #84387] DEBUG -- : response-header: transfer-encoding => chunked
+D, [2018-08-25T16:28:00.682426 #84387] DEBUG -- : response-header: connection => keep-alive, Transfer-Encoding
+D, [2018-08-25T16:28:00.682457 #84387] DEBUG -- : response-header: vary => Accept-Encoding
+D, [2018-08-25T16:28:00.682489 #84387] DEBUG -- : response-header: set-cookie => zipcode=30319; Secure; HttpOnly; SameSite=Strict; Path=/, BIGipServercars_dockerapp_swarm_prd=2403472556.20480.0000; path=/, TS01952cdc=01fce1e7c465159e016ca921755948550a337f1f0b1b0c0ba5808096be5fc320dc258e5421008553681d0357d4a282350d4707836d8b22b72225d34e2af1e1f9e875ed6e14; Path=/, TS01952cdc=01fce1e7c481bb8e9e9d3019dea558b5df97ba8d429a244c4e1819b18d58ff5ed5ea466224f3dfa052ff342d2db7a50724f98a5834b6a65a7f8075010427ed3ca905084b88538cf23893de40f38078b4e0375c3d24653b26d7e8e8aacb3c11f08050b98e1dbcd9e753b10174a5547f71576dd02e02dc4af0ff8d5f0d3805454258205d3c3935814a3ce0c566d61fcac275de511cb582b3c1a49a59cc367d48a0d17cdf3b96; Path=/, bm_mi=2523EB71C2AAFB6ADE874CDDE666AED7~A/K71IIV7EI8K4FU3fiCc33LqmJ4R4ax1AA2XXxTi8Z88vKrOhLLxi/qWoeRAbsui2iX4H7quLsXVJrEP8yr5Yqs9CzvlCURJ9Z3wzoDp1+1gzvLtQIc7fgSZEKG0gesfi2kXIHeiiJNOlgJPHSK/LxuwLa+T9kyVVDkGIu9pry0/IOWwXp6/ZRGijUcO9yfqlNLBv2iCT+lAGdW/O+3XhgabZhtzFmu2Z65CqcKgCsQ5HArO0eyX/MTABgRYCPD6hZPMOZcryeeJPt12bzrNvjZfF/8pCviqRmbJrpFhII=; Domain=.cars.com; Path=/; Max-Age=7184; HttpOnly, bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbik/CuELHQWHGhDAYLezKCxVedyS5GqPwljUVmSRztDuTA==; Domain=.cars.com; Path=/; Max-Age=7184; HttpOnly
+D, [2018-08-25T16:28:00.682522 #84387] DEBUG -- : response-header: content-language => en-US
+D, [2018-08-25T16:28:00.682647 #84387] DEBUG -- : Read 14547 bytes (14547 total)
+D, [2018-08-25T16:28:00.708500 #84387] DEBUG -- : Read 10029 bytes (24576 total)
+D, [2018-08-25T16:28:00.899733 #84387] DEBUG -- : Read 16133 bytes (40709 total)
+D, [2018-08-25T16:28:00.899941 #84387] DEBUG -- : Read 14586 bytes (55295 total)
+D, [2018-08-25T16:28:00.900059 #84387] DEBUG -- : Read 16374 bytes (71669 total)
+D, [2018-08-25T16:28:00.900124 #84387] DEBUG -- : Read 10 bytes (71679 total)
+D, [2018-08-25T16:28:01.037872 #84387] DEBUG -- : Read 4955 bytes (76634 total)
+D, [2018-08-25T16:28:01.038120 #84387] DEBUG -- : gzip response
+D, [2018-08-25T16:28:01.056306 #84387] DEBUG -- : saved cookie: zipcode=30319
+D, [2018-08-25T16:28:01.056418 #84387] DEBUG -- : saved cookie: BIGipServercars_dockerapp_swarm_prd=2403472556.20480.0000
+D, [2018-08-25T16:28:01.056499 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c465159e016ca921755948550a337f1f0b1b0c0ba5808096be5fc320dc258e5421008553681d0357d4a282350d4707836d8b22b72225d34e2af1e1f9e875ed6e14
+D, [2018-08-25T16:28:01.056549 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c481bb8e9e9d3019dea558b5df97ba8d429a244c4e1819b18d58ff5ed5ea466224f3dfa052ff342d2db7a50724f98a5834b6a65a7f8075010427ed3ca905084b88538cf23893de40f38078b4e0375c3d24653b26d7e8e8aacb3c11f08050b98e1dbcd9e753b10174a5547f71576dd02e02dc4af0ff8d5f0d3805454258205d3c3935814a3ce0c566d61fcac275de511cb582b3c1a49a59cc367d48a0d17cdf3b96
+D, [2018-08-25T16:28:01.056732 #84387] DEBUG -- : saved cookie: bm_mi=2523EB71C2AAFB6ADE874CDDE666AED7~A/K71IIV7EI8K4FU3fiCc33LqmJ4R4ax1AA2XXxTi8Z88vKrOhLLxi/qWoeRAbsui2iX4H7quLsXVJrEP8yr5Yqs9CzvlCURJ9Z3wzoDp1+1gzvLtQIc7fgSZEKG0gesfi2kXIHeiiJNOlgJPHSK/LxuwLa+T9kyVVDkGIu9pry0/IOWwXp6/ZRGijUcO9yfqlNLBv2iCT+lAGdW/O+3XhgabZhtzFmu2Z65CqcKgCsQ5HArO0eyX/MTABgRYCPD6hZPMOZcryeeJPt12bzrNvjZfF/8pCviqRmbJrpFhII=
+D, [2018-08-25T16:28:01.056893 #84387] DEBUG -- : saved cookie: bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbik/CuELHQWHGhDAYLezKCxVedyS5GqPwljUVmSRztDuTA==
+I, [2018-08-25T16:28:02.913441 #84387]  INFO -- : Net::HTTP::Get: /research/jeep-grand_cherokee-2018/specs/usc80jes051d0/
+D, [2018-08-25T16:28:02.913505 #84387] DEBUG -- : request-header: accept-encoding => gzip,deflate,identity
+D, [2018-08-25T16:28:02.913536 #84387] DEBUG -- : request-header: accept => */*
+D, [2018-08-25T16:28:02.913562 #84387] DEBUG -- : request-header: user-agent => Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9
+D, [2018-08-25T16:28:02.913594 #84387] DEBUG -- : request-header: accept-charset => ISO-8859-1,utf-8;q=0.7,*;q=0.7
+D, [2018-08-25T16:28:02.913617 #84387] DEBUG -- : request-header: accept-language => en-us,en;q=0.5
+D, [2018-08-25T16:28:02.913640 #84387] DEBUG -- : request-header: cookie => BIGipServercars_docker_rendering_prd=4198634668.14597.0000; BIGipServercars_dockerapp_swarm_prd=2403472556.20480.0000; TS01952cdc=01fce1e7c481bb8e9e9d3019dea558b5df97ba8d429a244c4e1819b18d58ff5ed5ea466224f3dfa052ff342d2db7a50724f98a5834b6a65a7f8075010427ed3ca905084b88538cf23893de40f38078b4e0375c3d24653b26d7e8e8aacb3c11f08050b98e1dbcd9e753b10174a5547f71576dd02e02dc4af0ff8d5f0d3805454258205d3c3935814a3ce0c566d61fcac275de511cb582b3c1a49a59cc367d48a0d17cdf3b96; TS01bf77fc=01fce1e7c417c681e49400dae5187e4d4283daefa366c54da00dee871458fef27fe501c583e4b758d52306ffe8913b272d06d9add519235f8d68b513d07bd3df0eb316f4e9; affiliate=national; ak_bmsc=DBAE52214BAEB74A418938A9C6640F45423DA8D64B4E0000C0BB815B06E1B422~plqihdCNntrwL4AiMeMgMd4rwM92PnuYV9xwTQ2hAtMb0cz3eFaRlf1BAkNRi7ONA6pMUJm6qmgQjnLQAjNbrvAGZ/EvzIAi5Z3ZN4wGCfgwAnrF2QBIrW3aXY39udEe669N/72ZvtrETHcIRMMG1Fs0mVzkZA5x2mtuxOkcI/bdEjJlMzhzdxj2UBTfYlaX6ASOPlAy/4RsgnYqaOKsM/gO8r6Vc+GNZWf5pJj2/z4fw=; akaas_research_abtest=1535315264~rv=77~id=501ba02213cfbc65fa66a0e2ab455d91~rn=flyio-exp01; bm_mi=2523EB71C2AAFB6ADE874CDDE666AED7~A/K71IIV7EI8K4FU3fiCc33LqmJ4R4ax1AA2XXxTi8Z88vKrOhLLxi/qWoeRAbsui2iX4H7quLsXVJrEP8yr5Yqs9CzvlCURJ9Z3wzoDp1+1gzvLtQIc7fgSZEKG0gesfi2kXIHeiiJNOlgJPHSK/LxuwLa+T9kyVVDkGIu9pry0/IOWwXp6/ZRGijUcO9yfqlNLBv2iCT+lAGdW/O+3XhgabZhtzFmu2Z65CqcKgCsQ5HArO0eyX/MTABgRYCPD6hZPMOZcryeeJPt12bzrNvjZfF/8pCviqRmbJrpFhII=; bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbik/CuELHQWHGhDAYLezKCxVedyS5GqPwljUVmSRztDuTA==; rollout=98; zipcode=30319
+D, [2018-08-25T16:28:02.913664 #84387] DEBUG -- : request-header: host => www.cars.com
+I, [2018-08-25T16:28:04.193634 #84387]  INFO -- : status: Net::HTTPOK 1.1 200 OK
+D, [2018-08-25T16:28:04.193773 #84387] DEBUG -- : response-header: content-encoding => gzip
+D, [2018-08-25T16:28:04.193843 #84387] DEBUG -- : response-header: content-type => text/html; charset=utf-8
+D, [2018-08-25T16:28:04.193891 #84387] DEBUG -- : response-header: etag => 54d79a635749a266948f46b16a414352c1821e4a
+D, [2018-08-25T16:28:04.193924 #84387] DEBUG -- : response-header: fly-cache => MISS
+D, [2018-08-25T16:28:04.193964 #84387] DEBUG -- : response-header: fly-request-id => bIZufPldz9RiCIeCmIKLtMfv6s
+D, [2018-08-25T16:28:04.194009 #84387] DEBUG -- : response-header: server => Fly.io/0.1.1
+D, [2018-08-25T16:28:04.194055 #84387] DEBUG -- : response-header: vary => accept-encoding
+D, [2018-08-25T16:28:04.194088 #84387] DEBUG -- : response-header: x-ua-compatible => IE=edge, IE=edge
+D, [2018-08-25T16:28:04.194116 #84387] DEBUG -- : response-header: x-akamai-transformed => 9 - 0 pmb=mTOE,2
+D, [2018-08-25T16:28:04.194153 #84387] DEBUG -- : response-header: cache-control => max-age=86356
+D, [2018-08-25T16:28:04.194185 #84387] DEBUG -- : response-header: expires => Sun, 26 Aug 2018 20:27:20 GMT
+D, [2018-08-25T16:28:04.194213 #84387] DEBUG -- : response-header: date => Sat, 25 Aug 2018 20:28:04 GMT
+D, [2018-08-25T16:28:04.194241 #84387] DEBUG -- : response-header: transfer-encoding => chunked
+D, [2018-08-25T16:28:04.194269 #84387] DEBUG -- : response-header: connection => keep-alive, Transfer-Encoding
+D, [2018-08-25T16:28:04.194297 #84387] DEBUG -- : response-header: set-cookie => zipcode=30319; Secure; HttpOnly; SameSite=Strict; Path=/, TS01952cdc=01fce1e7c4d6b96a5c11939ad6edc9dc18a933b51e037c32e9a9d28911ef65acbf4d3ebe21976358f606aabecb0da88903375b9261; Path=/, TS01952cdc=01fce1e7c4f06d57381a28f89e510c027caf23753f4db5641182654245de8a82735b82c8f117f2a70150ca67292b245d73bdf4fc9d9855fbdefe9e0009b66935c5a1673db71a527e6617090094aec27ba03f2ddde1bda03ab0db129177d3cf6e2cbf9c4f08e3918c7b205925e7f43f96c1143eedb2a4bac0ae872f8d0cb520c13dccbeea15a74cd3e240614e2a62aa26d73d0c4dd17077915015f4dcf62a0bed9b0918e883; Path=/, bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbimIXhA3CUcT1+kHLV3EASq5Uxst5guooSCjiFyghgDZ5w==; Domain=.cars.com; Path=/; Max-Age=7180; HttpOnly
+D, [2018-08-25T16:28:04.194327 #84387] DEBUG -- : response-header: content-language => en-US
+D, [2018-08-25T16:28:04.194490 #84387] DEBUG -- : Read 15019 bytes (15019 total)
+D, [2018-08-25T16:28:04.194638 #84387] DEBUG -- : Read 9557 bytes (24576 total)
+D, [2018-08-25T16:28:04.256007 #84387] DEBUG -- : Read 16133 bytes (40709 total)
+D, [2018-08-25T16:28:04.284387 #84387] DEBUG -- : Read 14586 bytes (55295 total)
+D, [2018-08-25T16:28:04.321192 #84387] DEBUG -- : Read 16374 bytes (71669 total)
+D, [2018-08-25T16:28:04.321298 #84387] DEBUG -- : Read 10 bytes (71679 total)
+D, [2018-08-25T16:28:04.321986 #84387] DEBUG -- : Read 4271 bytes (75950 total)
+D, [2018-08-25T16:28:04.322139 #84387] DEBUG -- : gzip response
+D, [2018-08-25T16:28:04.337475 #84387] DEBUG -- : saved cookie: zipcode=30319
+D, [2018-08-25T16:28:04.337706 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c4d6b96a5c11939ad6edc9dc18a933b51e037c32e9a9d28911ef65acbf4d3ebe21976358f606aabecb0da88903375b9261
+D, [2018-08-25T16:28:04.337824 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c4f06d57381a28f89e510c027caf23753f4db5641182654245de8a82735b82c8f117f2a70150ca67292b245d73bdf4fc9d9855fbdefe9e0009b66935c5a1673db71a527e6617090094aec27ba03f2ddde1bda03ab0db129177d3cf6e2cbf9c4f08e3918c7b205925e7f43f96c1143eedb2a4bac0ae872f8d0cb520c13dccbeea15a74cd3e240614e2a62aa26d73d0c4dd17077915015f4dcf62a0bed9b0918e883
+D, [2018-08-25T16:28:04.337949 #84387] DEBUG -- : saved cookie: bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbimIXhA3CUcT1+kHLV3EASq5Uxst5guooSCjiFyghgDZ5w==
+I, [2018-08-25T16:28:06.156980 #84387]  INFO -- : Net::HTTP::Get: /research/jeep-grand_cherokee-2018/specs/usc80jes052e0/
+D, [2018-08-25T16:28:06.157033 #84387] DEBUG -- : request-header: accept-encoding => gzip,deflate,identity
+D, [2018-08-25T16:28:06.157099 #84387] DEBUG -- : request-header: accept => */*
+D, [2018-08-25T16:28:06.157126 #84387] DEBUG -- : request-header: user-agent => Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9
+D, [2018-08-25T16:28:06.157150 #84387] DEBUG -- : request-header: accept-charset => ISO-8859-1,utf-8;q=0.7,*;q=0.7
+D, [2018-08-25T16:28:06.157173 #84387] DEBUG -- : request-header: accept-language => en-us,en;q=0.5
+D, [2018-08-25T16:28:06.157196 #84387] DEBUG -- : request-header: cookie => BIGipServercars_docker_rendering_prd=4198634668.14597.0000; BIGipServercars_dockerapp_swarm_prd=2403472556.20480.0000; TS01952cdc=01fce1e7c4f06d57381a28f89e510c027caf23753f4db5641182654245de8a82735b82c8f117f2a70150ca67292b245d73bdf4fc9d9855fbdefe9e0009b66935c5a1673db71a527e6617090094aec27ba03f2ddde1bda03ab0db129177d3cf6e2cbf9c4f08e3918c7b205925e7f43f96c1143eedb2a4bac0ae872f8d0cb520c13dccbeea15a74cd3e240614e2a62aa26d73d0c4dd17077915015f4dcf62a0bed9b0918e883; TS01bf77fc=01fce1e7c417c681e49400dae5187e4d4283daefa366c54da00dee871458fef27fe501c583e4b758d52306ffe8913b272d06d9add519235f8d68b513d07bd3df0eb316f4e9; affiliate=national; ak_bmsc=DBAE52214BAEB74A418938A9C6640F45423DA8D64B4E0000C0BB815B06E1B422~plqihdCNntrwL4AiMeMgMd4rwM92PnuYV9xwTQ2hAtMb0cz3eFaRlf1BAkNRi7ONA6pMUJm6qmgQjnLQAjNbrvAGZ/EvzIAi5Z3ZN4wGCfgwAnrF2QBIrW3aXY39udEe669N/72ZvtrETHcIRMMG1Fs0mVzkZA5x2mtuxOkcI/bdEjJlMzhzdxj2UBTfYlaX6ASOPlAy/4RsgnYqaOKsM/gO8r6Vc+GNZWf5pJj2/z4fw=; akaas_research_abtest=1535315264~rv=77~id=501ba02213cfbc65fa66a0e2ab455d91~rn=flyio-exp01; bm_mi=2523EB71C2AAFB6ADE874CDDE666AED7~A/K71IIV7EI8K4FU3fiCc33LqmJ4R4ax1AA2XXxTi8Z88vKrOhLLxi/qWoeRAbsui2iX4H7quLsXVJrEP8yr5Yqs9CzvlCURJ9Z3wzoDp1+1gzvLtQIc7fgSZEKG0gesfi2kXIHeiiJNOlgJPHSK/LxuwLa+T9kyVVDkGIu9pry0/IOWwXp6/ZRGijUcO9yfqlNLBv2iCT+lAGdW/O+3XhgabZhtzFmu2Z65CqcKgCsQ5HArO0eyX/MTABgRYCPD6hZPMOZcryeeJPt12bzrNvjZfF/8pCviqRmbJrpFhII=; bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbimIXhA3CUcT1+kHLV3EASq5Uxst5guooSCjiFyghgDZ5w==; rollout=98; zipcode=30319
+D, [2018-08-25T16:28:06.157220 #84387] DEBUG -- : request-header: host => www.cars.com
+I, [2018-08-25T16:28:06.986115 #84387]  INFO -- : status: Net::HTTPOK 1.1 200 OK
+D, [2018-08-25T16:28:06.986296 #84387] DEBUG -- : response-header: content-encoding => gzip
+D, [2018-08-25T16:28:06.986344 #84387] DEBUG -- : response-header: content-type => text/html; charset=utf-8
+D, [2018-08-25T16:28:06.986381 #84387] DEBUG -- : response-header: etag => 94fb1f6eb0cb6b26f741da21db0a78f990672ff7
+D, [2018-08-25T16:28:06.986415 #84387] DEBUG -- : response-header: fly-cache => MISS
+D, [2018-08-25T16:28:06.986447 #84387] DEBUG -- : response-header: fly-request-id => bIZufPI4hZwyjHDAlfb1x22bXZ
+D, [2018-08-25T16:28:06.986479 #84387] DEBUG -- : response-header: server => Fly.io/0.1.1
+D, [2018-08-25T16:28:06.986533 #84387] DEBUG -- : response-header: vary => accept-encoding
+D, [2018-08-25T16:28:06.986566 #84387] DEBUG -- : response-header: x-ua-compatible => IE=edge, IE=edge
+D, [2018-08-25T16:28:06.986598 #84387] DEBUG -- : response-header: x-akamai-transformed => 9 - 0 pmb=mTOE,2
+D, [2018-08-25T16:28:06.986630 #84387] DEBUG -- : response-header: cache-control => max-age=86376
+D, [2018-08-25T16:28:06.986661 #84387] DEBUG -- : response-header: expires => Sun, 26 Aug 2018 20:27:42 GMT
+D, [2018-08-25T16:28:06.986692 #84387] DEBUG -- : response-header: date => Sat, 25 Aug 2018 20:28:06 GMT
+D, [2018-08-25T16:28:06.986736 #84387] DEBUG -- : response-header: transfer-encoding => chunked
+D, [2018-08-25T16:28:06.986788 #84387] DEBUG -- : response-header: connection => keep-alive, Transfer-Encoding
+D, [2018-08-25T16:28:06.986821 #84387] DEBUG -- : response-header: set-cookie => zipcode=30319; Secure; HttpOnly; SameSite=Strict; Path=/, TS01952cdc=01fce1e7c47d2a7c32731cfe1f3d2201a69a1201e7c4c27d6e0b4c25320153ec39d998d43a1f924e63d466cf04f01b6ec1054992e2; Path=/, TS01952cdc=01fce1e7c4d315d9028637aff5fa578d4f687ba6e94db5641182654245de8a82735b82c8f117f2a70150ca67292b245d73bdf4fc9d9855fbdefe9e0009b66935c5a1673db71a527e6617090094aec27ba03f2ddde1bda03ab0db129177d3cf6e2cbf9c4f08e3918c7b205925e7f43f96c1143eedb2a4bac0ae872f8d0cb520c13dccbeea15a74cd3e240614e2a62aa26d73d0c4dd153d7e316f33e175ee86a2979f56912f4; Path=/, bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbilNOHiOdvLipd9xAR0YRxxnmiUsylZoPwmL1TPZqDpQffy27HwvUCB/YtHY4SjmUBc=; Domain=.cars.com; Path=/; Max-Age=7178; HttpOnly
+D, [2018-08-25T16:28:06.986859 #84387] DEBUG -- : response-header: content-language => en-US
+D, [2018-08-25T16:28:06.986984 #84387] DEBUG -- : Read 14999 bytes (14999 total)
+D, [2018-08-25T16:28:06.987071 #84387] DEBUG -- : Read 9577 bytes (24576 total)
+D, [2018-08-25T16:28:07.028215 #84387] DEBUG -- : Read 16133 bytes (40709 total)
+D, [2018-08-25T16:28:07.042440 #84387] DEBUG -- : Read 14586 bytes (55295 total)
+D, [2018-08-25T16:28:07.059899 #84387] DEBUG -- : Read 16374 bytes (71669 total)
+D, [2018-08-25T16:28:07.060035 #84387] DEBUG -- : Read 10 bytes (71679 total)
+D, [2018-08-25T16:28:07.073289 #84387] DEBUG -- : Read 4494 bytes (76173 total)
+D, [2018-08-25T16:28:07.073518 #84387] DEBUG -- : gzip response
+D, [2018-08-25T16:28:07.090708 #84387] DEBUG -- : saved cookie: zipcode=30319
+D, [2018-08-25T16:28:07.090903 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c47d2a7c32731cfe1f3d2201a69a1201e7c4c27d6e0b4c25320153ec39d998d43a1f924e63d466cf04f01b6ec1054992e2
+D, [2018-08-25T16:28:07.091072 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c4d315d9028637aff5fa578d4f687ba6e94db5641182654245de8a82735b82c8f117f2a70150ca67292b245d73bdf4fc9d9855fbdefe9e0009b66935c5a1673db71a527e6617090094aec27ba03f2ddde1bda03ab0db129177d3cf6e2cbf9c4f08e3918c7b205925e7f43f96c1143eedb2a4bac0ae872f8d0cb520c13dccbeea15a74cd3e240614e2a62aa26d73d0c4dd153d7e316f33e175ee86a2979f56912f4
+D, [2018-08-25T16:28:07.091243 #84387] DEBUG -- : saved cookie: bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbilNOHiOdvLipd9xAR0YRxxnmiUsylZoPwmL1TPZqDpQffy27HwvUCB/YtHY4SjmUBc=
+I, [2018-08-25T16:28:09.271567 #84387]  INFO -- : Net::HTTP::Get: /research/jeep-grand_cherokee-2018/specs/usc80jes052f0/
+D, [2018-08-25T16:28:09.271620 #84387] DEBUG -- : request-header: accept-encoding => gzip,deflate,identity
+D, [2018-08-25T16:28:09.271649 #84387] DEBUG -- : request-header: accept => */*
+D, [2018-08-25T16:28:09.271674 #84387] DEBUG -- : request-header: user-agent => Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9
+D, [2018-08-25T16:28:09.271698 #84387] DEBUG -- : request-header: accept-charset => ISO-8859-1,utf-8;q=0.7,*;q=0.7
+D, [2018-08-25T16:28:09.271720 #84387] DEBUG -- : request-header: accept-language => en-us,en;q=0.5
+D, [2018-08-25T16:28:09.271743 #84387] DEBUG -- : request-header: cookie => BIGipServercars_docker_rendering_prd=4198634668.14597.0000; BIGipServercars_dockerapp_swarm_prd=2403472556.20480.0000; TS01952cdc=01fce1e7c4d315d9028637aff5fa578d4f687ba6e94db5641182654245de8a82735b82c8f117f2a70150ca67292b245d73bdf4fc9d9855fbdefe9e0009b66935c5a1673db71a527e6617090094aec27ba03f2ddde1bda03ab0db129177d3cf6e2cbf9c4f08e3918c7b205925e7f43f96c1143eedb2a4bac0ae872f8d0cb520c13dccbeea15a74cd3e240614e2a62aa26d73d0c4dd153d7e316f33e175ee86a2979f56912f4; TS01bf77fc=01fce1e7c417c681e49400dae5187e4d4283daefa366c54da00dee871458fef27fe501c583e4b758d52306ffe8913b272d06d9add519235f8d68b513d07bd3df0eb316f4e9; affiliate=national; ak_bmsc=DBAE52214BAEB74A418938A9C6640F45423DA8D64B4E0000C0BB815B06E1B422~plqihdCNntrwL4AiMeMgMd4rwM92PnuYV9xwTQ2hAtMb0cz3eFaRlf1BAkNRi7ONA6pMUJm6qmgQjnLQAjNbrvAGZ/EvzIAi5Z3ZN4wGCfgwAnrF2QBIrW3aXY39udEe669N/72ZvtrETHcIRMMG1Fs0mVzkZA5x2mtuxOkcI/bdEjJlMzhzdxj2UBTfYlaX6ASOPlAy/4RsgnYqaOKsM/gO8r6Vc+GNZWf5pJj2/z4fw=; akaas_research_abtest=1535315264~rv=77~id=501ba02213cfbc65fa66a0e2ab455d91~rn=flyio-exp01; bm_mi=2523EB71C2AAFB6ADE874CDDE666AED7~A/K71IIV7EI8K4FU3fiCc33LqmJ4R4ax1AA2XXxTi8Z88vKrOhLLxi/qWoeRAbsui2iX4H7quLsXVJrEP8yr5Yqs9CzvlCURJ9Z3wzoDp1+1gzvLtQIc7fgSZEKG0gesfi2kXIHeiiJNOlgJPHSK/LxuwLa+T9kyVVDkGIu9pry0/IOWwXp6/ZRGijUcO9yfqlNLBv2iCT+lAGdW/O+3XhgabZhtzFmu2Z65CqcKgCsQ5HArO0eyX/MTABgRYCPD6hZPMOZcryeeJPt12bzrNvjZfF/8pCviqRmbJrpFhII=; bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbilNOHiOdvLipd9xAR0YRxxnmiUsylZoPwmL1TPZqDpQffy27HwvUCB/YtHY4SjmUBc=; rollout=98; zipcode=30319
+D, [2018-08-25T16:28:09.271771 #84387] DEBUG -- : request-header: host => www.cars.com
+I, [2018-08-25T16:28:09.388941 #84387]  INFO -- : status: Net::HTTPOK 1.1 200 OK
+D, [2018-08-25T16:28:09.389045 #84387] DEBUG -- : response-header: content-encoding => gzip
+D, [2018-08-25T16:28:09.389130 #84387] DEBUG -- : response-header: content-type => text/html; charset=utf-8
+D, [2018-08-25T16:28:09.389165 #84387] DEBUG -- : response-header: etag => 38149c44b7980018eaadfc944d99b29e6ab7d30e
+D, [2018-08-25T16:28:09.389200 #84387] DEBUG -- : response-header: fly-age => 729
+D, [2018-08-25T16:28:09.389232 #84387] DEBUG -- : response-header: fly-cache => HIT+REFRESH (300s)
+D, [2018-08-25T16:28:09.389264 #84387] DEBUG -- : response-header: fly-request-id => bIZufQ4lbHMSP1OQiZoC3nNs8F
+D, [2018-08-25T16:28:09.389295 #84387] DEBUG -- : response-header: server => Fly.io/0.1.1
+D, [2018-08-25T16:28:09.389326 #84387] DEBUG -- : response-header: vary => Accept-Encoding
+D, [2018-08-25T16:28:09.389357 #84387] DEBUG -- : response-header: x-akamai-transformed => 9 - 0 pmb=mTOE,2
+D, [2018-08-25T16:28:09.389388 #84387] DEBUG -- : response-header: cache-control => max-age=85692
+D, [2018-08-25T16:28:09.389419 #84387] DEBUG -- : response-header: expires => Sun, 26 Aug 2018 20:16:21 GMT
+D, [2018-08-25T16:28:09.389450 #84387] DEBUG -- : response-header: date => Sat, 25 Aug 2018 20:28:09 GMT
+D, [2018-08-25T16:28:09.389481 #84387] DEBUG -- : response-header: transfer-encoding => chunked
+D, [2018-08-25T16:28:09.389512 #84387] DEBUG -- : response-header: connection => keep-alive, Transfer-Encoding
+D, [2018-08-25T16:28:09.389544 #84387] DEBUG -- : response-header: set-cookie => BIGipServercars_dockerapp_swarm_prd=2386695340.20480.0000; path=/, TS01952cdc=01fce1e7c479a723ff3c97a85adf54a444cfcdf991f8be2652e071e47d14c3f483fc4e5ccc61649897fce5aa31fefe8a7def50370f; Path=/, BIGipServercars_docker_rendering_prd=4198634668.16389.0000; path=/, TS01952cdc=01fce1e7c4873467d81a5a1d0198f44e7fb7492edd58a7e1be1e5b1929d6fdafca652165989bf5413801107b3eedd995a068613f227050cd2c6ab00593c958540824a97ff015b5abab8ca680e1287aa37fa8f39712c08440b4c668a27d54dcb78427ea9ab8b9d1a44b3c81bcc40009c09bf9ee32e49939ca25a94162b78cab85369a402f1c1bb70bd67c16e58e152dbce66135f24955e9d5be0d8991c271f5b39eb8451c6c; Path=/, bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbinjclB7wG4dY2SeQzjUbQ5cnP1DPxGVST8wq2PjPyzCPvJcCmhmXD1nIkjwqnPZDOE=; Domain=.cars.com; Path=/; Max-Age=7175; HttpOnly
+D, [2018-08-25T16:28:09.389593 #84387] DEBUG -- : response-header: content-language => en-US
+D, [2018-08-25T16:28:09.389683 #84387] DEBUG -- : Read 14953 bytes (14953 total)
+D, [2018-08-25T16:28:09.394820 #84387] DEBUG -- : Read 9623 bytes (24576 total)
+D, [2018-08-25T16:28:09.403729 #84387] DEBUG -- : Read 16133 bytes (40709 total)
+D, [2018-08-25T16:28:09.429640 #84387] DEBUG -- : Read 14586 bytes (55295 total)
+D, [2018-08-25T16:28:09.436950 #84387] DEBUG -- : Read 16374 bytes (71669 total)
+D, [2018-08-25T16:28:09.437090 #84387] DEBUG -- : Read 10 bytes (71679 total)
+D, [2018-08-25T16:28:09.438082 #84387] DEBUG -- : Read 3875 bytes (75554 total)
+D, [2018-08-25T16:28:09.438346 #84387] DEBUG -- : gzip response
+D, [2018-08-25T16:28:09.457454 #84387] DEBUG -- : saved cookie: BIGipServercars_dockerapp_swarm_prd=2386695340.20480.0000
+D, [2018-08-25T16:28:09.457554 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c479a723ff3c97a85adf54a444cfcdf991f8be2652e071e47d14c3f483fc4e5ccc61649897fce5aa31fefe8a7def50370f
+D, [2018-08-25T16:28:09.457615 #84387] DEBUG -- : saved cookie: BIGipServercars_docker_rendering_prd=4198634668.16389.0000
+D, [2018-08-25T16:28:09.457674 #84387] DEBUG -- : saved cookie: TS01952cdc=01fce1e7c4873467d81a5a1d0198f44e7fb7492edd58a7e1be1e5b1929d6fdafca652165989bf5413801107b3eedd995a068613f227050cd2c6ab00593c958540824a97ff015b5abab8ca680e1287aa37fa8f39712c08440b4c668a27d54dcb78427ea9ab8b9d1a44b3c81bcc40009c09bf9ee32e49939ca25a94162b78cab85369a402f1c1bb70bd67c16e58e152dbce66135f24955e9d5be0d8991c271f5b39eb8451c6c
+D, [2018-08-25T16:28:09.457840 #84387] DEBUG -- : saved cookie: bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbinjclB7wG4dY2SeQzjUbQ5cnP1DPxGVST8wq2PjPyzCPvJcCmhmXD1nIkjwqnPZDOE=
+I, [2018-08-25T16:28:11.056857 #84387]  INFO -- : Net::HTTP::Get: /research/jeep-grand_cherokee-2018/specs/usc80jes052g0/
+D, [2018-08-25T16:28:11.056912 #84387] DEBUG -- : request-header: accept-encoding => gzip,deflate,identity
+D, [2018-08-25T16:28:11.056940 #84387] DEBUG -- : request-header: accept => */*
+D, [2018-08-25T16:28:11.056964 #84387] DEBUG -- : request-header: user-agent => Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9
+D, [2018-08-25T16:28:11.056988 #84387] DEBUG -- : request-header: accept-charset => ISO-8859-1,utf-8;q=0.7,*;q=0.7
+D, [2018-08-25T16:28:11.057010 #84387] DEBUG -- : request-header: accept-language => en-us,en;q=0.5
+D, [2018-08-25T16:28:11.057034 #84387] DEBUG -- : request-header: cookie => BIGipServercars_docker_rendering_prd=4198634668.16389.0000; BIGipServercars_dockerapp_swarm_prd=2386695340.20480.0000; TS01952cdc=01fce1e7c4873467d81a5a1d0198f44e7fb7492edd58a7e1be1e5b1929d6fdafca652165989bf5413801107b3eedd995a068613f227050cd2c6ab00593c958540824a97ff015b5abab8ca680e1287aa37fa8f39712c08440b4c668a27d54dcb78427ea9ab8b9d1a44b3c81bcc40009c09bf9ee32e49939ca25a94162b78cab85369a402f1c1bb70bd67c16e58e152dbce66135f24955e9d5be0d8991c271f5b39eb8451c6c; TS01bf77fc=01fce1e7c417c681e49400dae5187e4d4283daefa366c54da00dee871458fef27fe501c583e4b758d52306ffe8913b272d06d9add519235f8d68b513d07bd3df0eb316f4e9; affiliate=national; ak_bmsc=DBAE52214BAEB74A418938A9C6640F45423DA8D64B4E0000C0BB815B06E1B422~plqihdCNntrwL4AiMeMgMd4rwM92PnuYV9xwTQ2hAtMb0cz3eFaRlf1BAkNRi7ONA6pMUJm6qmgQjnLQAjNbrvAGZ/EvzIAi5Z3ZN4wGCfgwAnrF2QBIrW3aXY39udEe669N/72ZvtrETHcIRMMG1Fs0mVzkZA5x2mtuxOkcI/bdEjJlMzhzdxj2UBTfYlaX6ASOPlAy/4RsgnYqaOKsM/gO8r6Vc+GNZWf5pJj2/z4fw=; akaas_research_abtest=1535315264~rv=77~id=501ba02213cfbc65fa66a0e2ab455d91~rn=flyio-exp01; bm_mi=2523EB71C2AAFB6ADE874CDDE666AED7~A/K71IIV7EI8K4FU3fiCc33LqmJ4R4ax1AA2XXxTi8Z88vKrOhLLxi/qWoeRAbsui2iX4H7quLsXVJrEP8yr5Yqs9CzvlCURJ9Z3wzoDp1+1gzvLtQIc7fgSZEKG0gesfi2kXIHeiiJNOlgJPHSK/LxuwLa+T9kyVVDkGIu9pry0/IOWwXp6/ZRGijUcO9yfqlNLBv2iCT+lAGdW/O+3XhgabZhtzFmu2Z65CqcKgCsQ5HArO0eyX/MTABgRYCPD6hZPMOZcryeeJPt12bzrNvjZfF/8pCviqRmbJrpFhII=; bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbinjclB7wG4dY2SeQzjUbQ5cnP1DPxGVST8wq2PjPyzCPvJcCmhmXD1nIkjwqnPZDOE=; rollout=98; zipcode=30319
+D, [2018-08-25T16:28:11.057058 #84387] DEBUG -- : request-header: host => www.cars.com
+I, [2018-08-25T16:28:12.127618 #84387]  INFO -- : status: Net::HTTPOK 1.1 200 OK
+D, [2018-08-25T16:28:12.127708 #84387] DEBUG -- : response-header: content-encoding => gzip
+D, [2018-08-25T16:28:12.127747 #84387] DEBUG -- : response-header: content-type => text/html; charset=utf-8
+D, [2018-08-25T16:28:12.127777 #84387] DEBUG -- : response-header: etag => a618353f148c1b620b677bac6ae60251bfa9af90
+D, [2018-08-25T16:28:12.127804 #84387] DEBUG -- : response-header: fly-age => 48945
+D, [2018-08-25T16:28:12.127862 #84387] DEBUG -- : response-header: fly-cache => HIT+REFRESH (300s)
+D, [2018-08-25T16:28:12.127891 #84387] DEBUG -- : response-header: fly-request-id => bIZufR2M8ktm6uOfRSveHfH0Zn
+D, [2018-08-25T16:28:12.127918 #84387] DEBUG -- : response-header: server => Fly.io/0.1.1
+D, [2018-08-25T16:28:12.127948 #84387] DEBUG -- : response-header: vary => Accept-Encoding
+D, [2018-08-25T16:28:12.127974 #84387] DEBUG -- : response-header: x-akamai-transformed => 9 - 0 pmb=mTOE,2
+D, [2018-08-25T16:28:12.128000 #84387] DEBUG -- : response-header: cache-control => max-age=37492
+D, [2018-08-25T16:28:12.128024 #84387] DEBUG -- : response-header: expires => Sun, 26 Aug 2018 06:53:04 GMT
+D, [2018-08-25T16:28:12.128049 #84387] DEBUG -- : response-header: date => Sat, 25 Aug 2018 20:28:12 GMT
+D, [2018-08-25T16:28:12.128074 #84387] DEBUG -- : response-header: transfer-encoding => chunked
+D, [2018-08-25T16:28:12.128099 #84387] DEBUG -- : response-header: connection => keep-alive, Transfer-Encoding
+D, [2018-08-25T16:28:12.128124 #84387] DEBUG -- : response-header: content-language => en-US
+D, [2018-08-25T16:28:12.128149 #84387] DEBUG -- : response-header: set-cookie => bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbikwC9/3UXqQRXoYyUrYDbxPrheTXoyqP/MRQ5TJ19If0RY45Oy0S4AH1RlxpmjJiCk=; Domain=.cars.com; Path=/; Max-Age=7172; HttpOnly
+D, [2018-08-25T16:28:12.128267 #84387] DEBUG -- : Read 15576 bytes (15576 total)
+D, [2018-08-25T16:28:12.129656 #84387] DEBUG -- : Read 9000 bytes (24576 total)
+D, [2018-08-25T16:28:12.133182 #84387] DEBUG -- : Read 16133 bytes (40709 total)
+D, [2018-08-25T16:28:12.142958 #84387] DEBUG -- : Read 14586 bytes (55295 total)
+D, [2018-08-25T16:28:12.147189 #84387] DEBUG -- : Read 16374 bytes (71669 total)
+D, [2018-08-25T16:28:12.147262 #84387] DEBUG -- : Read 10 bytes (71679 total)
+D, [2018-08-25T16:28:12.147612 #84387] DEBUG -- : Read 3888 bytes (75567 total)
+D, [2018-08-25T16:28:12.147750 #84387] DEBUG -- : gzip response
+D, [2018-08-25T16:28:12.163262 #84387] DEBUG -- : saved cookie: bm_sv=174E5205005164B6621455D5241052EB~l9wg5yksq60C+u/l1XSs9/kNb9TPAT2wru+JJxV1KHz6ZeD/hGAIpeYbZBZCExjK6FzLAgo+TJS0NXaxtzZYlN9AlSqzKy+2PdcmwqFcbikwC9/3UXqQRXoYyUrYDbxPrheTXoyqP/MRQ5TJ19If0RY45Oy0S4AH1RlxpmjJiCk=

@@ -32,6 +32,13 @@ Trestle.admin(:vehicles) do
       @make = @config.vehicle_make
       @model = @config.vehicle_model
     end
+
+    def show_trim
+      @trim = VehicleTrimStyle.find(params['trim_style_id'])
+      @config = VehicleConfig.friendly.find(params['config_slug'])
+      @make = @config.vehicle_make
+      @model = @config.vehicle_model
+    end
   end
 
   routes do
@@ -39,6 +46,7 @@ Trestle.admin(:vehicles) do
     get 'm/:make_slug', to: 'vehicles_admin/admin#make', as: 'vehicles_admin_make'
     get 'm/:make_slug/:model_slug', to: 'vehicles_admin/admin#model', as: 'vehicles_admin_model'
     get ':config_slug', to: 'vehicles_admin/admin#show', as: 'vehicles_admin_show'
+    get ':config_slug/:trim_style_id', to: 'vehicles_admin/admin#show_trim', as: 'vehicles_admin_show_trim'
   end
   # scope :all, -> { Contributor.order(:contributions => :desc) }, default: true
   

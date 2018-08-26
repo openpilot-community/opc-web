@@ -1,7 +1,10 @@
 <% content_for(:content) do %>
 <div class="documentation">
-  <div class="alert alert-warning">
-  These pages are newly created, and are a work in progress so please check back as we add more information.
+  <div class="alert alert-danger">
+  <strong style="margin-right:20px;font-size:18px;">ATTENTION</strong>
+  <p>
+  These pages are a work-in-progress. Use at your own risk.<br />Please connect with us on <a href="https://slack.comma.ai/" target="_blank">Comma Slack</a> before making any decisions.
+  </p>
   </div>
   <%= content_for?(:docs_content) ? yield(:docs_content) : yield %>
 </div>

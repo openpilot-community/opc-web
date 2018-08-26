@@ -1,0 +1,28 @@
+<% title = "#{@trim.name_for_docs}" %>
+<% content_for(:title, title) %>
+<% breadcrumb(title) %>
+
+<h1><%=@trim.name_for_docs%></h1>
+
+<p>
+Openpilot has some compatibility with the <strong><%=@model.name %></strong> and this page serves as a general overview of the model.
+This page has the most specific information about a particular trim and what is required to get Openpilot working.</p>
+
+<p>The goal is to always support as many vehicles as possible.</p>
+
+<% if !@make.slack_channel.blank? %>
+<p>
+To chat about the <%=@config.vehicle_make.name%> <%=@config.vehicle_model.name%> with the community, checkout the <a href="slack://channel?team=comma&id=<%=@make.slack_channel%>">#<%=@make.slack_channel%></a> channel in the <a href="https://slack.comma.ai" target="_blank">Comma Slack</a>.
+</p>
+<% end %>
+
+<h2>Configurations</h2>
+
+<p>Many trims have multiple configurations available to help support Openpilot.</p>
+<p>We generally try to compare each configuration so you can see what capabilities you gain from using Openpilot and which capabilities you unfortunately sometimes lose with Openpilot.</p>
+<p>These configurations are one of 4 setups: Factory, Standard, Basic and Advanced.
+<% config_types = VehicleConfigType.all.order(:difficulty_level) %>
+<% config_types.each do |type| %>
+  <h3><%=type.name%></h3>
+  <p><%=type.description%></p>
+<% end %>

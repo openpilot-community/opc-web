@@ -13,18 +13,57 @@ To get more specific details on compatibility of a particular trim ensure you ch
 
 <% if !@make.slack_channel.blank? %>
 <p>
-To chat about the <%=title%> with the community, checkout the <a href="slack://channel?team=comma&id=<%=@make.slack_channel%>">#<%=@make.slack_channel%></a> channel in the <a href="https://slack.comma.ai" target="_blank">Comma Slack</a>.
+To chat about the <%=@config.vehicle_make.name%> <%=@config.vehicle_model.name%> with the community, checkout the <a href="slack://channel?team=comma&id=<%=@make.slack_channel%>">#<%=@make.slack_channel%></a> channel in the <a href="https://slack.comma.ai" target="_blank">Comma Slack</a>.
 </p>
 <% end %>
 
 <h2>Research and Support</h2>
 
 <p>We've found the following trims for this configuration.</p>
-<p>Although most model trims have similar factory hardware, some may differe slightly so ensure you check the trim pages for specifics.</p>
+<p>Although most model trims have similar factory hardware, some may differ slightly so ensure you check the trim pages for specifics.</p>
 
-<h3>Specific Trim(s)</h3>
+<h3>Standard Trims</h3>
+
+<p>The following trims come standard with the features required for Openpilot to work effectively.</p>
+<p>Although they come with these features, it is not guaranteed that Openpilot is 100% compatible. 
+If you discover any issues, work with a community member to get your vehicle ported to its reach its full potential.</p>
+
 <ul>
-  <% @config.trim_styles.each do |trim| %>
-  <li><%=trim.year%> <%=trim.name%><%if trim.driver_assist_inclusion == "option" %> w/ <%=@config.vehicle_make_package.blank? ? "ACC/LKAS" : @config.vehicle_make_package.name %><% end %></li>
+  <% @config.trim_styles.select{|ts| ts.driver_assist_inclusion == "standard"}.each do |trim| %>
+  <li>
+    <%=link_to vehicles_admin_show_trim_path(config_slug: @config.slug, trim_style_id: trim.id) do %>
+      <%=trim.year%> <%=trim.name%>
+    <% end %>
+  </li>
   <% end %>
 </ul>
+
+<%if @config.vehicle_make_package %>
+  <h3>Trims w/ <%=@config.vehicle_make_package.name %> Option</h3>
+
+  <p>The following trims do not come standard with the features required for Openpilot to work effectively.</p>
+  <p>Review the features that come with these models thoroughly to ensure your vehicle has the right hardware.</p>
+
+  <ul>
+    <% @config.trim_styles.select{|ts| ts.driver_assist_inclusion == "option" }.each do |trim| %>
+    <li>
+      <%=link_to vehicles_admin_show_trim_path(config_slug: @config.slug, trim_style_id: trim.id) do %>
+        <%=trim.year%> <%=trim.name%>
+      <% end %>
+    </li>
+    <% end %>
+  </ul>
+
+<h3>Not Supported</h3>
+
+<p>Unfortunately the following <%=@make.name%> <%@model.name%> trims are not supported.</p>
+<p>They simply lack the hardware necessary for Openpilot to work effectively.</p>
+
+<ul>
+  <% @config.trim_styles.select{|ts| ts.driver_assist_inclusion.blank? }.each do |trim| %>
+  <li>
+    <%=trim.year%> <%=trim.name%>
+  </li>
+  <% end %>
+</ul>
+<% end %>

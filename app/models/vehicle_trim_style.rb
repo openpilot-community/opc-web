@@ -4,7 +4,9 @@ class VehicleTrimStyle < ApplicationRecord
   # default_scope{ order(:name) }
   belongs_to :vehicle_trim
   has_many :vehicle_trim_style_specs
-  
+  def name_for_docs
+    "#{vehicle_trim.year} #{vehicle_trim.vehicle_model.vehicle_make.name} #{vehicle_trim.vehicle_model.name} #{vehicle_trim.name} #{name_for_list}"
+  end
   def name_for_list
     "#{name.gsub("#{vehicle_trim.name} ",'')}"
   end

@@ -18,8 +18,18 @@ Trestle.resource(:users) do
     text_field :name
     text_field :slack_username
   end
+
   controller do
-    before_action :require_super_admin!
+    before_action :require_super_admin!, :except => :show
+    before_action :require_self_or_admin!, :only => :update
+
+    def require_self_or_admin!
+      instance = admin.find_instance(params)
+      if !current_user.is_super_admin? || current_user.id != instance.id
+        render "unauthorized" 
+        return
+      end
+    end
   end
   # By default, all parameters passed to the update and create actions will be
   # permitted. If you do not have full trust in your users, you should explicitly

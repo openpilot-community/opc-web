@@ -62,7 +62,7 @@ Trestle.resource(:vehicle_configs) do
     column :year_range_str, header: "Year(s)", sort: false
     column :vehicle_make, header: "Make", link: false, sort: false
     column :vehicle_model, header: "Model", link: false, sort: false
-    column :trim_styles_count, header: "Possible Trims", sort: false
+    column :trim_styles_count, header: "Trims", sort: false
     column :minimum_difficulty, header: "Min. Difficulty", sort: false do |vehicle_config|
       render "difficulty_label", vehicle_config: vehicle_config
     end
@@ -125,7 +125,15 @@ Trestle.resource(:vehicle_configs) do
           column :year
           column :trim_name, header: "Trim"
           column :name_for_list, header: "Style"
-          column :driver_assist_inclusion, header: "ACC/LKAS"
+          column :driver_assist_inclusion, header: "ACC/LKAS" do |trim_style|
+            if trim_style.driver_assist_inclusion == "standard"
+              "<span class=\"label label-success\">#{trim_style.driver_assist_inclusion}</span>".html_safe
+            elsif trim_style.driver_assist_inclusion == "option"
+              "<span class=\"label label-info\">#{trim_style.driver_assist_inclusion}</span>".html_safe
+            else
+              "<span class=\"label label-danger\">Not Available</span>".html_safe
+            end
+          end
           column :price
           # column :driver_assisted_style_names, header: "ACC/LKAS Trim(s) Option or Standard"
           # column :has_driver_assist?, header: "Available Driver Assist", align: :center

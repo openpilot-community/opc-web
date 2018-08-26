@@ -93,11 +93,27 @@
     }
   }
 }
+@media (min-width: 768px) {
+  .navbar-nav > li {
+      float: left;
+      width: 100%;
+  }
+}
 .app-wrapper {
   background-color: #f6f8fa !important;
   .app-nav {
     ul.super-admin {
       display:none;
+    }
+    ul.admin {
+      display:none;
+    }
+  }
+  &.is-super-admin,&.is-admin,&.is-editor {
+    .app-nav {
+      ul.admin {
+        display:block;
+      }
     }
   }
   &.is-super-admin {
@@ -119,8 +135,8 @@
     }
   }
   .trestle-table {
-    span.label {
-      display: block;
+    .label {
+      display: initial;
       text-align: left;
       line-height: 19px;
       font-size: 14px;

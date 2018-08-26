@@ -16,9 +16,9 @@ class Modification < ApplicationRecord
   has_paper_trail
   extend FriendlyId
   friendly_id :name, use: :slugged
-  has_many :modification_hardware_types
+  has_many :modification_hardware_types, dependent: :delete_all
   has_many :hardware_types, :through => :modification_hardware_types
-  has_many :vehicle_config_modifications
+  has_many :vehicle_config_modifications, dependent: :delete_all
   has_many :vehicle_configs, :through => :vehicle_config_modifications
 
   def vehicle_config_ids=(ids)

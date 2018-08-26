@@ -16,7 +16,7 @@
     <nav class="app-nav">
       <% collapsed = cookies["trestle:navigation:collapsed"].try(:split, ",") || [] %>
       <% Trestle.navigation.visible(self).each do |group, items| %>
-        <ul class="<%= group.label.parameterize %> <% if group.present? && collapsed.include?(group.id) %>collapsed<% end %>">
+        <ul class="<%= group.present? && group.label.present? ? group.label.parameterize : nil %> <% if group.present? && collapsed.include?(group.id) %>collapsed<% end %>">
           <% if group.present? %>
             <li class="nav-header"><%= link_to group.label, "##{group.id}" %><%=icon('fa','fa-caret-down')%></li>
           <% end %>

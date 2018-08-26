@@ -8,7 +8,8 @@ Trestle.resource(:vehicle_config_types) do
   #
   table do
     column :name
-    column :created_at, align: :center
+    column :difficulty_level
+    # column :created_at, align: :center
   end
 
   # Customize the form fields shown on the new/edit views.

@@ -11,6 +11,7 @@
 
 class VehicleCapability < ApplicationRecord
   extend FriendlyId
+  paginates_per 400
   friendly_id :name, use: :slugged
   amoeba do
     enable

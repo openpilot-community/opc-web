@@ -1,6 +1,6 @@
 Trestle.resource(:vehicle_makes) do
   menu do
-    item :vehicle_makes, icon: "fa fa-car", group: :vehicles, label: "Makes"
+    item :vehicle_makes, icon: "fa fa-car", group: :admin, label: "Makes"
   end
 
   # Customize the table columns shown on the index view.

@@ -1,6 +1,6 @@
 Trestle.resource(:modifications) do
   menu do
-    item :modifications, icon: "fa fa-wrench", group: :documentation
+    item :modifications, icon: "fa fa-wrench", group: :admin
   end
 
   # Customize the table columns shown on the index view.

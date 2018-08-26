@@ -41,13 +41,12 @@ class VehicleConfig < ApplicationRecord
   before_save :update_forks
   before_save :set_default
   validates_numericality_of :year
-  # validates_numericality_of :year_end, :greater_than_or_equal_to => :year
+
   # MODIFICATIONS
   has_many :vehicle_config_modifications, dependent: :delete_all
   has_many :modifications, :through => :vehicle_config_modifications
 
   has_many :vehicle_config_hardware_items, dependent: :delete_all
-  # has_many :hardware_items, :through => :vehicle_config_hardware_items
 
   # CAPABILITIES
   has_many :vehicle_config_capabilities, dependent: :delete_all
@@ -67,14 +66,15 @@ class VehicleConfig < ApplicationRecord
   # has_many :vehicle_options, :through => :vehicle_model_options
   
   has_many :vehicle_config_videos, dependent: :delete_all
-  # validates_with VehicleUniqueValidator
 
   # FORK CONFIGURATION
   amoeba do
   end
+
   # def difficulty_level
   #   vehicle_config_type.difficulty_level
   # end
+
   def difficulty_class
     case minimum_difficulty
     when "Advanced"
@@ -101,26 +101,31 @@ class VehicleConfig < ApplicationRecord
       'Advanced'
     end
   end
+
   def name_for_slug
     if vehicle_config_type && vehicle_make && vehicle_model
       "#{id} #{year} #{vehicle_make.name} #{vehicle_model.name} #{vehicle_config_type.name}"
     end
   end
+
   def is_upstreamed?
     if !vehicle_config_status.blank?
       vehicle_config_status.name == 'Upstreamed'
     end
   end
+
   def is_community_supported?
     if !vehicle_config_status.blank?
       vehicle_config_status.name == 'Community'
     end
   end
+  
   def is_pull_request?
     if !vehicle_config_status.blank?
       vehicle_config_status.name == 'Pull Request'
     end
   end
+  
   def is_in_development?
     if !vehicle_config_status.blank?
       vehicle_config_status.name == 'In Development'

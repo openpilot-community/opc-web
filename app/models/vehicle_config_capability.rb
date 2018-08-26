@@ -17,10 +17,12 @@
 
 class VehicleConfigCapability < ApplicationRecord
   include ActionView::Helpers::DateHelper
-  # include VehicleConfigCapabilityAdmin
+  acts_as_votable
   belongs_to :vehicle_config
-  # belongs_to :vehicle_config_type
   belongs_to :vehicle_capability
+  belongs_to :confirmed_by, class_name: "User"
+
+  # belongs_to :confirmed_by_user, :foreign_key => "confirmed_by"
   def humanize secs
     [[60, :seconds], [60, :minutes], [24, :hours], [1000, :days]].map{ |count, name|
       if secs > 0
@@ -31,6 +33,7 @@ class VehicleConfigCapability < ApplicationRecord
       end
     }.compact.reverse.join(' ')
   end
+
   amoeba do
     enable
   end
@@ -40,19 +43,28 @@ class VehicleConfigCapability < ApplicationRecord
       "#{vehicle_capability.name}"
     end
   end
+
   def timeout_friendly
     if !timeout.blank?
       humanize(timeout)
     end
   end
+
   def speed
     if !kph.blank?
       "#{mph} mph (#{kph} kph)"
     end
   end
+
   def mph
-    if !kph.blank?
+    if kph.present?
       (kph*0.621371).round
+    end
+  end
+
+  def set_confirmed
+    if confirmed_by.present?
+      self.confirmed = true
     end
   end
 end

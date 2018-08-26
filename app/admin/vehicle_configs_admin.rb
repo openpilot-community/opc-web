@@ -112,6 +112,7 @@ Trestle.resource(:vehicle_configs) do
         hidden_field :vehicle_model_id
         hidden_field :vehicle_trim_id
       end
+
       if vehicle_config.persisted?
         collection_select :vehicle_make_package_id, VehicleMakePackage.where(vehicle_make: vehicle_config.vehicle_make).order(:name), :id, :name, include_blank: true, label: "Required Factory Installed Option"
       end
@@ -152,22 +153,39 @@ Trestle.resource(:vehicle_configs) do
           # column :confirmed
         end
       end
-      # tab :specs, badge: vehicle_config.specs.blank? ? nil : vehicle_config.specs.size do
-      #   # render "tab_toolbar", {
-      #   #   :groups => [
-      #   #     {
-      #   #       :class => "actions",
-      #   #       :items => [
-      #   #         admin_link_to("Add Capability", admin: :vehicle_config_capabilities, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
-      #   #       ]
-      #   #     }
-      #   #   ]
-      #   # }
+      tab :capabilities, badge: vehicle_config.vehicle_config_capabilities.blank? ? nil : vehicle_config.vehicle_config_capabilities.size do
+        render "tab_toolbar", {
+          :groups => [
+            {
+              :class => 'filters pull-left',
+              :items => [
+                content_tag(:h4, "#{vehicle_config.vehicle_config_type.name} Capabilities & Limits", class: [])
+              ]
+            },
+            {
+              :class => "actions",
+              :items => [
+                admin_link_to("Add Capability", admin: :vehicle_config_capabilities, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
+              ]
+            }
+          ]
+        }
         
-      #   table vehicle_config.specs.blank? ? [] : vehicle_config.specs, admin: :vehicle_trim_style_specs do
-      #     column :name
-      #   end
-      # end
+        table vehicle_config.vehicle_config_capabilities.blank? ? [] : vehicle_config.vehicle_config_capabilities, admin: :vehicle_config_capabilities do
+          column :name
+
+          column :timeout_friendly, header: "Timeout"
+          
+          column :speed do |capability|
+            if capability.mph.present?
+              "#{capability.mph} mph (#{capability.kph} kph)"
+            end
+          end
+          
+          # column :confirmed
+          column :confirmed_by
+        end
+      end
       tab :modifications, badge: vehicle_config.vehicle_config_modifications.blank? ? nil : vehicle_config.vehicle_config_modifications.size do
         render "tab_toolbar", {
           :groups => [
@@ -226,7 +244,7 @@ Trestle.resource(:vehicle_configs) do
           end
         end
 
-        table vehicle_config.vehicle_config_pull_requests, admin: :vehicle_config_pull_requests do
+        table vehicle_config.vehicle_config_pull_requests, admin: :pull_requests do
             column :name, header: "Pull Requests" do |vcr|
               link_to vcr.pull_request.html_url, target: "_blank" do
                 vcr.pull_request.name

@@ -6,7 +6,7 @@ Trestle.resource(:vehicle_makes) do
   # Customize the table columns shown on the index view.
   #
   table do
-    column :name
+    column :name, link: true
     column :active_count, header: "Active Models"
     column :inactive_count, header: "Inactive Models"
     column :slack_channel, header: "Comma Slack" do |make|

@@ -9,7 +9,7 @@ Trestle.resource(:repositories) do
     column :avatar do |repo|
       image_tag(repo.owner_avatar_url, width: "50")
     end
-    column :name
+    column :name, link: true
     
     # actions
   end

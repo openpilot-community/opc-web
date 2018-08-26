@@ -10,12 +10,13 @@ Trestle.resource(:videos) do
       image_tag(video.thumbnail_url, width: '150')
     end
     column :name
-    column :created_at, align: :center
+    # column :created_at, align: :center
   end
 
   # Customize the form fields shown on the new/edit views.
   #
   form(dialog: true) do |video|
+    render inline: video.html.html_safe
     text_field :title
     text_field :video_url
     text_field :provider_name

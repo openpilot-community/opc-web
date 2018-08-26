@@ -11,8 +11,10 @@
     <% end %>
 
     <%= csrf_meta_tags %>
-
-    <title><%= [yield(:title), Trestle.config.site_title].join(' :: ') %></title>
+    <%= display_meta_tags site: Trestle.config.site_title, og: {
+      title: :title,
+      site_name: :site,
+    } %>
 
     <%= stylesheet_link_tag "trestle/admin", 'data-turbolinks-track': 'reload' %>
 

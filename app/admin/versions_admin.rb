@@ -10,7 +10,7 @@ Trestle.resource(:versions) do
     column :item_type
     column :user
     column :created_at, align: :center
-    actions
+    # actions
   end
 
   # Customize the form fields shown on the new/edit views.

@@ -7,7 +7,7 @@ Trestle.resource(:pull_requests) do
   # Customize the table columns shown on the index view.
   #
   table do
-    column :name, header: "Title" do |pull_request|
+    column :name, header: "Title", link: true do |pull_request|
       link_to pull_request.html_url, target: "_blank" do
         pull_request.name
       end

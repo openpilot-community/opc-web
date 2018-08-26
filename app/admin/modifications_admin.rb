@@ -6,7 +6,7 @@ Trestle.resource(:modifications) do
   # Customize the table columns shown on the index view.
   #
   table do
-    column :name
+    column :name, link: true
     column :created_at, align: :center
     column :updated_at, align: :center
     # actions

@@ -1,7 +1,7 @@
-<% title = admin.t("titles.edit", default: "Editing %{model_name}") %>
-<% content_for(:title, title) %>
-<% breadcrumb(title) %>
-
+<% page_title = admin.t("titles.edit", default: "Editing %{model_name}") %>
+<% content_for(:title, page_title) %>
+<% breadcrumb(page_title) %>
+<%= title page_title %>
 <% content_for(:primary_toolbar) do %>
   <%= button_tag "Save", class: "btn btn-success btn-lg" if admin.actions.include?(:update) %>
 <% end %>

@@ -1,5 +1,4 @@
-<% content_for(:title, admin.t("titles.index", default: "%{pluralized_model_name}")) %>
-
+<%# <% content_for(:title, model_name) %>
 <% content_for(:primary_toolbar) do %>
   <%= admin_link_to action: :new, class: "btn btn-default btn-lg" do %>
     <%= icon("fa fa-plus") %>

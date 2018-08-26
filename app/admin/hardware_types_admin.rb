@@ -6,7 +6,7 @@ Trestle.resource(:hardware_types) do
   # Customize the table columns shown on the index view.
   #
   table do
-    column :name
+    column :name, link: true
     # column :created_at, align: :center
     # actions
   end

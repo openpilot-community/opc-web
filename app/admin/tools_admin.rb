@@ -6,7 +6,7 @@ Trestle.resource(:tools) do
   # Customize the table columns shown on the index view.
   #
   table do
-    column :name
+    column :name, link: true
   end
 
   # Customize the form fields shown on the new/edit views.

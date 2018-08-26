@@ -21,6 +21,11 @@ Trestle.resource(:vehicle_configs) do
   end
 
   controller do
+    def index
+      set_meta_tags keywords: ['openpilot','vehicle','support','master','list','of','vehicles','supported','compatible','compatibility']
+      set_meta_tags description: "This is a master list of vehicles supported and being researched on for usage with openpilot software."
+      super
+    end
     # include Pundit
     def refresh_trims
       vehicle_config_root = admin.find_instance(params).root
@@ -59,9 +64,14 @@ Trestle.resource(:vehicle_configs) do
     row do |vehicle|
       { class: "#{vehicle.vehicle_config_status.blank? ? nil : vehicle.vehicle_config_status.name.parameterize} #{vehicle.vehicle_config_type.blank? ? "unknown" : vehicle.vehicle_config_type.slug} vehicle-config" }
     end
-    column :year_range_str, header: "Year(s)", sort: false
-    column :vehicle_make, header: "Make", link: false, sort: false
-    column :vehicle_model, header: "Model", link: false, sort: false
+    column :year_range_str, header: "Year(s)", sort: false, link: true
+    column :vehicle_make, header: "Make",  sort: false, link: true do |vehicle_config|
+      vehicle_config.vehicle_make.name
+    end
+    column :vehicle_model, header: "Make",  sort: false, link: true do |vehicle_config|
+      vehicle_config.vehicle_model.name
+    end
+    # column :vehicle_model, header: "Model",  sort: false, link: true
     column :trim_styles_count, header: "Trims", sort: false
     column :minimum_difficulty, header: "Min. Difficulty", sort: false do |vehicle_config|
       render "difficulty_label", vehicle_config: vehicle_config

@@ -60,6 +60,7 @@ gem 'sidekiq'
 gem 'sidekiq-scheduler'
 gem "octokit", "~> 4.0"
 gem 'redcarpet'
+gem 'meta-tags'
 gem 'cars', :git => 'https://github.com/openpilot-community/cars_abstraction'
 group :development, :test do
   # gem 'cars', :path => '/Users/joshua/Projects/cars_abstraction'

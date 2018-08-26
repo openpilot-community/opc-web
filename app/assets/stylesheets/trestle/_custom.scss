@@ -7,6 +7,9 @@
 //    @import "trestle/custom/my_custom_css";
 //
 @import "documentation";
+.btn-toolbar .btn-group .btn + .btn, .btn-toolbar .btn-group .btn + .btn-group, .btn-toolbar .btn-group .btn-group + .btn, .btn-toolbar .btn-group .btn-group + .btn-group {
+  margin-left: -5px;
+}
 .app-nav {
   background-color: #000000;
 

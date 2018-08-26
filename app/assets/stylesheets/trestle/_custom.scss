@@ -9,6 +9,16 @@
 @import "documentation";
 .app-nav {
   background-color: #000000;
+
+  ul {
+    &:first-child {
+      .nav-header {
+        > a {
+          padding-top:10px;
+        }
+      }
+    }
+  }
 }
 .app-nav .nav-header a {
   padding: 10px 15px;
@@ -646,7 +656,7 @@
   .app-sidebar-header {
     height: 50px;
     background-image: url(/assets/logo@2x.png);
-    background-size: 288px;
+    background-size: 250px;
     background-color: #121212;
     background-repeat: no-repeat;
     background-position: center center;

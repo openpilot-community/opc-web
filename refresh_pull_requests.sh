@@ -1,0 +1,1 @@
+heroku run "echo 'CheckOpenpilotPullRequestsWorker.new.perform' | bundle exec rails c" --app vehicledb-app

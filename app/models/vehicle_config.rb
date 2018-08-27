@@ -155,23 +155,23 @@ class VehicleConfig < ApplicationRecord
         {
           :icon => "fa fa-hourglass",
           :color => "info",
-          :tooltip => vehicle_config_status.name,
+          :tooltip => (!latest_open_pull_request.blank?) ? "#{vehicle_config_status.name} ##{latest_open_pull_request.number}" : vehicle_config_status.name,
           :url => (!latest_open_pull_request.blank?) ? latest_open_pull_request.html_url : nil,
-          :label => (!latest_open_pull_request.blank?) ? "#{vehicle_config_status.name} ##{latest_open_pull_request.number}" : vehicle_config_status.name
+          :label => (!latest_repository.blank? && !latest_repository.repository.blank?) ? "#{latest_repository.repository.full_name}#{latest_repository.repository_branch.blank? ? nil : '#' + latest_repository.repository_branch.name}" : nil,
         }
       when "Upstreamed"
         {
           :icon => "fa fa-check",
           :color => "success",
           :tooltip => "Upstreamed to commaai/openpilot",
-          :url => "https://github.com/commaai/openpilot",
-          :label => "Upstreamed"
+          :url => (!latest_repository.blank? && !latest_repository.repository.blank?) ? latest_repository.repository.url : nil,
+          :label => (!latest_repository.blank? && !latest_repository.repository.blank?) ? "#{latest_repository.repository.full_name}#{latest_repository.repository_branch.blank? ? nil : '#' + latest_repository.repository_branch.name}" : nil,
         }
       when "Researching"
         {
           :icon => "fa fa-globe",
           :color => "default",
-          :tooltip => vehicle_config_status.name,
+          :tooltip => vehicle_config_status.name.downcase,
           :url => "#",
           :label => "Researching"
         }
@@ -179,7 +179,7 @@ class VehicleConfig < ApplicationRecord
         {
           :icon => "fa fa-archive",
           :color => "default",
-          :tooltip => vehicle_config_status.name,
+          :tooltip => vehicle_config_status.name.downcase,
           :url => "#",
           :label => "fa fa-archive"
         }

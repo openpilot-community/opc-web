@@ -1,7 +1,7 @@
 Trestle.resource(:repository_branches) do
-  menu do
-    item :repository_branches, icon: "fa fa-star"
-  end
+  # menu do
+    # item :repository_branches, icon: "fa fa-star", :group =>
+  # end
   controller do
     def index
       # byebug

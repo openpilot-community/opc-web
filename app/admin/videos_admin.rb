@@ -6,6 +6,22 @@ Trestle.resource(:videos) do
   
   # Customize the table columns shown on the index view.
   #
+  controller do
+    include ActionView::Helpers::AssetUrlHelper
+    def show
+      video = admin.find_instance(params)
+      
+      set_meta_tags og: {
+        title: "#{video.title} | Openpilot Database",
+        image: video.thumbnail_url,
+        type: "website",
+        description: video.description
+      }
+      set_meta_tags keywords: [video.title.split(' '),['openpilot','vehicle','support','master','list','of','vehicles','supported','compatible','compatibility']].flatten
+      set_meta_tags description: video.description
+      super
+    end
+  end
   table do
     column :thumbnail do |video|
       image_tag(video.thumbnail_url, width: '150')

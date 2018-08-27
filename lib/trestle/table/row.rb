@@ -45,11 +45,7 @@ module Trestle
 
       protected
         def admin_url_for(instance)
-          if !instance.blank? && instance.respond_to?(:slug)
-            "/#{table.admin.admin_name}/#{instance.slug}"
-          else
-            @template.admin_url_for(instance, admin: table.admin)
-          end
+          @template.admin_url_for(instance, admin: table.admin)
         end
       end
     end

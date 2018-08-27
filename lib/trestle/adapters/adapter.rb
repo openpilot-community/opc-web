@@ -91,7 +91,7 @@ module Trestle
       #
       # Returns the URL representation of the instance.
       def to_param(instance)
-        instance.slug.present? ? instance.slug : instance.id
+        instance.id
       end
 
       # Merges scopes together for Trestle scope application and counting.

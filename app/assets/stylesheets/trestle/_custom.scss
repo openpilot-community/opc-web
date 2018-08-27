@@ -32,7 +32,7 @@
 }
 .app-nav .nav-header a::after { display:none; }
 .app-nav ul {
-
+  
   .nav-header {
     position:relative;
     .fa {
@@ -75,6 +75,10 @@
   }
   .nav-tabs > li {
     position:relative;
+    
+    &:first-child {
+      margin-left: 15px;
+    }
   }
   .nav-tabs > li > a {
     float: left;

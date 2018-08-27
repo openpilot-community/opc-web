@@ -121,10 +121,15 @@ Trestle.resource(:vehicle_configs) do
       super
     end
     def refresh_trims
-      vehicle_config_root = admin.find_instance(params).root
-      vehicle_config_root.scrape_info
-      flash[:message] = "Vehicle trim_styles list has been reloaded."
-      redirect_to admin.path(:show, id: vehicle_config_root.id)
+      begin
+        vehicle_config_root = admin.find_instance(params).root
+        vehicle_config_root.scrape_info
+        flash[:message] = "Vehicle trims list has been reloaded."
+        redirect_to admin.path(:show, id: vehicle_config_root.id)
+      rescue
+        flash[:notice] = "Failed to reload trims list."
+        redirect_to admin.path(:show, id: vehicle_config_root.id)
+      end
     end
 
     def fork

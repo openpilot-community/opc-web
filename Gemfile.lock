@@ -11,9 +11,9 @@ GIT
 
 GIT
   remote: https://github.com/openpilot-community/cars_abstraction
-  revision: 260c812dec1d50183b925c0e2c58026477e6523e
+  revision: a71a52e46dd3d410ad5b73284d29591860dd830d
   specs:
-    cars (0.1.2)
+    cars (0.1.3)
       mechanize
       rails (> 4.2.10)
       reverse_markdown
@@ -119,7 +119,7 @@ GEM
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.7.1)
-    et-orbi (1.1.4)
+    et-orbi (1.1.5)
       tzinfo
     execjs (2.7.0)
     faraday (0.12.2)
@@ -354,8 +354,8 @@ GEM
     tilt (2.0.8)
     trestle-search (0.2.1)
       trestle (~> 0.8, >= 0.8.7)
-    trestle-simplemde (0.1.0)
-      trestle (~> 0.8)
+    trestle-simplemde (0.1.1)
+      trestle (~> 0.8, >= 0.8.6)
     turbolinks (5.2.0)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)

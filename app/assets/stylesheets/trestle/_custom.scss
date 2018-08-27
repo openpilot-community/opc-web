@@ -7,9 +7,13 @@
 //    @import "trestle/custom/my_custom_css";
 //
 @import "documentation";
+body {
+  background-color:#000000;
+}
 .btn-toolbar .btn-group .btn + .btn, .btn-toolbar .btn-group .btn + .btn-group, .btn-toolbar .btn-group .btn-group + .btn, .btn-toolbar .btn-group .btn-group + .btn-group {
   margin-left: -5px;
 }
+
 .app-nav {
   background-color: #000000;
 
@@ -661,6 +665,9 @@
       margin-right:25px;
       display:block!important;
     }
+  }
+  .app-sidebar {
+    background: #000;
   }
   .app-sidebar-header {
     height: 50px;

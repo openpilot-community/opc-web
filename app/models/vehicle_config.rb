@@ -18,6 +18,53 @@
 #  vehicle_config_type_id   :bigint(8)
 #
 
+class GoodnessValidator < ActiveModel::Validator
+  def validate(record)
+    dupes = VehicleConfig.where(%(
+      (
+        vehicle_configs.year = :year AND 
+        vehicle_configs.vehicle_make_id = :vehicle_make AND 
+        vehicle_configs.vehicle_model_id = :vehicle_model AND
+        vehicle_configs.vehicle_config_type_id = :config_type
+      ) OR (
+        vehicle_configs.year_end = :year AND 
+        vehicle_configs.vehicle_make_id = :vehicle_make AND 
+        vehicle_configs.vehicle_model_id = :vehicle_model AND
+        vehicle_configs.vehicle_config_type_id = :config_type
+      ) OR (
+        vehicle_configs.year_end = :year AND 
+        vehicle_configs.vehicle_make_id = :vehicle_make AND 
+        vehicle_configs.vehicle_model_id = :vehicle_model AND
+        vehicle_configs.vehicle_config_type_id = :config_type
+      ) OR (
+        vehicle_configs.year_end = :year_end AND 
+        vehicle_configs.vehicle_make_id = :vehicle_make AND 
+        vehicle_configs.vehicle_model_id = :vehicle_model AND
+        vehicle_configs.vehicle_config_type_id = :config_type
+      ) OR (
+        ((:year) BETWEEN vehicle_configs.year AND vehicle_configs.year_end) AND 
+        vehicle_configs.vehicle_make_id = :vehicle_make AND 
+        vehicle_configs.vehicle_model_id = :vehicle_model AND
+        vehicle_configs.vehicle_config_type_id = :config_type
+      ) OR (
+        ((:year_end) BETWEEN vehicle_configs.year AND vehicle_configs.year_end) AND 
+        vehicle_configs.vehicle_make_id = :vehicle_make AND 
+        vehicle_configs.vehicle_model_id = :vehicle_model AND
+        vehicle_configs.vehicle_config_type_id = :config_type
+      )
+    ), {
+      year: record.year,
+      year_end: record.year_end,
+      vehicle_make: record.vehicle_make_id,
+      vehicle_model: record.vehicle_model_id,
+      config_type: record.vehicle_config_type_id
+    }).count
+
+    if dupes > 0
+      record.errors[:vehicle_model] << "The information you entered is already contained within an existing vehicle config."
+    end
+  end
+end
 class VehicleConfig < ApplicationRecord
   include ActiveSupport::Inflector
   has_paper_trail
@@ -36,11 +83,13 @@ class VehicleConfig < ApplicationRecord
   belongs_to :vehicle_make_package, :optional => true
   belongs_to :vehicle_config_type, :optional => true
   accepts_nested_attributes_for :forks
-  before_save :set_title
-  before_save :set_year_end
+  before_validation :set_default
+  before_validation :set_year_end
   before_save :update_forks
-  before_save :set_default
+  before_validation :set_title
   validates_numericality_of :year
+  validates_with GoodnessValidator
+  # validates :year, uniqueness: { scope: [:year, :year_end, :vehicle_make_id, :vehicle_model_id, :vehicle_config_type_id], message: "should be unique" }
 
   # MODIFICATIONS
   has_many :vehicle_config_modifications, dependent: :delete_all
@@ -491,7 +540,7 @@ class VehicleConfig < ApplicationRecord
   end
 
   def set_title
-    self.title = "#{year_range_str} #{vehicle_make.name} #{vehicle_model.name}"
+    self.title = "#{year_range_str} #{vehicle_make.name} #{vehicle_model.name} #{vehicle_config_type.name}"
   end
 
   # def diff_object

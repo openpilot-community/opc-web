@@ -19,7 +19,7 @@ class CheckOpenpilotReposWorker
       new_repo.owner_url = fork.owner.url
       new_repo.url = fork.html_url
       new_repo.save!
-      # begin
+      begin
         branches = client.branches(new_repo.full_name)
 
         if branches.present?
@@ -31,9 +31,9 @@ class CheckOpenpilotReposWorker
         else
           puts "NO BRANCHES RETURNED FOR #{new_repo.full_name}"
         end
-      # rescue Exception => e
-      #   puts "Failed to fetch branches...", e
-      # end
+      rescue Exception => e
+        puts "Failed to fetch branches...", e
+      end
 
 
     end

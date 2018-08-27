@@ -23,19 +23,20 @@ var setupVehicleConfigYear = function() {
     $(".trestle-table .actions > *").remove();
     $(".main-content .form-control,.modal-body .form-control").attr('disabled',true);
   }
+
   // console.warn('setupVehicleConfigYear');
   var $year_start = $("#vehicle_config_year");
-  $year_start.select2();
+  // $year_start.select2();
   var $year_start_column = $(".col-class-year-start");
   var $year_start_select2_container = $year_start_column.find('.select2-container');
   var $year_end = $("#vehicle_config_year_end");
-  $year_end.select2();
+  // $year_end.select2();
   var $year_end_column = $(".col-class-year-end");
   var $year_end_select2_container = $year_end_column.find('.select2-container');
   var $year_range = $('.col-class-year-range');
   var $add_year_end_link = $("<a class=\"year-end-link\" href=\"javascript:void(0);\">+ Add End Year</a>");
-  var $vehicle_make = $("#vehicle_config_vehicle_make_id").select2();
-  var $vehicle_model = $("#vehicle_config_vehicle_model_id").select2();
+  // var $vehicle_make = $("#vehicle_config_vehicle_make_id").select2();
+  // var $vehicle_model = $("#vehicle_config_vehicle_model_id").select2();
   // console.warn("$year_start:", $year_start);
   // console.warn("$year_start_column:", $year_start);
   // console.warn("$year_start_select2_container:", $year_start);

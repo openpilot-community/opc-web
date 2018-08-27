@@ -21,12 +21,34 @@ Trestle.resource(:vehicle_configs) do
   end
 
   controller do
+    include ActionView::Helpers::AssetUrlHelper
     def index
+      @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support", "/vehicle_configs")])
+      set_meta_tags og: {
+        title: "Vehicle Research and Support | Openpilot Database",
+        image: asset_url("/assets/opengraph-image.png"),
+        type: "website"
+      }
       set_meta_tags keywords: ['openpilot','vehicle','support','master','list','of','vehicles','supported','compatible','compatibility']
       set_meta_tags description: "This is a master list of vehicles supported and being researched on for usage with openpilot software."
       super
+      # breadcrumbs = Trestle::Breadcrumb::Trail.new(["Vehicle Search and Support"])
+      
+
     end
-    
+    def show
+      # self.instance = admin.find_instance(params)
+      vehicle_config_root = admin.find_instance(params).root
+      @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("#{vehicle_config_root.name}")])
+      set_meta_tags og: {
+        title: "#{vehicle_config_root.name} | Openpilot Database",
+        image: asset_url("/assets/opengraph-image.png"),
+        type: "website"
+      }
+      set_meta_tags keywords: ['openpilot','vehicle','support',vehicle_config_root.vehicle_make.name,vehicle_config_root.vehicle_model.name,vehicle_config_root.name,'of','vehicles','supported','compatible','compatibility']
+      set_meta_tags description: "Research and support of comma openpilot for the #{vehicle_config_root.name}."
+      super
+    end
     def refresh_trims
       vehicle_config_root = admin.find_instance(params).root
       vehicle_config_root.scrape_info

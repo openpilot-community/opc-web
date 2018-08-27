@@ -3,7 +3,7 @@ Trestle.configure do |config|
   #
   # Set the page title shown in the main header within the admin.
   #
-  config.site_title = "openpilot database".html_safe
+  config.site_title = "Openpilot Database".html_safe
 
   # Specify a custom image to be used in place of the site title for mobile and
   # expanded/desktop navigation. These images should be placed within your
@@ -37,7 +37,7 @@ Trestle.configure do |config|
   # Set the initial breadcrumbs to display in the breadcrumb trail.
   # Defaults to a breadcrumb labeled 'Home' linking to to the admin root.
   #
-  # config.root_breadcrumbs = -> { [Trestle::Breadcrumb.new("Home", Trestle.config.path)] }
+  config.root_breadcrumbs = -> { [] }
 
   # Set the default icon class to use when it is not explicitly provided.
   # Defaults to "fa fa-arrow-circle-o-right".
@@ -51,7 +51,6 @@ Trestle.configure do |config|
   #     item "Custom Link", "/admin/custom", icon: "fa fa-car", badge: { text: "NEW!", class: "label-success" }, priority: :first
   #   end
   # end
-
   # == Extension Options
   #
   # Specify helper modules to expose to the admin.

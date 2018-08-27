@@ -308,7 +308,9 @@
     }
   }
   .edit_vehicle_config,.new_vehicle_config {
-    
+    .select2 {
+      width:100%!important;
+    }
     
     .col-class-year-end {
       * {
@@ -413,14 +415,14 @@
     line-height: 26px;
     color: #586069;
     > li {
-      &:first-child {
-        display:none;
-      }
-      &:nth-child(2) {
-        &:before {
-          display:none;
-        }
-      }
+      // &:first-child {
+      //   display:none;
+      // }
+      // &:nth-child(2) {
+      //   &:before {
+      //     display:none;
+      //   }
+      // }
     }
   }
   .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle { color:initial; }

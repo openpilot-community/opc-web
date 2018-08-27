@@ -11,7 +11,8 @@
     <% end %>
 
     <%= csrf_meta_tags %>
-    <%= display_meta_tags site: Trestle.config.site_title, og: {
+    <%= display_meta_tags reverse: true,
+      site: Trestle.config.site_title, og: {
       title: :title,
       site_name: :site,
     } %>

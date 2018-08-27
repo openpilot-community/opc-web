@@ -5,7 +5,8 @@ class CheckOpenpilotReposWorker
   def perform(*args)
     # Do something later
     
-
+    client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
+    client.auto_paginate = true
     forks = client.forks('commaai/openpilot');
     commaai_repo = Repository.find_or_initialize_by(:full_name => 'commaai/openpilot')
     commaai_repo.scrape_branches

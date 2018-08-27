@@ -27,6 +27,7 @@ Trestle.resource(:vehicle_config_repositories) do
       collection_select :vehicle_config_id, VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_trim, :vehicle_config_type).order("vehicle_makes.name, vehicle_models.name, vehicle_trims.name, year, vehicle_config_types.difficulty_level"), :id, :name, include_blank: true
     end
     collection_select :repository_id, Repository.order(:name), :id, :name, include_blank: true
+    collection_select :repository_branch_id, vehicle_config_repository.repository.present? ? vehicle_config_repository.repository.repository_branches.order(:name) : nil, :id, :name, include_blank: true
   end
   # Customize the form fields shown on the new/edit views.
   #

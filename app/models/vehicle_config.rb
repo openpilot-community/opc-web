@@ -139,25 +139,25 @@ class VehicleConfig < ApplicationRecord
         {
           :icon => "fa fa-users",
           :color => "danger",
-          :url => latest_repository.blank? ? nil : latest_repository.url,
-          :tooltip => "Community Supported in #{latest_repository.blank? ? nil : latest_repository.full_name}",
-          :label => latest_repository.blank? ? nil : latest_repository.full_name
+          :url => latest_repository.repository.blank? ? nil : latest_repository.repository.url,
+          :tooltip => "Community Supported in #{latest_repository.repository.blank? ? nil : latest_repository.repository.full_name}",
+          :label => "#{latest_repository.repository.blank? ? nil : latest_repository.repository.full_name}#{latest_repository.repository_branch.blank? ? nil : '#' + latest_repository.repository_branch.name}"
         }
       when "In Development"
         {
           :icon => "fa fa-code",
           :color => "warning",
           :tooltip => vehicle_config_status.name,
-          :url => latest_repository.blank? ? nil : latest_repository.url,
-          :label => latest_repository.blank? ? vehicle_config_status.name : "#{latest_repository.full_name}"
+          :url => (!latest_repository.blank? && !latest_repository.repository.blank?) ? latest_repository.repository.url : nil,
+          :label => (!latest_repository.blank? && !latest_repository.repository.blank?) ? "#{latest_repository.repository.full_name}#{latest_repository.repository_branch.blank? ? nil : '#' + latest_repository.repository_branch.name}" : nil
         }
       when "Pull Request"
         {
           :icon => "fa fa-hourglass",
           :color => "info",
           :tooltip => vehicle_config_status.name,
-          :url => latest_open_pull_request.blank? ? nil : latest_open_pull_request.html_url,
-          :label => latest_open_pull_request.blank? ? vehicle_config_status.name : "#{vehicle_config_status.name} ##{latest_open_pull_request.number}"
+          :url => (!latest_open_pull_request.blank?) ? latest_open_pull_request.html_url : nil,
+          :label => (!latest_open_pull_request.blank?) ? "#{vehicle_config_status.name} ##{latest_open_pull_request.number}" : vehicle_config_status.name
         }
       when "Upstreamed"
         {
@@ -207,7 +207,7 @@ class VehicleConfig < ApplicationRecord
     if !vehicle_config_repositories.blank?
       if repositories = vehicle_config_repositories.joins(:repository).order("repositories.id DESC")
         if !repositories.blank?
-          repositories.first.repository
+          repositories.first
         end
       end
     end

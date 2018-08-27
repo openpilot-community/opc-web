@@ -25,14 +25,17 @@ var setupVehicleConfigYear = function() {
   }
   // console.warn('setupVehicleConfigYear');
   var $year_start = $("#vehicle_config_year");
+  $year_start.select2();
   var $year_start_column = $(".col-class-year-start");
   var $year_start_select2_container = $year_start_column.find('.select2-container');
   var $year_end = $("#vehicle_config_year_end");
+  $year_end.select2();
   var $year_end_column = $(".col-class-year-end");
   var $year_end_select2_container = $year_end_column.find('.select2-container');
   var $year_range = $('.col-class-year-range');
   var $add_year_end_link = $("<a class=\"year-end-link\" href=\"javascript:void(0);\">+ Add End Year</a>");
-  
+  var $vehicle_make = $("#vehicle_config_vehicle_make_id").select2();
+  var $vehicle_model = $("#vehicle_config_vehicle_model_id").select2();
   // console.warn("$year_start:", $year_start);
   // console.warn("$year_start_column:", $year_start);
   // console.warn("$year_start_select2_container:", $year_start);
@@ -133,6 +136,9 @@ $(Trestle).on("init",function() {
           }
       }, this))
   }
+
+  $elems['repositories'] = $("#vehicle_config_repository_repository_id");
+  $elems['repository_branches'] = $("#vehicle_config_repository_repository_branch_id");
   $elems['trims'] = $('select#vehicle_config_vehicle_trim_id');
   $elems['makes'] = $('select#vehicle_config_vehicle_make_id');
   $elems['models'] = $('select#vehicle_config_vehicle_model_id');
@@ -153,6 +159,21 @@ $(Trestle).on("init",function() {
     });
   }
 
+  var getBranchesForRepository = function(repository) {
+    $.getJSON("/repository_branches.json?repository=" + repository).then(function(records) {
+      var options = records.map(function(record) {
+        return $("<option value=\"" + record.id + "\">" + record.name + "</option>");
+      });
+      options.unshift($("<option value=\"\"></option>"));
+      if (options) {
+        $elems["repository_branches"].select2("val","");
+        return $elems["repository_branches"].html(options);
+      } else {
+        return $elems["repository_branches"].empty();
+      }
+    });
+  }
+
   $elems['models'].change(function() {
     var model, options;
     var modelId = $('#vehicle_config_vehicle_model_id').val();
@@ -169,7 +190,17 @@ $(Trestle).on("init",function() {
     // // console.log(options);
     getModelsForMake(make);
   });
+  
+  $elems['repositories'].change(function() {
+    var $this = $(this);
+    $optionsParent = $this.find('.select2-selection__rendered');
 
+    sortUsingNestedText($optionsParent,'li','li:text');
+    var repository, options;
+    repository = $this.val();
+    // // console.log(options);
+    getBranchesForRepository(repository);
+  });
   function sortUsingNestedText(parent, childSelector, keySelector) {
       var items = parent.children(childSelector).sort(function(a, b) {
           var vA = $(keySelector, a).text();

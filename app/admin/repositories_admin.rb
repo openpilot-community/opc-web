@@ -16,14 +16,20 @@ Trestle.resource(:repositories) do
 
   # Customize the form fields shown on the new/edit views.
   #
-  # form do |repository|
-  #   text_field :name
-  #
-  #   row do
-  #     col(xs: 6) { datetime_field :updated_at }
-  #     col(xs: 6) { datetime_field :created_at }
-  #   end
-  # end
+  form do |repository|
+    tab :general do
+      text_field :name
+      text_field :full_name
+      text_field :owner_login
+      text_field :owner_avatar_url
+      text_field :url
+    end
+    tab :branches do
+      table repository.repository_branches.order('name'), admin: :repository_branches do
+        column :name
+      end
+    end
+  end
 
   # By default, all parameters passed to the update and create actions will be
   # permitted. If you do not have full trust in your users, you should explicitly

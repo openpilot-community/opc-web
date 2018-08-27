@@ -1,0 +1,40 @@
+<div class="lookup-form">
+<div class="main-content-area">
+<div class="main-content-container">
+<div class="main-content">
+<%= form_for @vehicle_config, url: admin.path(:create), method: :post do |f| %>
+  <div class="row">
+    <div class="col-sm-3 col-class-year-range">
+      <div class="row">
+        <div class="col-sm-6 col-class-year-start">
+          <div class="form-group">
+            <label class="control-label" for="vehicle_config_year">Year</label>
+            <%= f.select :year, 2010..(Time.zone.now.year + 2) %>
+          </div>
+        </div>
+        <div class="col-sm-6 col-class-year-end">
+          <div class="form-group">
+            <label class="control-label" for="vehicle_config_year_end">Year</label>
+            <%= f.select :year_end, 2010..(Time.zone.now.year + 2) %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="vehicle_config_make">Make</label>
+        <%=f.collection_select :vehicle_make_id, VehicleMake.order(:name), :id, :name, include_blank: true%>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="vehicle_config_make">Model</label>
+        <%=f.collection_select :vehicle_model_id, VehicleModel.order(:name), :id, :name, include_blank: true%>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+</div>
+</div>
+</div>

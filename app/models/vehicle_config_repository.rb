@@ -12,7 +12,8 @@
 class VehicleConfigRepository < ApplicationRecord
   belongs_to :vehicle_config
   belongs_to :repository
-
+  belongs_to :repository_branch
+  
   def name
     "#{repository.name}"
   end

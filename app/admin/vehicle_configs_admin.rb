@@ -26,7 +26,7 @@ Trestle.resource(:vehicle_configs) do
       set_meta_tags description: "This is a master list of vehicles supported and being researched on for usage with openpilot software."
       super
     end
-    # include Pundit
+    
     def refresh_trims
       vehicle_config_root = admin.find_instance(params).root
       vehicle_config_root.scrape_info
@@ -71,7 +71,6 @@ Trestle.resource(:vehicle_configs) do
     column :vehicle_model, header: "Make",  sort: false, link: true do |vehicle_config|
       vehicle_config.vehicle_model.name
     end
-    # column :vehicle_model, header: "Model",  sort: false, link: true
     column :trim_styles_count, header: "Trims", sort: false
     column :minimum_difficulty, header: "Min. Difficulty", sort: false do |vehicle_config|
       render "difficulty_label", vehicle_config: vehicle_config
@@ -79,10 +78,8 @@ Trestle.resource(:vehicle_configs) do
     column :status, header: "Status" do |vehicle_config|
       render "config_status", vehicle_config: vehicle_config
     end
-    # column :full_support_difficulty, header: "Full Support Difficulty"
-    # actions
   end
-  
+
   #####
   # F O R M
   #####
@@ -242,6 +239,7 @@ Trestle.resource(:vehicle_configs) do
               "#{image_tag(vcr.repository.owner_avatar_url, width: "20")} #{vcr.repository.full_name}".html_safe
             end
           end
+          column :repository_branch
         end
 
         table vehicle_config.vehicle_config_pull_requests, admin: :pull_requests do

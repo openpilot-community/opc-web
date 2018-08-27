@@ -39,7 +39,7 @@ Trestle.resource(:vehicle_configs) do
     def show
       # self.instance = admin.find_instance(params)
       vehicle_config_root = admin.find_instance(params).root
-      @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("#{vehicle_config_root.name}")])
+      @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("#{vehicle_config_root.name}","/vehicle_configs/#{vehicle_config_root.slug}")])
       set_meta_tags og: {
         title: "#{vehicle_config_root.name} | Openpilot Database",
         image: asset_url("/assets/opengraph-image.png"),

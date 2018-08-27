@@ -1,5 +1,5 @@
 Trestle.resource(:vehicle_configs) do
-  
+
   menu do
     item :vehicle_configs, icon: "fa fa-car", group: :vehicles, label: "Research / Support", priority: :first
   end
@@ -8,7 +8,7 @@ Trestle.resource(:vehicle_configs) do
   # SCOPES
   ########
   scope :all, -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level") }, default: true
-  
+
   ########
   # SEARCH
   ########
@@ -33,8 +33,6 @@ Trestle.resource(:vehicle_configs) do
       set_meta_tags description: "This is a master list of vehicles supported and being researched on for usage with openpilot software."
       super
       # breadcrumbs = Trestle::Breadcrumb::Trail.new(["Vehicle Search and Support"])
-      
-
     end
     def create
       self.instance = admin.build_instance(permitted_params, params)
@@ -90,7 +88,7 @@ Trestle.resource(:vehicle_configs) do
               vehicle_model: instance.vehicle_model_id,
               config_type: instance.vehicle_config_type_id
             })
-        
+
             if dupes.count == 1
               record = dupes.first
               self.instance = admin.find_instance({ :id => record.id })
@@ -101,6 +99,7 @@ Trestle.resource(:vehicle_configs) do
               render "new", status: :unprocessable_entity
             end
           end
+
           format.json { render json: instance.errors, status: :unprocessable_entity }
           format.js
         end
@@ -108,7 +107,6 @@ Trestle.resource(:vehicle_configs) do
     end
 
     def show
-      # self.instance = admin.find_instance(params)
       vehicle_config_root = admin.find_instance(params).root
       @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support","/vehicle_configs")])
       set_meta_tags og: {
@@ -120,9 +118,10 @@ Trestle.resource(:vehicle_configs) do
       set_meta_tags description: "Research and support of comma openpilot for the #{vehicle_config_root.name}."
       super
     end
+
     def refresh_trims
       self.instance = admin.find_instance(params).root
-              
+
       begin
         vehicle_config_root = admin.find_instance(params).root
         vehicle_config_root.scrape_info
@@ -180,9 +179,9 @@ Trestle.resource(:vehicle_configs) do
     end
   end
 
-  #####
-  # F O R M
-  #####
+  ##########
+  #  FORM  #
+  ##########
   form do |vehicle_config|
     tab :general do
       if vehicle_config.parent.blank?
@@ -195,14 +194,10 @@ Trestle.resource(:vehicle_configs) do
           end
           col(sm: 4) { collection_select :vehicle_make_id, VehicleMake.order(:name), :id, :name, include_blank: true }
           col(sm: 5) { collection_select :vehicle_model_id, vehicle_config.vehicle_make.blank? ? [] : vehicle_config.vehicle_make.vehicle_models.order(:name), :id, :name, include_blank: true }
-          # col(sm: 5) do
-          #   select :vehicle_trim_ids, (vehicle_config.vehicle_model.blank? ? [] : VehicleTrim.where(:vehicle_model => vehicle_config.vehicle_model.id).order(:name)), { label: "Trim(s)" }, { multiple: true, data: { tags: true } }
-          #   # tag_select :vehicle_config_trim_styles
-          # end
         end
       else
         static_field :name, "#{vehicle_config.name.blank? ? nil : vehicle_config.name}"
-    
+
         hidden_field :year
         hidden_field :year_end
         hidden_field :vehicle_make_id
@@ -214,7 +209,7 @@ Trestle.resource(:vehicle_configs) do
         collection_select :vehicle_make_package_id, VehicleMakePackage.where(vehicle_make: vehicle_config.vehicle_make).order(:name), :id, :name, include_blank: true, label: "Required Factory Installed Option"
       end
     end
-    
+
     unless vehicle_config.new_record? || vehicle_config.vehicle_config_type.blank?
       tab :trim_styles, badge: vehicle_config.trim_styles_count do
         render "tab_toolbar", {
@@ -222,12 +217,12 @@ Trestle.resource(:vehicle_configs) do
             {
               :class => "actions",
               :items => [
-                link_to("Scan For Trims", admin.path(:refresh_trims, id: instance.root.id), method: :get, class: "btn btn-default btn-block")
+                link_to("<span class=\"fa fa-refresh\"></span> Scan For Trims".html_safe, admin.path(:refresh_trims, id: instance.root.id), method: :get, class: "btn btn-default btn-block")
               ]
             }
           ]
         }
-        
+
         table vehicle_config.trim_styles.blank? ? [] : vehicle_config.trim_styles, admin: :vehicle_trim_styles do
           # column :id
           column :year
@@ -400,6 +395,10 @@ Trestle.resource(:vehicle_configs) do
         end
       end
       sidebar do
+        if !vehicle_config.vehicle_config_videos.blank?
+          render inline: vehicle_config.vehicle_config_videos.first.video.html.html_safe
+        end
+        render inline: content_tag(:div, nil, {style: "margin-top:10px;"})
         render "fork_links", :instance => vehicle_config
         
         # collection_select :parent_id, VehicleConfig.where.not(id: vehicle_config.id).includes(:vehicle_make,:vehicle_model).where(:vehicle_make => vehicle_config.vehicle_make.blank? ? nil : vehicle_config.vehicle_make,:vehicle_model => vehicle_config.vehicle_model.blank? ? nil : vehicle_config.vehicle_model).where("parent_id IS NULL").order("vehicle_models.name, year"), :id, :name, include_blank: true, label: "Associate to new parent"

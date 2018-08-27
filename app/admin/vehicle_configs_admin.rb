@@ -36,6 +36,77 @@ Trestle.resource(:vehicle_configs) do
       
 
     end
+    def create
+      self.instance = admin.build_instance(permitted_params, params)
+
+      if admin.save_instance(instance)
+        respond_to do |format|
+          format.html do
+            flash[:message] = flash_message("create.success", title: "Success!", message: "The %{lowercase_model_name} was successfully created.")
+            redirect_to_return_location(:create, instance, default: admin.instance_path(instance))
+          end
+          format.json { render json: instance, status: :created, location: admin.instance_path(instance) }
+          format.js
+        end
+      else
+        respond_to do |format|
+          format.html do
+            dupes = VehicleConfig.where(%(
+              (
+                vehicle_configs.year = :year AND 
+                vehicle_configs.vehicle_make_id = :vehicle_make AND 
+                vehicle_configs.vehicle_model_id = :vehicle_model AND
+                vehicle_configs.vehicle_config_type_id = :config_type
+              ) OR (
+                vehicle_configs.year_end = :year AND 
+                vehicle_configs.vehicle_make_id = :vehicle_make AND 
+                vehicle_configs.vehicle_model_id = :vehicle_model AND
+                vehicle_configs.vehicle_config_type_id = :config_type
+              ) OR (
+                vehicle_configs.year_end = :year AND 
+                vehicle_configs.vehicle_make_id = :vehicle_make AND 
+                vehicle_configs.vehicle_model_id = :vehicle_model AND
+                vehicle_configs.vehicle_config_type_id = :config_type
+              ) OR (
+                vehicle_configs.year_end = :year_end AND 
+                vehicle_configs.vehicle_make_id = :vehicle_make AND 
+                vehicle_configs.vehicle_model_id = :vehicle_model AND
+                vehicle_configs.vehicle_config_type_id = :config_type
+              ) OR (
+                ((:year) BETWEEN vehicle_configs.year AND vehicle_configs.year_end) AND 
+                vehicle_configs.vehicle_make_id = :vehicle_make AND 
+                vehicle_configs.vehicle_model_id = :vehicle_model AND
+                vehicle_configs.vehicle_config_type_id = :config_type
+              ) OR (
+                ((:year_end) BETWEEN vehicle_configs.year AND vehicle_configs.year_end) AND 
+                vehicle_configs.vehicle_make_id = :vehicle_make AND 
+                vehicle_configs.vehicle_model_id = :vehicle_model AND
+                vehicle_configs.vehicle_config_type_id = :config_type
+              )
+            ), {
+              year: instance.year,
+              year_end: instance.year_end,
+              vehicle_make: instance.vehicle_make_id,
+              vehicle_model: instance.vehicle_model_id,
+              config_type: instance.vehicle_config_type_id
+            })
+        
+            if dupes.count == 1
+              record = dupes.first
+              self.instance = admin.find_instance({ :id => record.id })
+              flash[:message] = flash_message("found.success", title: "Thank you, this configuration already exists.", message: "We found that configuration already in the database. Please refer to this configuration instead of creating a new one.".html_safe)
+              redirect_to_return_location(:show, instance, default: admin.instance_path(instance))
+            else
+              flash.now[:error] = flash_message("create.failure", title: "Warning!", message: "Please correct the errors below.")
+              render "new", status: :unprocessable_entity
+            end
+          end
+          format.json { render json: instance.errors, status: :unprocessable_entity }
+          format.js
+        end
+      end
+    end
+
     def show
       # self.instance = admin.find_instance(params)
       vehicle_config_root = admin.find_instance(params).root

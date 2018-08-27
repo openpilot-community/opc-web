@@ -61,7 +61,7 @@ class GoodnessValidator < ActiveModel::Validator
     }).count
 
     if dupes > 0
-      record.errors[:vehicle_model] << "The information you entered is already contained within an existing vehicle config."
+      record.errors[:vehicle_model] << "The year, make, model you entered is already contained within an existing vehicle config."
     end
   end
 end

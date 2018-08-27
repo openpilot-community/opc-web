@@ -133,7 +133,18 @@ var setupVehicleConfigYear = function() {
 }
 
 $(Trestle).on("init",function() {
+  var $sidebar = $(".app-sidebar");
+  var $contentContainer = $(".main-content-container");
+  var resizeDocument = function() {
+    var sidebarWidth = $sidebar.outerWidth();
+    $contentContainer.css({
+      width: $(document).width()-sidebarWidth
+    });
+  }
   setupVehicleConfigYear();
+  
+
+  
   
   var trims;
   var models;

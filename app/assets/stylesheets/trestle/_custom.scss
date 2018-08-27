@@ -65,6 +65,7 @@ body {
   .nav-tabs {
     position:relative;
     display:flex;
+    overflow-y: hidden;
     // justify-content: center;
     &:after {
       content: "";
@@ -208,8 +209,8 @@ body {
     border-bottom: 1px solid rgba(0,0,0,0.2);
     display:flex;
     .searchbox {
-      flex: 0 0 85%;
-      max-width:85%;
+      flex: 0 0 80%;
+      max-width:80%;
       padding:0;
       float:initial;
       .input-group-addon {
@@ -231,9 +232,25 @@ body {
       }
     }
     .nav {
-      flex: 0 0 15%;
-      max-width:15%;
+      flex: 0 0 20%;
+      max-width:20%;
       margin:0 0 0 auto;
+      .sign-in {
+        padding: 7px 10px 7px 0;
+        text-align: right;
+        a.btn {
+          position:relative;
+          padding-left:40px;
+        }
+        .fa {
+          font-size: 20px;
+          position:absolute;
+          left:10px;
+          top:50%;
+          transform:translateY(-50%);
+
+        }
+      }
       .user-dropdown {
         width:100%;
         display:block;
@@ -766,12 +783,45 @@ body {
         margin:0 0 0 auto;
       }
     }
-    
   }
+
   @media (max-width: 767px) {
     .app-header {
       position:relative;
       display:none;
+    }
+    h1.path-heading {
+      flex: 0 0 60%;
+      font-size: 19px;
+      line-height: 1.8em;
+      height: 100%;
+      text-overflow: ellipsis;
+      margin-bottom: 0;
+      white-space:nowrap;
+      overflow:hidden;
+      display:block;
+      &.has-multiple {
+        .first {
+          display:none;
+        }
+      }
+
+      .first {
+        display:none;
+      }
+      .opc-icon {    
+        margin-top: 10px;
+      }
+    }
+    .content-header {
+      margin-bottom:10px;
+    }
+    .content-header .btn-toolbar {
+        text-align: right;
+        flex: 0 0 40%;
+    }
+    .main-content-container {
+      overflow-x: auto;
     }
     .app-main {
       padding:0;

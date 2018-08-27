@@ -110,7 +110,7 @@ Trestle.resource(:vehicle_configs) do
     def show
       # self.instance = admin.find_instance(params)
       vehicle_config_root = admin.find_instance(params).root
-      @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("#{vehicle_config_root.name}","/vehicle_configs/#{vehicle_config_root.slug}")])
+      @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support","/vehicle_configs")])
       set_meta_tags og: {
         title: "#{vehicle_config_root.name} | Openpilot Database",
         image: asset_url("/assets/opengraph-image.png"),
@@ -394,15 +394,7 @@ Trestle.resource(:vehicle_configs) do
       end
       sidebar do
         render "fork_links", :instance => vehicle_config
-        concat(
-          link_to(
-            "<span class=\"fa fa-copy\"></span> Duplicate Entire Config".html_safe, 
-            admin.path(:clone, id: vehicle_config.blank? ? nil : vehicle_config.root.id), 
-            method: :get, 
-            class: "btn btn-default btn-block", 
-            confirm: 'This will copy the Factory config and all of its sub-configs to an entirely new vehicle config.\nAre you sure this is what you want to do?'
-          )
-        )
+        
         # collection_select :parent_id, VehicleConfig.where.not(id: vehicle_config.id).includes(:vehicle_make,:vehicle_model).where(:vehicle_make => vehicle_config.vehicle_make.blank? ? nil : vehicle_config.vehicle_make,:vehicle_model => vehicle_config.vehicle_model.blank? ? nil : vehicle_config.vehicle_model).where("parent_id IS NULL").order("vehicle_models.name, year"), :id, :name, include_blank: true, label: "Associate to new parent"
       end
     end

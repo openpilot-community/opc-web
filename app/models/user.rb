@@ -58,11 +58,13 @@ class User < ApplicationRecord
 
       )
     end
-    is_contributor = Contributor.find_by(username: new_user.github_username)
-    if is_contributor
-      new_user.user_role = UserRole.find_by(name: "Admin")
-    else
-      new_user.user_role = UserRole.find_by(name: "Visitor")
+    if new_user.new_record?
+      is_contributor = Contributor.find_by(username: new_user.github_username)
+      if is_contributor
+        new_user.user_role = UserRole.find_by(name: "Admin")
+      else
+        new_user.user_role = UserRole.find_by(name: "Visitor")
+      end
     end
     new_user.save
     new_user

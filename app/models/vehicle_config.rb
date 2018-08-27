@@ -20,45 +20,95 @@
 
 class GoodnessValidator < ActiveModel::Validator
   def validate(record)
-    dupes = VehicleConfig.where(%(
-      (
-        vehicle_configs.year = :year AND 
-        vehicle_configs.vehicle_make_id = :vehicle_make AND 
-        vehicle_configs.vehicle_model_id = :vehicle_model AND
-        vehicle_configs.vehicle_config_type_id = :config_type
-      ) OR (
-        vehicle_configs.year_end = :year AND 
-        vehicle_configs.vehicle_make_id = :vehicle_make AND 
-        vehicle_configs.vehicle_model_id = :vehicle_model AND
-        vehicle_configs.vehicle_config_type_id = :config_type
-      ) OR (
-        vehicle_configs.year_end = :year AND 
-        vehicle_configs.vehicle_make_id = :vehicle_make AND 
-        vehicle_configs.vehicle_model_id = :vehicle_model AND
-        vehicle_configs.vehicle_config_type_id = :config_type
-      ) OR (
-        vehicle_configs.year_end = :year_end AND 
-        vehicle_configs.vehicle_make_id = :vehicle_make AND 
-        vehicle_configs.vehicle_model_id = :vehicle_model AND
-        vehicle_configs.vehicle_config_type_id = :config_type
-      ) OR (
-        ((:year) BETWEEN vehicle_configs.year AND vehicle_configs.year_end) AND 
-        vehicle_configs.vehicle_make_id = :vehicle_make AND 
-        vehicle_configs.vehicle_model_id = :vehicle_model AND
-        vehicle_configs.vehicle_config_type_id = :config_type
-      ) OR (
-        ((:year_end) BETWEEN vehicle_configs.year AND vehicle_configs.year_end) AND 
-        vehicle_configs.vehicle_make_id = :vehicle_make AND 
-        vehicle_configs.vehicle_model_id = :vehicle_model AND
-        vehicle_configs.vehicle_config_type_id = :config_type
-      )
-    ), {
-      year: record.year,
-      year_end: record.year_end,
-      vehicle_make: record.vehicle_make_id,
-      vehicle_model: record.vehicle_model_id,
-      config_type: record.vehicle_config_type_id
-    }).count
+    if !record.new_record?
+      dupes = VehicleConfig.where(%(
+        (
+          vehicle_configs.year = :year AND 
+          vehicle_configs.vehicle_make_id = :vehicle_make AND 
+          vehicle_configs.vehicle_model_id = :vehicle_model AND
+          vehicle_configs.vehicle_config_type_id = :config_type AND
+          vehicle_configs.id != :current_id
+          
+        ) OR (
+          vehicle_configs.year_end = :year AND 
+          vehicle_configs.vehicle_make_id = :vehicle_make AND 
+          vehicle_configs.vehicle_model_id = :vehicle_model AND
+          vehicle_configs.vehicle_config_type_id = :config_type AND
+          vehicle_configs.id != :current_id
+        ) OR (
+          vehicle_configs.year_end = :year AND 
+          vehicle_configs.vehicle_make_id = :vehicle_make AND 
+          vehicle_configs.vehicle_model_id = :vehicle_model AND
+          vehicle_configs.vehicle_config_type_id = :config_type AND
+          vehicle_configs.id != :current_id
+        ) OR (
+          vehicle_configs.year_end = :year_end AND 
+          vehicle_configs.vehicle_make_id = :vehicle_make AND 
+          vehicle_configs.vehicle_model_id = :vehicle_model AND
+          vehicle_configs.vehicle_config_type_id = :config_type AND
+          vehicle_configs.id != :current_id
+        ) OR (
+          ((:year) BETWEEN vehicle_configs.year AND vehicle_configs.year_end) AND 
+          vehicle_configs.vehicle_make_id = :vehicle_make AND 
+          vehicle_configs.vehicle_model_id = :vehicle_model AND
+          vehicle_configs.vehicle_config_type_id = :config_type AND
+          vehicle_configs.id != :current_id
+        ) OR (
+          ((:year_end) BETWEEN vehicle_configs.year AND vehicle_configs.year_end) AND 
+          vehicle_configs.vehicle_make_id = :vehicle_make AND 
+          vehicle_configs.vehicle_model_id = :vehicle_model AND
+          vehicle_configs.vehicle_config_type_id = :config_type AND
+          vehicle_configs.id != :current_id
+        )
+      ), {
+        year: record.year,
+        year_end: record.year_end,
+        vehicle_make: record.vehicle_make_id,
+        vehicle_model: record.vehicle_model_id,
+        config_type: record.vehicle_config_type_id,
+        current_id: record.id
+      }).count
+      else
+        dupes = VehicleConfig.where(%(
+          (
+            vehicle_configs.year = :year AND 
+            vehicle_configs.vehicle_make_id = :vehicle_make AND 
+            vehicle_configs.vehicle_model_id = :vehicle_model AND
+            vehicle_configs.vehicle_config_type_id = :config_type
+          ) OR (
+            vehicle_configs.year_end = :year AND 
+            vehicle_configs.vehicle_make_id = :vehicle_make AND 
+            vehicle_configs.vehicle_model_id = :vehicle_model AND
+            vehicle_configs.vehicle_config_type_id = :config_type
+          ) OR (
+            vehicle_configs.year_end = :year AND 
+            vehicle_configs.vehicle_make_id = :vehicle_make AND 
+            vehicle_configs.vehicle_model_id = :vehicle_model AND
+            vehicle_configs.vehicle_config_type_id = :config_type
+          ) OR (
+            vehicle_configs.year_end = :year_end AND 
+            vehicle_configs.vehicle_make_id = :vehicle_make AND 
+            vehicle_configs.vehicle_model_id = :vehicle_model AND
+            vehicle_configs.vehicle_config_type_id = :config_type
+          ) OR (
+            ((:year) BETWEEN vehicle_configs.year AND vehicle_configs.year_end) AND 
+            vehicle_configs.vehicle_make_id = :vehicle_make AND 
+            vehicle_configs.vehicle_model_id = :vehicle_model AND
+            vehicle_configs.vehicle_config_type_id = :config_type
+          ) OR (
+            ((:year_end) BETWEEN vehicle_configs.year AND vehicle_configs.year_end) AND 
+            vehicle_configs.vehicle_make_id = :vehicle_make AND 
+            vehicle_configs.vehicle_model_id = :vehicle_model AND
+            vehicle_configs.vehicle_config_type_id = :config_type
+          )
+        ), {
+          year: record.year,
+          year_end: record.year_end,
+          vehicle_make: record.vehicle_make_id,
+          vehicle_model: record.vehicle_model_id,
+          config_type: record.vehicle_config_type_id
+        }).count
+      end
 
     if dupes > 0
       record.errors[:vehicle_model] << "The year, make, model you entered is already contained within an existing vehicle config."
@@ -285,12 +335,12 @@ class VehicleConfig < ApplicationRecord
       # if vehicle_trims
       #   new_name = "#{new_name} #{vehicle_trims.map {|trim| trim.name }.join(", ")}"
       # end
-      if vehicle_make_package
-        new_name = "#{new_name} w/ #{vehicle_make_package.name}"
-      end
-      if vehicle_config_type
-        new_name = "#{new_name}"
-      end
+      # if vehicle_make_package
+      #   new_name = "#{new_name} w/ #{vehicle_make_package.name}"
+      # end
+      # if vehicle_config_type
+      #   new_name = "#{new_name}"
+      # end
     end
 
     new_name

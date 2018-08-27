@@ -15,10 +15,9 @@
     </ul>
   </li>
   <% else %>
-  <li role="presentation" class="dropdown">
-    <%=link_to '/sign_in' do %>
-      <%=icon('fa','fa-github')%>
-      Sign In with GitHub
+  <li role="presentation" class="sign-in">
+    <%= link_to "/users/auth/github", class: "btn btn-dark login-button" do %>
+      <%=icon('fa', 'fa-github')%> Sign In with GitHub
     <% end %>
   </li>
   <% end %>

@@ -19,10 +19,11 @@ Trestle.resource(:videos) do
   # Customize the form fields shown on the new/edit views.
   #
   form do |video|
+
     if video.persisted?
-      static_field :html, label: "Preview", class: "video-output" do
-        content_tag(:div, video.persisted? ? video.html.html_safe : nil, class: "video-output")
-      end
+      # static_field :html, label: "Preview", class: "video-output" do
+      #   content_tag(:div, video.persisted? ? video.html.html_safe : nil, class: "video-output")
+      # end
 
       text_field :title
       text_field :provider_name
@@ -34,6 +35,14 @@ Trestle.resource(:videos) do
       text_field :uploaded_at
     else
       text_field :video_url
+    end
+
+    sidebar do
+      static_field :html, label: "Preview", class: "video-output" do
+        content_tag(:div, video.persisted? ? video.html.html_safe : nil, class: "video-output")
+      end
+      
+      # collection_select :parent_id, VehicleConfig.where.not(id: vehicle_config.id).includes(:vehicle_make,:vehicle_model).where(:vehicle_make => vehicle_config.vehicle_make.blank? ? nil : vehicle_config.vehicle_make,:vehicle_model => vehicle_config.vehicle_model.blank? ? nil : vehicle_config.vehicle_model).where("parent_id IS NULL").order("vehicle_models.name, year"), :id, :name, include_blank: true, label: "Associate to new parent"
     end
   end
 

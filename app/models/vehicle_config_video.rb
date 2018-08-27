@@ -16,4 +16,12 @@ class VehicleConfigVideo < ApplicationRecord
   def name
     video.title
   end
+
+  def thumbnail_url
+    video.thumbnail_url
+  end
+
+  def author
+    video.author
+  end
 end

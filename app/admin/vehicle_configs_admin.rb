@@ -353,6 +353,29 @@ Trestle.resource(:vehicle_configs) do
             end
           end
       end
+
+      #####
+      # CODE TAB
+      #####
+      tab :videos, badge: vehicle_config.vehicle_config_videos.blank? ? nil : vehicle_config.vehicle_config_videos.size do
+        render "tab_toolbar", {
+          :groups => [
+            {
+              :class => "actions",
+              :items => [
+                admin_link_to("<span class=\"fa fa-plus\"></span> Video".html_safe, admin: :vehicle_config_videos, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id }),
+              ]
+            }
+          ]
+        }
+        table vehicle_config.vehicle_config_videos, admin: :vehicle_config_videos do
+          column :thumbnail do |vehicle_config_video|
+            image_tag(vehicle_config_video.thumbnail_url, width: '150')
+          end
+          column :name
+          column :author
+        end
+      end
       
       tab :history do
         table vehicle_config.versions, admin: :versions do

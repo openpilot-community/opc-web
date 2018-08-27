@@ -21,8 +21,9 @@ class Video < ApplicationRecord
   has_many :vehicle_configs, :through => :vehicle_config_videos
   has_many :video_hardware_items
   has_many :hardware_items, :through => :video_hardware_items
-  validates_uniqueness_of :video_url
-  before_save :embed
+  validates_uniqueness_of :video_url, message: "Video has already been added."
+  validates_uniqueness_of :html, message: "Video has already been added."
+  before_validation :embed
   # has_many :hardware_items, :through => :video_hardware
   
   def name

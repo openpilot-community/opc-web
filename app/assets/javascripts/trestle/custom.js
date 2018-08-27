@@ -23,7 +23,7 @@ var setupVehicleConfigYear = function() {
     $(".trestle-table .actions > *").remove();
     $(".main-content .form-control,.modal-body .form-control").attr('disabled',true);
   }
-
+  
   // console.warn('setupVehicleConfigYear');
   var $year_start = $("#vehicle_config_year");
   // $year_start.select2();
@@ -117,10 +117,24 @@ var setupVehicleConfigYear = function() {
   });
 
   refresh_year_view();
+
+  var $config_video = $("#vehicle_config_video_video_id");
+  console.log("$config_video:",$config_video);
+  $config_video.on("change",function() {
+    var $this = $(this)
+    getVideo($this.val());
+  });
+  var getVideo = function(video) {
+    $.getJSON("/videos/" + video + ".json").then(function(record) {
+      console.warn("record:",record);
+      $(".video-output").html(record.html);
+    });
+  }
 }
 
 $(Trestle).on("init",function() {
   setupVehicleConfigYear();
+  
   var trims;
   var models;
   var $elems = {}
@@ -159,7 +173,7 @@ $(Trestle).on("init",function() {
       }
     });
   }
-
+  
   var getBranchesForRepository = function(repository) {
     $.getJSON("/repository_branches.json?repository=" + repository).then(function(records) {
       var options = records.map(function(record) {

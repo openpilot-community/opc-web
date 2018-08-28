@@ -4,7 +4,7 @@
     class: CheckOpenpilotPullRequestsWorker
   check_openpilot_contributors:
     cron: '0 5 * * *'
-    class: CheckOpenpilotContributors
+    class: CheckOpenpilotContributorsWorker
   check_openpilot_repos:
     cron: '0 6 * * *'
     class: CheckOpenpilotReposWorker

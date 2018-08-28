@@ -1,6 +1,8 @@
 Trestle.resource(:pull_requests) do
   menu do
-    item :pull_requests, icon: "fa fa-github", group: :development
+    group :development, priority: 800 do
+      item :pull_requests, icon: "fa fa-github"
+    end
   end
   scope :all, -> { PullRequest.order(:pr_updated_at => :desc) }, default: true
   

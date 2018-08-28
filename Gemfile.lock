@@ -341,6 +341,10 @@ GEM
       rufus-scheduler (~> 3.2)
       sidekiq (>= 3)
       tilt (>= 1.4.0)
+    sidekiq-unique-jobs (6.0.6)
+      concurrent-ruby (~> 1.0, >= 1.0.5)
+      sidekiq (>= 4.0, < 6.0)
+      thor (~> 0)
     spring (2.0.2)
       activesupport (>= 4.2)
     sprockets (3.7.2)
@@ -421,6 +425,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   sidekiq
   sidekiq-scheduler
+  sidekiq-unique-jobs
   spring
   trestle!
   trestle-search

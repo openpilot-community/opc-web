@@ -1,7 +1,9 @@
 Trestle.resource(:vehicle_configs) do
 
   menu do
-    item :vehicle_configs, icon: "fa fa-car", group: :vehicles, label: "Research / Support", priority: :first
+    group :vehicles, priority: 100 do
+      item :vehicle_configs, icon: "fa fa-car", group: :vehicles, label: "Research / Support"
+    end
   end
 
   ########
@@ -121,16 +123,10 @@ Trestle.resource(:vehicle_configs) do
 
     def refresh_trims
       self.instance = admin.find_instance(params).root
-
-      begin
-        vehicle_config_root = admin.find_instance(params).root
-        vehicle_config_root.scrape_info
-        flash[:message] = "Vehicle trims list has been reloaded."
-        redirect_to admin.path(:show, id: vehicle_config_root.id)
-      rescue Exception => e
-        flash.now[:error] = flash_message("reload.error", title: "Warning!", message: "Failed to reload trims due to... #{e.message}")
-        redirect_to_return_location(:show, instance, default: admin.instance_path(instance))
-      end
+      vehicle_config_root = admin.find_instance(params).root
+      vehicle_config_root.delay.scrape_info
+      flash[:message] = "Vehicle trims list is being refreshed... reload the browser to see results."
+      redirect_to admin.path(:show, id: vehicle_config_root.id)
     end
 
     def fork

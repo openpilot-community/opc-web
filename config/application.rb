@@ -1,5 +1,6 @@
 require_relative 'boot'
-
+require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"

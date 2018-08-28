@@ -179,6 +179,61 @@ class VehicleConfig < ApplicationRecord
   #   vehicle_config_type.difficulty_level
   # end
 
+  def has_capability?(cap_id)
+    vehicle_capabilities.exists?(id: cap_id)
+  end
+  def config_type_ids
+    [root.vehicle_config_type_id,forks.map(&:vehicle_config_type_id)].flatten
+  end
+  def combined_capabilities
+    cap_ids = []
+    cap_ids << root.vehicle_capabilities.map(&:id)
+    
+    root.forks.each do |fork|
+      cap_ids << fork.vehicle_capabilities.map(&:id)
+    end
+
+    cap_ids = cap_ids.flatten.uniq
+
+    VehicleCapability.where(id: cap_ids).order(:name)
+  end
+
+  def capability_matrix
+    matrix = {}
+    VehicleConfigType.all.each do |type|
+      if root.config_type_ids.include?(type.id)
+        matrix[type.name.parameterize.to_sym] = {}
+        combined_capabilities.each do |capability|
+          cap = VehicleConfigCapability.joins(:vehicle_config).where("(vehicle_configs.parent_id = :id OR vehicle_configs.id = :id) AND vehicle_configs.vehicle_config_type_id = :type_id AND vehicle_config_capabilities.vehicle_capability_id = :capability_id", { id: root.id, type_id: type.id, capability_id: capability.id })
+          if cap.present?
+            cap = cap.first
+
+            if cap.timeout.present?
+              if cap.vehicle_capability.name == "Driver Monitor (advanced, vision)"
+                cap_value = "<span class=\"line\">Unlimited</span><span class=\"line\">#{cap.timeout_friendly} if disabled</span>".html_safe
+              else
+                cap_value = "<span class=\"line\">#{cap.timeout_friendly}</span>".html_safe
+              end
+            elsif cap.kph.present?
+              cap_value = "<span class=\"line\">#{cap.mph} mph</span><span class=\"line\">#{cap.kph} kph</span>".html_safe
+            else
+              cap_value = "<span class=\"fa fa-check\"></span>".html_safe
+            end
+
+            matrix[type.name.parameterize.to_sym][:"#{capability.name.parameterize}"] = {
+              value: cap_value,
+              label: type.name,
+              details: type.description,
+              capability: cap
+            }
+          end
+        end
+      end
+    end
+
+    matrix
+  end
+
   def difficulty_class
     case minimum_difficulty
     when "Advanced"

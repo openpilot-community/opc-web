@@ -4,9 +4,11 @@ class VehicleTrimStyle < ApplicationRecord
   # default_scope{ order(:name) }
   belongs_to :vehicle_trim
   has_many :vehicle_trim_style_specs
+
   def name_for_docs
     "#{vehicle_trim.year} #{vehicle_trim.vehicle_model.vehicle_make.name} #{vehicle_trim.vehicle_model.name} #{vehicle_trim.name} #{name_for_list}"
   end
+
   def name_for_list
     "#{name.gsub("#{vehicle_trim.name} ",'')}"
   end
@@ -19,6 +21,14 @@ class VehicleTrimStyle < ApplicationRecord
     vehicle_trim.name
   end
 
+  def image
+    if vehicle_trim.present? && vehicle_trim.image.present?
+      vehicle_trim.image
+    else
+      nil
+    end
+  end
+  
   def has_specs?
     !vehicle_trim_style_specs.blank?
   end
@@ -26,7 +36,7 @@ class VehicleTrimStyle < ApplicationRecord
   def price
     inventory_prices.gsub('Starting at','')
   end
-
+  
   def driver_assist_inclusion
     if !driver_assist_specs.blank?
       driver_assist_specs.first.inclusion

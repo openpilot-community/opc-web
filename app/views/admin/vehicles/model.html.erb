@@ -3,6 +3,7 @@
 <% breadcrumb(title) %>
 
 <h1><%=title%></h1>
+<%=render "global_alert"%>
 
 <p>
 Openpilot has some compatibility with the <strong><%=@model.name %></strong> and this page serves as a general overview of the model.<br />
@@ -25,7 +26,7 @@ To chat about the <%=title%> with the community, checkout the <a href="slack://c
 <ul>
   <% @model.vehicle_configs.where(parent_id: nil).each do |config| %>
   <li>
-    <%=link_to config.name, vehicles_admin_show_path(config.slug)%>
+    <%=link_to config.name, vehicles_admin_show_path(config.slug.present? ? config.slug : config.id)%>
   </li>
   <% end %>
 </ul>

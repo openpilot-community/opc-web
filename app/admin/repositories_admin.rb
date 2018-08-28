@@ -1,6 +1,6 @@
 Trestle.resource(:repositories) do
   menu do
-    item :repositories, icon: "fa fa-github", group: :development
+    item :repositories, icon: "fa fa-github", group: :development, priority: 2
   end
 
   # Customize the table columns shown on the index view.

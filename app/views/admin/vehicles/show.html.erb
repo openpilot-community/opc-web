@@ -3,7 +3,7 @@
 <% breadcrumb(title) %>
 
 <h1><%=title%></h1>
-
+<%=render "global_alert"%>
 <p>
 Openpilot has some compatibility with the <strong><%=@model.name %></strong> and this page serves as a general overview of the model.<br />
 To get more specific details on compatibility of a particular trim ensure you check the trim links below to learn more.
@@ -19,21 +19,24 @@ To chat about the <%=@config.vehicle_make.name%> <%=@config.vehicle_model.name%>
 
 <h2>Research and Support</h2>
 
-<p>The first thing we need to know is if the vehicle has Adaptive Cruise Control (ACC) and Lane Keeping Assist (LKA).<br />On <%=@make.name%> vehicles, this is called the <%=@config.vehicle_make_package.name%> package.</p>
+<p>The first thing we need to know is if the vehicle has Adaptive Cruise Control (ACC) and Lane Keeping Assist (LKA).
+<% if @config.vehicle_make_package.present? %>
+  <br />On <%=@make.name%> vehicles, this is called the <%=@config.vehicle_make_package.name%> package.</p>
+<% end %>
 <p>Although most model trims have similar factory hardware, some may differ slightly so ensure you check the trim pages for specifics.</p>
-<p>We've found the following trims for this configuration.</p>
+<%# <p>We've found the following trims for this configuration.</p> %>
 
 <h3>Identify your exact trim</h3>
 <h4>Standard Trims</h4>
 
 <p>The following trims come standard with the features required for Openpilot to work effectively.</p>
-<div class="alert alert-warning"><strong style="margin-right:25px;">NOTE</strong> Although they come with these features, it is not guaranteed that Openpilot is 100% compatible. 
+<div class="alert alert-info"><strong style="margin-right:25px;">NOTE</strong> Although they come with these features, it is not guaranteed that Openpilot is 100% compatible. 
 If you discover any issues, work with a community member to get your vehicle ported to its reach its full potential.</div>
 
 <ul>
   <% @config.trim_styles.select{|ts| ts.driver_assist_inclusion == "standard"}.each do |trim| %>
   <li>
-    <%=link_to vehicles_admin_show_trim_path(config_slug: @config.slug, trim_style_id: trim.id) do %>
+    <%=link_to vehicles_admin_show_trim_path(config_slug: @config.slug.present? ? @config.slug : @config.id, trim_style_id: trim.id) do %>
       <%=trim.year%> <%=trim.name%>
     <% end %>
   </li>
@@ -49,7 +52,7 @@ If you discover any issues, work with a community member to get your vehicle por
   <ul>
     <% @config.trim_styles.select{|ts| ts.driver_assist_inclusion == "option" }.each do |trim| %>
     <li>
-      <%=link_to vehicles_admin_show_trim_path(config_slug: @config.slug, trim_style_id: trim.id) do %>
+      <%=link_to vehicles_admin_show_trim_path(config_slug: @config.slug.present? ? @config.slug : @config.id, trim_style_id: trim.id) do %>
         <%=trim.year%> <%=trim.name%>
       <% end %>
     </li>

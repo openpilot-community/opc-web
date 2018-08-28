@@ -1,8 +1,4 @@
 Trestle.admin(:vehicles, model: VehicleConfig) do
-  menu do
-    item :vehicles, icon: "fa fa-car", group: :documentation, :priority => 1
-  end
-
   form do |vehicle_config|
     row do
       col(sm: 3, class: "year-range") do
@@ -37,6 +33,7 @@ Trestle.admin(:vehicles, model: VehicleConfig) do
       #   f.text_field :year
       # end
     end
+    
     def set_resources
       if !params['make_slug'].blank?
         @make = VehicleMake.friendly.find(params['make_slug'])

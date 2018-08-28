@@ -1,6 +1,6 @@
 Trestle.resource(:users) do
   menu do
-    item :users, icon: "fa fa-star", group: "Super Admin", priority: :last
+    item :users, icon: "fa fa-star", group: "Super Admin", priority: 10000
   end
 
   # Customize the table columns shown on the index view.

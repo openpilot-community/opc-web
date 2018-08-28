@@ -34,4 +34,177 @@
   .lookup-form {
     .select2 { width:100%!important; }
   }
+
+  .profile {
+    display:flex;
+  }
+  .profile-content {
+    flex:0 0 75%;
+    padding-right:17px;
+  }
+  .profile-sidebar-inner {
+    padding: 15px;
+  }
+  .profile-sidebar {
+    flex:0 0 25%;
+    // margin-left: 24px;
+    // margin-bottom: 24px;
+    background-color: #FFF;
+    padding: 0;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1000;
+  
+    .profile-image {
+      border:initial;
+      border-top-left-radius:3px;
+      border-top-right-radius:3px;
+      margin:15px;
+    }
+
+    .specs {
+      margin:10px 5px 5px 5px;
+      display:table;
+      width:100%;
+      .spec {
+        display:table-row;
+    
+        .key {
+          display: table-cell;
+          text-align: right;
+          font-size: 12px;
+          font-weight: bold;
+          padding: 5px 5px 5px 15px;
+        }
+        .value {
+          display:table-cell;
+          // padding:5px;
+          padding: 5px 15px 5px 5px;
+        }
+      }
+    }
+  }
+  $cap-type-factory: #AAA;
+  $cap-type-standard: #7ccde5;
+  $cap-type-basic: #f3bd71;
+  $cap-type-advanced: #e17572;
+  .capabilities {
+    display:table;
+    width:100%;
+    background-color:#FFF;
+    border:1px solid rgba(#000,0.1);
+
+    .capability {
+      display:table-row;
+      
+      .key,.type-factory,.type-standard,.type-basic,.type-advanced {
+        display:table-cell;
+        padding:15px;
+        text-align:center;
+        border-bottom:1px solid rgba(#000,0.1);
+        color:#FFF;
+        vertical-align:middle;
+      }
+      .type-factory, .type-standard, .type-basic, .type-advanced {
+        width:15%;
+      }
+      .type-factory {
+        background-color: lighten($cap-type-factory,10);
+
+        &.active {
+          background-color: darken($cap-type-factory,5);
+        }
+      }
+      .type-standard {
+        background-color: lighten($cap-type-standard,10);
+        &.active {
+          background-color: darken($cap-type-standard,5);
+        }
+      }
+      .type-basic {
+        background-color: lighten($cap-type-basic,10);
+        &.active {
+          background-color: darken($cap-type-basic,5);
+        }
+      }
+      .type-advanced {
+        background-color: lighten($cap-type-advanced,10);
+        &.active {
+          background-color: darken($cap-type-advanced,5);
+        }
+      }
+      .type-factory, .type-standard, .type-basic, .type-advanced {
+        font-size:18px;
+
+        .line {
+          display:block;
+          &:nth-child(2) {
+            font-size:13px;
+          }
+        }
+      }
+      &.capability-head {
+        .key,.type-factory,.type-standard,.type-basic,.type-advanced {
+          padding:15px;
+          border-bottom:4px solid rgba(#000,0.1);
+          text-align:center;
+          font-weight:bold;
+          text-transform:uppercase;
+          font-size:16px;
+          position:relative;
+          .fa {
+            height: 20px;
+            width: 20px;
+            text-align: center;
+            border: 1px solid #FFF;
+            border-radius: 100%;
+            display: block;
+            position: absolute;
+            right: 10px;
+            font-size: 12px;
+            line-height: 1.5em;
+            top: 50%;
+            opacity: 0.5;
+            transform:translateY(-50%);
+          }
+        }
+        .type-factory, .type-standard, .type-basic, .type-advanced {
+          font-size:16px;
+        }
+        .type-factory {
+          background-color: darken($cap-type-factory,20);
+        }
+        .type-standard {
+          background-color: darken($cap-type-standard,20);
+        }
+        .type-basic {
+          background-color: darken($cap-type-basic,20);
+        }
+        .type-advanced {
+          background-color: darken($cap-type-advanced,20);
+        }
+        .key {
+          background-color:#EEE;
+          text-align:right;
+          font-weight:bold;
+          color:#555;
+          position:relative;
+          
+        }
+      }
+      
+      .key {
+        text-align:right;
+        font-weight:bold;
+        color:#555;
+
+        .details {
+          font-weight:normal;
+          font-size:10px;
+          display:block;
+        }
+      }
+    }
+  }
 }

@@ -20,7 +20,7 @@ class VehicleConfigCapability < ApplicationRecord
   acts_as_votable
   belongs_to :vehicle_config
   belongs_to :vehicle_capability
-  belongs_to :confirmed_by, class_name: "User"
+  belongs_to :confirmed_by, class_name: "User", optional: true
 
   # belongs_to :confirmed_by_user, :foreign_key => "confirmed_by"
   def humanize secs

@@ -9,10 +9,11 @@ GIT
       railties (>= 4.2.0)
       sass-rails (>= 5.0.6)
 
-PATH
-  remote: /Users/joshua/Projects/cars_abstraction
+GIT
+  remote: https://github.com/openpilot-community/cars_abstraction
+  revision: 044406b55874588e897edf5c40f860dcd1906ce8
   specs:
-    cars (0.1.3)
+    cars (0.1.4)
       mechanize
       rails (> 4.2.10)
       reverse_markdown

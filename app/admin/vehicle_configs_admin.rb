@@ -139,7 +139,7 @@ Trestle.resource(:vehicle_configs) do
       veh_conf_type = VehicleConfigType.find(params[:config_type])
       new_config.parent = vehicle_config_root
       new_config.vehicle_config_type = veh_conf_type
-      new_config.save
+      new_config.save!
       flash[:message] = "Vehicle has been forked."
       redirect_to admin.path(:show, id: new_config.id)
     end

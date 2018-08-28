@@ -472,10 +472,12 @@ class VehicleConfig < ApplicationRecord
   end
   
   def set_trim_styles_count
-    if !trim_styles.blank? && trim_styles.count > 0
-      self.trim_styles_count = trim_styles.count
-    else
-      self.trim_styles_count = 0
+    if parent_id.blank?
+      if !trim_styles.blank? && trim_styles.count > 0
+        self.trim_styles_count = trim_styles.count
+      else
+        self.trim_styles_count = 0
+      end
     end
   end
 
@@ -496,19 +498,21 @@ class VehicleConfig < ApplicationRecord
 
   def scrape_image
     begin
-      if !self.image.attached?
-        make_name_parameter = vehicle_make.name.parameterize(separator: '_').downcase
-        model_name_parameter = vehicle_model.name.gsub('-',' ').parameterize(separator: '_').downcase
-        model_parameter = "#{make_name_parameter}-#{model_name_parameter}-#{year}"
-        trim_info = Cars::Vehicle.retrieve("#{model_parameter}/trims")
-        image_url = trim_info[:image]
-        tempfile = Down.download(image_url)
-        
-        self.image.attach(
-          io: tempfile,
-          filename: "#{slug}.#{tempfile.original_filename}",
-          content_type: tempfile.content_type
-        )
+      if parent_id.blank?
+        if !self.image.attached?
+          make_name_parameter = vehicle_make.name.parameterize(separator: '_').downcase
+          model_name_parameter = vehicle_model.name.gsub('-',' ').parameterize(separator: '_').downcase
+          model_parameter = "#{make_name_parameter}-#{model_name_parameter}-#{year}"
+          trim_info = Cars::Vehicle.retrieve("#{model_parameter}/trims")
+          image_url = trim_info[:image]
+          tempfile = Down.download(image_url)
+          
+          self.image.attach(
+            io: tempfile,
+            filename: "#{slug}.#{tempfile.original_filename}",
+            content_type: tempfile.content_type
+          )
+        end
       end
     rescue
       puts "Failed to scrape image"

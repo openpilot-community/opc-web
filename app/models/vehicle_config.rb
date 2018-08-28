@@ -1,3 +1,5 @@
+
+require 'open-uri'
 # == Schema Information
 #
 # Table name: vehicle_configs
@@ -117,6 +119,8 @@ class GoodnessValidator < ActiveModel::Validator
 end
 class VehicleConfig < ApplicationRecord
   include ActiveSupport::Inflector
+  has_one_attached :image
+  
   has_paper_trail
   paginates_per 400
   # default_scope { includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level") }
@@ -136,11 +140,11 @@ class VehicleConfig < ApplicationRecord
   before_validation :set_default
   before_validation :set_year_end
   before_save :update_forks
+  before_save :scrape_image
+  # before_save :scrape_info
   before_validation :set_title
   validates_numericality_of :year
   validates_with GoodnessValidator
-  # validates :year, uniqueness: { scope: [:year, :year_end, :vehicle_make_id, :vehicle_model_id, :vehicle_config_type_id], message: "should be unique" }
-
   # MODIFICATIONS
   has_many :vehicle_config_modifications, dependent: :delete_all
   has_many :modifications, :through => :vehicle_config_modifications
@@ -489,6 +493,24 @@ class VehicleConfig < ApplicationRecord
     VehicleTrimStyle.joins(:vehicle_trim).where('vehicle_trims.year IN (:years) AND vehicle_trim_id IN (:trim_ids)',{ :years => year_range, :trim_ids => vehicle_model.vehicle_trims.map(&:id) }).order("vehicle_trims.year, vehicle_trims.sort_order, vehicle_trim_styles.name")
   end
 
+  def scrape_image
+    if !self.image.attached?
+      make_name_parameter = vehicle_make.name.parameterize(separator: '_').downcase
+      model_name_parameter = vehicle_model.name.gsub('-',' ').parameterize(separator: '_').downcase
+      model_parameter = "#{make_name_parameter}-#{model_name_parameter}-#{year}"
+      trim_info = Cars::Vehicle.retrieve("#{model_parameter}/trims")
+      image_url = trim_info[:image]
+      tempfile = Down.download(image_url)
+      
+      self.image.attach(
+        io: tempfile,
+        filename: "#{slug}.#{tempfile.original_filename}",
+        content_type: tempfile.content_type
+      )
+    end
+  end
+    
+  # end
   def scrape_info
     year_range.each do |year|
       trims = []
@@ -499,8 +521,10 @@ class VehicleConfig < ApplicationRecord
 
       # begin
         trim_info = Cars::Vehicle.retrieve("#{model_parameter}/trims")
-
-        trim_info[:trims].each_with_index do |trim, index|
+        trims = trim_info[:trims]
+        # first_trim = trim_info[:trims].first
+        
+        trims.each_with_index do |trim, index|
           vehicle_trim = VehicleTrim.find_or_initialize_by(name: trim.name, year: year, vehicle_model: self.vehicle_model)
           vehicle_trim.sort_order = index
           vehicle_trim.save

@@ -395,6 +395,9 @@ Trestle.resource(:vehicle_configs) do
         end
       end
       sidebar do
+        if vehicle_config.image.attached?
+          render inline: image_tag(vehicle_config.image.service_url, class: "profile-image")
+        end
         if !vehicle_config.vehicle_config_videos.blank?
           render inline: vehicle_config.vehicle_config_videos.first.video.html.html_safe
         end

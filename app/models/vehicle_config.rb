@@ -140,6 +140,7 @@ class VehicleConfig < ApplicationRecord
   before_validation :set_default
   before_validation :set_year_end
   before_save :update_forks
+  before_save :set_trim_styles_count
   before_save :scrape_image
   # before_save :scrape_info
   before_validation :set_title
@@ -469,12 +470,12 @@ class VehicleConfig < ApplicationRecord
   def full_support_difficulty
     # forks.
   end
-
-  def trim_styles_count
-    if !trim_styles.blank?
-      trim_styles.count
+  
+  def set_trim_styles_count
+    if !trim_styles.blank? && trim_styles.count > 0
+      self.trim_styles_count = trim_styles.count
     else
-      0
+      self.trim_styles_count = 0
     end
   end
 

@@ -107,7 +107,6 @@ Trestle.resource(:vehicle_configs) do
         end
       end
     end
-
     def show
       vehicle_config_root = admin.find_instance(params).root
       @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support","/vehicle_configs")])
@@ -136,7 +135,6 @@ Trestle.resource(:vehicle_configs) do
       flash[:message] = "Vehicle trims list is being refreshed... reload the browser to see results."
       redirect_to admin.path(:show, id: vehicle_config_root.id)
     end
-
     def fork
       vehicle_config_root = admin.find_instance(params).root
       new_config = vehicle_config_root.fork_config
@@ -147,7 +145,6 @@ Trestle.resource(:vehicle_configs) do
       flash[:message] = "Vehicle has been forked."
       redirect_to admin.path(:show, id: new_config.id)
     end
-
     def clone
       vehicle_config = admin.find_instance(params)
       new_config = vehicle_config.copy_config

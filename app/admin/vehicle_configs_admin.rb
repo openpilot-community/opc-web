@@ -111,7 +111,7 @@ Trestle.resource(:vehicle_configs) do
       @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support","/vehicle_configs")])
       set_meta_tags og: {
         title: "#{vehicle_config_root.name} | Openpilot Database",
-        image: asset_url("/assets/opengraph-image.png"),
+        image: vehicle_config_root.image.attached? ? vehicle_config_root.image.service_url : asset_url("/assets/opengraph-image.png"),
         type: "website"
       }
       set_meta_tags keywords: ['openpilot','vehicle','support',vehicle_config_root.vehicle_make.name,vehicle_config_root.vehicle_model.name,vehicle_config_root.name,'of','vehicles','supported','compatible','compatibility']
@@ -397,11 +397,12 @@ Trestle.resource(:vehicle_configs) do
       sidebar do
         if vehicle_config.image.attached?
           render inline: image_tag(vehicle_config.image.service_url, class: "profile-image")
+          render inline: content_tag(:div, nil, {style: "margin-top:10px;"})
         end
         if !vehicle_config.vehicle_config_videos.blank?
           render inline: vehicle_config.vehicle_config_videos.first.video.html.html_safe
+          render inline: content_tag(:div, nil, {style: "margin-top:10px;"})
         end
-        render inline: content_tag(:div, nil, {style: "margin-top:10px;"})
         render "fork_links", :instance => vehicle_config
         
         # collection_select :parent_id, VehicleConfig.where.not(id: vehicle_config.id).includes(:vehicle_make,:vehicle_model).where(:vehicle_make => vehicle_config.vehicle_make.blank? ? nil : vehicle_config.vehicle_make,:vehicle_model => vehicle_config.vehicle_model.blank? ? nil : vehicle_config.vehicle_model).where("parent_id IS NULL").order("vehicle_models.name, year"), :id, :name, include_blank: true, label: "Associate to new parent"

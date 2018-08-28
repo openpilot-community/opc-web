@@ -591,7 +591,7 @@ class VehicleConfig < ApplicationRecord
         vehicle_trim = VehicleTrim.find_or_initialize_by(name: trim.name, year: year, vehicle_model: self.vehicle_model)
         vehicle_trim.sort_order = index
         vehicle_trim.save
-
+        
         trim[:styles].each do |style|
           new_style = vehicle_trim.vehicle_trim_styles.find_or_initialize_by(:name => style[:name])
           new_style.inventory_prices = style[:inventory_prices]
@@ -620,6 +620,7 @@ class VehicleConfig < ApplicationRecord
         end
       end
     end
+    self.refreshing = false
     save!
   end
 

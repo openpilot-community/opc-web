@@ -5,7 +5,6 @@ Trestle.refreshContext = function(context) {
   $.get(url, function(data) {
     context.html(data);
     $(Trestle).trigger('init', context);
-    
   });
 };
 

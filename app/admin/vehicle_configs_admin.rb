@@ -120,10 +120,18 @@ Trestle.resource(:vehicle_configs) do
       set_meta_tags description: "Research and support of comma openpilot for the #{vehicle_config_root.name}."
       super
     end
+    def refreshing_status
+      self.instance = admin.find_instance(params).root
 
+      respond_to do |format|
+        format.json { render json: instance, status: 200 }
+      end
+    end
     def refresh_trims
       self.instance = admin.find_instance(params).root
       vehicle_config_root = admin.find_instance(params).root
+      vehicle_config_root.refreshing = true
+      vehicle_config_root.save!
       vehicle_config_root.delay.scrape_info
       flash[:message] = "Vehicle trims list is being refreshed... reload the browser to see results."
       redirect_to admin.path(:show, id: vehicle_config_root.id)
@@ -153,6 +161,7 @@ Trestle.resource(:vehicle_configs) do
     get :refresh_trims, :on => :member
     get :fork, :on => :member
     get :clone, :on => :member
+    get :refreshing_status, :on => :member
   end
 
   table do |a|
@@ -206,9 +215,12 @@ Trestle.resource(:vehicle_configs) do
       end
     end
 
-    unless vehicle_config.new_record? || vehicle_config.vehicle_config_type.blank?
-      tab :trim_styles, badge: vehicle_config.trim_styles_count do
-        render "tab_toolbar", {
+    unless vehicle_config.root.new_record? || vehicle_config.root.vehicle_config_type.blank?
+      tab :trim_styles, badge: vehicle_config.root.refreshing ? "<span class=\"fa fa-spinner fa-spin\"></span>".html_safe : vehicle_config.trim_styles_count do
+        if vehicle_config.root.refreshing
+          render inline: content_tag(:div, "<span class=\"fa fa-spinner fa-spin\"></span><span class='loading-message'>We're refreshing the trim styles...</span>".html_safe, class: "alert alert-warning alert-loading-trims")
+        else
+          render "tab_toolbar", {
           :groups => [
             {
               :class => "actions",
@@ -218,27 +230,27 @@ Trestle.resource(:vehicle_configs) do
             }
           ]
         }
-
         table vehicle_config.trim_styles.blank? ? [] : vehicle_config.trim_styles, admin: :vehicle_trim_styles do
-          # column :id
-          column :year
-          column :trim_name, header: "Trim"
-          column :name_for_list, header: "Style"
-          column :driver_assist_inclusion, header: "ACC/LKAS" do |trim_style|
-            if trim_style.driver_assist_inclusion == "standard"
-              "<span class=\"label label-success\">#{trim_style.driver_assist_inclusion}</span>".html_safe
-            elsif trim_style.driver_assist_inclusion == "option"
-              "<span class=\"label label-info\">#{trim_style.driver_assist_inclusion}</span>".html_safe
-            else
-              "<span class=\"label label-danger\">Not Available</span>".html_safe
+            # column :id
+            column :year
+            column :trim_name, header: "Trim"
+            column :name_for_list, header: "Style"
+            column :driver_assist_inclusion, header: "ACC/LKAS" do |trim_style|
+              if trim_style.driver_assist_inclusion == "standard"
+                "<span class=\"label label-success\">#{trim_style.driver_assist_inclusion}</span>".html_safe
+              elsif trim_style.driver_assist_inclusion == "option"
+                "<span class=\"label label-info\">#{trim_style.driver_assist_inclusion}</span>".html_safe
+              else
+                "<span class=\"label label-danger\">Not Available</span>".html_safe
+              end
             end
+            column :price
+            # column :driver_assisted_style_names, header: "ACC/LKAS Trim(s) Option or Standard"
+            # column :has_driver_assist?, header: "Available Driver Assist", align: :center
+            # column :speed
+            # column :timeout_friendly, :header => "Timeout"
+            # column :confirmed
           end
-          column :price
-          # column :driver_assisted_style_names, header: "ACC/LKAS Trim(s) Option or Standard"
-          # column :has_driver_assist?, header: "Available Driver Assist", align: :center
-          # column :speed
-          # column :timeout_friendly, :header => "Timeout"
-          # column :confirmed
         end
       end
       tab :capabilities, badge: vehicle_config.vehicle_config_capabilities.blank? ? nil : vehicle_config.vehicle_config_capabilities.size do

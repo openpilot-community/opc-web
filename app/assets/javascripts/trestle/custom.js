@@ -1,6 +1,16 @@
 var originalAddClassMethod = jQuery.fn.addClass;
 var originalRemoveClassMethod = jQuery.fn.removeClass;
+function pollRefreshingStatus(){
+  $.getJSON($(".app-main").attr('data-context') + "/refreshing_status.json", function(data) {
+      console.log(data);  // process results here
 
+      if (data.refreshing) {
+        setTimeout(pollRefreshingStatus,5000);
+      } else {
+        Trestle.refreshMainContext();
+      }
+  });
+}
 jQuery.fn.addClass = function(){
   var result = originalAddClassMethod.apply( this, arguments );
   jQuery(this).trigger('classAdded');
@@ -19,6 +29,11 @@ jQuery.fn.removeClass = function(){
 //
 //  e.g. //= require "trestle/custom/my_custom_js"
 var setupVehicleConfigYear = function() {
+  var $refreshingTrims = $(".alert-loading-trims");
+
+  if ($refreshingTrims.length) {
+    pollRefreshingStatus();
+  }
   if ($('.app-wrapper.is-visitor').length) {
     $(".trestle-table .actions > *").remove();
     $(".main-content .form-control,.modal-body .form-control").attr('disabled',true);

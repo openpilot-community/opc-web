@@ -27,7 +27,16 @@ body {
     }
   }
 }
+.alert-loading-trims {
+  span.fa {
+    font-size:35px;
+    margin-right:15px;
+  }
 
+  span.loading-message {
+    font-size:18px;
+  }
+}
 .profile-image {
   border:1px solid #CCC;
 }

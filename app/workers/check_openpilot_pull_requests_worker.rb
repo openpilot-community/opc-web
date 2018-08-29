@@ -1,6 +1,6 @@
 class CheckOpenpilotPullRequestsWorker
   include Sidekiq::Worker
-  sidekiq_options :retry => nil
+  sidekiq_options :retry => false
 
   def perform(*args)
     # Do something later

@@ -1,6 +1,6 @@
 class CheckOpenpilotContributorsWorker
   include Sidekiq::Worker
-  sidekiq_options :retry => nil
+  sidekiq_options :retry => false
   def perform(*args)
     client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
     client.auto_paginate = true

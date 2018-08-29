@@ -33,63 +33,68 @@ Trestle.resource(:vehicle_lookups) do
       end
       super
     end
+    def handle_create_failed
+      respond_to do |format|
+        format.html do
+          dupes = VehicleLookup.where(%(
+              vehicle_lookups.year = :year AND 
+              vehicle_lookups.vehicle_make_id = :vehicle_make AND 
+              vehicle_lookups.vehicle_model_id = :vehicle_model
+          ), {
+            year: instance.year,
+            vehicle_make: instance.vehicle_make_id,
+            vehicle_model: instance.vehicle_model_id
+          })
 
-    def create
-      self.instance = admin.build_instance(permitted_params, params)
+          if dupes.count == 1
+            instance = dupes.first
+            # vehicle_lookup.
+            
+            instance.lookup_count = instance.lookup_count + 1
+            instance.save!
 
-      if admin.save_instance(instance)
-        respond_to do |format|
-          format.html do
-            flash[:message] = flash_message("create.success", title: "Woohoo!", message: "You're on your way to learning more about what your vehicle can do...<br />Please wait while we pull some additional details...".html_safe)
+            # byebug
+            # self.instance = admin.find_instance({ :id => instance.id })
             vc = VehicleConfig.find_by_ymm(instance.year,instance.vehicle_make.id,instance.vehicle_model.id)
             if vc.blank?
-              vc = VehicleConfig.new(year: instance.year, year_end: instance.year, vehicle_make: instance.vehicle_make, vehicle_model: instance.vehicle_model)
-              vc.save
+              vc = VehicleConfig.new(year: instance.year, year_end: instance.year, vehicle_make_id: instance.vehicle_make_id, vehicle_model_id: instance.vehicle_model_id)
+              vc.save!
             end
+
+            flash[:message] = flash_message("found.success", title: "Woohoo!", message: "We found this vehicle in our system.".html_safe)
             redirect_to vehicle_configs_admin_path(id: vc.id), turbolinks: false and return
+          else
+            flash.now[:error] = flash_message("create.failure", title: "Warning!", message: "Please correct the errors below.")
+            render "new", status: :unprocessable_entity
           end
-          format.json { render json: instance, status: :created, location: admin.instance_path(instance) }
-          format.js
         end
-      else
-        respond_to do |format|
-          format.html do
-            dupes = VehicleLookup.where(%(
-                vehicle_lookups.year = :year AND 
-                vehicle_lookups.vehicle_make_id = :vehicle_make AND 
-                vehicle_lookups.vehicle_model_id = :vehicle_model
-            ), {
-              year: instance.year,
-              vehicle_make: instance.vehicle_make_id,
-              vehicle_model: instance.vehicle_model_id
-            })
 
-            if dupes.count == 1
-              instance = dupes.first
-              # vehicle_lookup.
-              
-              instance.lookup_count = instance.lookup_count + 1
-              instance.save!
-
-              # byebug
-              # self.instance = admin.find_instance({ :id => instance.id })
+        format.json { render json: instance.errors, status: :unprocessable_entity }
+        format.js
+      end
+    end
+    def create
+      self.instance = admin.build_instance(permitted_params, params)
+      if
+        begin
+          respond_to do |format|
+            format.html do
+              flash[:message] = flash_message("create.success", title: "Woohoo!", message: "You're on your way to learning more about what your vehicle can do...<br />Please wait while we pull some additional details...".html_safe)
               vc = VehicleConfig.find_by_ymm(instance.year,instance.vehicle_make.id,instance.vehicle_model.id)
               if vc.blank?
-                vc = VehicleConfig.new(year: instance.year, year_end: instance.year, vehicle_make_id: instance.vehicle_make_id, vehicle_model_id: instance.vehicle_model_id)
-                vc.save!
+                vc = VehicleConfig.new(year: instance.year, year_end: instance.year, vehicle_make: instance.vehicle_make, vehicle_model: instance.vehicle_model)
+                vc.save
               end
-
-              flash[:message] = flash_message("found.success", title: "Woohoo!", message: "We found this vehicle in our system.".html_safe)
               redirect_to vehicle_configs_admin_path(id: vc.id), turbolinks: false and return
-            else
-              flash.now[:error] = flash_message("create.failure", title: "Warning!", message: "Please correct the errors below.")
-              render "new", status: :unprocessable_entity
             end
+            format.json { render json: instance, status: :created, location: admin.instance_path(instance) }
+            format.js
           end
-
-          format.json { render json: instance.errors, status: :unprocessable_entity }
-          format.js
+        rescue
+          handle_create_failed
         end
+      else
+        handle_create_failed
       end
     end
     def refreshing_status

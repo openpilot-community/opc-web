@@ -22,7 +22,7 @@ class VehicleConfigCapability < ApplicationRecord
   belongs_to :vehicle_capability
   belongs_to :vehicle_config_type
   belongs_to :confirmed_by, class_name: "User", optional: true
-
+  before_save :set_capability_usage
   # belongs_to :confirmed_by_user, :foreign_key => "confirmed_by"
   def humanize secs
     [[60, :seconds], [60, :minutes], [24, :hours], [1000, :days]].map{ |count, name|
@@ -34,7 +34,10 @@ class VehicleConfigCapability < ApplicationRecord
       end
     }.compact.reverse.join(' ')
   end
-
+  def set_capability_usage
+    usage_count = VehicleConfigCapability.where(vehicle_capability: self.vehicle_capability).count()
+    VehicleCapability.find(vehicle_capability.id).update_attributes(vehicle_config_count: usage_count)
+  end
   amoeba do
     enable
   end

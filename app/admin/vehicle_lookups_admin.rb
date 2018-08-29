@@ -33,6 +33,16 @@ Trestle.resource(:vehicle_lookups) do
       end
       super
     end
+
+    def create_vc
+      vc = VehicleConfig.find_by_ymm(instance.year,instance.vehicle_make.id,instance.vehicle_model.id)
+      if vc.blank?
+        vc = VehicleConfig.new(year: instance.year, year_end: instance.year, vehicle_make_id: instance.vehicle_make_id, vehicle_model_id: instance.vehicle_model_id)
+        vc.save!
+      end
+      vc
+    end
+
     def handle_create_failed
       respond_to do |format|
         format.html do
@@ -54,12 +64,8 @@ Trestle.resource(:vehicle_lookups) do
             
             # byebug
             # self.instance = admin.find_instance({ :id => instance.id })
-            vc = VehicleConfig.find_by_ymm(instance.year,instance.vehicle_make.id,instance.vehicle_model.id)
-            if vc.blank?
-              vc = VehicleConfig.new(year: instance.year, year_end: instance.year, vehicle_make_id: instance.vehicle_make_id, vehicle_model_id: instance.vehicle_model_id)
-              vc.save!
-            end
-
+            
+            vc = create_vc
             flash[:message] = flash_message("found.success", title: "Woohoo!", message: "We found this vehicle in our system.".html_safe)
             redirect_to vehicle_configs_admin_path(id: vc.id), turbolinks: false and return
           else
@@ -79,11 +85,7 @@ Trestle.resource(:vehicle_lookups) do
           respond_to do |format|
             format.html do
               flash[:message] = flash_message("create.success", title: "Woohoo!", message: "You're on your way to learning more about what your vehicle can do...<br />Please wait while we pull some additional details...".html_safe)
-              vc = VehicleConfig.find_by_ymm(instance.year,instance.vehicle_make.id,instance.vehicle_model.id)
-              if vc.blank?
-                vc = VehicleConfig.new(year: instance.year, year_end: instance.year, vehicle_make: instance.vehicle_make, vehicle_model: instance.vehicle_model)
-                vc.save
-              end
+              vc = create_vc
               redirect_to vehicle_configs_admin_path(id: vc.id), turbolinks: false and return
             end
             format.json { render json: instance, status: :created, location: admin.instance_path(instance) }

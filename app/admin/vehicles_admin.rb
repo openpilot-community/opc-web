@@ -1,20 +1,4 @@
-Trestle.admin(:vehicles, model: VehicleConfig) do
-  form do |vehicle_config|
-    row do
-      col(sm: 3, class: "year-range") do
-        row do
-          col(sm: 6, class: "year-start") { select :year, 2010..(Time.zone.now.year + 2) }
-          col(sm: 6, class: "year-end") { select :year_end, 2010..(Time.zone.now.year + 2), label: nil }
-        end
-      end
-      col(sm: 4) { collection_select :vehicle_make_id, VehicleMake.order(:name), :id, :name, include_blank: true }
-      col(sm: 5) { collection_select :vehicle_model_id, vehicle_config.vehicle_make.blank? ? [] : vehicle_config.vehicle_make.vehicle_models.order(:name), :id, :name, include_blank: true }
-      # col(sm: 5) do
-      #   select :vehicle_trim_ids, (vehicle_config.vehicle_model.blank? ? [] : VehicleTrim.where(:vehicle_model => vehicle_config.vehicle_model.id).order(:name)), { label: "Trim(s)" }, { multiple: true, data: { tags: true } }
-      #   # tag_select :vehicle_config_trim_styles
-      # end
-    end
-  end
+Trestle.admin(:vehicles) do
 
   controller do
     skip_before_action :authenticate_user!
@@ -26,21 +10,54 @@ Trestle.admin(:vehicles, model: VehicleConfig) do
     def create
 
     end
-    def lookup
-      @vehicle_config = VehicleConfig.new
-      # @makes = VehicleMake.with_configs
-      # trestle_form_for(@vehicle_config, url: admin.instance_path(@vehicle_config, action: :update)) do |f|
-      #   f.text_field :year
-      # end
-    end
     
     def set_resources
-      if !params['make_slug'].blank?
-        @make = VehicleMake.friendly.find(params['make_slug'])
+      @trims = []
+
+      if !params['year'].blank?
+        @year = params['year']
       end
-      if !params['model_slug'].blank?
-        @model = VehicleModel.friendly.find(params['model_slug'])
+
+      if !params['config_slug'].blank?
+        @config = VehicleConfig.friendly.find(params['config_slug'])
+        if !params['year'].blank? && @trims.blank?
+          @trims = @config.trim_styles
+        end
       end
+      
+      if @config.present?
+        @make = @config.vehicle_make
+        @model = @config.vehicle_model
+        @trims = @config.trim_styles
+      else
+        if !params['make_slug'].blank?
+          @make = VehicleMake.friendly.find(params['make_slug'])
+        end
+
+        if !params['model_slug'].blank?
+          @model = VehicleModel.friendly.find(params['model_slug'])
+          if @year && @trims.blank?
+            @trims = @model.trim_styles(@year)
+          end
+        end
+      end
+
+      @config = VehicleConfig.find_by_ymm(@year,@make.id,@model.id)
+      if @config.blank? && @model.present? && @year.present?
+        if !@model.image.attached?
+          @model.scrape_image(nil,@year)
+          @model.save!
+        end
+        @image = @model.image
+      else
+        if @config.present? && @config.image.attached?
+          @image = @config.image
+        end
+      end
+      if @image.blank? && @config.present?
+        @image = @config.image
+      end
+      @title = "#{@year} #{@make.name} #{@model.name}"
     end
 
     def make
@@ -52,25 +69,29 @@ Trestle.admin(:vehicles, model: VehicleConfig) do
     end
 
     def show
-      @config = VehicleConfig.friendly.find(params['config_slug'])
-      @make = @config.vehicle_make
-      @model = @config.vehicle_model
+      if @config.present?
+        @make = @config.vehicle_make
+        @model = @config.vehicle_model
+      else
+
+      end
     end
 
     def show_trim
       @trim = VehicleTrimStyle.find(params['trim_style_id'])
-      @config = VehicleConfig.friendly.find(params['config_slug'])
-      @make = @config.vehicle_make
-      @model = @config.vehicle_model
+      @config = VehicleConfig.find_by_ymm(@year,@make.id,@model.id)
+      # @make = @config.vehicle_make
+      # @model = @config.vehicle_model
     end
   end
 
   routes do
     post 'create', to: 'vehicles_admin/admin#create', as: 'vehicles_admin_create'
     get 'index', to: 'vehicles_admin/admin#index', as: 'vehicles_admin_index'
-    get 'lookup', to: 'vehicles_admin/admin#lookup', as: 'vehicles_admin_lookup'
     get 'm/:make_slug', to: 'vehicles_admin/admin#make', as: 'vehicles_admin_make'
     get 'm/:make_slug/:model_slug', to: 'vehicles_admin/admin#model', as: 'vehicles_admin_model'
+    get 'm/:make_slug/:model_slug/:year', to: 'vehicles_admin/admin#show', as: 'vehicles_admin_show_year'
+    get 'm/:make_slug/:model_slug/:year/:trim_style_id', to: 'vehicles_admin/admin#show_trim', as: 'vehicles_admin_show_year_trim'
     get ':config_slug', to: 'vehicles_admin/admin#show', as: 'vehicles_admin_show'
     get ':config_slug/:trim_style_id', to: 'vehicles_admin/admin#show_trim', as: 'vehicles_admin_show_trim'
   end

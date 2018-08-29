@@ -1,74 +1,107 @@
-<% title = "#{@config.name}" %>
-<% content_for(:title, title) %>
-<% breadcrumb(title) %>
+<% content_for(:title, @title) %>
+<% breadcrumb(@title) %>
 
-<h1><%=title%></h1>
-<%=render "global_alert"%>
-<p>
-Openpilot has some compatibility with the <strong><%=@model.name %></strong> and this page serves as a general overview of the model.<br />
-To get more specific details on compatibility of a particular trim ensure you check the trim links below to learn more.
-</p>
 
-<p>The goal is to always support as many vehicles as possible.</p>
+<div class="profile">
+  <div class="profile-content">
+    <h1><%=@title%></h1>
+    <%=render "global_alert" %>
 
-<% if !@make.slack_channel.blank? %>
-<p>
-To chat about the <%=@config.vehicle_make.name%> <%=@config.vehicle_model.name%> with the community, checkout the <a href="slack://channel?team=comma&id=<%=@make.slack_channel%>">#<%=@make.slack_channel%></a> channel in the <a href="https://slack.comma.ai" target="_blank">Comma Slack</a>.
-</p>
-<% end %>
+    <% if @config.present? && @config.is_upstreamed? %>
+    <p>
+      Openpilot has some compatibility with the <strong><%=@model.name %></strong> and this page serves as a general overview of the model.<br />
+      To get more specific details on compatibility of a particular trim ensure you check the trim links below to learn more.
+    </p>
+    <% else %>
+    <p>
+      Openpilot does not have plug-and-play support yet for the <strong><%=@model.name %></strong> but all is not lost.<br />
+      If your vehicle has the basic hardware requirements that Openpilot needs, you may still be in luck!<br />
+      Read on to check which of the <%=@model.name.pluralize%> have what we need.
+    </p>
+    <% end%>
 
-<h2>Research and Support</h2>
+    <p>The goal is to always support as many vehicles as possible.</p>
 
-<p>The first thing we need to know is if the vehicle has Adaptive Cruise Control (ACC) and Lane Keeping Assist (LKA).
-<% if @config.vehicle_make_package.present? %>
-  <br />On <%=@make.name%> vehicles, this is called the <%=@config.vehicle_make_package.name%> package.</p>
-<% end %>
-<p>Although most model trims have similar factory hardware, some may differ slightly so ensure you check the trim pages for specifics.</p>
-<%# <p>We've found the following trims for this configuration.</p> %>
+  
+    <div class="alert alert-warning">
+    <span class="fa fa-comment" style="font-size:25px; margin-right:20px;"></span> To chat about the <%=@make.name%> <%=@model.name%> with the community, <% if !@make.slack_channel.blank? %><a href="slack://channel?team=comma&id=<%=@make.slack_channel%>">checkout the #<%=@make.slack_channel%></a> channel in the<% else %> join the conversation on the <% end %> <a href="https://comma.slack.com/" target="_blank">Comma Slack</a>.
+    </div>
 
-<h3>Identify your exact trim</h3>
-<h4>Standard Trims</h4>
+    <h2>Research and Support</h2>
 
-<p>The following trims come standard with the features required for Openpilot to work effectively.</p>
-<div class="alert alert-info"><strong style="margin-right:25px;">NOTE</strong> Although they come with these features, it is not guaranteed that Openpilot is 100% compatible. 
-If you discover any issues, work with a community member to get your vehicle ported to its reach its full potential.</div>
-
-<ul>
-  <% @config.trim_styles.select{|ts| ts.driver_assist_inclusion == "standard"}.each do |trim| %>
-  <li>
-    <%=link_to vehicles_admin_show_trim_path(config_slug: @config.slug.present? ? @config.slug : @config.id, trim_style_id: trim.id) do %>
-      <%=trim.year%> <%=trim.name%>
+    <p>The first thing we need to know is if the vehicle has Adaptive Cruise Control (ACC) and Lane Keeping Assist (LKA).
+    <% if @make.vehicle_make_packages.present? %>
+      <br />On <%=@make.name%> vehicles, this is called the <%=@make.vehicle_make_packages.map(&:name).join(',')%> package.</p>
     <% end %>
-  </li>
-  <% end %>
-</ul>
+    <p>Although most model trims have similar factory hardware, some may differ slightly so ensure you check the trim pages for specifics.</p>
+    <%# <p>We've found the following trims for this configuration.</p> %>
 
-<%if @config.vehicle_make_package %>
-  <h4>Trims w/ <%=@config.vehicle_make_package.name %> Option</h4>
+    <h3>Identify your exact trim</h3>
+    <h4>Standard Trims</h4>
 
-  <p>The following trims do not come standard with the features required for Openpilot to work effectively.</p>
-  <p>Review the features that come with these models thoroughly to ensure your vehicle has the right hardware.</p>
+    <p>The following trims come standard with the features required for Openpilot to work effectively.</p>
+    <div class="alert alert-info"><strong style="margin-right:25px;">NOTE</strong> Although they come with these features, it is not guaranteed that Openpilot is 100% compatible. 
+    If you discover any issues, work with a community member to get your vehicle ported to reach its full potential.</div>
 
-  <ul>
-    <% @config.trim_styles.select{|ts| ts.driver_assist_inclusion == "option" }.each do |trim| %>
-    <li>
-      <%=link_to vehicles_admin_show_trim_path(config_slug: @config.slug.present? ? @config.slug : @config.id, trim_style_id: trim.id) do %>
-        <%=trim.year%> <%=trim.name%>
+    <ul>
+      <% @trims.select{|ts| ts.driver_assist_inclusion == "standard"}.each do |trim| %>
+      <li>
+        <%=link_to vehicles_admin_show_year_trim_path(make_slug: @make.slug, model_slug: @model.slug, year: @year, trim_style_id: trim.id) do %>
+          <%=trim.year%> <%=trim.name%>
+        <% end %>
+      </li>
       <% end %>
-    </li>
+    </ul>
+
+    <%if @config.present? && @config.vehicle_make_package.present? %>
+      <h4>Trims w/ <%=@config.vehicle_make_package.name %> Option</h4>
+
+      <p>The following trims do not come standard with the features required for Openpilot to work effectively.</p>
+      <p>Review the features that come with these models thoroughly to ensure your vehicle has the right hardware.</p>
+
+      <ul>
+        <% @trims.select{|ts| ts.driver_assist_inclusion == "option" }.each do |trim| %>
+        <li>
+          <%=link_to vehicles_admin_show_year_trim_path(make_slug: @make.slug, model_slug: @model.slug, year: @year, trim_style_id: trim.id) do %>
+            <%=trim.year%> <%=trim.name%>
+          <% end %>
+        </li>
+        <% end %>
+      </ul>
     <% end %>
-  </ul>
 
-  <h4>Not Supported</h4>
+    <h4>Not Supported</h4>
 
-  <p>Unfortunately the following <%=@make.name%> <%@model.name%> trims are not supported.</p>
-  <p>They simply lack the hardware necessary for Openpilot to work effectively.</p>
+      <p>Unfortunately the following <%=@make.name%> <%@model.name%> trim(s) are not supported.</p>
+      <p>They simply lack the hardware necessary for Openpilot to work without significant modification.</p>
 
-  <ul>
-    <% @config.trim_styles.select{|ts| ts.driver_assist_inclusion.blank? }.each do |trim| %>
-    <li>
-      <%=trim.year%> <%=trim.name%>
-    </li>
-    <% end %>
-  </ul>
-<% end %>
+      <ul>
+        <% @trims.select{|ts| ts.driver_assist_inclusion.blank? }.each do |trim| %>
+        <li>
+          <%=trim.year%> <%=trim.name%>
+        </li>
+        <% end %>
+      </ul>
+  </div>
+
+  <div class="profile-sidebar">
+    <div class="profile-sidebar-inner">
+      <% if @image.present? && @image.attached? %>
+        <div class="profile-image">
+          <%=image_tag(@image.service_url)%>
+        </div>
+      <% end %>
+
+      <div class="specs">
+        <div class="spec">
+          <span class="key">
+            Name
+          </span>
+          <span class="value">
+            <%=@model.name%>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

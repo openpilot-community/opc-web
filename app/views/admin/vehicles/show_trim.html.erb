@@ -11,11 +11,9 @@
 
     <p>The goal is to always support as many vehicles as possible.</p>
 
-    <% if !@make.slack_channel.blank? %>
-    <p>
-      To chat about the <%=@config.vehicle_make.name%> <%=@config.vehicle_model.name%> with the community, checkout the <a href="slack://channel?team=comma&id=<%=@make.slack_channel%>">#<%=@make.slack_channel%></a> channel in the <a href="https://slack.comma.ai" target="_blank">Comma Slack</a>.
-    </p>
-    <% end %>
+    <div class="alert alert-warning">
+      <span class="fa fa-comment" style="font-size:25px; margin-right:20px;"></span> To chat about the <%=@make.name%> <%=@model.name%> with the community, <% if !@make.slack_channel.blank? %><a href="slack://channel?team=comma&id=<%=@make.slack_channel%>">checkout the #<%=@make.slack_channel%></a> channel in the<% else %> join the conversation on the <% end %> <a href="https://comma.slack.com/" target="_blank">Comma Slack</a>.
+    </div>
 
     <h2>Configurations</h2>
 
@@ -23,12 +21,22 @@
     <p>We're trying to make it easy to compare each configuration so you can see what capabilities you gain from using Openpilot and which capabilities you unfortunately sometimes lose with Openpilot.</p>
     <p>These configurations are one of 4 setups: Factory, Standard, Basic and Advanced.</p>
     
-    <%=render "_capabilities_chart" %>
+    <% if @config.present? %>
+      <%=render "capabilities_chart" %>
+    <% else %>
+    <div class="alert alert-warning">
+      <div>
+        <h3 style="margin:0;">You can help us port it!</h3>
+        <p>At this time, we haven't gathered enough information or began porting this <%=@make.name%> model.  But perhaps that will change very soon!</p>
+        <p>If you're a developer, you could easily begin the journey of your first Openpilot port of your car. Doing a port once, makes it work for everyone with this same vehicle and helps the community thrive.</p>
+      </div>
+    </div>
+    <% end %>
   </div>
 
   <div class="profile-sidebar">
     <div class="profile-sidebar-inner">
-      <% if @trim.image.attached? %>
+      <% if @trim.image.present? && @trim.image.attached? %>
         <div class="profile-image">
           <%=image_tag(@trim.image.service_url)%>
         </div>

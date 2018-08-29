@@ -27,39 +27,33 @@ class GoodnessValidator < ActiveModel::Validator
         (
           vehicle_configs.year = :year AND 
           vehicle_configs.vehicle_make_id = :vehicle_make AND 
-          vehicle_configs.vehicle_model_id = :vehicle_model AND
-          vehicle_configs.vehicle_config_type_id = :config_type AND
+          vehicle_configs.vehicle_model_id = :vehicle_model
           vehicle_configs.id != :current_id
           
         ) OR (
           vehicle_configs.year_end = :year AND 
           vehicle_configs.vehicle_make_id = :vehicle_make AND 
-          vehicle_configs.vehicle_model_id = :vehicle_model AND
-          vehicle_configs.vehicle_config_type_id = :config_type AND
+          vehicle_configs.vehicle_model_id = :vehicle_model
           vehicle_configs.id != :current_id
         ) OR (
           vehicle_configs.year_end = :year AND 
           vehicle_configs.vehicle_make_id = :vehicle_make AND 
-          vehicle_configs.vehicle_model_id = :vehicle_model AND
-          vehicle_configs.vehicle_config_type_id = :config_type AND
+          vehicle_configs.vehicle_model_id = :vehicle_model
           vehicle_configs.id != :current_id
         ) OR (
           vehicle_configs.year_end = :year_end AND 
           vehicle_configs.vehicle_make_id = :vehicle_make AND 
-          vehicle_configs.vehicle_model_id = :vehicle_model AND
-          vehicle_configs.vehicle_config_type_id = :config_type AND
+          vehicle_configs.vehicle_model_id = :vehicle_model
           vehicle_configs.id != :current_id
         ) OR (
           ((:year) BETWEEN vehicle_configs.year AND vehicle_configs.year_end) AND 
           vehicle_configs.vehicle_make_id = :vehicle_make AND 
-          vehicle_configs.vehicle_model_id = :vehicle_model AND
-          vehicle_configs.vehicle_config_type_id = :config_type AND
+          vehicle_configs.vehicle_model_id = :vehicle_model
           vehicle_configs.id != :current_id
         ) OR (
           ((:year_end) BETWEEN vehicle_configs.year AND vehicle_configs.year_end) AND 
           vehicle_configs.vehicle_make_id = :vehicle_make AND 
-          vehicle_configs.vehicle_model_id = :vehicle_model AND
-          vehicle_configs.vehicle_config_type_id = :config_type AND
+          vehicle_configs.vehicle_model_id = :vehicle_model
           vehicle_configs.id != :current_id
         )
       ), {
@@ -67,7 +61,6 @@ class GoodnessValidator < ActiveModel::Validator
         year_end: record.year_end,
         vehicle_make: record.vehicle_make_id,
         vehicle_model: record.vehicle_model_id,
-        config_type: record.vehicle_config_type_id,
         current_id: record.id
       }).count
       else
@@ -75,40 +68,33 @@ class GoodnessValidator < ActiveModel::Validator
           (
             vehicle_configs.year = :year AND 
             vehicle_configs.vehicle_make_id = :vehicle_make AND 
-            vehicle_configs.vehicle_model_id = :vehicle_model AND
-            vehicle_configs.vehicle_config_type_id = :config_type
+            vehicle_configs.vehicle_model_id = :vehicle_model
           ) OR (
             vehicle_configs.year_end = :year AND 
             vehicle_configs.vehicle_make_id = :vehicle_make AND 
-            vehicle_configs.vehicle_model_id = :vehicle_model AND
-            vehicle_configs.vehicle_config_type_id = :config_type
+            vehicle_configs.vehicle_model_id = :vehicle_model
           ) OR (
             vehicle_configs.year_end = :year AND 
             vehicle_configs.vehicle_make_id = :vehicle_make AND 
-            vehicle_configs.vehicle_model_id = :vehicle_model AND
-            vehicle_configs.vehicle_config_type_id = :config_type
+            vehicle_configs.vehicle_model_id = :vehicle_model
           ) OR (
             vehicle_configs.year_end = :year_end AND 
             vehicle_configs.vehicle_make_id = :vehicle_make AND 
-            vehicle_configs.vehicle_model_id = :vehicle_model AND
-            vehicle_configs.vehicle_config_type_id = :config_type
+            vehicle_configs.vehicle_model_id = :vehicle_model
           ) OR (
             ((:year) BETWEEN vehicle_configs.year AND vehicle_configs.year_end) AND 
             vehicle_configs.vehicle_make_id = :vehicle_make AND 
-            vehicle_configs.vehicle_model_id = :vehicle_model AND
-            vehicle_configs.vehicle_config_type_id = :config_type
+            vehicle_configs.vehicle_model_id = :vehicle_model
           ) OR (
             ((:year_end) BETWEEN vehicle_configs.year AND vehicle_configs.year_end) AND 
             vehicle_configs.vehicle_make_id = :vehicle_make AND 
-            vehicle_configs.vehicle_model_id = :vehicle_model AND
-            vehicle_configs.vehicle_config_type_id = :config_type
+            vehicle_configs.vehicle_model_id = :vehicle_model
           )
         ), {
           year: record.year,
           year_end: record.year_end,
           vehicle_make: record.vehicle_make_id,
-          vehicle_model: record.vehicle_model_id,
-          config_type: record.vehicle_config_type_id
+          vehicle_model: record.vehicle_model_id
         }).count
       end
 
@@ -118,14 +104,17 @@ class GoodnessValidator < ActiveModel::Validator
   end
 end
 class VehicleConfig < ApplicationRecord
+  include Scraper
   include ActiveSupport::Inflector
   has_one_attached :image
-  
+  acts_as_votable
   has_paper_trail
   paginates_per 400
+
   # default_scope { includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level") }
-  extend FriendlyId
+  
   acts_as_nested_set dependent: :destroy
+  extend FriendlyId
   friendly_id :name_for_slug, use: :slugged
   belongs_to :vehicle_make
   belongs_to :vehicle_model
@@ -141,7 +130,9 @@ class VehicleConfig < ApplicationRecord
   before_validation :set_year_end
   before_save :update_forks
   before_save :set_trim_styles_count
-  before_save :scrape_image
+
+  after_save :do_scrape_info
+  
   # before_save :scrape_info
   before_validation :set_title
   validates_numericality_of :year
@@ -178,33 +169,56 @@ class VehicleConfig < ApplicationRecord
   # def difficulty_level
   #   vehicle_config_type.difficulty_level
   # end
+  def self.find_by_ymm(year, make, model)
+    results = where(%(
+      (
+        vehicle_configs.year = :year AND 
+        vehicle_configs.vehicle_make_id = :vehicle_make AND 
+        vehicle_configs.vehicle_model_id = :vehicle_model
+      ) OR (
+        ((:year) BETWEEN vehicle_configs.year AND vehicle_configs.year_end) AND 
+        vehicle_configs.vehicle_make_id = :vehicle_make AND 
+        vehicle_configs.vehicle_model_id = :vehicle_model
+      )
+    ), {
+      year: year,
+      vehicle_make: make,
+      vehicle_model: model
+    })
+    # byebug
+    if results.present?
+      results.first
+    end
+  end
 
   def has_capability?(cap_id)
     vehicle_capabilities.exists?(id: cap_id)
   end
+
   def config_type_ids
-    [root.vehicle_config_type_id,forks.map(&:vehicle_config_type_id)].flatten
+    vehicle_config_capabilities.includes(:vehicle_config_type).order("vehicle_config_types.difficulty_level").map(&:vehicle_config_type_id).uniq
   end
-  # def combined_capabilities
-  #   cap_ids = []
-  #   cap_ids << root.vehicle_capabilities.map(&:id)
+
+  def combined_capabilities
+    cap_ids = []
+    cap_ids << vehicle_capabilities.map(&:id)
     
-  #   root.forks.each do |fork|
-  #     cap_ids << fork.vehicle_capabilities.map(&:id)
-  #   end
+    forks.each do |fork|
+      cap_ids << fork.vehicle_capabilities.map(&:id)
+    end
 
-  #   cap_ids = cap_ids.flatten.uniq
+    cap_ids = cap_ids.flatten.uniq
 
-  #   VehicleCapability.where(id: cap_ids).order(:name)
-  # end
+    VehicleCapability.where(id: cap_ids).order(:name)
+  end
 
   def capability_matrix
     matrix = {}
     VehicleConfigType.all.each do |type|
-      if root.config_type_ids.include?(type.id)
+      if config_type_ids.include?(type.id)
         matrix[type.name.parameterize.to_sym] = {}
-        combined_capabilities.each do |capability|
-          cap = VehicleConfigCapability.joins(:vehicle_config).where("(vehicle_configs.parent_id = :id OR vehicle_configs.id = :id) AND vehicle_configs.vehicle_config_type_id = :type_id AND vehicle_config_capabilities.vehicle_capability_id = :capability_id", { id: root.id, type_id: type.id, capability_id: capability.id })
+        vehicle_capabilities.uniq.each do |capability|
+          cap = VehicleConfigCapability.joins(:vehicle_config).where("(vehicle_configs.parent_id = :id OR vehicle_configs.id = :id) AND vehicle_configs.vehicle_config_type_id = :type_id AND vehicle_config_capabilities.vehicle_capability_id = :capability_id", { id: id, type_id: type.id, capability_id: capability.id })
           if cap.present?
             cap = cap.first
 
@@ -383,8 +397,8 @@ class VehicleConfig < ApplicationRecord
   end
 
   def set_year_end
-    if year > year_end
-      self.year_end = self.year
+    if year.to_i > year_end.to_i
+      self.year_end = self.year.to_i
     end
   end
 
@@ -551,78 +565,7 @@ class VehicleConfig < ApplicationRecord
     VehicleTrimStyle.joins(:vehicle_trim).where('vehicle_trims.year IN (:years) AND vehicle_trim_id IN (:trim_ids)',{ :years => year_range, :trim_ids => vehicle_model.vehicle_trims.map(&:id) }).order("vehicle_trims.year, vehicle_trims.sort_order, vehicle_trim_styles.name")
   end
 
-  def scrape_image
-    begin
-      if parent_id.blank?
-        if !self.image.attached?
-          make_name_parameter = vehicle_make.name.parameterize(separator: '_').downcase
-          model_name_parameter = vehicle_model.name.gsub('-',' ').parameterize(separator: '_').downcase
-          model_parameter = "#{make_name_parameter}-#{model_name_parameter}-#{year}"
-          trim_info = Cars::Vehicle.retrieve("#{model_parameter}/trims")
-          image_url = trim_info[:image]
-          tempfile = Down.download(image_url)
-          
-          self.image.attach(
-            io: tempfile,
-            filename: "#{slug}.#{tempfile.original_filename}",
-            content_type: tempfile.content_type
-          )
-        end
-      end
-    rescue
-      puts "Failed to scrape image"
-    end
-  end
-    
-  # end
-  def scrape_info
-    year_range.each do |year|
-      trims = []
-      
-      make_name_parameter = vehicle_make.name.parameterize(separator: '_').downcase
-      model_name_parameter = vehicle_model.name.gsub('-',' ').parameterize(separator: '_').downcase
-      model_parameter = "#{make_name_parameter}-#{model_name_parameter}-#{year}"
-
-      trim_info = Cars::Vehicle.retrieve("#{model_parameter}/trims")
-      trims = trim_info[:trims]
-      # first_trim = trim_info[:trims].first
-      
-      trims.each_with_index do |trim, index|
-        vehicle_trim = VehicleTrim.find_or_initialize_by(name: trim.name, year: year, vehicle_model: self.vehicle_model)
-        vehicle_trim.sort_order = index
-        vehicle_trim.save
-        
-        trim[:styles].each do |style|
-          new_style = vehicle_trim.vehicle_trim_styles.find_or_initialize_by(:name => style[:name])
-          new_style.inventory_prices = style[:inventory_prices]
-          new_style.mpg = style[:mpg]
-          new_style.engine = style[:engine]
-          new_style.trans = style[:trans]
-          new_style.drive = style[:drive]
-          new_style.colors = style[:colors]
-          new_style.seats = style[:seats]
-          new_style.save!
-          
-          if !new_style.has_specs?
-            # begin
-              specs = Cars::VehicleStyle.retrieve(style[:link].gsub("#{ENV['VEHICLE_ROOT_URL']}/",''))[:specs]
-              specs.each do |spec|
-                new_spec = new_style.vehicle_trim_style_specs.find_or_initialize_by(:name => spec[:name])
-                new_spec.value = spec[:value]
-                new_spec.group = spec[:type]
-                new_spec.inclusion = spec[:inclusion]
-                new_spec.save!
-              end
-            # rescue Exception => e
-            #   throw "Could not fetch specs for #{vehicle_trim.name} #{new_style.name} due to #{e.message}."
-            # end
-          end
-        end
-      end
-    end
-    self.refreshing = false
-    save!
-  end
+  
 
   def fork_config
     self.class.amoeba do

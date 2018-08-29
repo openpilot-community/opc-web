@@ -30,13 +30,32 @@ jQuery.fn.removeClass = function(){
 //  e.g. //= require "trestle/custom/my_custom_js"
 var setupVehicleConfigYear = function() {
   var $refreshingTrims = $(".alert-loading-trims");
+  var $quickAdd = $("#tab-capabilities .type-quick-add");
+  var $quickDelete = $("#tab-capabilities .type-quick-delete");
 
+  $quickAdd.off("click");
+
+  $quickAdd.on("click",function(ev) {
+    ev.preventDefault();
+
+    $.ajax({
+      url: '/vehicle_config_capabilities/quick_add.json',
+      type: 'post',
+      dataType: 'json',
+      data: {
+
+      }
+    })
+  })
   if ($refreshingTrims.length) {
     pollRefreshingStatus();
   }
   if ($('.app-wrapper.is-visitor').length) {
-    $(".trestle-table .actions > *").remove();
-    $(".main-content .form-control,.modal-body .form-control").attr('disabled',true);
+    if (!$("body.controller-admin-vehicle-lookups.action-new").length) {
+      console.log("DISABLING FIELDS");
+      $(".trestle-table .actions > *").remove();
+      $(".main-content .form-control,.modal-body .form-control").attr('disabled',true);
+    }
   }
   
   // console.warn('setupVehicleConfigYear');
@@ -123,7 +142,7 @@ var setupVehicleConfigYear = function() {
   }
   $add_year_end_link.on("click",function() {
     set_year_end_value(parseInt($year_start.val())+1);
-  })
+  });
 
   $year_end.on("change",function() {
     var $this = $(this)
@@ -158,7 +177,10 @@ $(Trestle).on("init",function() {
   }
   setupVehicleConfigYear();
   
-
+  if ($("body.controller-admin-vehicle-lookups.action-new .alert.alert-dismissable.alert-success").length) {
+    // window.location = '/vehicle_lookups/new';
+    $("body").removeClass("action-new");
+  }
   
   
   var trims;
@@ -181,18 +203,31 @@ $(Trestle).on("init",function() {
   $elems['repositories'] = $("#vehicle_config_repository_repository_id");
   $elems['repository_branches'] = $("#vehicle_config_repository_repository_branch_id");
   $elems['trims'] = $('select#vehicle_config_vehicle_trim_id');
-  $elems['makes'] = $('select#vehicle_config_vehicle_make_id');
-  $elems['models'] = $('select#vehicle_config_vehicle_model_id');
+  $elems['years'] = $('select#vehicle_config_year,select#vehicle_lookup_year');
+  $elems['makes'] = $('select#vehicle_config_vehicle_make_id,select#vehicle_lookup_vehicle_make_id');
+  $elems['models'] = $('select#vehicle_config_vehicle_model_id,select#vehicle_lookup_vehicle_model_id');
   $elems['vehicle_models'] = $('#vehicle_trim_vehicle_model_id');
-
+  $elems['makes'].attr('disabled',true);
+  $elems['models'].attr('disabled',true);
+  $elems['lookupSubmitBtn'] = $(".controller-admin-vehicle-lookups .new_vehicle_lookup .btn-success");
+  $elems['lookupSubmitBtn'].attr('disabled',true);
+  $elems['lookupSubmitBtn'].text("Lookup Vehicle");
+  var checkIfReady = function() {
+    if ($elems['years'].val() && $elems['makes'].val() && $elems['models'].val()) {
+      $elems['lookupSubmitBtn'].attr('disabled',false);
+    } else {
+      $elems['lookupSubmitBtn'].attr('disabled',true);
+    }
+  }
   var getModelsForMake = function(make) {
     $.getJSON("/vehicle_models.json?make=" + make).then(function(records) {
       var options = records.map(function(record) {
         return $("<option value=\"" + record.id + "\">" + record.name + "</option>");
       });
-      options.unshift($("<option value=\"\"></option>"));
+      options.unshift($("<option value=\"\">Select your model</option>"));
       if (options) {
         $elems["models"].select2("val","");
+        
         return $elems["models"].html(options);
       } else {
         return $elems["models"].empty();
@@ -214,11 +249,21 @@ $(Trestle).on("init",function() {
       }
     });
   }
+  $elems['years'].change(function() {
+    var year = $(this).val();
 
+    if (year) {
+      $elems['makes'].attr('disabled',false);
+    } else {
+      $elems['makes'].attr('disabled',true);
+    }
+    checkIfReady();
+  });
   $elems['models'].change(function() {
     var model, options;
     var modelId = $('#vehicle_config_vehicle_model_id').val();
     // getModelsForMake('trim',modelId);
+    checkIfReady();
   });
 
   $elems['makes'].change(function() {
@@ -229,7 +274,13 @@ $(Trestle).on("init",function() {
     var make, options;
     make = $this.val();
     // // console.log(options);
-    getModelsForMake(make);
+    if (make) {
+      $elems['models'].attr('disabled',false);
+      getModelsForMake(make);
+    } else {
+      $elems['models'].attr('disabled',true);
+    }
+    checkIfReady();
   });
   
   $elems['repositories'].change(function() {

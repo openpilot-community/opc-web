@@ -1,0 +1,241 @@
+@import "variables";
+
+.controller-admin-vehicle-lookups.action-new {
+  background-color:#000;
+  .app-wrapper {
+    background-color:#000!important;
+    
+  }
+  .app-wrapper .app-main {
+    padding-top: 0;
+    overflow: auto;
+}
+  .col-class-lookup-header {
+    margin-bottom:10px;
+  }
+  .control-label {
+    display:none;
+  }
+  .app-container {
+    padding:0;
+  }
+  
+  .app-sidebar {
+    display:none;
+  }
+  .app-wrapper {
+    .app-header {
+      display:none;
+    }
+  }
+  .main-content-container {
+    background-color:#000;
+  }
+  .app-wrapper .content-header {
+    background-color:#000;
+  }
+  h1.path-heading {
+    display:none;
+  }
+  .form-group {
+    margin:0;
+  }
+  
+  .select2-dropdown {
+    border-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(#000,0.9)!important;
+    color:#FFF!important;
+    border-radius: 0;
+  }
+
+  .select2-container--bootstrap .select2-search--dropdown .select2-search__field {
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    background-color: #222;
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: #FFF;
+    font-size: 14px;
+  }
+  .select2-container--bootstrap .select2-results__option--highlighted[aria-selected] {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .app-wrapper .content-header {
+    background-color:#000!important;
+  }
+  .main-content {
+    padding:0;
+  }
+  .main-content-container {
+    background:#000;
+  }
+
+  .app-wrapper .content-header {
+    padding:0;
+  }
+  .main-content-area,.app-wrapper .content-header {
+    padding-left:15px;
+    padding-right:15px;
+  }
+  .alert.alert-dismissable.alert-danger {
+    display:none;
+  }
+  .select2-container--disabled {
+    opacity:0.5;
+    .select2-selection__rendered {}
+  }
+
+  .new_vehicle_lookup {
+    position:relative;
+    .help-block {
+      display: block;
+      position: absolute;
+      color: #a94442;
+      top: 50%;
+      right: 33px;
+      margin: 0;
+      transform: translateY(-50%);
+    }
+    .row {
+      margin-left: 0;
+      margin-right: 0;
+      img {
+        width: 100%;
+        max-width: 632px;
+        margin: 0 auto;
+        display: block;
+        margin-bottom:9px;
+      }
+      .col-md-6 {
+        margin:0 auto;
+        float:none;
+        padding:0;
+      }
+      &:nth-child(2),&:nth-child(3),&:nth-child(4) {
+        .select2-container--bootstrap .select2-selection.form-control {
+          border-radius:0;
+          color:#FFF;
+          background-color:rgba(#FFF,0.05);
+        }
+        .select2-container--bootstrap .select2-results__option[aria-selected=true] {
+          background-color: #333;
+          color: #FFF;
+        }
+        .select2-container--bootstrap .select2-selection--single .select2-selection__rendered {
+          color: rgba(#FFF,0.8);
+          padding: 0;
+        }
+        .select2-container--bootstrap .select2-selection {
+          border:1px solid rgba(#FFF,0.4);
+          border-bottom-width:0;
+        }
+      }
+      
+      &:nth-child(2) {
+        .select2-container--bootstrap .select2-selection.form-control {
+          border-top-left-radius:6px;
+          border-top-right-radius:6px;
+        }
+      }
+      &:nth-child(4) {
+        .select2-container--bootstrap .select2-selection.form-control {
+          border-bottom-left-radius:6px;
+          border-bottom-right-radius:6px;
+        }
+        .select2-container--bootstrap .select2-selection {
+          border-bottom-width:1px;
+        }
+      }
+  
+      .form-group {
+        &.has-error {
+         .form-control {
+            border-color: #a94442;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          }
+        }
+      }
+    }
+    display: flex;
+    flex-direction: column-reverse;
+    /* flex-wrap: wrap; */
+    width: 100%;
+    
+  
+    .btn-toolbar {
+      flex: 0 0 100%;
+      .btn {
+        display: block;
+        width: 100%;
+        background-image: linear-gradient(-180deg, lighten($green,4) 0%, darken($green,4) 90%);
+        color: #FFF;
+        opacity:1;
+      }
+    }
+  }
+
+
+  .app-wrapper .btn:disabled, .app-wrapper .btn.disabled {
+    cursor: default;
+    background-position: 0 0;
+    background-color: rgba(255, 255, 255, 0.05);
+    background-image: none;
+    box-shadow: none;
+    color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    opacity: 0.3;
+    &:hover,&:active,&:focus {
+      cursor: default;
+      background-position: 0 0;
+      background-color: rgba(255, 255, 255, 0.05);
+      background-image: none;
+      box-shadow: none;
+      color: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      opacity: 0.3;
+    }
+}
+}
+@media (min-width: 992px) {
+  body.controller-admin-vehicle-lookups.action-new {
+    .content-header .btn-toolbar {
+      width: 50%;
+      margin:0 auto;
+      flex:0 0 50%;
+      padding:0;
+    }
+  }
+}
+@media (max-width: 767px) {
+  body.controller-admin-vehicle-lookups.action-new {
+    .app-wrapper .content-header .btn-toolbar {
+        // text-align: right;
+        flex: 0 0 100%;
+    }
+
+    .app-wrapper .app-header {
+      display:none!important;
+    }
+    .app-wrapper {
+      margin-left:initial;
+    }
+    .app-wrapper .content-header {
+      background-color:#000;
+    }
+    h1.path-heading {
+      display:none;
+    }
+  }
+}
+.edit_vehicle_lookup {
+  .col-class-lookup-header {
+    display:none;
+  }
+}
+
+body.controller-admin-vehicle-lookups.action-new {
+  .app-wrapper.is-visitor .primary-toolbar {
+    opacity:1;
+  }
+}

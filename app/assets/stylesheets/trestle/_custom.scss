@@ -8,7 +8,7 @@
 //
 @import "variables";
 @import "documentation";
-
+@import "vehicle_lookup_form";
 body {
   background-color:#000000;
 }
@@ -486,7 +486,7 @@ body {
     position: relative;
     // float: left;
     flex: 0 0 50%;
-    max-width: 635px;
+    // max-width: 635px;
     padding-left: 18px;
     font-size: 18px;
     line-height: 26px;

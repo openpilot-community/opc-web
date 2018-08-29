@@ -15,6 +15,7 @@ class VehicleModel < ApplicationRecord
   enum status: { active: 1, inactive: 0 }
   paginates_per 200
   extend FriendlyId
+  has_one_attached :image
   friendly_id :name_for_slug, use: :slugged
   has_paper_trail
   belongs_to :vehicle_make
@@ -43,18 +44,49 @@ class VehicleModel < ApplicationRecord
   def has_driver_assist?
     !driver_assist.blank?
   end
-  
+  def scrape_image(trim_info = nil,year)
+    # begin
+      if !self.image.attached?
+        if trim_info.blank?
+          make_name_parameter = vehicle_make.name.parameterize(separator: '_').downcase
+          model_name_parameter = self.name.gsub('-',' ').parameterize(separator: '_').downcase
+          model_parameter = "#{make_name_parameter}-#{model_name_parameter}-#{year}"
+          trim_info = Cars::Vehicle.retrieve("#{model_parameter}/trims")
+        end
+        
+        image_url = trim_info[:image]
+        tempfile = Down.download(image_url)
+        
+        self.image.attach(
+          io: tempfile,
+          filename: "#{slug}.#{tempfile.original_filename}",
+          content_type: tempfile.content_type
+        )
+      end
+    # rescue
+    #   puts "Failed to scrape image"
+    # end
+  end
   def driver_assist
     vehicle_trims.select do |vt|
       !vt.driver_assist.blank?
     end
   end
-
+  def trim_styles(year)
+    VehicleTrimStyle.joins(:vehicle_trim).where('vehicle_trims.year IN (:years) AND vehicle_trim_id IN (:trim_ids)',{ :years => [year], :trim_ids => self.vehicle_trims.map(&:id) }).order("vehicle_trims.year, vehicle_trims.sort_order, vehicle_trim_styles.name")
+  end
   def scrape_info
-    (2015..2018).each do |year|
+    (Time.zone.now.year + 1).downto(2017).each do |year|
       begin
-        trim_info = Cars::Vehicle.retrieve("#{vehicle_make.name.parameterize('_').downcase}-#{name.gsub('-','_').parameterize('_').downcase}-#{year}/trims")
-
+        make_name_parameter = vehicle_make.name.parameterize(separator: '_').downcase
+        model_name_parameter = vehicle_model.name.gsub('-',' ').parameterize(separator: '_').downcase
+        model_parameter = "#{make_name_parameter}-#{model_name_parameter}-#{year}"
+        trim_info = Cars::Vehicle.retrieve("#{model_parameter}/trims")
+        # trim_info = Cars::Vehicle.retrieve("#{vehicle_make.name.parameterize('_').downcase}-#{name.gsub('-','_').parameterize('_').downcase}-#{year}/trims")
+        # if !image.attached?
+          scrape_image(trim_info,year)
+        # end
+        # scrape_image
         trim_info[:trims].each_with_index do |trim, index|
           vehicle_trim = VehicleTrim.find_or_initialize_by(name: trim.name, year: year, vehicle_model: self)
           vehicle_trim.sort_order = index

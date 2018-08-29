@@ -17,7 +17,7 @@ class VehicleMake < ApplicationRecord
   friendly_id :name, use: :slugged
   has_paper_trail
   
-  has_many :vehicle_make_package
+  has_many :vehicle_make_packages
   has_many :vehicle_models
   has_many :vehicle_configs
   has_many :vehicle_trims

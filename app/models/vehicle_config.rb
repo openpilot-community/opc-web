@@ -27,33 +27,32 @@ class GoodnessValidator < ActiveModel::Validator
         (
           vehicle_configs.year = :year AND 
           vehicle_configs.vehicle_make_id = :vehicle_make AND 
-          vehicle_configs.vehicle_model_id = :vehicle_model
-          vehicle_configs.id != :current_id
-          
-        ) OR (
-          vehicle_configs.year_end = :year AND 
-          vehicle_configs.vehicle_make_id = :vehicle_make AND 
-          vehicle_configs.vehicle_model_id = :vehicle_model
+          vehicle_configs.vehicle_model_id = :vehicle_model AND
           vehicle_configs.id != :current_id
         ) OR (
           vehicle_configs.year_end = :year AND 
           vehicle_configs.vehicle_make_id = :vehicle_make AND 
-          vehicle_configs.vehicle_model_id = :vehicle_model
+          vehicle_configs.vehicle_model_id = :vehicle_model AND
+          vehicle_configs.id != :current_id
+        ) OR (
+          vehicle_configs.year_end = :year AND 
+          vehicle_configs.vehicle_make_id = :vehicle_make AND 
+          vehicle_configs.vehicle_model_id = :vehicle_model AND
           vehicle_configs.id != :current_id
         ) OR (
           vehicle_configs.year_end = :year_end AND 
           vehicle_configs.vehicle_make_id = :vehicle_make AND 
-          vehicle_configs.vehicle_model_id = :vehicle_model
+          vehicle_configs.vehicle_model_id = :vehicle_model AND
           vehicle_configs.id != :current_id
         ) OR (
           ((:year) BETWEEN vehicle_configs.year AND vehicle_configs.year_end) AND 
           vehicle_configs.vehicle_make_id = :vehicle_make AND 
-          vehicle_configs.vehicle_model_id = :vehicle_model
+          vehicle_configs.vehicle_model_id = :vehicle_model AND
           vehicle_configs.id != :current_id
         ) OR (
           ((:year_end) BETWEEN vehicle_configs.year AND vehicle_configs.year_end) AND 
           vehicle_configs.vehicle_make_id = :vehicle_make AND 
-          vehicle_configs.vehicle_model_id = :vehicle_model
+          vehicle_configs.vehicle_model_id = :vehicle_model AND
           vehicle_configs.id != :current_id
         )
       ), {
@@ -186,9 +185,6 @@ class VehicleConfig < ApplicationRecord
       vehicle_model: model
     })
     # byebug
-    if results.present?
-      results.first
-    end
   end
 
   def has_capability?(cap_id)

@@ -71,14 +71,14 @@ Trestle.resource(:vehicle_lookups) do
               instance.lookup_count = instance.lookup_count + 1
               instance.save!
 
+              # byebug
               # self.instance = admin.find_instance({ :id => instance.id })
               vc = VehicleConfig.find_by_ymm(instance.year,instance.vehicle_make.id,instance.vehicle_model.id)
               if vc.blank?
-                vc = VehicleConfig.new(year: instance.year, year_end: instance.year, vehicle_make: instance.vehicle_make, vehicle_model: instance.vehicle_model)
-                vc.save
+                vc = VehicleConfig.new(year: instance.year, year_end: instance.year, vehicle_make_id: instance.vehicle_make_id, vehicle_model_id: instance.vehicle_model_id)
+                vc.save!
               end
 
-              # byebug
               flash[:message] = flash_message("found.success", title: "Woohoo!", message: "We found this vehicle in our system.".html_safe)
               redirect_to vehicle_configs_admin_path(id: vc.id), turbolinks: false and return
             else

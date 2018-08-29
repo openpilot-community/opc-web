@@ -1,6 +1,7 @@
 require 'sidekiq-scheduler'
 class CheckOpenpilotReposWorker
   include Sidekiq::Worker
+  sidekiq_options :retry => nil
 
   def perform(*args)
     # Do something later

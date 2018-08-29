@@ -31,7 +31,7 @@ class GoodnessValidator < ActiveModel::Validator
 end
 
 class VehicleLookup < ApplicationRecord
-  include Scraper
+  # include Scraper
   extend FriendlyId
   friendly_id :name_for_slug, use: :slugged
   has_one_attached :image
@@ -42,10 +42,10 @@ class VehicleLookup < ApplicationRecord
   validates_presence_of :year, message: ""
   validates_presence_of :vehicle_make_id, message: ""
   validates_presence_of :vehicle_model_id, message: ""
-  acts_as_votable
+  # acts_as_votable
   # before_update :set_vehicle_config
   before_create :start_refreshing
-  accepts_nested_attributes_for :vehicle_config
+  # accepts_nested_attributes_for :vehicle_config
   # after_create :do_scrape_info
   validates_with GoodnessValidator
 

@@ -18,15 +18,65 @@ body {
 }
 
 #tab-capabilities {
-  .type-factory, .type-standard, .type-basic, .type-advanced {
-    text-align:center;
-    width:10%;
-    opacity:0.5;
+  tr {
+    .type-factory, .type-standard, .type-basic, .type-advanced {
+      text-align:center;
+      width:10%;
+      .btn {
+        opacity:0;
+      }
+      .btn-success {
+        opacity:1;
+      }
+    }
+    .type-factory, .type-standard, .type-basic, .type-advanced {
+      position:relative;
+
+      &:after {
+        content:"";
+        background-color:rgba(#000,0.1);
+        height:100%;
+        width:1px;
+        position:absolute;
+        right:0;
+        top:0;
+      }
+      .btn-success {
+        background-image: linear-gradient(-180deg, lighten($green,4) 0%, darken($green,4) 90%);
+        color: #FFF;
+        opacity:1;
+      }
+    }
+    &:hover {
+      td {
+        background-color:rgba(#000,0.05);
+      }
+      .type-factory, .type-standard, .type-basic, .type-advanced {
+        
+        .btn {
+          opacity:1;
+        }
+        .btn-success {
+          opacity:1;
+        }
+      }
+    
+      .btn-success {
+        opacity:1;
+      }
+    }
   }
 
-  .btn-success {
-    background-image: linear-gradient(-180deg, lighten($green,4) 0%, darken($green,4) 90%);
-    color: #FFF;
+  thead {
+    tr {
+      .type-factory, .type-standard, .type-basic, .type-advanced {
+        opacity:1;
+      }
+    
+      .btn-success {
+        opacity:1;
+      }
+    }
   }
 }
 

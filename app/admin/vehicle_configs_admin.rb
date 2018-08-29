@@ -292,7 +292,7 @@ Trestle.resource(:vehicle_configs) do
           column :name, header: "Capability"
           column :factory, class: "type-factory" do |c|
             if vcc = vccs.find_by(vehicle_config_type: vct_factory, vehicle_capability: c)
-              admin_link_to("<span class=\"fa fa-pencil\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :show, class: "btn btn-success btn-list-edit", params: { 
+              admin_link_to("<span class=\"fa fa-check\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :show, class: "btn btn-success btn-list-edit", params: { 
                 id: vcc.id
               })
             else
@@ -305,7 +305,7 @@ Trestle.resource(:vehicle_configs) do
           end
           column :standard, class: "type-standard" do |c|
             if vcc = vccs.find_by(vehicle_config_type: vct_standard, vehicle_capability: c)
-              admin_link_to("<span class=\"fa fa-pencil\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :show, class: "btn btn-success btn-list-edit", params: { 
+              admin_link_to("<span class=\"fa fa-check\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :show, class: "btn btn-success btn-list-edit", params: { 
                 id: vcc.id
               })
             else
@@ -318,7 +318,7 @@ Trestle.resource(:vehicle_configs) do
           end
           column :basic, class: "type-basic" do |c|
             if vcc = vccs.find_by(vehicle_config_type: vct_basic, vehicle_capability: c)
-              admin_link_to("<span class=\"fa fa-pencil\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :show, class: "btn btn-success btn-list-edit", params: { 
+              admin_link_to("<span class=\"fa fa-check\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :show, class: "btn btn-success btn-list-edit", params: { 
                 id: vcc.id
               })
             else
@@ -331,7 +331,7 @@ Trestle.resource(:vehicle_configs) do
           end
           column :advanced, class: "type-advanced" do |c|
             if vcc = vccs.find_by(vehicle_config_type: vct_advanced, vehicle_capability: c)
-              admin_link_to("<span class=\"fa fa-pencil\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :show, class: "btn btn-success btn-list-edit", params: { 
+              admin_link_to("<span class=\"fa fa-check\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :show, class: "btn btn-success btn-list-edit", params: { 
                 id: vcc.id
               })
             else

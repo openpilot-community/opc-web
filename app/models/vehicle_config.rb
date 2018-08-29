@@ -128,10 +128,10 @@ class VehicleConfig < ApplicationRecord
   accepts_nested_attributes_for :forks
   before_validation :set_default
   before_validation :set_year_end
-  before_save :update_forks
+  # before_save :update_forks
   before_save :set_trim_styles_count
 
-  after_save :do_scrape_info
+  # after_save :do_scrape_info
   
   # before_save :scrape_info
   before_validation :set_title

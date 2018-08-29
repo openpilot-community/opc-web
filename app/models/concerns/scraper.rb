@@ -3,6 +3,9 @@ module Scraper
   # before_save :scrape_image
 
   def do_scrape_info
+    update_attributes(refreshing: true)
+    # self.refreshing = true
+    save!
     self.delay.scrape_info
   end
 

@@ -1,5 +1,6 @@
 class GoodnessValidator < ActiveModel::Validator
   def validate(record)
+    puts "is a new record? #{record.new_record?}"
     if !record.new_record?
       dupes = VehicleLookup.where(%(
           vehicle_lookups.year = :year AND 
@@ -47,7 +48,7 @@ class VehicleLookup < ApplicationRecord
   before_create :start_refreshing
   # accepts_nested_attributes_for :vehicle_config
   # after_create :do_scrape_info
-  validates_with GoodnessValidator
+  validates_with GoodnessValidator, on: :create
 
   def name_for_slug
     "#{vehicle_make.name} #{vehicle_model.name} #{year}"

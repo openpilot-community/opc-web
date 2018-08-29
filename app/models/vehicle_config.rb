@@ -129,8 +129,8 @@ class VehicleConfig < ApplicationRecord
   before_validation :set_year_end
   # before_save :update_forks
   before_save :set_trim_styles_count
-
-  # after_save :do_scrape_info
+  
+  after_create :do_scrape_info
   
   # before_save :scrape_info
   before_validation :set_title

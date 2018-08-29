@@ -5,7 +5,7 @@ class CheckOpenpilotPullRequestsWorker
   def perform(*args)
     # Do something later
     client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
-    client.auto_paginate = true
+    client.auto_paginate = false
 
     pull_requests = client.pull_requests('commaai/openpilot', {
       :state => "all"

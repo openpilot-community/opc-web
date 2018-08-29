@@ -3,7 +3,7 @@ class CheckOpenpilotContributorsWorker
   sidekiq_options :retry => false
   def perform(*args)
     client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
-    client.auto_paginate = true
+    client.auto_paginate = false
     # "login": "octocat",
     # "id": 1,
     # "node_id": "MDQ6VXNlcjE=",

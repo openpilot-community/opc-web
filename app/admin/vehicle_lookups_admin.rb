@@ -50,9 +50,8 @@ Trestle.resource(:vehicle_lookups) do
             instance = dupes.first
             # vehicle_lookup.
             
-            instance.lookup_count = instance.lookup_count + 1
-            instance.save!
-
+            instance.update_attributes({lookup_count: instance.lookup_count + 1})
+            
             # byebug
             # self.instance = admin.find_instance({ :id => instance.id })
             vc = VehicleConfig.find_by_ymm(instance.year,instance.vehicle_make.id,instance.vehicle_model.id)

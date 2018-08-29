@@ -1,13 +1,13 @@
 require 'sidekiq-scheduler'
 class CheckOpenpilotReposWorker
   include Sidekiq::Worker
-  sidekiq_options :retry => nil
+  sidekiq_options :retry => false
 
   def perform(*args)
     # Do something later
     
     client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
-    client.auto_paginate = true
+    client.auto_paginate = false
     forks = client.forks('commaai/openpilot');
     # "pushed_at": "2011-01-26T19:06:43Z",
     # "created_at": "2011-01-26T19:01:12Z",

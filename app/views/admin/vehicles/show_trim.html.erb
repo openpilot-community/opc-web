@@ -22,40 +22,8 @@
     <p>Many trims have configurations available that support Openpilot.</p>
     <p>We're trying to make it easy to compare each configuration so you can see what capabilities you gain from using Openpilot and which capabilities you unfortunately sometimes lose with Openpilot.</p>
     <p>These configurations are one of 4 setups: Factory, Standard, Basic and Advanced.</p>
-    <% config_types = VehicleConfigType.all.order(:difficulty_level) %>
-    <% capability_matrix = @config.root.capability_matrix %>
-    <div class="capabilities">
-      <div class="capability capability-head">
-        <span class="key">Capability</span>
-        <% config_types.each do |type| %>
-        <% if @config.config_type_ids.include?(type.id) %>
-        <span class="value type-<%=type.name.parameterize%>"><%=type.name%><span title="<%=type.description%>" data-container="body" data-toggle="tooltip" class="fa fa-info"></span></span>
-        <% end %>
-        <% end %>
-      </div>
-      <% @config.combined_capabilities.each do |capability| %>
-        <% capability_key = capability.name.parameterize %>
-      <div class="capability">
-        <span class="key">
-        <%=capability.name %>
-        <span class="details">
-          <%=capability.description%>
-        </span>
-        </span>
-        <% config_types.each do |type| %>
-          <% if @config.config_type_ids.include?(type.id) %>
-            <% type_key = type.name.parameterize %>
-            <% cap = capability_matrix[type_key.to_sym][capability_key.to_sym] %>
-            <span class="value type-<%=type_key%><%if cap.present?%> active<% end %>">
-              <% if cap.present? %>
-                <%=cap[:value]%>
-              <% end %>
-            </span>
-          <% end %>
-        <% end %>
-      </div>
-      <% end %>
-    </div>
+    
+    <%=render "_capabilities_chart" %>
   </div>
 
   <div class="profile-sidebar">

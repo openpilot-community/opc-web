@@ -185,18 +185,18 @@ class VehicleConfig < ApplicationRecord
   def config_type_ids
     [root.vehicle_config_type_id,forks.map(&:vehicle_config_type_id)].flatten
   end
-  def combined_capabilities
-    cap_ids = []
-    cap_ids << root.vehicle_capabilities.map(&:id)
+  # def combined_capabilities
+  #   cap_ids = []
+  #   cap_ids << root.vehicle_capabilities.map(&:id)
     
-    root.forks.each do |fork|
-      cap_ids << fork.vehicle_capabilities.map(&:id)
-    end
+  #   root.forks.each do |fork|
+  #     cap_ids << fork.vehicle_capabilities.map(&:id)
+  #   end
 
-    cap_ids = cap_ids.flatten.uniq
+  #   cap_ids = cap_ids.flatten.uniq
 
-    VehicleCapability.where(id: cap_ids).order(:name)
-  end
+  #   VehicleCapability.where(id: cap_ids).order(:name)
+  # end
 
   def capability_matrix
     matrix = {}

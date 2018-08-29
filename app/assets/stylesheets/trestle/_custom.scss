@@ -7,11 +7,26 @@
 //    @import "trestle/custom/my_custom_css";
 //
 @import "documentation";
+
 body {
   background-color:#000000;
 }
+
 .btn-toolbar .btn-group .btn + .btn, .btn-toolbar .btn-group .btn + .btn-group, .btn-toolbar .btn-group .btn-group + .btn, .btn-toolbar .btn-group .btn-group + .btn-group {
   margin-left: -5px;
+}
+
+#tab-capabilities {
+  .type-factory, .type-standard, .type-basic, .type-advanced {
+    text-align:center;
+    width:10%;
+    opacity:0.5;
+  }
+
+  .btn-success {
+    background-image: linear-gradient(-180deg, lighten($green,4) 0%, darken($green,4) 90%);
+    color: #FFF;
+  }
 }
 
 .app-nav {

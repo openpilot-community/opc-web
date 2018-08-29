@@ -251,36 +251,97 @@ Trestle.resource(:vehicle_configs) do
         end
       end
       tab :capabilities, badge: vehicle_config.vehicle_config_capabilities.blank? ? nil : vehicle_config.vehicle_config_capabilities.size do
-        render "tab_toolbar", {
-          :groups => [
-            {
-              :class => 'filters pull-left',
-              :items => [
-                content_tag(:h4, "#{vehicle_config.vehicle_config_type.name} Capabilities & Limits", class: [])
-              ]
-            },
-            {
-              :class => "actions",
-              :items => [
-                admin_link_to("Add Capability", admin: :vehicle_config_capabilities, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
-              ]
-            }
-          ]
-        }
-        
-        table vehicle_config.vehicle_config_capabilities.blank? ? [] : vehicle_config.vehicle_config_capabilities, admin: :vehicle_config_capabilities do
-          column :name
-
-          column :timeout_friendly, header: "Timeout"
-          
-          column :speed do |capability|
-            if capability.mph.present?
-              "#{capability.mph} mph (#{capability.kph} kph)"
+        vehicle_capabilities = VehicleCapability.order(:name)
+        # render "tab_toolbar", {
+        #   :groups => [
+        #     {
+        #       :class => 'filters pull-left',
+        #       :items => [
+        #         content_tag(:h4, "#{vehicle_config.vehicle_config_type.name} Capabilities & Limits", class: [])
+        #       ]
+        #     },
+        #     {
+        #       :class => "actions",
+        #       :items => [
+        #         admin_link_to("Add Factory", admin: :vehicle_config_capabilities, action: :new, class: "btn btn-default btn-list-add", params: { 
+        #           vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id,
+        #           vehicle_config_type_id: VehicleConfigType.find_by(name: 'Factory').id
+        #         }),
+        #         admin_link_to("Add Standard", admin: :vehicle_config_capabilities, action: :new, class: "btn btn-default btn-list-add", params: { 
+        #           vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id,
+        #           vehicle_config_type_id: VehicleConfigType.find_by(name: 'Standard').id
+        #         }),
+        #         admin_link_to("Add Basic", admin: :vehicle_config_capabilities, action: :new, class: "btn btn-default btn-list-add", params: { 
+        #           vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id,
+        #           vehicle_config_type_id: VehicleConfigType.find_by(name: 'Basic').id
+        #         }),
+        #         admin_link_to("Add Advanced", admin: :vehicle_config_capabilities, action: :new, class: "btn btn-default btn-list-add", params: { 
+        #           vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id,
+        #           vehicle_config_type_id: VehicleConfigType.find_by(name: 'Advanced').id
+        #         })
+        #       ]
+        #     }
+        #   ]
+        # }
+        vccs = vehicle_config.vehicle_config_capabilities
+        vct_factory = VehicleConfigType.find_by(name: 'Factory')
+        vct_standard = VehicleConfigType.find_by(name: 'Standard')
+        vct_basic = VehicleConfigType.find_by(name: 'Basic')
+        vct_advanced = VehicleConfigType.find_by(name: 'Advanced')
+        table vehicle_capabilities, admin: :vehicle_capabilities_admin do
+          column :name, header: "Capability"
+          column :factory, class: "type-factory" do |c|
+            if vcc = vccs.find_by(vehicle_config_type: vct_factory, vehicle_capability: c)
+              admin_link_to("<span class=\"fa fa-pencil\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :show, class: "btn btn-success btn-list-edit", params: { 
+                id: vcc.id
+              })
+            else
+              admin_link_to("<span class=\"fa fa-plus\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :new, class: "btn btn-default btn-list-add", params: { 
+                vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id,
+                vehicle_config_type_id: vct_factory.id,
+                vehicle_capability_id: c.id
+              })
             end
           end
-          
-          # column :confirmed
-          column :confirmed_by
+          column :standard, class: "type-standard" do |c|
+            if vcc = vccs.find_by(vehicle_config_type: vct_standard, vehicle_capability: c)
+              admin_link_to("<span class=\"fa fa-pencil\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :show, class: "btn btn-success btn-list-edit", params: { 
+                id: vcc.id
+              })
+            else
+              admin_link_to("<span class=\"fa fa-plus\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :new, class: "btn btn-default btn-list-add", params: { 
+                vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id,
+                vehicle_config_type_id: vct_standard.id,
+                vehicle_capability_id: c.id
+              })
+            end
+          end
+          column :basic, class: "type-basic" do |c|
+            if vcc = vccs.find_by(vehicle_config_type: vct_basic, vehicle_capability: c)
+              admin_link_to("<span class=\"fa fa-pencil\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :show, class: "btn btn-success btn-list-edit", params: { 
+                id: vcc.id
+              })
+            else
+              admin_link_to("<span class=\"fa fa-plus\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :new, class: "btn btn-default btn-list-add", params: { 
+                vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id,
+                vehicle_config_type_id: vct_basic.id,
+                vehicle_capability_id: c.id
+              })
+            end
+          end
+          column :advanced, class: "type-advanced" do |c|
+            if vcc = vccs.find_by(vehicle_config_type: vct_advanced, vehicle_capability: c)
+              admin_link_to("<span class=\"fa fa-pencil\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :show, class: "btn btn-success btn-list-edit", params: { 
+                id: vcc.id
+              })
+            else
+              admin_link_to("<span class=\"fa fa-plus\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :new, class: "btn btn-default btn-list-add", params: { 
+                vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id,
+                vehicle_config_type_id: vct_advanced.id,
+                vehicle_capability_id: c.id
+              })
+            end
+          end
         end
       end
       tab :modifications, badge: vehicle_config.vehicle_config_modifications.blank? ? nil : vehicle_config.vehicle_config_modifications.size do
@@ -294,31 +355,13 @@ Trestle.resource(:vehicle_configs) do
             }
           ]
         }
+        
         table vehicle_config.vehicle_config_modifications.includes(:modification).order('modifications.name'), admin: :vehicle_config_modifications do
           column :modification, dialog: true
           column :hardware_item_names
         end
       end
-      # tab :children, badge: vehicle_config.forks.blank? ? nil : vehicle_config.forks.size do
-      #   # render "tab_toolbar", {
-      #   #   :groups => [
-      #   #     {
-      #   #       :class => "actions",
-      #   #       :items => [
-      #   #         admin_link_to("Add Capability", admin: :vehicle_config_capabilities, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
-      #   #       ]
-      #   #     }
-      #   #   ]
-      #   # }
-        
-      #   table vehicle_config.forks.blank? ? [] : vehicle_config.forks.order(:id), admin: :vehicle_configs do
-      #     column :name
-      #     actions
-      #   end
-      # end
-      #####
-      # CODE TAB
-      #####
+
       tab :code, badge: vehicle_config.vehicle_config_repositories.blank? ? nil : vehicle_config.vehicle_config_repositories.size do
         render "tab_toolbar", {
           :groups => [
@@ -408,7 +451,7 @@ Trestle.resource(:vehicle_configs) do
           render inline: vehicle_config.vehicle_config_videos.first.video.html.html_safe
           render inline: content_tag(:div, nil, {style: "margin-top:10px;"})
         end
-        render "fork_links", :instance => vehicle_config
+        # render "fork_links", :instance => vehicle_config
         
         # collection_select :parent_id, VehicleConfig.where.not(id: vehicle_config.id).includes(:vehicle_make,:vehicle_model).where(:vehicle_make => vehicle_config.vehicle_make.blank? ? nil : vehicle_config.vehicle_make,:vehicle_model => vehicle_config.vehicle_model.blank? ? nil : vehicle_config.vehicle_model).where("parent_id IS NULL").order("vehicle_models.name, year"), :id, :name, include_blank: true, label: "Associate to new parent"
       end

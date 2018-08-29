@@ -1,7 +1,7 @@
 var originalAddClassMethod = jQuery.fn.addClass;
 var originalRemoveClassMethod = jQuery.fn.removeClass;
 function pollRefreshingStatus(){
-  $.getJSON($(".app-main").attr('data-context') + "/refreshing_status.json", function(data) {
+  $.getJSON(window.location.href + "/refreshing_status.json", function(data) {
       console.log(data);  // process results here
 
       if (data.refreshing) {

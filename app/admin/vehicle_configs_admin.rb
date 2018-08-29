@@ -23,6 +23,7 @@ Trestle.resource(:vehicle_configs) do
   end
 
   controller do
+    skip_before_action :authenticate_user!, :only => [:show, :refreshing_status]
     include ActionView::Helpers::AssetUrlHelper
     def index
       @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support", "/vehicle_configs")])

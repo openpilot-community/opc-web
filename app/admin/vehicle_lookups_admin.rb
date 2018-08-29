@@ -24,7 +24,7 @@ Trestle.resource(:vehicle_lookups) do
 
   controller do
     include ActionView::Helpers::AssetUrlHelper
-    skip_before_action :authenticate_user!, :only => [:new, :create,:show]
+    skip_before_action :authenticate_user!, :only => [:new, :create, :show, :refreshing_status]
     skip_before_action :require_edit_permissions!, :only => [:new, :create, :show]
 
     def index

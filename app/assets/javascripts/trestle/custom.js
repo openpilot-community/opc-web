@@ -198,7 +198,7 @@ $(Trestle).on("init",function() {
   var resizeDocument = function() {
     var is_lookup_form = $("body.controller-admin-vehicle-lookups.action-new").length;
     var sidebarWidth = $sidebar.outerWidth();
-    console.warn("sidebar is : ",isElementVisible($sidebar[0]));
+    // console.warn("sidebar is : ",isElementVisible($sidebar[0]));
     if (!is_lookup_form) {
       if ($("body.mobile-nav-expanded").length) {
         $contentContainer.css({

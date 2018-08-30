@@ -1,1 +1,0 @@
-puts Cars::Vehicle.retrieve('vehicle')

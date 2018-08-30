@@ -6,6 +6,9 @@
     background-color:#000!important;
     
   }
+  .main-content-container {
+    margin-bottom:0;
+  }
   .app-wrapper .app-main {
     padding-top: 0;
     overflow: auto;
@@ -101,7 +104,7 @@
       margin-left: 0;
       margin-right: 0;
       img {
-        width: 100%;
+        width: 80%;
         max-width: 632px;
         margin: 0 auto;
         display: block;

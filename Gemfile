@@ -26,6 +26,10 @@ gem 'trestle-search'
 gem 'devise'
 gem 'puma'
 gem 'pundit'
+gem 'selenium-webdriver'
+gem 'chromedriver-helper'
+gem 'watir'
+gem 'pincers'
 gem 'omniauth-github'
 gem "aws-sdk-s3", require: false
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

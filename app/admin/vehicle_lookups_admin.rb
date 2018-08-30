@@ -11,14 +11,19 @@ Trestle.resource(:vehicle_lookups) do
     end
     row do
       col(md: 6, class: "lookup-year") do
-        select :year, (Time.zone.now.year + 1).downto(2006), prompt: "Year"
+        select :year, (Time.zone.now.year + 1).downto(2012), prompt: "Year"
       end
     end
     row do
-      col(md: 6) { collection_select :vehicle_make_id, VehicleMake.order(:name), :id, :name, prompt: "Make" }
+      col(md: 6) { collection_select :vehicle_make_id, VehicleMake.where(status: 1).order(:name), :id, :name, prompt: "Make" }
     end
     row do
       col(md: 6) { collection_select :vehicle_model_id, [], :id, :name, prompt: "Model" }
+    end
+    row do
+      col(md: 6, class: "lookup-header") do
+        content_tag(:div, "Note: Vehicles older than 2012 are unlikely to have the hardware required to be plug-and-play with Openpilot.<br />If you're interested in adding functionality to a car older than 2012, visit the #old_cars channel in the Comma Slack.".html_safe, class: "alert alert-default", style: "font-size:12px; margin-bottom:0;")
+      end
     end
   end
 
@@ -31,7 +36,7 @@ Trestle.resource(:vehicle_lookups) do
       
       set_meta_tags og: {
         title: "Request / Research Vehicle Portability | Openpilot Database",
-        image: asset_url("/assets/opengraph-image.png"),
+        image: asset_url("/assets/compatibility-check-header.png"),
         type: "website"
       }
       set_meta_tags keywords: ['request','vehicle','portability','check','compatibility','help','openpilot','vehicle','support','master','list','of','vehicles','supported','compatible','compatibility']

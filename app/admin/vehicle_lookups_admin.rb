@@ -26,6 +26,18 @@ Trestle.resource(:vehicle_lookups) do
     include ActionView::Helpers::AssetUrlHelper
     skip_before_action :authenticate_user!, :only => [:new, :create, :show, :refreshing_status]
     skip_before_action :require_edit_permissions!, :only => [:new, :create, :show]
+    def new
+      @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Request / Research Vehicle Portability", "/vehicle_lookups")])
+      
+      set_meta_tags og: {
+        title: "Request / Research Vehicle Portability | Openpilot Database",
+        image: asset_url("/assets/opengraph-image.png"),
+        type: "website"
+      }
+      set_meta_tags keywords: ['request','vehicle','portability','check','compatibility','help','openpilot','vehicle','support','master','list','of','vehicles','supported','compatible','compatibility']
+      set_meta_tags description: "Request or Research Portability of a Vehicle for Openpilot"
+      super
+    end
 
     def index
       if current_user.blank? || current_user.is_visitor?

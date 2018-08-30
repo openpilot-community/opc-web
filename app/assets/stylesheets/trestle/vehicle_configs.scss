@@ -3,7 +3,29 @@ body.controller-admin-vehicle-configs {
   .app-wrapper {
     .trestle-table {
       .votes-column {
-        width:55px;
+        width: 55px;
+        padding: 0;
+        position: relative;
+      }
+      .vote-action {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        transform: translateY(-50%);
+        span.badge {
+          font-size: 16px;
+          padding: 0;
+          cursor:default;
+        }
+        a {
+          text-decoration: none;
+          padding-top: 7px;
+          padding-bottom: 7px;
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+          }
+        }
       }
       .image-column {
         width:119px;

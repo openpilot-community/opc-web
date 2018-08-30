@@ -112,15 +112,15 @@ Trestle.resource(:vehicle_configs) do
     end
 
     def show
-      vehicle_config_root = admin.find_instance(params)
+      vehicle_config = admin.find_instance(params)
       @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support","/vehicle_configs")])
       set_meta_tags og: {
-        title: "#{vehicle_config_root.name} | Openpilot Database",
-        image: vehicle_config_root.image.attached? ? vehicle_config_root.image.service_url : asset_url("/assets/opengraph-image.png"),
+        title: "#{vehicle_config.name} | Openpilot Database",
+        image: vehicle_config.image.attached? ? vehicle_config.image.service_url : asset_url("/assets/opengraph-image.png"),
         type: "website"
       }
-      set_meta_tags keywords: ['openpilot','vehicle','support',vehicle_config_root.vehicle_make.name,vehicle_config_root.vehicle_model.name,vehicle_config_root.name,'of','vehicles','supported','compatible','compatibility']
-      set_meta_tags description: "Research and support of comma openpilot for the #{vehicle_config_root.name}."
+      set_meta_tags keywords: ['openpilot','vehicle','support',vehicle_config.vehicle_make.name,vehicle_config.vehicle_model.name,vehicle_config.name,'of','vehicles','supported','compatible','compatibility']
+      set_meta_tags description: "Research and support of comma openpilot for the #{vehicle_config.name}."
       super
     end
 
@@ -134,24 +134,13 @@ Trestle.resource(:vehicle_configs) do
 
     def refresh_trims
       self.instance = admin.find_instance(params)
-      vehicle_config_root = admin.find_instance(params)
-      vehicle_config_root.update_attributes(refreshing: true)
-      # vehicle_config_root.refreshing = true
-      # vehicle_config_root.save!
-      ScrapeCarsWorker.perform_async(vehicle_config_root.id)
+      vehicle_config = admin.find_instance(params)
+      vehicle_config.update_attributes(refreshing: true)
+      # vehicle_config.refreshing = true
+      # vehicle_config.save!
+      ScrapeCarsWorker.perform_async(vehicle_config.id)
       flash[:message] = "Vehicle trims list is being refreshed... reload the browser to see results."
-      redirect_to admin.path(:show, id: vehicle_config_root.id)
-    end
-
-    def fork
-      vehicle_config_root = admin.find_instance(params)
-      new_config = vehicle_config_root.fork_config
-      veh_conf_type = VehicleConfigType.find(params[:config_type])
-      new_config.parent = vehicle_config_root
-      new_config.vehicle_config_type = veh_conf_type
-      new_config.save!
-      flash[:message] = "Vehicle has been forked."
-      redirect_to admin.path(:show, id: new_config.id)
+      redirect_to admin.path(:show, id: vehicle_config.id)
     end
     
     def vote
@@ -201,14 +190,6 @@ Trestle.resource(:vehicle_configs) do
         format.json { render json: instance, status: 200 }
       end
     end
-
-    def clone
-      vehicle_config = admin.find_instance(params)
-      new_config = vehicle_config.copy_config
-      new_config.save!
-      flash[:message] = "Vehicle has been cloned."
-      redirect_to admin.path(:show, id: new_config.id)
-    end
   end
 
   routes do
@@ -251,27 +232,17 @@ Trestle.resource(:vehicle_configs) do
   ##########
   form do |vehicle_config|
     tab :general do
-      if vehicle_config.parent.blank?
-        row do
-          col(sm: 3, class: "year-range") do
-            row do
-              col(sm: 6, class: "year-start") { select :year, 2010..(Time.zone.now.year + 2) }
-              col(sm: 6, class: "year-end") { select :year_end, 2010..(Time.zone.now.year + 2), label: nil }
-            end
+      row do
+        col(sm: 3, class: "year-range") do
+          row do
+            col(sm: 6, class: "year-start") { select :year, 2010..(Time.zone.now.year + 2) }
+            col(sm: 6, class: "year-end") { select :year_end, 2010..(Time.zone.now.year + 2), label: nil }
           end
-          col(sm: 4) { collection_select :vehicle_make_id, VehicleMake.order(:name), :id, :name, include_blank: true }
-          col(sm: 5) { collection_select :vehicle_model_id, vehicle_config.vehicle_make.blank? ? [] : vehicle_config.vehicle_make.vehicle_models.order(:name), :id, :name, include_blank: true }
         end
-      else
-        static_field :name, "#{vehicle_config.name.blank? ? nil : vehicle_config.name}"
-
-        hidden_field :year
-        hidden_field :year_end
-        hidden_field :vehicle_make_id
-        hidden_field :vehicle_model_id
-        hidden_field :vehicle_trim_id
+        col(sm: 4) { collection_select :vehicle_make_id, VehicleMake.order(:name), :id, :name, include_blank: true }
+        col(sm: 5) { collection_select :vehicle_model_id, vehicle_config.vehicle_make.blank? ? [] : vehicle_config.vehicle_make.vehicle_models.order(:name), :id, :name, include_blank: true }
       end
-
+    
       if vehicle_config.persisted?
         collection_select :vehicle_make_package_id, VehicleMakePackage.where(vehicle_make: vehicle_config.vehicle_make).order(:name), :id, :name, include_blank: true, label: "Required Factory Installed Option"
       end

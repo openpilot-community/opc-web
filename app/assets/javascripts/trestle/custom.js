@@ -31,6 +31,11 @@ jQuery.fn.removeClass = function(){
 //
 //  e.g. //= require "trestle/custom/my_custom_js"
 var setupVehicleConfigYear = function() {
+  var $badgeVoteCount = $(".badge-vote-count");
+  $badgeVoteCount.on("click",function(ev) {
+    ev.preventDefault();
+    return false;
+  })
   var $refreshingTrims = $(".alert-loading-trims");
   var $quickAdd = $("#tab-capabilities .type-quick-add");
   var $quickDelete = $("#tab-capabilities .type-quick-delete");
@@ -88,7 +93,7 @@ var setupVehicleConfigYear = function() {
     pollRefreshingStatus();
   }
   var should_disable_fields = false;
-
+  var should_show_trim_styles = false;
   if (!$("body.controller-admin-vehicle-lookups").length) {
     should_disable_fields = true;
   }

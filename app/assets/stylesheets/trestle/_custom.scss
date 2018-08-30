@@ -834,6 +834,9 @@ body {
   .app-sidebar-header .navbar-brand {
     color:#212121;
   }
+  .table-container {
+    overflow-x: visible;
+  }
   .forks-list {
     list-style-type:none;
     margin:0;
@@ -891,9 +894,9 @@ body {
         }
       }
 
-      .first {
-        display:none;
-      }
+      // .first {
+      //   display:none;
+      // }
       .opc-icon {    
         margin-top: 10px;
       }
@@ -905,9 +908,9 @@ body {
         text-align: right;
         flex: 0 0 40%;
     }
-    .main-content-container {
-      overflow-x: auto;
-    }
+    // .main-content-container {
+    //   overflow-x: auto;
+    // }
     .app-main {
       padding:0;
     }

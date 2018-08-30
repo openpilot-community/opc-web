@@ -124,6 +124,8 @@ class VehicleConfig < ApplicationRecord
   belongs_to :vehicle_config_status, :optional => true
   belongs_to :vehicle_make_package, :optional => true
   belongs_to :vehicle_config_type, :optional => true
+  belongs_to :primary_repository, :class_name => "Repository", :foreign_key => :primary_repository_id
+  belongs_to :primary_pull_request, :class_name => "PullRequest", :foreign_key => :primary_pull_request_id
   # accepts_nested_attributes_for :forks
   # before_validation :set_default
   before_validation :set_year_end
@@ -305,56 +307,69 @@ class VehicleConfig < ApplicationRecord
   end
 
   def status_classes
-    if !vehicle_config_status.blank?
-      case vehicle_config_status.name
-      when "Community"
-        {
-          :icon => "fa fa-users",
-          :color => "danger",
-          :url => latest_repository.repository.blank? ? nil : latest_repository.repository.url,
-          :tooltip => "Community Supported in #{latest_repository.repository.blank? ? nil : latest_repository.repository.full_name}",
-          :label => "#{latest_repository.repository.blank? ? nil : latest_repository.repository.full_name}#{latest_repository.repository_branch.blank? ? nil : '#' + latest_repository.repository_branch.name}"
-        }
-      when "In Development"
-        {
-          :icon => "fa fa-code",
-          :color => "warning",
-          :tooltip => vehicle_config_status.name,
-          :url => (!latest_repository.blank? && !latest_repository.repository.blank?) ? latest_repository.repository.url : nil,
-          :label => (!latest_repository.blank? && !latest_repository.repository.blank?) ? "#{latest_repository.repository.full_name}#{latest_repository.repository_branch.blank? ? nil : '#' + latest_repository.repository_branch.name}" : nil
-        }
-      when "Pull Request"
-        {
-          :icon => "fa fa-hourglass",
-          :color => "info",
-          :tooltip => (!latest_open_pull_request.blank?) ? "#{vehicle_config_status.name} ##{latest_open_pull_request.number}" : vehicle_config_status.name,
-          :url => (!latest_open_pull_request.blank?) ? latest_open_pull_request.html_url : nil,
-          :label => (!latest_repository.blank? && !latest_repository.repository.blank?) ? "#{latest_repository.repository.full_name}#{latest_repository.repository_branch.blank? ? nil : '#' + latest_repository.repository_branch.name}" : nil,
-        }
-      when "Upstreamed"
-        {
-          :icon => "fa fa-check",
-          :color => "success",
-          :tooltip => "Upstreamed to commaai/openpilot",
-          :url => (!latest_repository.blank? && !latest_repository.repository.blank?) ? latest_repository.repository.url : nil,
-          :label => (!latest_repository.blank? && !latest_repository.repository.blank?) ? "#{latest_repository.repository.full_name}#{latest_repository.repository_branch.blank? ? nil : '#' + latest_repository.repository_branch.name}" : nil,
-        }
-      when "Researching"
-        {
-          :icon => "fa fa-globe",
-          :color => "default",
-          :tooltip => vehicle_config_status.name.downcase,
-          :url => "#",
-          :label => "Researching"
-        }
-      when "Archived"
-        {
-          :icon => "fa fa-archive",
-          :color => "default",
-          :tooltip => vehicle_config_status.name.downcase,
-          :url => "#",
-          :label => "fa fa-archive"
-        }
+    if primary_repository.present?
+      latest_repo = primary_repository.repository.blank? ? nil : primary_repository.repository
+      latest_repo_branch = primary_repository.repository_branch.blank? ? nil : primary_repository.repository_branch
+
+      if vehicle_config_status.present? && latest_repo.present?
+        case vehicle_config_status.name
+        when "Community"
+          {
+            :icon => "fa fa-users",
+            :color => "danger",
+            :url => latest_repo.blank? ? nil : latest_repo.url,
+            :tooltip => "Community Supported in #{latest_repo.blank? ? nil : latest_repo.full_name}",
+            :label => "#{latest_repo.blank? ? nil : latest_repo.full_name}#{latest_repo_branch.blank? ? nil : '#' + latest_repo_branch.name}"
+          }
+        when "In Development"
+          {
+            :icon => "fa fa-code",
+            :color => "warning",
+            :tooltip => vehicle_config_status.name,
+            :url => (!latest_repo.blank?) ? latest_repo.url : nil,
+            :label => (!latest_repo.blank?) ? "#{latest_repo.full_name}#{latest_repo_branch.blank? ? nil : '#' + latest_repo_branch.name}" : nil
+          }
+        when "Pull Request"
+          {
+            :icon => "fa fa-hourglass",
+            :color => "info",
+            :tooltip => (!latest_open_pull_request.blank?) ? "#{vehicle_config_status.name} ##{latest_open_pull_request.number}" : vehicle_config_status.name,
+            :url => (!latest_open_pull_request.blank?) ? latest_open_pull_request.html_url : nil,
+            :label => (!latest_repo.blank?) ? "#{latest_repo.full_name}#{latest_repo_branch.blank? ? nil : '#' + latest_repo_branch.name}" : nil,
+          }
+        when "Upstreamed"
+          {
+            :icon => "fa fa-check",
+            :color => "success",
+            :tooltip => "Upstreamed to commaai/openpilot",
+            :url => (!latest_repo.blank?) ? latest_repo.url : nil,
+            :label => (!latest_repo.blank?) ? "#{latest_repo.full_name}#{latest_repo_branch.blank? ? nil : '#' + latest_repo_branch.name}" : nil,
+          }
+        when "Researching"
+          {
+            :icon => "fa fa-globe",
+            :color => "default",
+            :tooltip => vehicle_config_status.name.downcase,
+            :url => "#",
+            :label => "Researching"
+          }
+        when "Archived"
+          {
+            :icon => "fa fa-archive",
+            :color => "default",
+            :tooltip => vehicle_config_status.name.downcase,
+            :url => "#",
+            :label => "fa fa-archive"
+          }
+        else
+          {
+            :icon => "fa fa-globe",
+            :color => "default",
+            :tooltip => "Researching",
+            :url => "#",
+            :label => "Researching"
+          }
+        end
       else
         {
           :icon => "fa fa-globe",
@@ -375,25 +390,25 @@ class VehicleConfig < ApplicationRecord
     end
   end
   
-  def latest_repository
-    if !vehicle_config_repositories.blank?
-      if repositories = vehicle_config_repositories.joins(:repository).order("repositories.id DESC")
-        if !repositories.blank?
-          repositories.first
-        end
-      end
-    end
-  end
+  # def latest_repository
+  #   if vehicle_config_repositories.present?
+  #     if repositories = vehicle_config_repositories.joins(:repository).order("repositories.id DESC")
+  #       if !repositories.blank?
+  #         repositories.first
+  #       end
+  #     end
+  #   end
+  # end
 
-  def latest_open_pull_request
-    if !vehicle_config_pull_requests.blank?
-      if open_prs = vehicle_config_pull_requests.joins(:pull_request).where(pull_requests: { state: "open" }).order("pull_requests.number DESC")
-        if !open_prs.blank?
-          open_prs.first.pull_request
-        end
-      end
-    end
-  end
+  # def latest_open_pull_request
+  #   if !vehicle_config_pull_requests.blank?
+  #     if open_prs = vehicle_config_pull_requests.joins(:pull_request).where(pull_requests: { state: "open" }).order("pull_requests.number DESC")
+  #       if !open_prs.blank?
+  #         open_prs.first.pull_request
+  #       end
+  #     end
+  #   end
+  # end
 
   def set_year_end
     if year.to_i > year_end.to_i

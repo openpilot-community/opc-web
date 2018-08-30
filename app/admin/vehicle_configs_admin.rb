@@ -3,7 +3,7 @@ Trestle.resource(:vehicle_configs) do
   menu do
     group :vehicles, priority: :first do
       item :vehicle_configs, icon: "fa fa-car", group: :vehicles, label: "Research / Support", priority: :first
-      item :top_vehicle_configs, icon: "fa fa-chart", group: :vehicles, label: "Top Voted Vehicles", priority: 2
+      item :top_vehicle_configs, icon: "fa fa-star", group: :vehicles, label: "Top Voted Vehicles", priority: 2
     end
   end
 

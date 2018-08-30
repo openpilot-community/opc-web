@@ -102,38 +102,40 @@ Trestle.resource(:vehicle_lookups) do
                 Now that you've started researching your vehicle... 
                 Join the Comma Slack to chat with the community about getting your vehicle running openpilot.
               ).html_safe
-              if vc.vehicle_config_status.name == "upstreamed"
-                title = "Good news!"
-                message = %(
-                  There is some support for openpilot for this vehicle.
-                ).html_safe
-              end
-              
-              if vc.vehicle_config_status.name == "Researching"
-                title = "Awesome!"
-                message = %(
-                  You're well on your way to learning more about openpilot.
-                  At this time, it looks like we will need to add support for this vehicle if its possible.<br /
-                  Maybe that 'we' be you?
-                  Join us in the Comma Slack to help us win self driving cars together.
-                ).html_safe
-              end
+              if vc.vehicle_config_status.present?
+                if vc.vehicle_config_status.name == "upstreamed"
+                  title = "Good news!"
+                  message = %(
+                    There is some support for openpilot for this vehicle.
+                  ).html_safe
+                end
+                
+                if vc.vehicle_config_status.name == "Researching"
+                  title = "Awesome!"
+                  message = %(
+                    You're well on your way to learning more about openpilot.
+                    At this time, it looks like we will need to add support for this vehicle if its possible.<br /
+                    Maybe that 'we' be you?
+                    Join us in the Comma Slack to help us win self driving cars together.
+                  ).html_safe
+                end
 
-              if vc.vehicle_config_status.name == "In Development"
-                title = "Whoah!"
-                message = %(
-                  It looks like someone is currently working on a port for this vehicle.
-                  That's exciting!
-                  Checkout the "Code" tab to check the progress.
-                ).html_safe
-              end
+                if vc.vehicle_config_status.name == "In Development"
+                  title = "Whoah!"
+                  message = %(
+                    It looks like someone is currently working on a port for this vehicle.
+                    That's exciting!
+                    Checkout the "Code" tab to check the progress.
+                  ).html_safe
+                end
 
-              if vc.vehicle_config_status.name == "Community"
-                title = "Nice!"
-                message = %(
-                  This is currently a community supported vehicle.
-                  Join the Comma Slack to chat with the community about getting your vehicle running openpilot.
-                ).html_safe
+                if vc.vehicle_config_status.name == "Community"
+                  title = "Nice!"
+                  message = %(
+                    This is currently a community supported vehicle.
+                    Join the Comma Slack to chat with the community about getting your vehicle running openpilot.
+                  ).html_safe
+                end
               end
               flash[:message] = flash_message("found.success", title: title, message: message)
               redirect_to vehicle_configs_admin_path(id: vc.id), turbolinks: false and return

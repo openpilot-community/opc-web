@@ -103,7 +103,7 @@ class LookupValidator < ActiveModel::Validator
   end
 end
 class VehicleConfig < ApplicationRecord
-  include Scraper
+  # include Scraper
   include ActiveSupport::Inflector
   has_one_attached :image
   acts_as_votable

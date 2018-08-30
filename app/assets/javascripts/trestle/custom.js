@@ -34,7 +34,6 @@ var setupVehicleConfigYear = function() {
   var $quickDelete = $("#tab-capabilities .type-quick-delete");
 
   // $quickAdd.off("click");
-
   $quickAdd.on("click",function(ev) {
     var $this = $(this);
     ev.preventDefault();
@@ -58,11 +57,27 @@ var setupVehicleConfigYear = function() {
   if ($refreshingTrims.length) {
     pollRefreshingStatus();
   }
+  var should_disable_fields = false;
+
+  if (!$("body.controller-admin-vehicle-lookups").length) {
+    should_disable_fields = true;
+  }
+  if ($("body.controller-admin-vehicle-lookups").length && !window.location.href.includes("vehicle_lookups")) {
+    should_disable_fields = true;
+    should_show_trim_styles = true;
+  }
   if ($('.app-wrapper.is-visitor').length) {
-    if (!$("body.controller-admin-vehicle-lookups.action-new").length) {
-      console.log("DISABLING FIELDS");
+    if (should_disable_fields) {
       $(".trestle-table .actions > *").remove();
       $(".main-content .form-control,.modal-body .form-control").attr('disabled',true);
+    }
+
+    if (should_show_trim_styles) {
+      var $trimStylesTab = $("a[data-toggle='tab'][href='#tab-trim_styles']");
+      
+      if ($trimStylesTab.length) {
+        $trimStylesTab.tab("show");
+      }
     }
   }
   

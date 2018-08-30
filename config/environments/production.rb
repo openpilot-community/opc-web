@@ -53,7 +53,7 @@ Rails.application.configure do
   config.active_job.queue_adapter     = :sidekiq
   # config.active_job.queue_name_prefix = "opc-api_#{Rails.env}"
 
-  config.action_mailer.perform_caching = false
+  config.action_mailer.perform_caching = true
   config.middleware.use Rack::HostRedirect, {
     %w(vehicledb-app.herokuapp.com vehicledb.opc.ai db.opc.ai) => 'database.opc.ai'
   }

@@ -125,7 +125,7 @@ class VehicleConfig < ApplicationRecord
   belongs_to :vehicle_make_package, :optional => true
   belongs_to :vehicle_config_type, :optional => true
   # accepts_nested_attributes_for :forks
-  before_validation :set_default
+  # before_validation :set_default
   before_validation :set_year_end
   # before_save :update_forks
   before_save :set_trim_styles_count
@@ -170,6 +170,13 @@ class VehicleConfig < ApplicationRecord
   # def difficulty_level
   #   vehicle_config_type.difficulty_level
   # end
+  before_save :set_min_difficulty
+
+  def set_min_difficulty
+    if vehicle_config_capabilities.present?
+      self.vehicle_config_type = vehicle_config_capabilities.includes(:vehicle_config_type).order("vehicle_config_types.difficulty_level DESC").map{|vcc| vcc.vehicle_config_type }.first
+    end
+  end
   def self.find_by_ymm(year, make, model)
     results = where(%(
       (
@@ -255,7 +262,7 @@ class VehicleConfig < ApplicationRecord
   # end
 
   def difficulty_class
-    case minimum_difficulty
+    case vehicle_config_type.name
     when "Advanced"
       "danger"
     when "Easy"
@@ -264,12 +271,6 @@ class VehicleConfig < ApplicationRecord
       "warning"
     else
       "danger"
-    end
-  end
-
-  def minimum_difficulty
-    if vehicle_config_capabilities.present?
-      vehicle_config_capabilities.includes(:vehicle_config_type).order("vehicle_config_types.difficulty_level DESC").map{|vcc| vcc.vehicle_config_type.name }.first
     end
   end
 
@@ -482,19 +483,6 @@ class VehicleConfig < ApplicationRecord
   def has_parent?
     !self.parent.blank?
   end
-
-  def update_forks
-    if !forks.blank?
-      forks.each do |fork|
-        fork.year = year if year
-        fork.year_end = year_end if year_end
-        fork.vehicle_make = vehicle_make if vehicle_make
-        fork.vehicle_model = vehicle_model if vehicle_model
-        fork.vehicle_trims = vehicle_trims if vehicle_trims
-        fork.vehicle_make_package = vehicle_make_package
-      end
-    end
-  end
   
   def capability_count
     vehicle_capabilities.size
@@ -512,31 +500,6 @@ class VehicleConfig < ApplicationRecord
     vehicle_config_type.name == 'Basic'
   end
 
-  def is_advanced?
-    vehicle_config_type.name == 'Advanced'
-  end
-
-  def has_standard
-    forks.exists?(:vehicle_config_type => VehicleConfigType.find_by(:name => "Standard"))
-  end
-
-  def has_basic
-    forks.exists?(:vehicle_config_type => VehicleConfigType.find_by(:name => "Basic"))
-  end
-
-  def has_advanced
-    forks.exists?(:vehicle_config_type => VehicleConfigType.find_by(:name => "Advanced"))
-  end
-
-  def set_default
-    if self.parent.blank? && self.vehicle_config_type.blank?
-      self.vehicle_config_type = VehicleConfigType.find_by(:name => "Factory")
-    end
-  end
-
-  def full_support_difficulty
-    # forks.
-  end
   
   def set_trim_styles_count
     if parent_id.blank?
@@ -548,71 +511,12 @@ class VehicleConfig < ApplicationRecord
     end
   end
 
-  def specs
-    vehicle_model.vehicle_trims.joins("
-      INNER JOIN vehicle_trim_styles ON vehicle_trim_styles.vehicle_trim_id = vehicle_trims.id
-      INNER JOIN vehicle_trim_style_specs ON vehicle_trim_style_specs.vehicle_trim_style_id = vehicle_trim_styles.id
-      ")
-  end
-  # VehicleModel.find_by(name: "Civic").vehicle_trims.map(&:id)
-  # def capability_groups
-  #   vehicle_trim_styles.joins(:vehicle_trim_style_specs).group(:id,:group)
-  # end
 
   def trim_styles
     VehicleTrimStyle.joins(:vehicle_trim).where('vehicle_trims.year IN (:years) AND vehicle_trim_id IN (:trim_ids)',{ :years => year_range, :trim_ids => vehicle_model.vehicle_trims.map(&:id) }).order("vehicle_trims.year, vehicle_trims.sort_order, vehicle_trim_styles.name")
   end
 
   
-
-  def fork_config
-    self.class.amoeba do
-      enable
-      include_association :vehicle_config_capabilities
-      include_association :vehicle_capabilities
-      include_association :vehicle_config_modifications
-      include_association :modifications
-      nullify :slug
-      # customize(lambda { |original_post,new_post|
-      #   next_difficulty_level = original_post.vehicle_config_type.difficulty_level+1
-      #   max_difficulty_level = VehicleConfigType.maximum("difficulty_level")
-      #   if next_difficulty_level <= max_difficulty_level
-      #     new_config_type = VehicleConfigType.find_by(:difficulty_level => next_difficulty_level)
-      #   else
-      #     new_config_type = VehicleConfigType.find_by(:difficulty_level => max_difficulty_level)
-      #   end
-      #   new_post.vehicle_config_type = new_config_type
-      # })
-      # customize(lambda { |original_post,new_post|
-      #   new_post.parent = original_post
-      # })
-    end
-    self.amoeba_dup
-  end
-
-  def copy_config
-    has_forks = forks.size
-    self.class.amoeba do
-      enable
-      include_association :vehicle_config_capabilities
-      include_association :vehicle_capabilities
-      include_association :vehicle_config_modifications
-      include_association :modifications
-      include_association :vehicle_trims
-      include_association :forks
-    end
-    self.amoeba_dup
-  end
-
-  # def diff_from(veh_conf)
-  #   HashDiff.diff(veh_conf.diff_object,self.diff_object)
-  # end
-
-  # def diff_from_parent
-  #   if !parent.blank?
-  #     diff_from(parent)
-  #   end
-  # end
   private
   def name_for_slug
     if vehicle_config_type && vehicle_make && vehicle_model
@@ -622,34 +526,5 @@ class VehicleConfig < ApplicationRecord
 
   def set_title
     self.title = "#{year_range_str} #{vehicle_make.name} #{vehicle_model.name} #{vehicle_config_type.name}"
-  end
-
-  # def diff_object
-  #   {
-  #     :year => year,
-  #     :make => vehicle_make.name,
-  #     :model => vehicle_model.name,
-  #     :status => vehicle_config_status.name,
-  #     :capabilities => vehicle_config_capabilities.map do |capability|
-  #       {
-  #         :name => capability.vehicle_capability.name,
-  #         :slug => capability.vehicle_capability.slug,
-  #         :kph => capability.kph,
-  #         :mph => capability.mph,
-  #         :timeout => capability.timeout
-  #       }
-  #     end,
-  #     :modifications => modifications.map do |mod|
-  #       mod.attributes
-  #     end
-  #   }
-  # end
-
-  # def to_param
-  #   slug
-  # end
-
-  def is_root
-    self.parent.blank?
   end
 end

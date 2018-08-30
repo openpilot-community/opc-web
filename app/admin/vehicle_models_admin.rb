@@ -17,7 +17,7 @@ Trestle.resource(:vehicle_models) do
     def index
       # byebug
       if !params['make'].blank?
-        collection = VehicleModel.where(vehicle_make: VehicleMake.find(params['make'].to_i), status: 1)
+        collection = VehicleModel.where(vehicle_make: VehicleMake.find(params['make'].to_i), status: 1).order(:name)
       end
       respond_to do |format|
         format.html

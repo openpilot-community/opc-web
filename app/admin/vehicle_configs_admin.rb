@@ -134,9 +134,10 @@ Trestle.resource(:vehicle_configs) do
     def refresh_trims
       self.instance = admin.find_instance(params)
       vehicle_config_root = admin.find_instance(params)
-      vehicle_config_root.refreshing = true
-      vehicle_config_root.save!
-      vehicle_config_root.delay.scrape_info
+      vehicle_config_root.update_attributes(refreshing: true)
+      # vehicle_config_root.refreshing = true
+      # vehicle_config_root.save!
+      ScrapeCarsWorker.perform_async(vehicle_config_root.id)
       flash[:message] = "Vehicle trims list is being refreshed... reload the browser to see results."
       redirect_to admin.path(:show, id: vehicle_config_root.id)
     end

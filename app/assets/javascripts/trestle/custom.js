@@ -196,21 +196,24 @@ $(Trestle).on("init",function() {
   var $sidebar = $(".app-sidebar");
   var $contentContainer = $(".main-content-container");
   var resizeDocument = function() {
+    var is_lookup_form = $("body.controller-admin-vehicle-lookups.action-new").length;
     var sidebarWidth = $sidebar.outerWidth();
     console.warn("sidebar is : ",isElementVisible($sidebar[0]));
-    if ($("body.mobile-nav-expanded").length) {
-      $contentContainer.css({
-        width: $(document).width()-sidebarWidth
-      });
-    } else {
-      if ($(document).width() >= 768) {
+    if (!is_lookup_form) {
+      if ($("body.mobile-nav-expanded").length) {
         $contentContainer.css({
           width: $(document).width()-sidebarWidth
         });
       } else {
-        $contentContainer.css({
-          width: $(document).width()
-        });
+        if ($(document).width() >= 768) {
+          $contentContainer.css({
+            width: $(document).width()-sidebarWidth
+          });
+        } else {
+          $contentContainer.css({
+            width: $(document).width()
+          });
+        }
       }
     }
   }

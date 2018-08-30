@@ -135,7 +135,7 @@ class VehicleConfig < ApplicationRecord
   # before_save :scrape_info
   before_validation :set_title
   validates_numericality_of :year
-  validates_with GoodnessValidator
+  validates_with GoodnessValidator, on: :create
   # MODIFICATIONS
   has_many :vehicle_config_modifications, dependent: :delete_all
   has_many :modifications, :through => :vehicle_config_modifications

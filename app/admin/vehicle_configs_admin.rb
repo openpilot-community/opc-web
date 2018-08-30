@@ -23,6 +23,7 @@ Trestle.resource(:vehicle_configs) do
   end
 
   controller do
+    skip_before_action :verify_authenticity_token
     skip_before_action :authenticate_user!, :only => [:show, :refreshing_status]
     include ActionView::Helpers::AssetUrlHelper
     def index
@@ -411,7 +412,18 @@ Trestle.resource(:vehicle_configs) do
           column :created_at
         end
       end
+
       sidebar do
+        make = vehicle_config.vehicle_make
+        slack_channel = make.slack_channel
+        # byebug
+        if slack_channel.present?
+          render inline: link_to("<span class=\"fa fa-slack\"></span> #{slack_channel}".html_safe,"slack://channel?team=comma&id=#{slack_channel}", class: "btn btn-slack btn-block")
+        else
+          render inline: link_to("https://comma.slack.com/", target:"_blank", class:"btn btn-default") do
+            "<span class=\"fa fa-slack\"></span> #comma".html_safe
+          end
+        end
         if vehicle_config.image.attached?
           render inline: image_tag(vehicle_config.image.service_url, class: "profile-image")
           render inline: content_tag(:div, nil, {style: "margin-top:10px;"})

@@ -16,7 +16,11 @@ body {
 .btn-toolbar .btn-group .btn + .btn, .btn-toolbar .btn-group .btn + .btn-group, .btn-toolbar .btn-group .btn-group + .btn, .btn-toolbar .btn-group .btn-group + .btn-group {
   margin-left: -5px;
 }
-
+.edit_vehicle_config {
+  .title-section.first, .path-divider.first {
+    display:none;
+  }
+}
 #tab-capabilities {
   tr {
     .type-factory, .type-standard, .type-basic, .type-advanced {
@@ -485,7 +489,7 @@ body {
   h1.path-heading {
     position: relative;
     // float: left;
-    flex: 0 0 50%;
+    flex: 0 0 80%;
     // max-width: 635px;
     padding-left: 18px;
     font-size: 18px;

@@ -33,17 +33,25 @@ var setupVehicleConfigYear = function() {
   var $quickAdd = $("#tab-capabilities .type-quick-add");
   var $quickDelete = $("#tab-capabilities .type-quick-delete");
 
-  $quickAdd.off("click");
+  // $quickAdd.off("click");
 
   $quickAdd.on("click",function(ev) {
+    var $this = $(this);
     ev.preventDefault();
+    var vehicle_capability_id = $this.attr('data-vehicle-capability-id');
+    var vehicle_config_type_id = $this.attr('data-vehicle-config-type-id');
+    var url = location.href.replace(location.hash,"")
 
+    console.warn("Sending to URL:",url);
+    console.warn("vehicle_config_type_id:",vehicle_config_type_id);
+    console.warn("vehicle_capability_id:",vehicle_capability_id);
     $.ajax({
-      url: '/vehicle_config_capabilities/quick_add.json',
-      type: 'post',
-      dataType: 'json',
+      url: url + '/quick_add',
+      type: 'POST',
+      dataType: "text/html",
       data: {
-
+        vehicle_capability_id: vehicle_capability_id,
+        vehicle_config_type_id: vehicle_config_type_id
       }
     })
   })

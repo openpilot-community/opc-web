@@ -111,7 +111,7 @@ Trestle.resource(:vehicle_configs) do
     end
 
     def show
-      vehicle_config_root = admin.find_instance(params).root
+      vehicle_config_root = admin.find_instance(params)
       @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support","/vehicle_configs")])
       set_meta_tags og: {
         title: "#{vehicle_config_root.name} | Openpilot Database",
@@ -124,7 +124,7 @@ Trestle.resource(:vehicle_configs) do
     end
 
     def refreshing_status
-      self.instance = admin.find_instance(params).root
+      self.instance = admin.find_instance(params)
 
       respond_to do |format|
         format.json { render json: instance, status: 200 }
@@ -132,8 +132,8 @@ Trestle.resource(:vehicle_configs) do
     end
 
     def refresh_trims
-      self.instance = admin.find_instance(params).root
-      vehicle_config_root = admin.find_instance(params).root
+      self.instance = admin.find_instance(params)
+      vehicle_config_root = admin.find_instance(params)
       vehicle_config_root.refreshing = true
       vehicle_config_root.save!
       vehicle_config_root.delay.scrape_info
@@ -142,7 +142,7 @@ Trestle.resource(:vehicle_configs) do
     end
 
     def fork
-      vehicle_config_root = admin.find_instance(params).root
+      vehicle_config_root = admin.find_instance(params)
       new_config = vehicle_config_root.fork_config
       veh_conf_type = VehicleConfigType.find(params[:config_type])
       new_config.parent = vehicle_config_root
@@ -151,7 +151,32 @@ Trestle.resource(:vehicle_configs) do
       flash[:message] = "Vehicle has been forked."
       redirect_to admin.path(:show, id: new_config.id)
     end
-    
+
+    def quick_add
+      self.instance = admin.find_instance(params)
+      # byebug
+      instance.vehicle_config_capabilities.new({
+        vehicle_capability_id: params['vehicle_capability_id'],
+        vehicle_config_type_id: params['vehicle_config_type_id']
+      })
+      instance.save!
+      respond_to do |format|
+        format.json { render json: instance, status: 200 }
+      end
+    end
+
+    def quick_delete
+      self.instance = admin.find_instance(params)
+      instance.vehicle_config_capabilities.find_by({
+        vehicle_capability_id: params[:vehicle_capability_id],
+        vehicle_config_type_id: params[:vehicle_config_type_id]
+      }).destroy()
+      
+      respond_to do |format|
+        format.json { render json: instance, status: 200 }
+      end
+    end
+
     def clone
       vehicle_config = admin.find_instance(params)
       new_config = vehicle_config.copy_config
@@ -165,6 +190,8 @@ Trestle.resource(:vehicle_configs) do
     get :refresh_trims, :on => :member
     get :fork, :on => :member
     get :clone, :on => :member
+    post :quick_add, :on => :member
+    delete :quick_delete, :on => :member
     get :refreshing_status, :on => :member
   end
 
@@ -219,9 +246,9 @@ Trestle.resource(:vehicle_configs) do
       end
     end
 
-    unless vehicle_config.root.new_record? || vehicle_config.root.vehicle_config_type.blank?
-      tab :trim_styles, badge: vehicle_config.root.refreshing ? "<span class=\"fa fa-spinner fa-spin\"></span>".html_safe : vehicle_config.trim_styles_count do
-        if vehicle_config.root.refreshing
+    unless vehicle_config.new_record? || vehicle_config.vehicle_config_type.blank?
+      tab :trim_styles, badge: vehicle_config.refreshing ? "<span class=\"fa fa-spinner fa-spin\"></span>".html_safe : vehicle_config.trim_styles_count do
+        if vehicle_config.refreshing
           render inline: content_tag(:div, "<span class=\"fa fa-spinner fa-spin\"></span><span class='loading-message'>We're refreshing the trim styles...</span>".html_safe, class: "alert alert-warning alert-loading-trims")
         else
           render "tab_toolbar", {
@@ -229,7 +256,7 @@ Trestle.resource(:vehicle_configs) do
             {
               :class => "actions",
               :items => [
-                link_to("<span class=\"fa fa-refresh\"></span> Scan For Trims".html_safe, admin.path(:refresh_trims, id: instance.root.id), method: :get, class: "btn btn-default btn-block")
+                link_to("<span class=\"fa fa-refresh\"></span> Scan For Trims".html_safe, admin.path(:refresh_trims, id: instance.id), method: :get, class: "btn btn-default btn-block")
               ]
             }
           ]
@@ -420,9 +447,7 @@ Trestle.resource(:vehicle_configs) do
         if slack_channel.present?
           render inline: link_to("<span class=\"fa fa-slack\"></span> #{slack_channel}".html_safe,"slack://channel?team=comma&id=#{slack_channel}", class: "btn btn-slack btn-block")
         else
-          render inline: link_to("https://comma.slack.com/", target:"_blank", class:"btn btn-default") do
-            "<span class=\"fa fa-slack\"></span> #comma".html_safe
-          end
+          render inline: link_to("<span class=\"fa fa-slack\"></span> comma".html_safe,"slack://channel?team=comma", class: "btn btn-slack btn-block")
         end
         if vehicle_config.image.attached?
           render inline: image_tag(vehicle_config.image.service_url, class: "profile-image")

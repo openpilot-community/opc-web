@@ -259,9 +259,9 @@ class VehicleConfig < ApplicationRecord
     case minimum_difficulty
     when "Advanced"
       "danger"
-    when "Standard"
+    when "Easy"
       "info"
-    when "Basic"
+    when "Intermediate"
       "warning"
     else
       "danger"

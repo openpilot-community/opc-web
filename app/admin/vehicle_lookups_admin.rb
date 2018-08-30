@@ -57,9 +57,6 @@ Trestle.resource(:vehicle_lookups) do
       vc
     end
 
-    def handle_create_failed
-      
-    end
     def create
       self.instance = admin.build_instance(permitted_params, params)
       if admin.save_instance(instance)
@@ -68,6 +65,7 @@ Trestle.resource(:vehicle_lookups) do
           format.html do
             flash[:message] = flash_message("create.success", title: "Woohoo!", message: "You're on your way to learning more about what your vehicle can do...Please wait while we pull some additional details...".html_safe)
             vc = create_vc
+            ScrapeCarsWorker.perform_async(vc.id)
             redirect_to vehicle_configs_admin_path(id: vc.id), turbolinks: false and return
           end
           format.json { render json: instance, status: :created, location: admin.instance_path(instance) }
@@ -97,6 +95,7 @@ Trestle.resource(:vehicle_lookups) do
               # self.instance = admin.find_instance({ :id => instance.id })
               
               vc = create_vc
+              ScrapeCarsWorker.perform_async(vc.id)
               title = "You did it!"
               message = %(
                 Now that you've started researching your vehicle... 

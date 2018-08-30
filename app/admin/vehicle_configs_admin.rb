@@ -261,26 +261,31 @@ Trestle.resource(:vehicle_configs) do
             }
           ]
         }
-        table vehicle_config.trim_styles.blank? ? [] : vehicle_config.trim_styles, admin: :vehicle_trim_styles do
-            # column :id
-            column :year
-            column :trim_name, header: "Trim"
-            column :name_for_list, header: "Style"
-            column :driver_assist_inclusion, header: "ACC/LKAS" do |trim_style|
-              if trim_style.driver_assist_inclusion == "standard"
-                "<span class=\"label label-success\">#{trim_style.driver_assist_inclusion}</span>".html_safe
-              elsif trim_style.driver_assist_inclusion == "option"
-                "<span class=\"label label-info\">#{trim_style.driver_assist_inclusion}</span>".html_safe
-              else
-                "<span class=\"label label-danger\">Not Available</span>".html_safe
+
+        if vehicle_config.trim_styles.blank?
+          render inline: content_tag(:div, "We could not find any trims for this year, make and model.", class: "alert alert-warning")
+        else
+          table vehicle_config.trim_styles.blank? ? [] : vehicle_config.trim_styles, admin: :vehicle_trim_styles do
+              # column :id
+              column :year
+              column :trim_name, header: "Trim"
+              column :name_for_list, header: "Style"
+              column :driver_assist_inclusion, header: "ACC/LKAS" do |trim_style|
+                if trim_style.driver_assist_inclusion == "standard"
+                  "<span class=\"label label-success\">#{trim_style.driver_assist_inclusion}</span>".html_safe
+                elsif trim_style.driver_assist_inclusion == "option"
+                  "<span class=\"label label-info\">#{trim_style.driver_assist_inclusion}</span>".html_safe
+                else
+                  "<span class=\"label label-danger\">Not Available</span>".html_safe
+                end
               end
+              column :price
+              # column :driver_assisted_style_names, header: "ACC/LKAS Trim(s) Option or Standard"
+              # column :has_driver_assist?, header: "Available Driver Assist", align: :center
+              # column :speed
+              # column :timeout_friendly, :header => "Timeout"
+              # column :confirmed
             end
-            column :price
-            # column :driver_assisted_style_names, header: "ACC/LKAS Trim(s) Option or Standard"
-            # column :has_driver_assist?, header: "Available Driver Assist", align: :center
-            # column :speed
-            # column :timeout_friendly, :header => "Timeout"
-            # column :confirmed
           end
         end
       end

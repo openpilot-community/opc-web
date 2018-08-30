@@ -112,19 +112,19 @@ class VehicleConfig < ApplicationRecord
 
   # default_scope { includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level") }
   
-  acts_as_nested_set dependent: :destroy
+  # acts_as_nested_set dependent: :destroy
   extend FriendlyId
   friendly_id :name_for_slug, use: :slugged
   belongs_to :vehicle_make
   belongs_to :vehicle_model
-  belongs_to :parent, :class_name => "VehicleConfig", :optional => true
-  has_many :vehicle_config_vehicle_trims, -> { order('vehicle_trims.name') }, dependent: :delete_all
-  has_many :vehicle_trims, :through => :vehicle_config_vehicle_trims
-  has_many :forks, :class_name => "VehicleConfig", :foreign_key => :parent_id, dependent: :delete_all
+  # belongs_to :parent, :class_name => "VehicleConfig", :optional => true
+  # has_many :vehicle_config_vehicle_trims, -> { order('vehicle_trims.name') }, dependent: :delete_all
+  # has_many :vehicle_trims, :through => :vehicle_config_vehicle_trims
+  # has_many :forks, :class_name => "VehicleConfig", :foreign_key => :parent_id, dependent: :delete_all
   belongs_to :vehicle_config_status, :optional => true
   belongs_to :vehicle_make_package, :optional => true
   belongs_to :vehicle_config_type, :optional => true
-  accepts_nested_attributes_for :forks
+  # accepts_nested_attributes_for :forks
   before_validation :set_default
   before_validation :set_year_end
   # before_save :update_forks
@@ -188,9 +188,11 @@ class VehicleConfig < ApplicationRecord
     })
     # byebug
   end
+  
   def total_votes
     get_upvotes.size - get_downvotes.size
   end
+
   def has_capability?(cap_id)
     vehicle_capabilities.exists?(id: cap_id)
   end
@@ -199,61 +201,58 @@ class VehicleConfig < ApplicationRecord
     vehicle_config_capabilities.includes(:vehicle_config_type).order("vehicle_config_types.difficulty_level").map(&:vehicle_config_type_id).uniq
   end
 
-  def combined_capabilities
-    cap_ids = []
-    cap_ids << vehicle_capabilities.map(&:id)
+  # def combined_capabilities
+  #   cap_ids = []
+  #   cap_ids << vehicle_capabilities.map(&:id)
     
-    forks.each do |fork|
-      cap_ids << fork.vehicle_capabilities.map(&:id)
-    end
+  #   forks.each do |fork|
+  #     cap_ids << fork.vehicle_capabilities.map(&:id)
+  #   end
 
-    cap_ids = cap_ids.flatten.uniq
+  #   cap_ids = cap_ids.flatten.uniq
 
-    VehicleCapability.where(id: cap_ids).order(:name)
-  end
-  def vote_type=(type)
-    self.vote_type = type
-  end
+  #   VehicleCapability.where(id: cap_ids).order(:name)
+  # end
   def as_json(options={})
     {
       votes: total_votes
     }
   end
-  def capability_matrix
-    matrix = {}
-    VehicleConfigType.all.each do |type|
-      if config_type_ids.include?(type.id)
-        matrix[type.name.parameterize.to_sym] = {}
-        vehicle_capabilities.uniq.each do |capability|
-          cap = VehicleConfigCapability.joins(:vehicle_config).where("(vehicle_configs.parent_id = :id OR vehicle_configs.id = :id) AND vehicle_configs.vehicle_config_type_id = :type_id AND vehicle_config_capabilities.vehicle_capability_id = :capability_id", { id: id, type_id: type.id, capability_id: capability.id })
-          if cap.present?
-            cap = cap.first
+  # def capability_matrix
+  #   matrix = {}
+  #   VehicleConfigType.all.each do |type|
+  #     if config_type_ids.include?(type.id)
+  #       matrix[type.name.parameterize.to_sym] = {}
+  #       vehicle_capabilities.uniq.each do |capability|
+  #         cap = VehicleConfigCapability.joins(:vehicle_config).where("(vehicle_configs.parent_id = :id OR vehicle_configs.id = :id) AND vehicle_configs.vehicle_config_type_id = :type_id AND vehicle_config_capabilities.vehicle_capability_id = :capability_id", { id: id, type_id: type.id, capability_id: capability.id })
+  #         if cap.present?
+  #           cap = cap.first
 
-            if cap.timeout.present?
-              if cap.vehicle_capability.name == "Driver Monitor (advanced, vision)"
-                cap_value = "<span class=\"line\">Unlimited</span><span class=\"line\">#{cap.timeout_friendly} if disabled</span>".html_safe
-              else
-                cap_value = "<span class=\"line\">#{cap.timeout_friendly}</span>".html_safe
-              end
-            elsif cap.kph.present?
-              cap_value = "<span class=\"line\">#{cap.mph} mph</span><span class=\"line\">#{cap.kph} kph</span>".html_safe
-            else
-              cap_value = "<span class=\"fa fa-check\"></span>".html_safe
-            end
+  #           if cap.timeout.present?
+  #             if cap.vehicle_capability.name == "Driver Monitor (advanced, vision)"
+  #               cap_value = "<span class=\"line\">Unlimited</span><span class=\"line\">#{cap.timeout_friendly} if disabled</span>".html_safe
+  #             else
+  #               cap_value = "<span class=\"line\">#{cap.timeout_friendly}</span>".html_safe
+  #             end
+  #           elsif cap.kph.present?
+  #             cap_value = "<span class=\"line\">#{cap.mph} mph</span><span class=\"line\">#{cap.kph} kph</span>".html_safe
+  #           else
+  #             cap_value = "<span class=\"fa fa-check\"></span>".html_safe
+  #           end
 
-            matrix[type.name.parameterize.to_sym][:"#{capability.name.parameterize}"] = {
-              value: cap_value,
-              label: type.name,
-              details: type.description,
-              capability: cap
-            }
-          end
-        end
-      end
-    end
+  #           matrix[type.name.parameterize.to_sym][:"#{capability.name.parameterize}"] = {
+  #             value: cap_value,
+  #             label: type.name,
+  #             details: type.description,
+  #             capability: cap
+  #           }
+  #         end
+  #       end
+  #     end
+  #   end
 
-    matrix
-  end
+  #   matrix
+  # end
 
   def difficulty_class
     case minimum_difficulty
@@ -269,16 +268,8 @@ class VehicleConfig < ApplicationRecord
   end
 
   def minimum_difficulty
-    if !forks.blank?
-      sorted_forks = forks.joins(:vehicle_config_type).order("vehicle_config_types.difficulty_level ASC")
-
-      if !sorted_forks.first.vehicle_config_type.name.blank?
-        sorted_forks.first.vehicle_config_type.name
-      else
-        'Advanced'
-      end
-    else
-      'Advanced'
+    if vehicle_config_capabilities.present?
+      vehicle_config_capabilities.includes(:vehicle_config_type).order("vehicle_config_types.difficulty_level DESC").map{|vcc| vcc.vehicle_config_type.name }.first
     end
   end
 

@@ -3,13 +3,14 @@ Trestle.resource(:vehicle_configs) do
   menu do
     group :vehicles, priority: :first do
       item :vehicle_configs, icon: "fa fa-car", group: :vehicles, label: "Research / Support", priority: :first
+      item :top_vehicle_configs, icon: "fa fa-chart", group: :vehicles, label: "Top Voted Vehicles", priority: 2
     end
   end
 
   ########
   # SCOPES
   ########
-  scope :all, -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level") }, default: true
+  scope :all, -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).where(parent_id: nil).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level") }, default: true
 
   ########
   # SEARCH
@@ -241,7 +242,7 @@ Trestle.resource(:vehicle_configs) do
     column :vehicle, class: "details-column" do |vehicle_config|
       render "vehicle_config_details", instance: vehicle_config
     end
-    column :trim_styles_count, header: "Trims", sort: false
+    # column :trim_styles_count, header: "Trims", sort: false
     actions
   end
 

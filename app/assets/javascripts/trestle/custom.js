@@ -203,9 +203,15 @@ $(Trestle).on("init",function() {
         width: $(document).width()-sidebarWidth
       });
     } else {
-      $contentContainer.css({
-        width: $(document).width()
-      });
+      if ($(document).width() >= 768) {
+        $contentContainer.css({
+          width: $(document).width()-sidebarWidth
+        });
+      } else {
+        $contentContainer.css({
+          width: $(document).width()
+        });
+      }
     }
   }
   $(window).on("resize",function() {

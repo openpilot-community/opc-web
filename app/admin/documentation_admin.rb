@@ -1,9 +1,9 @@
 Trestle.admin(:documentation, model: VehicleConfig) do
   menu do
-    group :documentation, priority: 700 do
+    # group :documentation, priority: 700 do
       # item :vehicles, '/vehicles', icon: "fa fa-car", group: :documentation
-      item :videos, '/videos', icon: "fa fa-play", group: :documentation
-    end
+      # item :videos, '/videos', icon: "fa fa-play", group: :documentation
+    # end
   end
 
   controller do

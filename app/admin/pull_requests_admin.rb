@@ -1,6 +1,6 @@
 Trestle.resource(:pull_requests) do
   menu do
-    group :development, priority: 800 do
+    group :development do
       item :pull_requests, icon: "fa fa-github"
     end
   end

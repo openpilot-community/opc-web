@@ -1,5 +1,7 @@
 Trestle.resource(:videos) do
- 
+  menu do
+    item :videos, group: :admin
+  end
   scope :all, -> { Video.order(:uploaded_at => :desc) }, default: true
   
   # Customize the table columns shown on the index view.

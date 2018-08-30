@@ -1,8 +1,8 @@
 Trestle.resource(:vehicle_configs) do
 
   menu do
-    group :vehicles, priority: 100 do
-      item :vehicle_configs, icon: "fa fa-car", group: :vehicles, label: "Research / Support"
+    group :vehicles, priority: :first do
+      item :vehicle_configs, icon: "fa fa-car", group: :vehicles, label: "Research / Support", priority: :first
     end
   end
 

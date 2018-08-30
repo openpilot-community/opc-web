@@ -217,7 +217,7 @@ Trestle.resource(:vehicle_configs) do
     end
     column :image, class: "image-column" do |vehicle_config|
       if vehicle_config.image.attached?
-        image_tag(vehicle_config.image.service_url, style: "border-radius:4px; height:60px; border: 1px solid;border-color:rgba(0,0,0,0.1);")
+        image_tag(vehicle_config.image.service_url)
       end
     end
     column :vehicle, class: "details-column" do |vehicle_config|

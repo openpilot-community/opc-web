@@ -1,9 +1,22 @@
 @import "variables";
 body.controller-admin-vehicle-configs {
+  .content-header {
+    display:none;
+  }
+  .app-wrapper .main-content {
+    padding:0;
+  }
   .app-wrapper {
     .trestle-table {
+      th {
+        padding:0;
+        display:none;
+      }
+      .vehicle-config {
+        height: 70px;
+      }
       .votes-column {
-        width: 55px;
+        width: 73px;
         padding: 0;
         position: relative;
       }
@@ -14,13 +27,14 @@ body.controller-admin-vehicle-configs {
         width: 100%;
         transform: translateY(-50%);
         span.badge {
-          font-size: 16px;
+          font-size: 14px;
           padding: 0;
-          cursor:default;
+          cursor: default;
         }
         a {
           text-decoration: none;
           padding-top: 7px;
+          font-size: 14px;
           padding-bottom: 7px;
           &:hover {
             background-color: rgba(0, 0, 0, 0.02);
@@ -28,8 +42,16 @@ body.controller-admin-vehicle-configs {
         }
       }
       .image-column {
-        width:119px;
-        text-align:center;
+        width: 100px;
+        min-width: 100px;
+        text-align: center;
+        padding: 0;
+        img { 
+          height:65px;
+          border-radius:4px; 
+          border: 1px solid;
+          border-color:rgba(0,0,0,0.1); 
+        }
       }
       .vehicle-byline {
         font-size:12px;

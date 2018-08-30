@@ -207,7 +207,7 @@ Trestle.resource(:vehicle_configs) do
       { class: "#{vehicle.vehicle_config_status.blank? ? nil : vehicle.vehicle_config_status.name.parameterize} #{vehicle.vehicle_config_type.blank? ? "unknown" : vehicle.vehicle_config_type.slug} vehicle-config" }
     end
     column :votes, align: :center, class: "votes-column" do |instance|
-      content_tag(:div, class: "vote-action #{current_or_guest_user.voted_down_on?(instance) ? 'downvoted' : nil}#{current_or_guest_user.voted_up_on?(instance) ? 'upvoted' : nil} #{current_or_guest_user.voted_for?(instance) ? "voted" : nil}") do
+      content_tag(:div, class: "vote-action #{current_or_guest_user.voted_down_on?(instance) ? "downvoted" : nil} #{current_or_guest_user.voted_up_on?(instance) ? 'upvoted' : nil} #{current_or_guest_user.voted_for?(instance) ? "voted" : nil}") do
         %(
         #{link_to('<span class=\'fa fa-arrow-up\'></span>'.html_safe, vote_vehicle_configs_admin_url(instance.id, :format=> :json, params: { vote: 'up' }), remote: true, id: "vote_up_#{instance.id}", class: "vote-up ")}
         #{content_tag :span, instance.cached_votes_total, class: "badge badge-vote-count"}

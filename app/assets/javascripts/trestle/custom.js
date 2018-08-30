@@ -11,11 +11,13 @@ function pollRefreshingStatus(){
       }
   });
 }
+
 jQuery.fn.addClass = function(){
   var result = originalAddClassMethod.apply( this, arguments );
   jQuery(this).trigger('classAdded');
   return result;
 }
+
 jQuery.fn.removeClass = function(){
   var result = originalRemoveClassMethod.apply( this, arguments );
   jQuery(this).trigger('classRemoved');
@@ -32,7 +34,35 @@ var setupVehicleConfigYear = function() {
   var $refreshingTrims = $(".alert-loading-trims");
   var $quickAdd = $("#tab-capabilities .type-quick-add");
   var $quickDelete = $("#tab-capabilities .type-quick-delete");
+  var $voter = $("a.vote-up,a.vote-down");
+  $voter.on("ajax:success",function(ev, data) {
+    var votes = data.votes;
+    var $this = $(this);
+    var $parent = $this.parents('.vote-action');
+    var curr_vote;
 
+    if ($parent.hasClass('upvoted')) {
+      curr_vote = "up";
+    }
+
+    if ($parent.hasClass('downvoted')) {
+      curr_vote = "down";
+    }
+
+    if ($this.find('.fa-arrow-up').length) {
+      $parent.removeClass('voted downvoted upvoted')
+      if (curr_vote !== 'up') {
+        $parent.addClass('voted upvoted');
+      }
+    }
+    if ($this.find('.fa-arrow-down').length) {
+      $parent.removeClass('voted downvoted upvoted')
+      if (curr_vote !== 'down') {
+        $parent.addClass('voted downvoted');
+      }
+    }
+    $parent.find("span.badge").text(data.votes);
+  });
   // $quickAdd.off("click");
   $quickAdd.on("click",function(ev) {
     var $this = $(this);

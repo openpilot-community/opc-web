@@ -152,6 +152,29 @@ Trestle.resource(:vehicle_configs) do
       flash[:message] = "Vehicle has been forked."
       redirect_to admin.path(:show, id: new_config.id)
     end
+    
+    def vote
+      self.instance = admin.find_instance(params)
+
+      if params['vote'] == "up"
+        if (current_or_guest_user.voted_up_on? instance)
+          instance.unvote_by current_or_guest_user
+        else
+          instance.upvote_by current_or_guest_user
+        end
+      end
+      if params['vote'] == 'down'
+        if (current_or_guest_user.voted_down_on? instance)
+          instance.unvote_by current_or_guest_user
+        else
+          instance.downvote_by current_or_guest_user
+        end
+      end
+      respond_to do |format|
+        format.html { redirect_to :back }
+        format.json { render json: instance, status: 200 }
+      end
+    end
 
     def quick_add
       self.instance = admin.find_instance(params)
@@ -192,6 +215,7 @@ Trestle.resource(:vehicle_configs) do
     get :fork, :on => :member
     get :clone, :on => :member
     post :quick_add, :on => :member
+    get :vote, :on => :member
     delete :quick_delete, :on => :member
     get :refreshing_status, :on => :member
   end
@@ -200,20 +224,25 @@ Trestle.resource(:vehicle_configs) do
     row do |vehicle|
       { class: "#{vehicle.vehicle_config_status.blank? ? nil : vehicle.vehicle_config_status.name.parameterize} #{vehicle.vehicle_config_type.blank? ? "unknown" : vehicle.vehicle_config_type.slug} vehicle-config" }
     end
-    column :year_range_str, header: "Year(s)", sort: false, link: true
-    column :vehicle_make, header: "Make",  sort: false, link: true do |vehicle_config|
-      vehicle_config.vehicle_make.name
+    column :votes, align: :center, class: "votes-column" do |instance|
+      content_tag(:div, class: "vote-action #{current_or_guest_user.voted_down_on?(instance) ? 'downvoted' : nil}#{current_or_guest_user.voted_up_on?(instance) ? 'upvoted' : nil} #{current_or_guest_user.voted_for?(instance) ? "voted" : nil}") do
+        %(
+        #{link_to('<span class=\'fa fa-arrow-up\'></span>'.html_safe, vote_vehicle_configs_admin_url(instance.id, :format=> :json, params: { vote: 'up' }), remote: true, id: "vote_up_#{instance.id}", class: "vote-up ")}
+        #{content_tag :span, instance.total_votes, class: "badge badge-vote-count"}
+        #{link_to('<span class=\'fa fa-arrow-down\'></span>'.html_safe, vote_vehicle_configs_admin_url(instance.id, :format=> :json, params: { vote: 'down' }), remote: true, id: "vote_down_#{instance.id}", class: "vote-down ")}
+        ).html_safe
+      end.html_safe
     end
-    column :vehicle_model, header: "Make",  sort: false, link: true do |vehicle_config|
-      vehicle_config.vehicle_model.name
+    column :image, class: "image-column" do |vehicle_config|
+      if vehicle_config.image.attached?
+        image_tag(vehicle_config.image.service_url, style: "border-radius:4px; height:60px; border: 1px solid;border-color:rgba(0,0,0,0.1);")
+      end
+    end
+    column :vehicle, class: "details-column" do |vehicle_config|
+      render "vehicle_config_details", instance: vehicle_config
     end
     column :trim_styles_count, header: "Trims", sort: false
-    column :minimum_difficulty, header: "Min. Difficulty", sort: false do |vehicle_config|
-      render "difficulty_label", vehicle_config: vehicle_config
-    end
-    column :status, header: "Status" do |vehicle_config|
-      render "config_status", vehicle_config: vehicle_config
-    end
+    actions
   end
 
   ##########

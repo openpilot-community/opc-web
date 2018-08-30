@@ -188,7 +188,9 @@ class VehicleConfig < ApplicationRecord
     })
     # byebug
   end
-
+  def total_votes
+    get_upvotes.size - get_downvotes.size
+  end
   def has_capability?(cap_id)
     vehicle_capabilities.exists?(id: cap_id)
   end
@@ -209,7 +211,14 @@ class VehicleConfig < ApplicationRecord
 
     VehicleCapability.where(id: cap_ids).order(:name)
   end
-
+  def vote_type=(type)
+    self.vote_type = type
+  end
+  def as_json(options={})
+    {
+      votes: total_votes
+    }
+  end
   def capability_matrix
     matrix = {}
     VehicleConfigType.all.each do |type|

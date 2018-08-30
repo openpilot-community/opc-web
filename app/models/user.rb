@@ -16,6 +16,7 @@ require 'open-uri'
 
 class User < ApplicationRecord
   has_one_attached :avatar
+  acts_as_voter
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :omniauthable, omniauth_providers: %i[github]

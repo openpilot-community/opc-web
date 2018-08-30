@@ -1,0 +1,73 @@
+@import "variables";
+body.controller-admin-vehicle-configs {
+  .app-wrapper {
+    .trestle-table {
+      .votes-column {
+        width:55px;
+      }
+      .image-column {
+        width:119px;
+        text-align:center;
+      }
+      .vehicle-byline {
+        font-size:12px;
+        color:#888;
+      }
+      ul.meta {
+        list-style-type:none;
+        li {
+          float:left;
+          .label {
+            font-size: 12px;
+            font-weight: 500!important;
+            line-height: 16px;
+            display: inline;
+            margin-right: 3px;
+            text-overflow: ellipsis;
+            vertical-align: baseline;
+            white-space: nowrap;
+            color: white;
+            border-radius: 2px;
+            overflow: hidden;
+            font-weight: 500!important;
+            padding: 1px 5px;
+          }
+        }
+      }
+    }
+  }
+  
+}
+.vote-action {
+  a,span {
+    display:block;
+    width:100%;
+    color: #888;
+  }
+  a {
+    text-decoration:none;
+  }
+
+  span.badge {
+    background-color:transparent;
+    color:#000;
+  }
+
+  &.upvoted {
+    .fa.fa-arrow-up {
+      color: $green;
+    }
+    span.badge {
+      color: $green;
+    }
+  }
+
+  &.downvoted {
+    .fa.fa-arrow-down {
+      color: $red;
+    }
+    span.badge {
+      color: $red;
+    }
+  }
+}

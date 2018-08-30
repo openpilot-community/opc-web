@@ -3,9 +3,12 @@ body.controller-admin-vehicle-configs {
   .content-header {
     display:none;
   }
-  .app-wrapper .main-content {
-    padding:0;
+  &.action-index {
+    .app-wrapper .main-content {
+      padding:0;
+    }
   }
+  
   .app-wrapper {
     .trestle-table {
       th {

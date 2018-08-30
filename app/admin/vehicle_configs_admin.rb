@@ -248,7 +248,7 @@ Trestle.resource(:vehicle_configs) do
       end
     end
 
-    unless vehicle_config.new_record? || vehicle_config.vehicle_config_type.blank?
+    unless vehicle_config.new_record?
       tab :trim_styles, badge: vehicle_config.refreshing ? "<span class=\"fa fa-spinner fa-spin\"></span>".html_safe : vehicle_config.trim_styles_count do
         if vehicle_config.refreshing
           render inline: content_tag(:div, "<span class=\"fa fa-spinner fa-spin\"></span><span class='loading-message'>We're refreshing the trim styles...</span>".html_safe, class: "alert alert-warning alert-loading-trims")

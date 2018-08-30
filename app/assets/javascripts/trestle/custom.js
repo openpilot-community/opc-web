@@ -2,10 +2,8 @@ var originalAddClassMethod = jQuery.fn.addClass;
 var originalRemoveClassMethod = jQuery.fn.removeClass;
 function pollRefreshingStatus(){
   $.getJSON(window.location.href + "/refreshing_status.json", function(data) {
-      console.log(data);  // process results here
-
       if (data.refreshing) {
-        setTimeout(pollRefreshingStatus,5000);
+        setTimeout(pollRefreshingStatus,15000);
       } else {
         Trestle.refreshMainContext();
       }
@@ -36,7 +34,6 @@ var setupVehicleConfigYear = function() {
     ev.preventDefault();
     return false;
   })
-  var $refreshingTrims = $(".alert-loading-trims");
   var $quickAdd = $("#tab-capabilities .type-quick-add");
   var $quickDelete = $("#tab-capabilities .type-quick-delete");
   var $voter = $("a.vote-up,a.vote-down");
@@ -89,9 +86,7 @@ var setupVehicleConfigYear = function() {
       }
     })
   })
-  if ($refreshingTrims.length) {
-    pollRefreshingStatus();
-  }
+  
   var should_disable_fields = false;
   var should_show_trim_styles = false;
   if (!$("body.controller-admin-vehicle-lookups").length) {
@@ -401,4 +396,10 @@ $(Trestle).on("init",function() {
   $elems['trims'].change(function() {
     
   })
+});
+$(Trestle).on("init",function() {
+  var $refreshingTrims = $(".alert-loading-trims");
+  if ($refreshingTrims.length) {
+    // pollRefreshingStatus();
+  }
 });

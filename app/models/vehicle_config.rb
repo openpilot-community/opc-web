@@ -124,8 +124,8 @@ class VehicleConfig < ApplicationRecord
   belongs_to :vehicle_config_status, :optional => true
   belongs_to :vehicle_make_package, :optional => true
   belongs_to :vehicle_config_type, :optional => true
-  belongs_to :primary_repository, :class_name => "Repository", :foreign_key => :primary_repository_id
-  belongs_to :primary_pull_request, :class_name => "PullRequest", :foreign_key => :primary_pull_request_id
+  belongs_to :primary_repository, :class_name => "Repository", :foreign_key => :primary_repository_id, :optional => true
+  belongs_to :primary_pull_request, :class_name => "PullRequest", :foreign_key => :primary_pull_request_id, :optional => true
   # accepts_nested_attributes_for :forks
   # before_validation :set_default
   before_validation :set_year_end
@@ -418,7 +418,7 @@ class VehicleConfig < ApplicationRecord
 
   def name
     new_name = "Untitled"
-    if vehicle_config_type && vehicle_make && vehicle_model
+    if vehicle_make && vehicle_model
       new_name = "#{year_range_str} #{vehicle_make.name} #{vehicle_model.name}"
       # if vehicle_trims
       #   new_name = "#{new_name} #{vehicle_trims.map {|trim| trim.name }.join(", ")}"
@@ -535,11 +535,11 @@ class VehicleConfig < ApplicationRecord
   private
   def name_for_slug
     if vehicle_config_type && vehicle_make && vehicle_model
-      "#{id} #{year_range_str} #{vehicle_make.name} #{vehicle_model.name} #{vehicle_config_type.name}"
+      "#{id} #{year_range_str} #{vehicle_make.name} #{vehicle_model.name}"
     end
   end
 
   def set_title
-    self.title = "#{year_range_str} #{vehicle_make.name} #{vehicle_model.name} #{vehicle_config_type.name}"
+    self.title = "#{year_range_str} #{vehicle_make.name} #{vehicle_model.name}"
   end
 end

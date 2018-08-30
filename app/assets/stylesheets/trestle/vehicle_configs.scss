@@ -7,14 +7,20 @@ body.controller-admin-vehicle-configs {
     .app-wrapper .main-content {
       padding:0;
     }
-  }
-  
-  .app-wrapper {
     .trestle-table {
       th {
         padding:0;
         display:none;
       }
+    }
+  }
+  
+  .app-wrapper {
+    .trestle-table {
+      // th {
+      //   padding:0;
+      //   display:none;
+      // }
       .vehicle-config {
         height: 70px;
       }

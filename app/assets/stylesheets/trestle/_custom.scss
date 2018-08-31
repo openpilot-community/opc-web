@@ -30,9 +30,17 @@ body {
     .btn.btn-buy {
         display: block;
         width: 100%;
-        background-image: linear-gradient(-180deg, lighten($green,4) 0%, darken($green,4) 90%);
+        background-image: linear-gradient(-180deg, lighten(#212121,4) 0%, darken(#000,4) 90%);
         color: #FFF;
         opacity:1;
+        padding-left:30px!important;
+        svg {
+          height: 20px;
+          position: absolute;
+          left: 5px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
     }
   }
 }

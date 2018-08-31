@@ -1,6 +1,4 @@
 <% status = vehicle_config.status_classes %>
 <% if vehicle_config.vehicle_config_status.present? %>
-  <a target="_blank" class="label label-<%=status[:color]%> repo-link">
-    <span class="<%=status[:icon]%>"></span> <%=vehicle_config.vehicle_config_status.name%>
-  </a>
+  <a target="_blank" class="label label-<%=status[:color]%> repo-link"><span class="<%=status[:icon]%>"></span> <%=vehicle_config.vehicle_config_status.name%></a>
 <% end %>

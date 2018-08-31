@@ -393,6 +393,8 @@ Trestle.resource(:vehicle_configs) do
           ]
         }
         collection_select :vehicle_config_status_id, VehicleConfigStatus.order(:name), :id, :name, include_blank: true, label: "Status of the codebase"
+        collection_select :primary_repository_id, Repository.order(:full_name), :id, :name, include_blank: true, label: "Primary Repository"
+        collection_select :primary_pull_request_id, PullRequest.order(:pr_updated_at => :desc), :id, :name, include_blank: true, label: "Primary Pull Request"
 
         table vehicle_config.vehicle_config_repositories, admin: :vehicle_config_repositories do
           column :name, header: "Repositories" do |vcr|

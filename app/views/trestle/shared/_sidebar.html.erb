@@ -14,6 +14,24 @@
 
   <div class="app-sidebar-inner">
     <nav class="app-nav">
+      <ul class="external-actions">
+        <li role="presentation" class="shop">
+          <%= link_to "https://comma.ai/shop?ref=7", target: "_blank" do %>
+            <%=icon('fa', 'fa-shopping-cart')%> Order Your Hardware
+          <% end %>
+        </li>
+        <% if !current_user.blank? %>
+        <li role="presentation">
+          <%=link_to('Logout', '/sign_out')%>
+        </li>
+        <% else %>
+        <li role="presentation" class="sign-in">
+          <%= link_to "/users/auth/github" do %>
+            <%=icon('fa', 'fa-github')%> Sign In with GitHub
+          <% end %>
+        </li>
+        <% end %>
+      </ul>
       <% collapsed = cookies["trestle:navigation:collapsed"].try(:split, ",") || [] %>
       <% Trestle.navigation.visible(self).each do |group, items| %>
         <ul class="<%= group.present? && group.label.present? ? group.label.parameterize : nil %> <% if group.present? && collapsed.include?(group.id) %>collapsed<% end %>">
@@ -22,7 +40,7 @@
           <% end %>
 
           <% items.each do |item| %>
-            <li<% if current_navigation_item?(item) %> class="active"<% end %>>
+            <li class="<% if current_navigation_item?(item) %>active<% end %> <%= item.present? && item.label.present? ? item.label.parameterize : nil %>">
               <%= link_to item.path do %>
                 <%= icon("nav-icon", item.icon) %>
                 <span class="nav-label"><%= item.label %></span>

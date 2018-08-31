@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "/vehicle_configs", to: redirect("/research", status: 302)
+  get '/vehicle_configs/:id', to: redirect('/research/%{id}', status: 302)
+  
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_scope :user do
     get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
@@ -14,8 +17,10 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
   # You can have the root of your site routed with "root"
   root 'vehicle_configs_admin/admin#index'
-  get '/lookup', to: redirect('/vehicle_lookups/new')
-  
+  get '/lookup' => "vehicle_lookups_admin/admin#new"
+  get "/research" => "vehicle_configs_admin/admin#index"
+  get "/research/make/:q" => "vehicle_configs_admin/admin#index", as: "research_make"
+  get "/research/:id" => "vehicle_configs_admin/admin#show", as: "research_show"
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

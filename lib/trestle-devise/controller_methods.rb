@@ -5,11 +5,12 @@ module Trestle
       
       included do
         include Pundit
+        include ActionView::Helpers::AssetUrlHelper
         before_action :authenticate_user!, except: [:show, :index]
         before_action :set_paper_trail_whodunnit
         before_action :require_super_admin!, only: [:destroy]
         before_action :require_edit_permissions!, only: [:new, :create, :update]
-
+        before_action :set_metatags
         def guest_user
           return @guest_user if @guest_user
           if session[:guest_user_id]
@@ -44,6 +45,15 @@ module Trestle
       end
 
       protected
+      def set_metatags
+        set_meta_tags og: {
+          title: "Openpilot Database",
+          image: asset_url("/assets/og/default.png"),
+          type: "website"
+        }
+        set_meta_tags keywords: ['openpilot','vehicle','support','master','list','of','vehicles','supported','compatible','compatibility']
+        set_meta_tags description: "The goal of this is to be a community resource and centralized location for knowledge on Openpilot Vehicles"
+      end
       def require_edit_permissions!
         if current_or_guest_user.is_visitor?
           render "unauthorized" 

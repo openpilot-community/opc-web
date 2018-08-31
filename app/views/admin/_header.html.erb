@@ -1,4 +1,9 @@
 <ul class="nav navbar-nav">
+  <li role="presentation" class="shop">
+    <%= link_to "https://comma.ai/shop?ref=7", class: "btn btn-buy buy-button" do %>
+      <%=icon('fa', 'fa-shopping-cart')%> Comma Shop
+    <% end %>
+  </li>
   <% if !current_user.blank? %>
   <li role="presentation" class="dropdown">
     <a class="user-dropdown dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">

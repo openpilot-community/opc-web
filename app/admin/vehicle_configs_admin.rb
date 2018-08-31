@@ -1,25 +1,32 @@
 Trestle.resource(:vehicle_configs) do
 
   menu do
+  #   byebug
     group :vehicles, priority: :first do
-      item :vehicle_configs, icon: "fa fa-car", group: :vehicles, label: "Research / Support", priority: :first
+      item :vehicle_configs, "/research", icon: "fa fa-book-open", group: :vehicles, label: "Research / Support", priority: :first
+    end
+    group :vehicles_by_make do
       item :top_vehicle_configs, '/vehicle_configs?order=desc&sort=cached_votes_score', icon: "fa fa-star", group: :vehicles, label: "Top Voted Vehicles", priority: 2
+      VehicleMake.with_configs.each do |make|
+        item make.name.parameterize.to_sym, "#{Rails.application.routes.url_helpers.research_make_url(q: make.name.parameterize.downcase)}", icon: "fa fa-chevron-right"
+      end
     end
   end
 
   ########
   # SCOPES
   ########
-  scope :all, -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).where(parent_id: nil).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level") }, default: true
+  scope :all, -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level") }, default: true
 
   ########
   # SEARCH
   ########
   search do |query|
     if query
-      VehicleConfig.where("title ILIKE ?", "%#{query}%")
+      query = query.titleize
+      VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).where("vehicle_makes.name ILIKE :query OR vehicle_models.name ILIKE :query", { query: "%#{query}%" }).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level")
     else
-      VehicleConfig.all
+      VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level")
     end
   end
 
@@ -28,14 +35,25 @@ Trestle.resource(:vehicle_configs) do
     skip_before_action :authenticate_user!, :only => [:show, :refreshing_status, :vote]
     include ActionView::Helpers::AssetUrlHelper
     def index
-      @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support", "/vehicle_configs")])
-      set_meta_tags og: {
-        title: "Vehicle Research and Support | Openpilot Database",
-        image: asset_url("/assets/opengraph-image.png"),
-        type: "website"
-      }
-      set_meta_tags keywords: ['openpilot','vehicle','support','master','list','of','vehicles','supported','compatible','compatibility']
-      set_meta_tags description: "This is a master list of vehicles supported and being researched on for usage with openpilot software."
+      if params['q']
+        page_title = "#{params['q']} | Vehicle Research & Support Tracker"
+      else
+        page_title = "Vehicle Research & Support Tracker"
+      end
+      @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("#{page_title}", "/researching")])
+
+      set_meta_tags(
+        og: {
+          title: "#{page_title} | Openpilot Database",
+          image: asset_url("/assets/og/tracker.png"),
+          url: Rails.application.routes.url_helpers.research_url,
+          type: "website"
+        },
+        keywords: ['openpilot','vehicle','support','master','list','of','vehicles','supported','compatible','compatibility'],
+        description: "This is a master list of vehicles supported and being researched for usage with openpilot software.",
+        canonical: Rails.application.routes.url_helpers.research_url,
+        image_src: asset_url("/assets/og/tracker.png")
+      )
       super
       # breadcrumbs = Trestle::Breadcrumb::Trail.new(["Vehicle Search and Support"])
     end
@@ -114,13 +132,20 @@ Trestle.resource(:vehicle_configs) do
     def show
       vehicle_config = admin.find_instance(params)
       @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support","/vehicle_configs")])
-      set_meta_tags og: {
-        title: "#{vehicle_config.name} | Openpilot Database",
-        image: vehicle_config.image.attached? ? vehicle_config.image.service_url : asset_url("/assets/opengraph-image.png"),
-        type: "website"
-      }
-      set_meta_tags keywords: ['openpilot','vehicle','support',vehicle_config.vehicle_make.name,vehicle_config.vehicle_model.name,vehicle_config.name,'of','vehicles','supported','compatible','compatibility']
-      set_meta_tags description: "Research and support of comma openpilot for the #{vehicle_config.name}."
+      imgurl = vehicle_config.image.attached? ? vehicle_config.image.service_url : asset_url("/assets/og/tracker.png")
+      
+      set_meta_tags(
+        og: {
+          title: "#{vehicle_config.name} | Openpilot Database",
+          image: imgurl,
+          url: Rails.application.routes.url_helpers.research_show_url(id: vehicle_config.id),
+          type: "website"
+        },
+        keywords: ['openpilot','vehicle','support',vehicle_config.vehicle_make.name, vehicle_config.vehicle_model.name,vehicle_config.name,'of','vehicles','supported','compatible','compatibility'],
+        description: "Research and support of comma openpilot for the #{vehicle_config.name}.",
+        canonical: Rails.application.routes.url_helpers.research_show_url(id: vehicle_config.id),
+        image_src: imgurl
+      )
       super
     end
 
@@ -205,7 +230,7 @@ Trestle.resource(:vehicle_configs) do
 
   table do |a|
     row do |vehicle|
-      { class: "#{vehicle.vehicle_config_status.blank? ? nil : vehicle.vehicle_config_status.name.parameterize} #{vehicle.vehicle_config_type.blank? ? "unknown" : vehicle.vehicle_config_type.slug} vehicle-config" }
+      { data: { url: "/research/#{vehicle.id}#!tab-trim_styles"}, class: "#{vehicle.vehicle_config_status.blank? ? nil : vehicle.vehicle_config_status.name.parameterize} #{vehicle.vehicle_config_type.blank? ? "unknown" : vehicle.vehicle_config_type.slug} vehicle-config" }
     end
     column :votes, align: :center, class: "votes-column" do |instance|
       content_tag(:div, class: "vote-action #{current_or_guest_user.voted_down_on?(instance) ? "downvoted" : nil} #{current_or_guest_user.voted_up_on?(instance) ? 'upvoted' : nil} #{current_or_guest_user.voted_for?(instance) ? "voted" : nil}") do

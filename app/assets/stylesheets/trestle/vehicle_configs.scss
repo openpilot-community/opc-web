@@ -146,3 +146,13 @@ body.controller-admin-vehicle-configs {
     }
   }
 }
+@media (max-width: 767px) {
+  body.controller-admin-vehicle-configs {
+    .app-wrapper .trestle-table .image-column {
+      display:none;
+      width:initial;
+      max-width:initial;
+    }
+        
+  }
+}

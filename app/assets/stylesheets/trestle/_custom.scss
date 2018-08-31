@@ -10,10 +10,32 @@
 @import "documentation";
 @import "vehicle_lookup_form";
 @import "vehicle_configs";
+.app-wrapper {
+  .app-container {
+    // overflow-y: visible!important;
+    // overflow-x: visible!important;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto !important;
+  }
+}
 body {
   background-color:#000000;
+  // overflow:auto;
 }
+@media (min-width: 768px) {
+  .navbar-nav > li {
+    float: left!important;
+    width:initial!important;
 
+    .btn.btn-buy {
+        display: block;
+        width: 100%;
+        background-image: linear-gradient(-180deg, lighten($green,4) 0%, darken($green,4) 90%);
+        color: #FFF;
+        opacity:1;
+    }
+  }
+}
 .btn-toolbar .btn-group .btn + .btn, .btn-toolbar .btn-group .btn + .btn-group, .btn-toolbar .btn-group .btn-group + .btn, .btn-toolbar .btn-group .btn-group + .btn-group {
   margin-left: -5px;
 }
@@ -98,6 +120,7 @@ body {
     }
   }
 }
+
 .alert-loading-trims {
   span.fa {
     font-size:35px;
@@ -111,7 +134,26 @@ body {
 .profile-image {
   border:1px solid #CCC;
 }
-
+.app-nav {
+  .external-actions {
+    display:none;
+  }
+  a {
+    padding: 6px 18px;
+  }
+  .nav-header {
+    a {
+      padding: 6px 18px!important;
+    }
+  }
+  .collapsed {
+    .nav-header {
+      a {
+        padding: 6px 18px;
+      }
+    }
+  }
+}
 .app-nav .nav-header a {
   padding: 10px 15px;
   padding-top: 20px;
@@ -294,8 +336,8 @@ body {
     border-bottom: 1px solid rgba(0,0,0,0.2);
     display:flex;
     .searchbox {
-      flex: 0 0 80%;
-      max-width:80%;
+      flex: 0 0 60%;
+      max-width:60%;
       padding:0;
       float:initial;
       .input-group-addon {
@@ -317,12 +359,15 @@ body {
       }
     }
     .nav {
-      flex: 0 0 20%;
-      max-width:20%;
-      margin:0 0 0 auto;
-      .sign-in {
+      flex: 0 0 40%;
+      max-width: 40%;
+      margin: 0 0 0 auto;
+      display: flex;
+      justify-content: flex-end;
+      li {
         padding: 7px 10px 7px 0;
         text-align: right;
+        flex: 0 0 1;
         a.btn {
           position:relative;
           padding-left:40px;
@@ -337,10 +382,10 @@ body {
         }
       }
       .user-dropdown {
-        width:100%;
-        display:block;
-        padding: 15px 15px;
-        padding-left:48px;
+        width: 150px;
+        display: block;
+        padding: 8px 14px;
+        padding-left: 48px;
         .caret {
           position:absolute;
           right:5px;
@@ -768,6 +813,14 @@ body {
       display:block!important;
     }
   }
+  .app-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
   .app-sidebar {
     background: #000;
   }
@@ -775,12 +828,12 @@ body {
     height: 50px;
     background-image: url(/assets/logo@2x.png);
     background-size: 250px;
-    background-color: #121212;
+    background-color: #000;
     background-repeat: no-repeat;
     background-position: center center;
     display: flex;
     align-items: center;
-    color:#121212;
+    color:#000;
   }
   .repo-link {
     display: block;
@@ -877,6 +930,9 @@ body {
     .app-header {
       position:relative;
       display:none;
+    }
+    .external-actions {
+      display:block;
     }
     h1.path-heading {
       flex: 0 0 60%;

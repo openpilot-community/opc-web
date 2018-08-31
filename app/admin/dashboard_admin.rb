@@ -9,30 +9,30 @@ Trestle.admin(:dashboard) do
     end
 
     group :community do
-      item :pull_requests, '/pull_requests', icon: "fa fa-github", priority:1
-      item :repositories, '/repositories', icon: "fa fa-github"
-      item :videos, '/videos', icon: "fa fa-play"
-      item :slack, 'https://comma.slack.com/'
-      item :contributors, '/contributors', icon: "fa fa-users"
+      item :slack, 'https://comma.slack.com/', priority: 1
+      item :videos, '/videos', icon: "fa fa-play", priority: 1.2
+      item :pull_requests, '/pull_requests', icon: "fa fa-github", priority: 1.3
+      item :repositories, '/repositories', icon: "fa fa-github", priority: 1.4
+      item :contributors, '/contributors', icon: "fa fa-users", priority: 1.5
     end
 
     group :tools do
       item :cabana, 'https://community.comma.ai/cabana', icon: "fa fa-bug", priority:2
-      item :explorer, 'https://my.comma.ai/', icon: "fa fa-play"
-      item :drive_viewer, 'https://community.comma.ai/explorer.php', icon: "fa fa-road"
+      item :explorer, 'https://my.comma.ai/', icon: "fa fa-road", priority:2.1
+      item :driving_explorer, 'https://community.comma.ai/explorer.php', icon: "fa fa-play", priority: 2.2
     end
 
     group :admin do
       item :modifications, '/modifications', icon: "fa fa-wrench", priority:3
-      item :hardware_items, '/hardware_items', icon: "fa fa-microchip", label: "Hardware Items"
-      item :hardware_types, '/hardware_types', icon: "fa fa-microchip", label: "Hardware Types"
-      item :guides, '/guides', icon: "fa fa-pencil"
-      item :vehicle_capabilities, '/vehicle_capabilities', icon: "fa fa-star"
-      item :vehicle_makes, '/vehicle_makes', icon: "fa fa-car", label: "Makes"
-      item :vehicle_config_statuses, icon: "fa fa-star", label: "Support Statuses"
-      item :tools, '/tools', icon: "fa fa-wrench"
-      item :vehicle_make_packages, '/vehicle_make_packages', icon: "fa fa-star",label: "Makes Packages"
-      item :vehicle_config_types, '/vehicle_config_types', icon: "fa fa-star", label: "Support Levels"
+      item :guides, '/guides', icon: "fa fa-pencil", priority:3.1
+      item :hardware_items, '/hardware_items', icon: "fa fa-microchip", label: "Hardware Items", priority:3.2
+      item :hardware_types, '/hardware_types', icon: "fa fa-microchip", label: "Hardware Types", priority:3.3
+      item :vehicle_capabilities, '/vehicle_capabilities', icon: "fa fa-star", priority:3.4
+      item :vehicle_makes, '/vehicle_makes', icon: "fa fa-car", label: "Makes", priority:3.5
+      item :vehicle_config_statuses, icon: "fa fa-star", label: "Support Statuses", priority:3.6
+      item :tools, '/tools', icon: "fa fa-wrench", priority:3.7
+      item :vehicle_make_packages, '/vehicle_make_packages', icon: "fa fa-star",label: "Makes Packages", priority:3.8
+      item :vehicle_config_types, '/vehicle_config_types', icon: "fa fa-star", label: "Support Levels", priority:3.9
     end
 
     group :super_admin do

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   # You can have the root of your site routed with "root"
-  root 'vehicle_configs_admin/admin#index'
+  root "vehicle_configs_admin/admin#index"
   get '/lookup' => "vehicle_lookups_admin/admin#new"
   get "/research" => "vehicle_configs_admin/admin#index"
   get "/research/make/:q" => "vehicle_configs_admin/admin#index", as: "research_make"

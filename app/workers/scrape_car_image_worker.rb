@@ -1,4 +1,4 @@
-class ScrapeCarsWorker
+class ScrapeCarImageWorker
   include Sidekiq::Worker
   sidekiq_options :retry => 3 # Only five retries and then to the Dead Job Queue
 
@@ -16,7 +16,7 @@ class ScrapeCarsWorker
         
         vc.image.attach(
           io: tempfile,
-          filename: "#{slug}.#{tempfile.original_filename}",
+          filename: "#{vc.slug}.#{tempfile.original_filename}",
           content_type: tempfile.content_type
         )
       end

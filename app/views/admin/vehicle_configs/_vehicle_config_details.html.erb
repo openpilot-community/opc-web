@@ -1,4 +1,4 @@
-<div class="vehicle-name"><%=link_to("<strong>#{instance.vehicle_make.name} #{instance.vehicle_model.name}</strong>, #{instance.year_range_str}".html_safe)%></div>
+<div class="vehicle-name"><%=link_to("<strong>#{instance.vehicle_make.name} #{instance.vehicle_model.name}</strong>, #{instance.year_range_str}".html_safe, "/vehicle_configs/#{instance.id}#!tab-trim_styles")%></div>
 <div class="vehicle-byline">
 <span>Last Updated <%=time_ago_in_words(instance.updated_at)%> ago
 </div>

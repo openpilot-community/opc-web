@@ -1,3 +1,3 @@
-<% if vehicle_config.vehicle_config_status.present? && vehicle_config.vehicle_config_status.name != "Researching"%>
+<% if vehicle_config.vehicle_config_status.present? && vehicle_config.vehicle_config_type.present? && vehicle_config.vehicle_config_status.name != "Researching"%>
 <span class="label label-<%=vehicle_config.difficulty_class%>"><%=vehicle_config.vehicle_config_type.name%></span>
 <% end %>

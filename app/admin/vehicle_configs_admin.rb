@@ -3,7 +3,7 @@ Trestle.resource(:vehicle_configs) do
   menu do
     group :vehicles, priority: :first do
       item :vehicle_configs, icon: "fa fa-car", group: :vehicles, label: "Research / Support", priority: :first
-      item :top_vehicle_configs, '/vehicle_configs?order=desc&sort=cached_votes_total', icon: "fa fa-star", group: :vehicles, label: "Top Voted Vehicles", priority: 2
+      item :top_vehicle_configs, '/vehicle_configs?order=desc&sort=cached_votes_score', icon: "fa fa-star", group: :vehicles, label: "Top Voted Vehicles", priority: 2
     end
   end
 
@@ -211,7 +211,7 @@ Trestle.resource(:vehicle_configs) do
       content_tag(:div, class: "vote-action #{current_or_guest_user.voted_down_on?(instance) ? "downvoted" : nil} #{current_or_guest_user.voted_up_on?(instance) ? 'upvoted' : nil} #{current_or_guest_user.voted_for?(instance) ? "voted" : nil}") do
         %(
         #{link_to('<span class=\'fa fa-arrow-up\'></span>'.html_safe, vote_vehicle_configs_admin_url(instance.id, :format=> :json, params: { vote: 'up' }), remote: true, id: "vote_up_#{instance.id}", class: "vote-up ")}
-        #{content_tag :span, instance.cached_votes_total, class: "badge badge-vote-count"}
+        #{content_tag :span, instance.cached_votes_score, class: "badge badge-vote-count"}
         #{link_to('<span class=\'fa fa-arrow-down\'></span>'.html_safe, vote_vehicle_configs_admin_url(instance.id, :format=> :json, params: { vote: 'down' }), remote: true, id: "vote_down_#{instance.id}", class: "vote-down ")}
         ).html_safe
       end.html_safe

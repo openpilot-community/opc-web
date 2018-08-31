@@ -199,7 +199,7 @@ class VehicleConfig < ApplicationRecord
   end
   
   def total_votes
-    cached_votes_total
+    cached_votes_score
   end
 
   def has_capability?(cap_id)
@@ -224,7 +224,7 @@ class VehicleConfig < ApplicationRecord
   # end
   def as_json(options={})
     {
-      votes: cached_votes_total
+      votes: cached_votes_score
     }
   end
   # def capability_matrix

@@ -1,6 +1,27 @@
 @import "variables";
 body.controller-admin-vehicle-configs {
-  
+  .edit_vehicle_config {
+    .app-wrapper {
+      &.is-visitor, &.is_editor, &.is_admin {
+        .nav-tabs {
+          > li {
+            &:last-child {
+              display:none;
+            }
+          }
+        }
+      }
+      &.is-super-admin {
+        .nav-tabs {
+          > li {
+            &:last-child {
+              display:block;
+            }
+          }
+        }
+      }
+    } 
+  }
   &.action-index {
     .content-header {
       display:none;

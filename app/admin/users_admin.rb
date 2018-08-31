@@ -19,6 +19,9 @@ Trestle.resource(:users) do
     # text_field :email
     text_field :name
     text_field :slack_username
+    if (current_user.is_super_admin?)
+      collection_select :user_role_id, UserRole.order(:name), :id, :name, include_blank: true
+    end
   end
 
   controller do

@@ -1,10 +1,12 @@
 Trestle.admin(:dashboard) do
   menu do
     group :vehicles do
-      item :vehicle_configs, "/research", icon: "fa fa-book", label: "Research / Support", priority:0
-      item :top_vehicle_configs, '/vehicle_configs?order=desc&sort=cached_votes_score', icon: "fa fa-star", label: "Top Voted Vehicles"
-      VehicleMake.with_configs.each do |make|
-        item make.name.parameterize.to_sym, "#{Rails.application.routes.url_helpers.research_make_url(q: make.name.parameterize.downcase)}", icon: "fa fa-angle-right"
+      item :vehicle_configs, "/research", icon: "fa fa-book", label: "Research / Support", priority: 0
+      item :top_vehicle_configs, '/vehicle_configs?order=desc&sort=cached_votes_score', icon: "fa fa-star", label: "Top Voted Vehicles", priority: 0.1
+      item :lookup, "/lookup", icon: "fa fa-plus", label: "Lookup a vehicle", priority: 0.2
+      
+      VehicleMake.with_configs.each_with_index do |make, index|
+        item make.name.parameterize.to_sym, "#{Rails.application.routes.url_helpers.research_make_url(q: make.name.parameterize.downcase)}", icon: "fa fa-angle-right", priority: "0.3.#{index+3}".to_f
       end
     end
 

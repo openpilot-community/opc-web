@@ -5,25 +5,6 @@ class ScrapeCarsWorker
     vc = VehicleConfig.find(vcid)
     if vc.present?
       year_range = vc.year_range
-      if !vc.image.attached?
-        begin
-          year = year_range.first
-          make_name_parameter = vc.vehicle_make.name.parameterize(separator: '_').downcase
-          model_name_parameter = vc.vehicle_model.name.gsub('-',' ').parameterize(separator: '_').downcase
-          model_parameter = "#{make_name_parameter}-#{model_name_parameter}-#{year}"
-          trim_info = Cars::Vehicle.retrieve("#{model_parameter}/trims")
-          image_url = trim_info[:image]
-          tempfile = Down.download(image_url)
-          
-          vc.image.attach(
-            io: tempfile,
-            filename: "#{slug}.#{tempfile.original_filename}",
-            content_type: tempfile.content_type
-          )
-        rescue
-          puts "Failed to scrape image"
-        end
-      end
       
       begin
         year_range.each do |curr_year|

@@ -172,13 +172,13 @@ class VehicleConfig < ApplicationRecord
   # def difficulty_level
   #   vehicle_config_type.difficulty_level
   # end
-  before_save :set_min_difficulty
+  # before_save :set_min_difficulty
 
-  def set_min_difficulty
-    if vehicle_config_capabilities.present?
-      self.vehicle_config_type = vehicle_config_capabilities.includes(:vehicle_config_type).order("vehicle_config_types.difficulty_level DESC").map{|vcc| vcc.vehicle_config_type }.first
-    end
-  end
+  # def set_min_difficulty
+  #   if vehicle_config_capabilities.present?
+  #     self.vehicle_config_type = vehicle_config_capabilities.includes(:vehicle_config_type).where.not("vehicle_config_types.name is 'Factory'").order("vehicle_config_types.difficulty_level ASC").map{|vcc| vcc.vehicle_config_type }.first
+  #   end
+  # end
   def self.find_by_ymm(year, make, model)
     results = where(%(
       (

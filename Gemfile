@@ -30,7 +30,6 @@ gem 'pundit'
 gem 'selenium-webdriver'
 gem 'chromedriver-helper'
 gem 'watir'
-gem 'pincers'
 gem 'omniauth-github'
 gem "aws-sdk-s3", require: false
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -74,11 +73,14 @@ group :development, :test do
   # gem 'cars', :path => '/Users/joshua/Projects/cars_abstraction'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem "capistrano", "~> 3.10", require: false
+  gem "capistrano-rails", "~> 1.4", require: false
 end
+
 group :production do
 end
 group :development do
-gem 'rubocop'
+  gem 'rubocop'
   # Access an IRB console on exception pages or by using <%= console %> in views
   # gem 'web-console', '~> 2.0'
 

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get '/lookup' => "vehicle_lookups_admin/admin#new"
   get "/research" => "vehicle_configs_admin/admin#index"
   get "/research/make/:q" => "vehicle_configs_admin/admin#index", as: "research_make"
+  get "/research/top" => "vehicle_configs_admin/admin#index", as: "research_top", default: { order: "desc", sort: "cached_votes_score"}
   get "/research/:id" => "vehicle_configs_admin/admin#show", as: "research_show"
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

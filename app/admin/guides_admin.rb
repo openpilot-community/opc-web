@@ -1,7 +1,4 @@
 Trestle.resource(:guides) do
-  menu do
-    item :guides, icon: "fa fa-pencil", group: :admin, priority: :last
-  end
 
   controller do
     # before_action :set_current_user, only: ['create','update']

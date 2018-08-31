@@ -1,7 +1,5 @@
 Trestle.resource(:vehicle_lookups) do
-  menu do
-    item :vehicle_lookups, icon: "fa fa-star", group: :admin
-  end
+
 
   form do |vehicle_lookup|
     row do

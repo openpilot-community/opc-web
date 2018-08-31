@@ -1,7 +1,4 @@
 Trestle.resource(:contributors) do
-  menu do
-    item :contributors, icon: "fa fa-users", group: :development
-  end
   scope :all, -> { Contributor.order(:contributions => :desc) }, default: true
   
   # Customize the table columns shown on the index view.

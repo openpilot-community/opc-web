@@ -1,7 +1,4 @@
 Trestle.resource(:tools) do
-  menu do
-    item :tools, icon: "fa fa-wrench", group: :admin
-  end
 
   # Customize the table columns shown on the index view.
   #

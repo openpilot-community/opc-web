@@ -1,9 +1,5 @@
 Trestle.resource(:hardware_items) do
-  menu do
-    group :admin, priority: 999 do
-      item :hardware_items, icon: "fa fa-microchip", label: "Hardware Items"
-    end
-  end
+  
 
   # Customize the table columns shown on the index view.
   #

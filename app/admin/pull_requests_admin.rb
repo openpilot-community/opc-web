@@ -1,9 +1,5 @@
 Trestle.resource(:pull_requests) do
-  menu do
-    group :development do
-      item :pull_requests, icon: "fa fa-github"
-    end
-  end
+  
   scope :all, -> { PullRequest.order(:pr_updated_at => :desc) }, default: true
   
   # Customize the table columns shown on the index view.

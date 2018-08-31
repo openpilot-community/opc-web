@@ -1,18 +1,5 @@
 Trestle.resource(:vehicle_configs) do
 
-  menu do
-  #   byebug
-    group :vehicles, priority: :first do
-      item :vehicle_configs, "/research", icon: "fa fa-book-open", group: :vehicles, label: "Research / Support", priority: :first
-    end
-    group :vehicles_by_make do
-      item :top_vehicle_configs, '/vehicle_configs?order=desc&sort=cached_votes_score', icon: "fa fa-star", group: :vehicles, label: "Top Voted Vehicles", priority: 2
-      VehicleMake.with_configs.each do |make|
-        item make.name.parameterize.to_sym, "#{Rails.application.routes.url_helpers.research_make_url(q: make.name.parameterize.downcase)}", icon: "fa fa-chevron-right"
-      end
-    end
-  end
-
   ########
   # SCOPES
   ########

@@ -1,7 +1,4 @@
 Trestle.resource(:vehicle_capabilities) do
-  menu do
-    item :vehicle_capabilities, icon: "fa fa-star", group: :admin
-  end
   
   scope :all, -> { VehicleCapability.order("name") }, default: true
   

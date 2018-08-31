@@ -1,8 +1,5 @@
 Trestle.resource(:vehicle_config_types) do
-  
-    menu do
-      item :vehicle_config_types, icon: "fa fa-star", group: :admin, label: "Support Levels"
-    end
+
 
   # Customize the table columns shown on the index view.
   #

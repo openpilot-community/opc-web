@@ -314,6 +314,7 @@ Trestle.resource(:vehicle_configs) do
         # vct_standard = VehicleConfigType.find_by(name: 'Standard')
         # vct_basic = VehicleConfigType.find_by(name: 'Basic')
         # vct_advanced = VehicleConfigType.find_by(name: 'Advanced')
+        render inline: content_tag(:div, "This area is a work in progress and isn't functioning as intended.", class: "alert alert-warning")
         table vehicle_capabilities_common, admin: :vehicle_capabilities_admin do
           column :name, header: "Common Capabilities"
           config_types.each do |type|
@@ -465,8 +466,11 @@ Trestle.resource(:vehicle_configs) do
 
       sidebar do
         make = vehicle_config.vehicle_make
-
-        collection_select :vehicle_config_type_id, vehicle_config.vehicle_config_type.blank? ? [] : VehicleConfigType.order(:name), :id, :name, include_blank: true, label: "Min. Difficulty"
+        if vehicle_config.image.attached?
+          render inline: image_tag(vehicle_config.image.service_url, class: "profile-image")
+          render inline: content_tag(:div, nil, {style: "margin-top:10px;"})
+        end
+        collection_select :vehicle_config_type_id, VehicleConfigType.order(:name), :id, :name, include_blank: true, label: "Minimum Difficulty"
         slack_channel = make.slack_channel
         # byebug
         if slack_channel.present?
@@ -475,10 +479,7 @@ Trestle.resource(:vehicle_configs) do
           render inline: link_to("<span class=\"fa fa-slack\"></span> comma".html_safe,"slack://channel?team=comma", class: "btn btn-slack btn-block")
         end
         render inline: content_tag(:div, nil, {style: "margin-top:10px;"})
-        if vehicle_config.image.attached?
-          render inline: image_tag(vehicle_config.image.service_url, class: "profile-image")
-          render inline: content_tag(:div, nil, {style: "margin-top:10px;"})
-        end
+        
         if !vehicle_config.vehicle_config_videos.blank?
           render inline: vehicle_config.vehicle_config_videos.first.video.html.html_safe
           render inline: content_tag(:div, nil, {style: "margin-top:10px;"})

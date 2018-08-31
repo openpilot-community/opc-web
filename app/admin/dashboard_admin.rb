@@ -12,13 +12,14 @@ Trestle.admin(:dashboard) do
       item :pull_requests, '/pull_requests', icon: "fa fa-github", priority:1
       item :repositories, '/repositories', icon: "fa fa-github"
       item :videos, '/videos', icon: "fa fa-play"
-      item :slack, 'https://comma.slack.com/', icon: "fa fa-slack"
+      item :slack, 'https://comma.slack.com/'
       item :contributors, '/contributors', icon: "fa fa-users"
     end
 
     group :tools do
       item :cabana, 'https://community.comma.ai/cabana', icon: "fa fa-bug", priority:2
       item :explorer, 'https://my.comma.ai/', icon: "fa fa-play"
+      item :drive_viewer, 'https://community.comma.ai/explorer.php', icon: "fa fa-road"
     end
 
     group :admin do

@@ -258,6 +258,7 @@ Trestle.resource(:vehicle_configs) do
     
       if vehicle_config.persisted?
         collection_select :vehicle_make_package_id, VehicleMakePackage.where(vehicle_make: vehicle_config.vehicle_make).order(:name), :id, :name, include_blank: true, label: "Required Factory Installed Option"
+        text_field :source_image_url, label: "Image"
       end
     end
 

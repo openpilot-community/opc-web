@@ -168,7 +168,13 @@ class VehicleConfig < ApplicationRecord
   # FORK CONFIGURATION
   amoeba do
   end
+  after_save :set_image_scraper
 
+  def set_image_scraper
+    if saved_change_to_source_image_url?
+      DownloadImageFromSourceWorker.perform_async(id,VehicleConfig)
+    end
+  end
   # def difficulty_level
   #   vehicle_config_type.difficulty_level
   # end

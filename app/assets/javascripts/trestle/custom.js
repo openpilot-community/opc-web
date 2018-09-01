@@ -290,7 +290,13 @@ $(Trestle).on("init",function() {
           }
       }, this))
   }
+  var $buttonToMove = $("body.controller-admin-vehicle-configs.action-index .btn.btn-default.btn-lg");
+  var $navItem = $("body.controller-admin-vehicle-configs.action-index .app-nav .vehicles .nav-header");
 
+  if (!$(".app-wrapper").hasClass("is-visitor")) {
+    $buttonToMove.insertAfter($navItem)
+    $buttonToMove.find("span.sr-only").removeClass("sr-only").text("Add New Vehicle");
+  }
   $elems['repositories'] = $("#vehicle_config_repository_repository_id");
   $elems['repository_branches'] = $("#vehicle_config_repository_repository_branch_id");
   $elems['trims'] = $('select#vehicle_config_vehicle_trim_id');

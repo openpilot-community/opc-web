@@ -1,5 +1,6 @@
 @import "variables";
 body.controller-admin-vehicle-configs {
+  
   .edit_vehicle_config {
     .app-wrapper {
       &.is-visitor, &.is_editor, &.is_admin {
@@ -23,8 +24,28 @@ body.controller-admin-vehicle-configs {
     } 
   }
   &.action-index {
-    .content-header {
+    .app-nav {
+      .btn-lg {
+        font-size: 12px;
+        line-height: 1.5em;
+        background-color: #000;
+        background-image: linear-gradient(-180deg, #212121 0%, #0e0e0e 90%);
+        color: rgba(255,255,255,0.9);
+        margin: 12px auto;
+        width: 90%;
+        display: block;
+        border: 1px solid rgba(255,255,255,0.05);
+      }
+    }
+    .app-wrapper .app-main {
+      padding-top: 50px;
+    }
+    .app-wrapper h1.path-heading {
       display:none;
+    }
+    .content-header {
+      display:block;
+      padding: 0;
     }
     .app-wrapper .main-content {
       padding:0;

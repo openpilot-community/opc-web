@@ -362,8 +362,8 @@ class VehicleConfig < ApplicationRecord
           {
             :icon => "fa fa-hourglass",
             :color => "info",
-            :tooltip => (!latest_open_pull_request.blank?) ? "#{vehicle_config_status.name} ##{latest_open_pull_request.number}" : vehicle_config_status.name,
-            :url => (!latest_open_pull_request.blank?) ? latest_open_pull_request.html_url : nil,
+            :tooltip => (!primary_pull_request.blank?) ? "#{vehicle_config_status.name} ##{primary_pull_request.number}" : vehicle_config_status.name,
+            :url => (!primary_pull_request.blank?) ? primary_pull_request.html_url : nil,
             :label => (!latest_repo.blank?) ? "#{latest_repo.full_name}#{latest_repo_branch.blank? ? nil : '#' + latest_repo_branch.name}" : nil,
           }
         when "Upstreamed"
@@ -429,7 +429,7 @@ class VehicleConfig < ApplicationRecord
   #   end
   # end
 
-  # def latest_open_pull_request
+  # def primary_pull_request
   #   if !vehicle_config_pull_requests.blank?
   #     if open_prs = vehicle_config_pull_requests.joins(:pull_request).where(pull_requests: { state: "open" }).order("pull_requests.number DESC")
   #       if !open_prs.blank?

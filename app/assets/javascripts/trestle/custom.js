@@ -299,7 +299,9 @@ $(Trestle).on("init",function() {
   }
   $elems['repositories'] = $("#vehicle_config_repository_repository_id");
   $elems['repository_branches'] = $("#vehicle_config_repository_repository_branch_id");
-  $elems['trims'] = $('select#vehicle_config_vehicle_trim_id');
+  $elems['vehicle_configs'] = $("select#user_vehicle_vehicle_config_id");
+  $elems['trims'] = $('select#vehicle_config_vehicle_trim_id,select#user_vehicle_vehicle_trim_id');
+  $elems['trim_styles'] = $('select#vehicle_config_vehicle_trim_style_id,select#user_vehicle_vehicle_trim_style_id');
   $elems['years'] = $('select#vehicle_config_year,select#vehicle_lookup_year');
   $elems['makes'] = $('select#vehicle_config_vehicle_make_id,select#vehicle_lookup_vehicle_make_id');
   $elems['models'] = $('select#vehicle_config_vehicle_model_id,select#vehicle_lookup_vehicle_model_id');
@@ -328,6 +330,36 @@ $(Trestle).on("init",function() {
         return $elems["models"].html(options);
       } else {
         return $elems["models"].empty();
+      }
+    });
+  }
+  var getTrimsForVehicleConfig = function(vehicle_config) {
+    $.getJSON("/vehicle_configs/trims.json?vehicle_config=" + vehicle_config).then(function(records) {
+      var options = records.map(function(record) {
+        return $("<option value=\"" + record.id + "\">" + record.name + "</option>");
+      });
+      options.unshift($("<option value=\"\">Select your trim</option>"));
+      if (options) {
+        $elems["trims"].select2("val","");
+        
+        return $elems["trims"].html(options);
+      } else {
+        return $elems["trims"].empty();
+      }
+    });
+  }
+  var getTrimStylesForTrim = function(trim) {
+    $.getJSON("/vehicle_trim_styles.json?trim=" + trim).then(function(records) {
+      var options = records.map(function(record) {
+        return $("<option value=\"" + record.id + "\">" + record.name + "</option>");
+      });
+      options.unshift($("<option value=\"\">Select your trim style</option>"));
+      if (options) {
+        $elems["trim_styles"].select2("val","");
+        
+        return $elems["trim_styles"].html(options);
+      } else {
+        return $elems["trim_styles"].empty();
       }
     });
   }
@@ -389,6 +421,26 @@ $(Trestle).on("init",function() {
     repository = $this.val();
     // // console.log(options);
     getBranchesForRepository(repository);
+  });
+  $elems['vehicle_configs'].change(function() {
+    var $this = $(this);
+    $optionsParent = $this.find('.select2-selection__rendered');
+
+    sortUsingNestedText($optionsParent,'li','li:text');
+    var vehicle_config, options;
+    vehicle_config = $this.val();
+    // // console.log(options);
+    getTrimsForVehicleConfig(vehicle_config);
+  });
+  $elems['trims'].change(function() {
+    var $this = $(this);
+    $optionsParent = $this.find('.select2-selection__rendered');
+
+    sortUsingNestedText($optionsParent,'li','li:text');
+    var trim, options;
+    trim = $this.val();
+    // // console.log(options);
+    getTrimStylesForTrim(trim);
   });
   function sortUsingNestedText(parent, childSelector, keySelector) {
       var items = parent.children(childSelector).sort(function(a, b) {

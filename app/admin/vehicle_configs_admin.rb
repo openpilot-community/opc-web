@@ -135,6 +135,23 @@ Trestle.resource(:vehicle_configs) do
       )
       super
     end
+    def trims
+      # byebug
+      if !params['vehicle_config'].blank?
+        collection = VehicleConfig.find(params['vehicle_config'].to_i).trim_styles.map do |trim_style|
+          {
+            id: trim_style.vehicle_trim.id,
+            name: trim_style.vehicle_trim.name_for_list
+          }
+        end.uniq
+      end
+
+      respond_to do |format|
+        format.html
+        format.json { render json: collection }
+        format.js
+      end
+    end
 
     def refreshing_status
       self.instance = admin.find_instance(params)
@@ -213,6 +230,7 @@ Trestle.resource(:vehicle_configs) do
     get :vote, :on => :member
     delete :quick_delete, :on => :member
     get :refreshing_status, :on => :member
+    get :trims, :on => :collection
   end
 
   table do |a|

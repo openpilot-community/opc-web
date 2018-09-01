@@ -53,6 +53,17 @@ Trestle.resource(:vehicle_trims) do
   end
 
   controller do
+    def index
+      # byebug
+      if !params['vehicle_config'].blank?
+        collection = VehicleTrim.where(vehicle_config: VehicleConfig.find(params['vehicle_config'].to_i))
+      end
+      respond_to do |format|
+        format.html
+        format.json { render json: collection }
+        format.js
+      end
+    end
     def quick_add
       vehicle_config_root = admin.find_instance(params).root
       new_config = vehicle_config_root.fork_config

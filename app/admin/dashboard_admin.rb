@@ -41,6 +41,7 @@ Trestle.admin(:dashboard) do
     group :super_admin do
       item :vehicle_lookups, icon: "fa fa-star", priority:4
       item :users, '/users', icon: "fa fa-users"
+      item :user_vehicles, icon: "fa fa-star"
     end
   end
 

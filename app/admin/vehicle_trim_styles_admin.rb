@@ -13,6 +13,24 @@ Trestle.resource(:vehicle_trim_styles) do
 
   # Customize the form fields shown on the new/edit views.
   #
+  controller do
+    def index
+      # byebug
+      if !params['trim'].blank?
+        selected_trim = VehicleTrim.find(params['trim'])
+        
+        if selected_trim.blank?
+          return
+        end
+        collection = selected_trim.vehicle_trim_styles
+      end
+      respond_to do |format|
+        format.html
+        format.json { render json: collection }
+        format.js
+      end
+    end
+  end
   form(dialog: true) do |vehicle_trim_style|
     tab :general do
       text_field :name

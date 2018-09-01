@@ -316,6 +316,11 @@ Trestle.resource(:vehicle_configs) do
         # vct_advanced = VehicleConfigType.find_by(name: 'Advanced')
         render inline: content_tag(:div, "This area is a work in progress and isn't functioning as intended.", class: "alert alert-warning")
         table vehicle_capabilities_common, admin: :vehicle_capabilities_admin do
+          column :icon, class: "icon" do |instance|
+            content_tag(:span, class: "icon-wrap") do
+              image_tag(asset_url("/assets/capabilities/#{instance.name.parameterize}.svg"),width:100,height:100)
+            end
+          end
           column :name, header: "Common Capabilities"
           config_types.each do |type|
           column type.name.parameterize.to_sym, 
@@ -340,6 +345,11 @@ Trestle.resource(:vehicle_configs) do
         end if vehicle_capabilities_common.present?
           
           table vehicle_capabilities_uncommon, admin: :vehicle_capabilities_admin do
+            column :icon, class: "icon" do |instance|
+              content_tag(:span, class: "icon-wrap") do
+                image_tag(asset_url("/assets/capabilities/#{instance.name.parameterize}.svg"),width:100,height:100)
+              end
+            end
             column :name, header: "Common Capabilities"
             config_types.each do |type|
               column type.name.parameterize.to_sym, 

@@ -34,7 +34,7 @@ Trestle.admin(:dashboard) do
       item :vehicle_config_statuses, icon: "fa fa-star", label: "Support Statuses", priority:3.6
       item :tools, '/tools', icon: "fa fa-wrench", priority:3.7
       item :vehicle_make_packages, '/vehicle_make_packages', icon: "fa fa-star",label: "Makes Packages", priority:3.8
-      item :vehicle_config_types, '/vehicle_config_types', icon: "fa fa-star", label: "Support Levels", priority:3.9
+      item :vehicle_config_types, '/vehicle_config_types', icon: "fa fa-star", label: "Difficulty Levels", priority:3.9
     end
 
     group :super_admin do

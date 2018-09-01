@@ -348,7 +348,7 @@ class VehicleConfig < ApplicationRecord
             :color => "danger",
             :url => latest_repo.blank? ? nil : latest_repo.url,
             :tooltip => "Community Supported in #{latest_repo.blank? ? nil : latest_repo.full_name}",
-            :label => "#{latest_repo.blank? ? nil : latest_repo.full_name}#{latest_repo_branch.blank? ? nil : '#' + latest_repo_branch.name}"
+            :label => "#{latest_repo.blank? ? nil : latest_repo.full_name}"
           }
         when "In Development"
           {
@@ -356,7 +356,7 @@ class VehicleConfig < ApplicationRecord
             :color => "warning",
             :tooltip => vehicle_config_status.name,
             :url => (!latest_repo.blank?) ? latest_repo.url : nil,
-            :label => (!latest_repo.blank?) ? "#{latest_repo.full_name}#{latest_repo_branch.blank? ? nil : '#' + latest_repo_branch.name}" : nil
+            :label => (!latest_repo.blank?) ? "#{latest_repo.full_name}" : nil
           }
         when "Pull Request"
           {
@@ -364,7 +364,7 @@ class VehicleConfig < ApplicationRecord
             :color => "info",
             :tooltip => (!primary_pull_request.blank?) ? "#{vehicle_config_status.name} ##{primary_pull_request.number}" : vehicle_config_status.name,
             :url => (!primary_pull_request.blank?) ? primary_pull_request.html_url : nil,
-            :label => (!latest_repo.blank?) ? "#{latest_repo.full_name}#{latest_repo_branch.blank? ? nil : '#' + latest_repo_branch.name}" : nil,
+            :label => (!latest_repo.blank?) ? "#{latest_repo.full_name}" : nil,
           }
         when "Upstreamed"
           {
@@ -372,7 +372,7 @@ class VehicleConfig < ApplicationRecord
             :color => "success",
             :tooltip => "Upstreamed to commaai/openpilot",
             :url => (!latest_repo.blank?) ? latest_repo.url : nil,
-            :label => (!latest_repo.blank?) ? "#{latest_repo.full_name}#{latest_repo_branch.blank? ? nil : '#' + latest_repo_branch.name}" : nil,
+            :label => (!latest_repo.blank?) ? "#{latest_repo.full_name}" : nil,
           }
         when "Researching"
           {

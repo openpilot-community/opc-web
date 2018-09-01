@@ -22,6 +22,7 @@ Trestle.admin(:dashboard) do
       item :cabana, 'https://community.comma.ai/cabana', icon: "fa fa-bug", priority:2
       item :explorer, 'https://my.comma.ai/', icon: "fa fa-road", priority:2.1
       item :driving_explorer, 'https://community.comma.ai/explorer.php', icon: "fa fa-play", priority: 2.2
+      item :slack_archives, 'http://comma.advil0.com/', icon: 'fa fa-slack', priority: 2.3
     end
 
     group :admin do

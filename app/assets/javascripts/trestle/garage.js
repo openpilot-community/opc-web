@@ -62,6 +62,7 @@ $(Trestle).on("init",function() {
       $messageText.text("Owned");
       $this.removeClass('user-not-owns').addClass("user-owns");
     }
+    
     if (new_value === 1) {
       new_message = "<span>1</span> person owns this vehicle.";
     } else {

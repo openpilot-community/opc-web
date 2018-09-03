@@ -104,6 +104,8 @@ var setupVehicleConfigYear = function() {
       $(".main-content .form-control,.modal-body .form-control").attr('disabled',true);
     }
 
+    
+
     if (should_show_trim_styles) {
       var $trimStylesTab = $("a[data-toggle='tab'][href='#tab-trim_styles']");
       
@@ -124,17 +126,7 @@ var setupVehicleConfigYear = function() {
   var $year_end_select2_container = $year_end_column.find('.select2-container');
   var $year_range = $('.col-class-year-range');
   var $add_year_end_link = $("<a class=\"year-end-link\" href=\"javascript:void(0);\">+ Add End Year</a>");
-  // var $vehicle_make = $("#vehicle_config_vehicle_make_id").select2();
-  // var $vehicle_model = $("#vehicle_config_vehicle_model_id").select2();
-  // console.warn("$year_start:", $year_start);
-  // console.warn("$year_start_column:", $year_start);
-  // console.warn("$year_start_select2_container:", $year_start);
-  // console.warn("$year_end:", $year_end);
-  // console.warn("$year_end_column:", $year_end);
-  // console.warn("$year_end_select2_container:", $year_end);
-
-  // console.warn("$year_range:", $year_range);
-  // console.warn("$add_year_end_link:", $add_year_end_link);
+  
   var onYearOpen = function(ev) {
     console.warn("onYearOpen");
     $year_range.addClass('open');
@@ -319,6 +311,9 @@ $(Trestle).on("init",function() {
     } else {
       $elems['lookupSubmitBtn'].attr('disabled',true);
     }
+  }
+  if ($("body").hasClass("controller-admin-vehicle-lookups action-new")) {
+    $elems['years'].attr('disabled',false);
   }
   var getModelsForMake = function(make) {
     $.getJSON("/vehicle_models.json?make=" + make).then(function(records) {

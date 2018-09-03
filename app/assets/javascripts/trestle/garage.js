@@ -37,7 +37,8 @@ $(Trestle).on("init",function() {
     // var $ownMessage = $this.find(".own-message");
     var $messageText = $this.find(".message-text");
     var $parent = $this.parents(".owners-column");
-    var $value = $parent.find(".message > span");
+    var $message = $parent.find(".message");
+    var $value = $message.find("> span");
     var new_value;
     var value = parseInt($value.text());
     // console.log($value);
@@ -50,14 +51,24 @@ $(Trestle).on("init",function() {
       }
       $value.text(new_value);
       $messageText.text("Own");
+      new_message = "";
+      
       $this.removeClass('user-owns').addClass("user-not-owns");
 
     } else {
+      new_value = value + 1;
       $icon.removeClass('fa-plus').addClass('fa-check');
-      $value.text(value+1);
+      $value.text(new_value);
       $messageText.text("Owned");
       $this.removeClass('user-not-owns').addClass("user-owns");
     }
+    if (new_value === 1) {
+      new_message = "<span>1</span> person owns this vehicle.";
+    } else {
+      new_message = "<span>" + new_value + "</span> people own this vehicle.";
+    }
+
+    $message.html(new_message);
     // try {
     //   Trestle.activeDialog.hide();
     //   Trestle.activeDialog.setContent(null);

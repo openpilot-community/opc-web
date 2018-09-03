@@ -5,4 +5,8 @@ class ModificationHardwareTypeHardwareItem < ApplicationRecord
   def name
     "#{modification_hardware_type.name} #{hardware_item.name}"
   end
+
+  def hardware_item_names
+
+  end
 end

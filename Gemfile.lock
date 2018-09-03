@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/jfrux/trestle
-  revision: cdca22cd892d37785e1ff45ee2f432f6bf621548
+  revision: 9dc68956cc68271f365a0b3ade339739779cdfb0
   specs:
     trestle (0.8.10)
       activemodel (>= 4.2.0)

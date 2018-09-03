@@ -30,6 +30,9 @@ Trestle.resource(:vehicle_lookups) do
     skip_before_action :authenticate_user!, :only => [:new, :create, :show, :refreshing_status]
     skip_before_action :require_edit_permissions!, :only => [:new, :create, :show]
     def new
+      if params[:garage]
+        session[:add_to_garage] = true
+      end
       @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support", "/lookup")])
       
       set_meta_tags og: {
@@ -106,11 +109,20 @@ Trestle.resource(:vehicle_lookups) do
 
     def set_vehicle_config_and_scrape
       create_vc
+      
+      if current_user.present? && session[:add_to_garage]
+        byebug
+        new_user_vehicle = UserVehicle.find_or_initialize_by(user_id: current_user.id, vehicle_config_id: @vc.id)
+
+        new_user_vehicle.save
+      end
+      session[:add_to_garage] = false
       ScrapeCarsWorker.perform_async(@vc.id)
     end
 
     def create
       self.instance = admin.build_instance(permitted_params, params)
+      
       if admin.save_instance(instance)
         # SAVED
         respond_to do |format|

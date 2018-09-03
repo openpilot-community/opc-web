@@ -1,3 +1,5 @@
+//= require_self
+//= require ./garage
 var originalAddClassMethod = jQuery.fn.addClass;
 var originalRemoveClassMethod = jQuery.fn.removeClass;
 function pollRefreshingStatus(){
@@ -299,7 +301,7 @@ $(Trestle).on("init",function() {
   }
   $elems['repositories'] = $("#vehicle_config_repository_repository_id");
   $elems['repository_branches'] = $("#vehicle_config_repository_repository_branch_id");
-  $elems['vehicle_configs'] = $("select#user_vehicle_vehicle_config_id");
+  $elems['vehicle_configs'] = $("#user_vehicle_vehicle_config_id");
   $elems['trims'] = $('select#vehicle_config_vehicle_trim_id,select#user_vehicle_vehicle_trim_id');
   $elems['trim_styles'] = $('select#vehicle_config_vehicle_trim_style_id,select#user_vehicle_vehicle_trim_style_id');
   $elems['years'] = $('select#vehicle_config_year,select#vehicle_lookup_year');
@@ -432,6 +434,11 @@ $(Trestle).on("init",function() {
     // // console.log(options);
     getTrimsForVehicleConfig(vehicle_config);
   });
+
+  if ($elems['vehicle_configs'].val()) {
+    getTrimsForVehicleConfig($elems['vehicle_configs'].val());
+  }
+
   $elems['trims'].change(function() {
     var $this = $(this);
     $optionsParent = $this.find('.select2-selection__rendered');

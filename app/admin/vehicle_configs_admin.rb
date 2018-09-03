@@ -196,6 +196,29 @@ Trestle.resource(:vehicle_configs) do
       end
     end
 
+    def add_to_user
+      self.instance = admin.find_instance(params)
+      # byebug
+      if params['vehicle_trim_style_id'].present?
+        vehicle_trim_style = VehicleTrimStyle.find(params['vehicle_trim_style_id']);
+      end
+      if vehicle_trim_style.present?
+        new_user_vehicle = UserVehicle.find_or_initialize_by(user_id: current_user.id, vehicle_config_id: instance.id, vehicle_trim_id: vehicle_trim_style.vehicle_trim.id, vehicle_trim_style_id: params['vehicle_trim_style_id'])
+      else
+        new_user_vehicle = UserVehicle.find_or_initialize_by(user_id: current_user.id, vehicle_config_id: instance.id)
+      end
+      if (new_user_vehicle.new_record?)
+        new_user_vehicle.save!
+      else
+        new_user_vehicle.destroy()
+      end
+      
+      respond_to do |format|
+        format.html { redirect_to :back }
+        format.json { render json: new_user_vehicle, status: 200 }
+      end
+    end
+
     def quick_add
       self.instance = admin.find_instance(params)
       # byebug
@@ -228,6 +251,7 @@ Trestle.resource(:vehicle_configs) do
     get :clone, :on => :member
     post :quick_add, :on => :member
     get :vote, :on => :member
+    get :add_to_user, :on => :member
     delete :quick_delete, :on => :member
     get :refreshing_status, :on => :member
     get :trims, :on => :collection
@@ -253,6 +277,35 @@ Trestle.resource(:vehicle_configs) do
     end
     column :vehicle, class: "details-column" do |vehicle_config|
       render "vehicle_config_details", instance: vehicle_config
+    end
+    column :owners, class: 'owners-column' do |vehicle_config|
+      if current_user.present?
+        owns_this_vehicle = current_user.vehicles.where(vehicle_config_id: vehicle_config.id).count > 0
+      else
+        owns_this_vehicle = false
+      end
+      
+      # if current_user.present?
+        if owns_this_vehicle
+          icon_image = "<span class=\'fa fa-check\'></span> <span class=\"message-text\">Owned</span>".html_safe
+        else
+          icon_image = "<span class=\'fa fa-plus\'></span> <span class=\"message-text\">Own</span>".html_safe
+        end
+
+        link_to(
+          icon_image, 
+          add_to_user_vehicle_configs_admin_url(
+            vehicle_config.id,
+            format: :json
+          ),
+          remote: true,
+          data: {
+            :toggle_link => true
+          },
+          id: "add_to_garage_vc_#{vehicle_config.id}", 
+          class: "btn btn-default btn-own add-vc-link #{owns_this_vehicle ? 'user-owns' : 'user-not-owns'}"
+        ) + "<span class=\"message\"><span>#{vehicle_config.user_count}</span> #{vehicle_config.user_count == 1 ? 'person' : 'people'} #{vehicle_config.user_count == 1 ? 'owns' : 'own'} this vehicle.</span>".html_safe
+      # end
     end
     # column :trim_styles_count, header: "Trims", sort: false
     actions
@@ -314,6 +367,35 @@ Trestle.resource(:vehicle_configs) do
                 end
               end
               column :price
+              column :add_to_garage, align: :center, class: "garage-column" do |instance|
+                # byebug
+                if current_user.present?
+                  if current_user.vehicles.where(vehicle_trim_style_id: instance.id).count > 0
+                    icon_image = '<span class=\'fa fa-check\'></span>'.html_safe
+                  else
+                    icon_image = '<span class=\'fa fa-plus\'></span>'.html_safe
+                  end
+                else
+                  icon_image = '<span class=\'fa fa-plus\'></span>'.html_safe
+                end
+          
+                link_to(
+                  icon_image, 
+                  add_to_user_vehicle_configs_admin_url(
+                    vehicle_config.id, 
+                    format: :json, 
+                    params: { 
+                      vehicle_trim_style_id: instance.id
+                    }
+                  ),
+                  remote: true,
+                  data: {
+                    :toggle_link => true
+                  },
+                  id: "trim_style_#{instance.id}", 
+                  class: "add-trim-link"
+                )
+              end
               # column :driver_assisted_style_names, header: "ACC/LKAS Trim(s) Option or Standard"
               # column :has_driver_assist?, header: "Available Driver Assist", align: :center
               # column :speed
@@ -404,8 +486,30 @@ Trestle.resource(:vehicle_configs) do
         }
         
         table vehicle_config.vehicle_config_modifications.includes(:modification).order('modifications.name'), admin: :vehicle_config_modifications do
+          # column :image, dialog: true do |instance|
+          #   begin
+          #     hardware_items = instance.modification.modification_hardware_types.map{|mht| mht.modification.hardware_types.map{|ht| ht.hardware_items.map{|hi| { image: hi.image, name: hi.name, purchase_url: hi.purchase_url } }}}.flatten
+          #     if hardware_items.present?
+          #       first_item = hardware_items.first
+          #       image_tag(first_item.image.service_url)
+          #     end
+          #   rescue
+
+          #   end
+          # end
           column :modification, dialog: true
-          column :hardware_item_names
+          column :purchase_required_hardware do |instance|
+            # byebug
+            begin
+              hardware_items = instance.modification.modification_hardware_types.map{|mht| mht.modification.hardware_types.map{|ht| ht.hardware_items.map{|hi| { image: hi.image, name: hi.name, purchase_url: hi.purchase_url } }}}.flatten
+              if hardware_items.present?
+                first_item = hardware_items.first
+                link_to("<span class=\"fa fa-shopping-cart\"></span> Buy #{first_item[:name]}".html_safe, first_item[:purchase_url], class: "btn btn-success", target: "_blank")
+              end
+            rescue
+
+            end
+          end
         end
       end
 
@@ -498,6 +602,7 @@ Trestle.resource(:vehicle_configs) do
           render inline: image_tag(vehicle_config.image.service_url, class: "profile-image")
           render inline: content_tag(:div, nil, {style: "margin-top:10px;"})
         end
+        
         collection_select :vehicle_config_type_id, VehicleConfigType.order(:name), :id, :name, include_blank: true, label: "Minimum Difficulty"
         slack_channel = make.slack_channel
         # byebug

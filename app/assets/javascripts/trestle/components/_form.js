@@ -32,14 +32,7 @@ if (Trestle) {
             // Focus the correct tab
             Trestle.focusActiveTab();
 
-            if (form.attr('data-remote')) {
-              try {
-                Trestle.activeDialog.hide();
-                Trestle.activeDialog.setContent(null);
-              } catch (e) {
-                console.warn(e);
-              }
-            }
+            
           }
         } else {
           // Assume an error response

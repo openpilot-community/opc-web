@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root "vehicle_configs_admin/admin#index"
   get '/lookup' => "vehicle_lookups_admin/admin#new"
+  get '/garage' => "user_vehicles_admin/admin#index"
   get "/research" => "vehicle_configs_admin/admin#index"
   get "/research/make/:q" => "vehicle_configs_admin/admin#index", as: "research_make"
   get "/research/top" => "vehicle_configs_admin/admin#index", as: "research_top", default: { order: "desc", sort: "cached_votes_score"}

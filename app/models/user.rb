@@ -17,7 +17,7 @@ require 'open-uri'
 class User < ApplicationRecord
   has_one_attached :avatar
   acts_as_voter
-  has_many :vehicles, :class_name => "user_vehicle"
+  has_many :vehicles, :class_name => "UserVehicle"
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :omniauthable, omniauth_providers: %i[github]
@@ -25,7 +25,9 @@ class User < ApplicationRecord
   belongs_to :user_role
   # before_create :set_role
 
-
+  def at_username
+    "@#{github_username}"
+  end
   def is_visitor?
     user_role.name == 'Visitor'
   end

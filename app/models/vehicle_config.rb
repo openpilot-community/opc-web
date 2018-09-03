@@ -108,7 +108,7 @@ class VehicleConfig < ApplicationRecord
   has_one_attached :image
   acts_as_votable
   has_paper_trail
-  paginates_per 400
+  paginates_per 10
 
   # default_scope { includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level") }
   

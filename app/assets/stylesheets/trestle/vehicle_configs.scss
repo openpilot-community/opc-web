@@ -1,5 +1,8 @@
 @import "variables";
-body.controller-admin-vehicle-configs {
+body.controller-admin-user-vehicles {
+
+}
+body.controller-admin-vehicle-configs,body.controller-admin-user-vehicles {
   
   .edit_vehicle_config {
     .app-wrapper {
@@ -51,6 +54,38 @@ body.controller-admin-vehicle-configs {
       padding:0;
     }
     .trestle-table {
+      .owners-column {
+        cursor:default;
+        a.btn {
+          opacity: 1;
+          padding: 0 6px 0 4px;
+          font-size: 12px;
+          width: 70px;
+        }
+        a.btn.user-not-owns {
+          cursor:pointer;
+          background-image: linear-gradient(-180deg, #fafbfc 0%, #eff3f6 90%);
+        }
+        a.btn.user-owns {
+          background-image: linear-gradient(-180deg, darken($blue,4) 0%, darken($blue,8) 90%);
+          color: #FFF;
+          
+        }
+        span.message {
+          display:block;
+        }
+        > span {
+          // display:block;
+          // text-align:center;
+          font-size:12px;
+          &.key {
+            font-size:12px;
+            color:#555;
+          }
+          &.value {
+          }
+        }
+      }
       th {
         padding:0;
         display:none;

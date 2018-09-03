@@ -5,6 +5,7 @@ Trestle.resource(:user_vehicles) do
       @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Your Garage", "/garage")])
 
       self.collection = admin.prepare_collection(params)
+      self.collection = collection.where(user_id: current_user.id)
       respond_to do |format|
         format.html
         format.json { render json: collection.where(user_id: current_user.id) }

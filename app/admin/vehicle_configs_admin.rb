@@ -203,15 +203,26 @@ Trestle.resource(:vehicle_configs) do
         vehicle_trim_style = VehicleTrimStyle.find(params['vehicle_trim_style_id']);
       end
       if vehicle_trim_style.present?
-        new_user_vehicle = UserVehicle.find_or_initialize_by(user_id: current_user.id, vehicle_config_id: instance.id, vehicle_trim_id: vehicle_trim_style.vehicle_trim.id, vehicle_trim_style_id: params['vehicle_trim_style_id'])
-      else
         new_user_vehicle = UserVehicle.find_or_initialize_by(user_id: current_user.id, vehicle_config_id: instance.id)
-      end
-      if (new_user_vehicle.new_record?)
+        if new_user_vehicle.vehicle_trim_id == vehicle_trim_style.vehicle_trim.id && new_user_vehicle.vehicle_trim_style_id == vehicle_trim_style.id
+          # THEN UNCHECKING
+          # REMOVE TRIM
+          new_user_vehicle.vehicle_trim_id = nil
+          new_user_vehicle.vehicle_trim_style_id = nil
+        else
+          new_user_vehicle.vehicle_trim_id = vehicle_trim_style.vehicle_trim.id
+          new_user_vehicle.vehicle_trim_style_id = params['vehicle_trim_style_id']
+        end
         new_user_vehicle.save!
       else
-        new_user_vehicle.destroy()
+        new_user_vehicle = UserVehicle.find_or_initialize_by(user_id: current_user.id, vehicle_config_id: instance.id)
+        if (new_user_vehicle.new_record?)
+          new_user_vehicle.save!
+        else
+          new_user_vehicle.destroy()
+        end
       end
+      
       
       respond_to do |format|
         format.html { redirect_to :back }
@@ -367,7 +378,7 @@ Trestle.resource(:vehicle_configs) do
                 end
               end
               column :price
-              column :add_to_garage, align: :center, class: "garage-column" do |instance|
+              column :own_this_trim, align: :center, class: "garage-column" do |instance|
                 # byebug
                 if current_user.present?
                   if current_user.vehicles.where(vehicle_trim_style_id: instance.id).count > 0

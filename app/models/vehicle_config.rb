@@ -103,74 +103,59 @@ class LookupValidator < ActiveModel::Validator
   end
 end
 class VehicleConfig < ApplicationRecord
-  # include Scraper
+  extend FriendlyId
+  include Hashid::Rails
   include ActiveSupport::Inflector
   has_one_attached :image
   acts_as_votable
   has_paper_trail
   paginates_per 10
+  friendly_id :name_for_slug, use: [:slugged]
 
-  # default_scope { includes(:vehicle_make, :vehicle_model, :vehicle_config_type).where(parent_id: nil).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level") }
-  
-  # acts_as_nested_set dependent: :destroy
-  extend FriendlyId
-  friendly_id :name_for_slug, use: :slugged
+  # BELONGS TO
   belongs_to :vehicle_make
   belongs_to :vehicle_model
-  # belongs_to :parent, :class_name => "VehicleConfig", :optional => true
-  # has_many :vehicle_config_vehicle_trims, -> { order('vehicle_trims.name') }, dependent: :delete_all
-  # has_many :vehicle_trims, :through => :vehicle_config_vehicle_trims
-  # has_many :forks, :class_name => "VehicleConfig", :foreign_key => :parent_id, dependent: :delete_all
   belongs_to :vehicle_config_status, :optional => true
   belongs_to :vehicle_make_package, :optional => true
   belongs_to :vehicle_config_type, :optional => true
   belongs_to :primary_repository, :class_name => "Repository", :foreign_key => :primary_repository_id, :optional => true
   belongs_to :primary_pull_request, :class_name => "PullRequest", :foreign_key => :primary_pull_request_id, :optional => true
-  # accepts_nested_attributes_for :forks
-  # before_validation :set_default
-  before_validation :set_year_end
-  # before_save :update_forks
-  before_save :set_trim_styles_count
-  before_create :set_refreshing
-  # after_create :do_scrape_info
+  
+  # HAS MANY
+  has_many :vehicle_config_modifications, dependent: :delete_all
+  has_many :modifications, :through => :vehicle_config_modifications
+  has_many :vehicle_config_hardware_items, dependent: :delete_all
+  has_many :vehicle_config_capabilities, dependent: :delete_all
+  has_many :vehicle_capabilities, :through => :vehicle_config_capabilities
+  has_many :vehicle_config_repositories, dependent: :delete_all
+  has_many :repositories, :through => :vehicle_config_repositories
+  has_many :vehicle_config_pull_requests, dependent: :delete_all
+  has_many :pull_requests, :through => :vehicle_config_pull_requests
+  has_many :vehicle_config_videos, dependent: :delete_all
+
+  # before_validation :set_year_end
+  # before_save :set_trim_styles_count
+  # before_create :set_refreshing
+  # before_validation :set_title
+
+  # validates_numericality_of :year
+  # validates_with LookupValidator, on: :create
+
+  # after_save :set_image_scraper
+  # before_save :set_repos
+  after_commit :update_slug
+  
   def set_refreshing
     self.refreshing = true
   end
-  # before_save :scrape_info
-  before_validation :set_title
-  validates_numericality_of :year
-  validates_with LookupValidator, on: :create
-  # MODIFICATIONS
-  has_many :vehicle_config_modifications, dependent: :delete_all
-  has_many :modifications, :through => :vehicle_config_modifications
 
-  has_many :vehicle_config_hardware_items, dependent: :delete_all
-
-  # CAPABILITIES
-  has_many :vehicle_config_capabilities, dependent: :delete_all
-  has_many :vehicle_capabilities, :through => :vehicle_config_capabilities
-
-  # REPOSITORIES
-  has_many :vehicle_config_repositories, dependent: :delete_all
-  has_many :repositories, :through => :vehicle_config_repositories
-
-  # REPOSITORIES
-  has_many :vehicle_config_pull_requests, dependent: :delete_all
-  has_many :pull_requests, :through => :vehicle_config_pull_requests
-  friendly_id :name_for_slug, use: :slugged
-  
-  # OPTIONS
-  # has_many :vehicle_model_options, :through => :vehicle_model
-  # has_many :vehicle_options, :through => :vehicle_model_options
-  
-  has_many :vehicle_config_videos, dependent: :delete_all
-
-  # FORK CONFIGURATION
-  amoeba do
+  def update_slug
+    unless self.slug.blank? || self.slug.ends_with?(self.hashid.downcase)
+      self.slug = nil
+      # byebug
+      self.save!
+    end
   end
-  after_save :set_image_scraper
-  before_save :set_repos
-
   def set_repos
     if vehicle_config_status.present?
      repository = Repository.find_by(full_name: "commaai/openpilot")
@@ -307,7 +292,7 @@ class VehicleConfig < ApplicationRecord
 
   def name_for_slug
     if vehicle_config_type && vehicle_make && vehicle_model
-      "#{id} #{year} #{vehicle_make.name} #{vehicle_model.name} #{vehicle_config_type.name}"
+      "#{year} #{vehicle_make.name} #{vehicle_model.name} #{self.hashid.downcase}"
     end
   end
 
@@ -558,14 +543,6 @@ class VehicleConfig < ApplicationRecord
 
   def trim_styles
     VehicleTrimStyle.joins(:vehicle_trim).where('vehicle_trims.year IN (:years) AND vehicle_trim_id IN (:trim_ids)',{ :years => year_range, :trim_ids => vehicle_model.vehicle_trims.map(&:id) }).order("vehicle_trims.year, vehicle_trims.sort_order, vehicle_trim_styles.name")
-  end
-
-  
-  private
-  def name_for_slug
-    if vehicle_config_type && vehicle_make && vehicle_model
-      "#{id} #{year_range_str} #{vehicle_make.name} #{vehicle_model.name}"
-    end
   end
 
   def set_title

@@ -1,7 +1,7 @@
 Trestle.admin(:dashboard) do
   menu do
     group :vehicles do
-      item :vehicle_configs, "/research", icon: "fa fa-book", label: "Research / Support", priority: 0
+      item :vehicle_configs, "/vehicles", icon: "fa fa-book", label: "Research / Support", priority: 0
       item :top_vehicle_configs, '/vehicle_configs?order=desc&sort=cached_votes_score', icon: "fa fa-star", label: "Top Voted Vehicles", priority: 0.1
       item :lookup, "/lookup", icon: "fa fa-plus", label: "Lookup a vehicle", priority: 0.2
       
@@ -13,6 +13,7 @@ Trestle.admin(:dashboard) do
     group :community do
       item :slack, 'https://comma.slack.com/', priority: 1
       item :videos, '/videos', icon: "fa fa-play", priority: 1.2
+      item :guides, '/guides', icon: "fa fa-pencil", priority:3.1
       item :pull_requests, '/pull_requests', icon: "fa fa-github", priority: 1.3
       item :repositories, '/repositories', icon: "fa fa-github", priority: 1.4
       item :contributors, '/contributors', icon: "fa fa-users", priority: 1.5
@@ -27,7 +28,6 @@ Trestle.admin(:dashboard) do
 
     group :admin do
       item :modifications, '/modifications', icon: "fa fa-wrench", priority:3
-      item :guides, '/guides', icon: "fa fa-pencil", priority:3.1
       item :hardware_items, '/hardware_items', icon: "fa fa-microchip", label: "Hardware Items", priority:3.2
       item :hardware_types, '/hardware_types', icon: "fa fa-microchip", label: "Hardware Types", priority:3.3
       item :vehicle_capabilities, '/vehicle_capabilities', icon: "fa fa-star", priority:3.4

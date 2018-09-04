@@ -31,53 +31,42 @@ class Video < ApplicationRecord
   end
 
   def embed
-    # if !self.video_url.blank? && self.html.blank?
-      # puts "Has key"
-      # puts self.video_url      
-      iframely = Iframely::Requester.new api_key: ENV['IFRAMELY_KEY']
+    iframely = Iframely::Requester.new api_key: ENV['IFRAMELY_KEY']
 
-      videoResult = iframely.get_iframely_json(self.video_url)
+    result = iframely.get_iframely_json(self.video_url)
 
-      # puts videoResult.to_yaml
+    if self.uploaded_at.blank?
+      d = DateTime.parse(result["meta"]["date"])
+      self.uploaded_at = d
+    end
 
-      if self.uploaded_at.blank?
-        d = DateTime.parse(videoResult["meta"]["date"])
-        self.uploaded_at = d
+    if self.title.blank?
+      self.title = result['meta']['title']
+    end
+
+    # puts self.thumbnail_url
+    if self.thumbnail_url.blank?
+      if result['links']['thumbnail'].is_a? Array
+        self.thumbnail_url = result['links']['thumbnail'].first['href']
+      else
+        self.thumbnail_url = result['links']['thumbnail']['href']
       end
+    end
 
-      if self.title.blank?
-        self.title = videoResult['meta']['title']
-      end
+    if self.author_url.blank?
+      self.author_url = result['meta']['author_url']
+    end
 
-      if self.html.blank?
-        self.html = videoResult['html']
-      end
-      # puts self.thumbnail_url
-      if self.thumbnail_url.blank?
-        if videoResult['links']['thumbnail'].is_a? Array
-          self.thumbnail_url = videoResult['links']['thumbnail'].first['href']
-        else
-          self.thumbnail_url = videoResult['links']['thumbnail']['href']
-        end
-      end
+    if self.author.blank?
+      self.author = result['meta']['author']
+    end
 
-      if self.author_url.blank?
-        self.author_url = videoResult['meta']['author_url']
-      end
+    if self.provider_name.blank?
+      self.provider_name = result['meta']['site']
+    end
 
-      if self.author.blank?
-        self.author = videoResult['meta']['author']
-      end
-
-      if self.provider_name.blank?
-        self.provider_name = videoResult['meta']['site']
-      end
-
-      if self.description.blank?
-        self.description = videoResult['meta']['description']
-      end
-      # puts self.to_yaml     
-      # self.save!  
-    # end
+    if self.description.blank?
+      self.description = result['meta']['description']
+    end
   end
 end

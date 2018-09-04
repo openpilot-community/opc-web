@@ -1,4 +1,4 @@
-Trestle.admin(:vehicles) do
+Trestle.admin(:docs) do
 
   controller do
     skip_before_action :authenticate_user!

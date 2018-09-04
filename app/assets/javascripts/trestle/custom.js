@@ -1,5 +1,7 @@
 //= require_self
+//= require underscore/underscore
 //= require ./garage
+//= require ./comments
 var originalAddClassMethod = jQuery.fn.addClass;
 var originalRemoveClassMethod = jQuery.fn.removeClass;
 function pollRefreshingStatus(){
@@ -232,6 +234,8 @@ function isElementVisible(el) {
   );
 }
 $(Trestle).on("init",function() {
+  // $(".thread").show();
+  // var simplemde = new SimpleMDE({ element: document.getElementById("comment_body") });
   var $sidebar = $(".app-sidebar");
   var $contentContainer = $(".main-content-container");
   var resizeDocument = function() {

@@ -6,10 +6,18 @@
 //
 //    @import "trestle/custom/my_custom_css";
 //
+/*
+*= require commontator/application
+*/
+
 @import "variables";
 @import "documentation";
 @import "vehicle_lookup_form";
 @import "vehicle_configs";
+@import "guides";
+@import "commenting";
+@import "../medium-editor";
+@import "../themes/default";
 .app-wrapper {
   .app-container {
     // overflow-y: visible!important;

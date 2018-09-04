@@ -21,21 +21,27 @@ gem 'derailed', group: :development
 gem 'mini_magick'
 # gem 'trestle', :path => '/Users/joshua/Projects/trestle'
 gem 'trestle', :git => 'https://github.com/jfrux/trestle'
-gem 'trestle-simplemde'
+gem 'trestle-simplemde', :git => 'https://github.com/jfrux/trestle-simplemde'
 gem 'trestle-search'
 gem 'devise'
 gem 'devise-guests'
 gem 'puma'
+gem "socialization"
+gem "socialization"
+gem 'html2text'
+gem 'commontator', '~> 5.1.0'
 gem 'pundit'
 gem 'selenium-webdriver'
 gem 'chromedriver-helper'
 gem 'watir'
 gem 'omniauth-github'
+gem 'readingtime'
 gem "aws-sdk-s3", require: false
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 gem 'rack-cors'
 gem 'hashdiff'
+gem "hashid-rails", "~> 1.0"
 gem 'rack-host-redirect'
 gem 'amoeba'
 gem 'listen'

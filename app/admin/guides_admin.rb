@@ -1,6 +1,53 @@
 Trestle.resource(:guides) do
-
+  to_param do |instance|
+    if instance.slug.present?
+      instance.slug
+    else
+      instance.id
+    end
+  end
+  find_instance do |params|
+    Guide.friendly.find(params[:id])
+  end
   controller do
+    skip_before_action :require_edit_permissions!
+    skip_before_action :require_super_admin!
+    def show
+      self.instance = admin.find_instance(params)
+      commontator_thread_show(instance)
+      # @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support","/vehicle_configs")])
+      imgurl = instance.image.attached? ? instance.image.service_url : asset_url("/assets/og/tracker.png")
+      article_url = File.join(Rails.application.routes.url_helpers.root_url,admin.instance_path(instance))
+      author_name = instance.user.github_username
+      set_meta_tags(
+        og: {
+          title: "#{instance.title}",
+          image: imgurl,
+          site_name: "Openpilot Database",
+          url: article_url,
+          type: "article",
+          author: author_name
+        },
+        robots: "index, follow",
+        "article:published_time": instance.created_at.iso8601(9),
+        "article:publisher": "https://opc.ai/",
+        "article:author": author_name,
+        keywords: ['openpilot','vehicle','support',instance.title.split,'of','vehicles','supported','compatible','compatibility'].flatten,
+        description: "Research and support of comma openpilot for the #{instance.name}.",
+        canonical: article_url,
+        image_src: imgurl,
+        author: author_name,
+        twitter: {
+          creator: "@#{author_name}",
+          title: instance.title,
+          card: "summary-large",
+          author: author_name,
+          label1: "Reading time",
+          data1: "#{instance.reading_time} min read"
+        }
+      )
+      super
+    end
     # before_action :set_current_user, only: ['create','update']
     def create
       self.instance = admin.build_instance(permitted_params, params)
@@ -26,14 +73,15 @@ Trestle.resource(:guides) do
       end
     end
   end
-
+  return_to do
+    admin.path(:index) || params[:return_location] || :back
+  end
   # Customize the table columns shown on the index view.
   #
   table do
-    column :title
-    column :created_at, align: :center
-    column :user
-    # actions
+    column :title, header: "" do |instance|
+      render "row", instance: instance
+    end
   end
 
   # Customize the form fields shown on the new/edit views.

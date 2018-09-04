@@ -1,5 +1,14 @@
-Trestle.resource(:vehicle_configs) do
-
+Trestle.resource(:vehicle_configs, path: "/vehicles") do
+  to_param do |instance|
+    if instance.slug.present?
+      instance.slug
+    else
+      instance.id
+    end
+  end
+  find_instance do |params|
+    VehicleConfig.friendly.find(params[:id])
+  end
   ########
   # SCOPES
   ########
@@ -33,12 +42,12 @@ Trestle.resource(:vehicle_configs) do
         og: {
           title: "#{page_title} | Openpilot Database",
           image: asset_url("/assets/og/tracker.png"),
-          url: Rails.application.routes.url_helpers.research_url,
+          url: File.join(Rails.application.routes.url_helpers.root_url,admin.path),
           type: "website"
         },
         keywords: ['openpilot','vehicle','support','master','list','of','vehicles','supported','compatible','compatibility'],
         description: "This is a master list of vehicles supported and being researched for usage with openpilot software.",
-        canonical: Rails.application.routes.url_helpers.research_url,
+        canonical: File.join(Rails.application.routes.url_helpers.root_url,admin.path),
         image_src: asset_url("/assets/og/tracker.png")
       )
       super
@@ -270,7 +279,7 @@ Trestle.resource(:vehicle_configs) do
 
   table do |a|
     row do |vehicle|
-      { data: { url: "/research/#{vehicle.id}#!tab-trim_styles"}, class: "#{vehicle.vehicle_config_status.blank? ? nil : vehicle.vehicle_config_status.name.parameterize} #{vehicle.vehicle_config_type.blank? ? "unknown" : vehicle.vehicle_config_type.slug} vehicle-config" }
+      { class: "#{vehicle.vehicle_config_status.blank? ? nil : vehicle.vehicle_config_status.name.parameterize} #{vehicle.vehicle_config_type.blank? ? "unknown" : vehicle.vehicle_config_type.slug} vehicle-config" }
     end
     column :votes, align: :center, class: "votes-column" do |instance|
       content_tag(:div, class: "vote-action #{current_or_guest_user.voted_down_on?(instance) ? "downvoted" : nil} #{current_or_guest_user.voted_up_on?(instance) ? 'upvoted' : nil} #{current_or_guest_user.voted_for?(instance) ? "voted" : nil}") do

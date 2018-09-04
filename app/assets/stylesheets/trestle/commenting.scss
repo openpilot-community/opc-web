@@ -1,0 +1,192 @@
+.comment {
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+
+  border-top: 1px solid;
+  border-left: 1px solid;
+  
+  margin-top: 15px;
+  margin-bottom: 15px;
+
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  color: #000;
+  border-color: #DDD;
+  background-color: #FFF;
+  
+  clear: both;
+}
+
+.comment_actions {
+  float: right;
+}
+
+.comment_body {
+  padding-top: 3px;
+}
+
+.comment_body p {
+	margin: 0px;
+
+	overflow: hidden;
+}
+
+.comment_div {
+	clear: both;
+}
+
+.comment_form_actions {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.comment_form_field textarea {
+  padding: 0px;
+
+  width: 100%;
+}
+
+.comment_avatar {
+  float: left;
+
+  margin-top: 5px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.comment_timestamp {
+  color: #666;
+}
+
+.comment_votes {
+  float: right;
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  text-align: center;
+}
+
+.comment_votes input,
+.comment_votes img {
+  border: none;
+  background-color: transparent;
+  padding: 0px;
+  margin: 0px;
+}
+
+.comment_votes form {
+  margin: 0px;
+}
+
+.comment_upvote {
+  display: block;
+  height: 18px;
+  margin-top: 7px;
+  margin-bottom: 7px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.comment_downvote {
+  display: block;
+  height: 18px;
+  margin-top: 7px;
+  margin-bottom: 7px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.comment_like {
+  float: left;
+}
+
+.comment_like + .comment_vote_count {
+  float: right;
+}
+
+.comment_error_explanation {
+  margin-bottom: 10px;
+}
+
+.comment_error_explanation h3 {
+  margin-top: 5px;
+}
+
+.comment_error_explanation ul {
+  list-style-position: inside;
+}
+.thread {
+  display: block !important;
+}
+
+.thread .commontator_hidden {
+  display: none;
+}
+
+.thread_actions {
+  float: right;
+}
+
+.thread_header {
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Modified from:
+http://www.strangerstudios.com/sandbox/pagination/diggstyle.php */
+.thread_page_entries_info {
+	margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.thread_will_paginate {
+	margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.thread_pagination a {
+	padding: 2px 5px 2px 5px;
+	margin-right: 4px;
+	border: 1px solid #999;
+	
+	text-decoration: none;
+	color: #666;
+}
+
+.thread_pagination a:hover,
+.thread_pagination a:active {
+	border: 1px solid #555;
+
+	color: #000;
+}
+
+.thread_pagination em {
+	padding: 2px 5px 2px 5px;
+	margin-right: 4px;
+  border: 1px solid #555;
+
+  font-weight: bold;
+  background-color: #555;
+  color: #FFF;
+}
+
+.thread_pagination span {
+  padding: 2px 5px 2px 5px;
+	margin-right: 4px;
+  border: 1px solid #EEE;
+
+  color: #DDD;
+}
+
+.thread .mentions-input-box .mentions {
+  left: -2px !important;
+  top: -2px !important;
+}

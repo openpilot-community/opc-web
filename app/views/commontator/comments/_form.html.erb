@@ -32,6 +32,7 @@
       var md = new SimpleMDE(
       { 
         element: document.getElementById("comment_body"),
+        status: false,
         autoSuggest: 
         {
             mode: 'markdown',
@@ -39,19 +40,7 @@
             listCallback: function(stringToTest)
             {
                 return [
-                        <%=User.where(guest: false)
-                        {
-                            text: '@Thomas ',
-                            displayText: '@Thomas'
-                        },
-                        {
-                            text: '@Maria ',
-                            displayText: '@Maria'
-                        },
-                        {
-                            text: '@Peter ',
-                            displayText: '@Peter'
-                        }
+                        
                     ];
             }
         }

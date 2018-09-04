@@ -10,31 +10,34 @@
 %>
 
 <div id="comment_<%= comment.id.to_s %>_div" class="comment">
-  <div id="comment_<%= comment.id.to_s %>_top_div" class="comment_div">
-    <span id="comment_<%= comment.id.to_s %>_commontator_span" class="comment_commontator">
-      <%= link.blank? ? name : link_to(name, link) %>
-    </span>
-    <span id="comment_<%= comment.id.to_s %>_actions_span" class="comment_actions">
-      <%= render partial: 'commontator/comments/actions',
-                 locals: { comment: comment,
-                              user: user } %>
-    </span>
+  <div class="author-box">
+    <div class="image">
+      <span class="img" style="background-image:url(<%=user.avatar.service_url%>)"></span>
+    </div>
+    <div class="details">
+      <div class="detail-inner">
+        <div class="author-name">
+          <%=user.github_username%>
+        </div>
+        <div class="meta">
+          <span class="date"><%=comment.created_at.strftime("%b %d")%></span><span class="divider">&middot;</span>
+        </div>
+      </div>
+    </div>
   </div>
+  
   <div id="comment_<%= comment.id.to_s %>_middle_div" class="comment_div">
-    <span id="comment_<%= comment.id.to_s %>_avatar_span" class="comment_avatar">
-      <%= avatar %>
-    </span>
-    <span id="comment_<%= comment.id.to_s %>_votes_span" class="comment_votes">
-      <%= render partial: 'commontator/comments/votes',
-                 locals: { comment: comment,
-                              user: user } %>
-    </span>
     <div id="comment_<%= comment.id.to_s %>_body_div" class="comment_body">
       <%= render partial: 'commontator/comments/body',
                  locals: { comment: comment } %>
     </div>
   </div>
   <div id="comment_<%= comment.id.to_s %>_bottom_div" class="comment_div">
+    <span id="comment_<%= comment.id.to_s %>_votes_span" class="comment_votes">
+      <%= render partial: 'commontator/comments/votes',
+                 locals: { comment: comment,
+                              user: user } %>
+    </span>
     <span id="comment_<%= comment.id.to_s %>_created_timestamp_span" class="comment_timestamp">
       <%= comment.created_timestamp %>
     </span>

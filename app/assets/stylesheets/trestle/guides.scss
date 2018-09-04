@@ -90,29 +90,7 @@ body.controller-admin-guides.action-index {
     }
   }
 }
-.responses {
-  max-width: 740px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin:0 auto;
-  .comment {
-    background: #fff;
-    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.04);
-    box-shadow: 0 1px 4px rgba(0,0,0,.04);
-    border: 1px solid rgba(0,0,0,.09);
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    margin-top: 20px!important;
-    padding: 20px;
-  }
-  .comment_div {
-    display:flex;
-    flex-flow: wrap;
-    .comment_body {
-      flex: 0 0 100%;
-    }
-  }
-}
+
 .guide {
   max-width: 740px;
   padding: 0 20px 20px 20px;

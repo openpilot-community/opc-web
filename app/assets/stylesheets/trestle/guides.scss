@@ -178,6 +178,9 @@ body.controller-admin-guides.action-index {
 }
 
 @media (max-width: 767px) {
+  .main-content, .main-content-sidebar {
+    padding: 0;
+}
   .documentation {
       // position: relative;
       // /* margin: 0 auto; */

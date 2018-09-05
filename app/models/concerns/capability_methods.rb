@@ -4,7 +4,9 @@ module CapabilityMethods
     return ((num.to_i % div.to_i) + div.to_i) % div.to_i;
   end
   def current_numeric_state
-    self.class.states[self.state]
+    if self.state.present?
+      self.class.states[self.state]
+    end
   end
   def next_state
     modulo(current_numeric_state + 1, VehicleConfigCapability.states.keys.size)

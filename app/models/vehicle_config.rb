@@ -133,16 +133,16 @@ class VehicleConfig < ApplicationRecord
   has_many :pull_requests, :through => :vehicle_config_pull_requests
   has_many :vehicle_config_videos, dependent: :delete_all
 
-  # before_validation :set_year_end
-  # before_save :set_trim_styles_count
-  # before_create :set_refreshing
-  # before_validation :set_title
+  before_validation :set_year_end
+  before_save :set_trim_styles_count
+  before_create :set_refreshing
+  before_validation :set_title
 
-  # validates_numericality_of :year
-  # validates_with LookupValidator, on: :create
+  validates_numericality_of :year
+  validates_with LookupValidator, on: :create
 
-  # after_save :set_image_scraper
-  # before_save :set_repos
+  after_save :set_image_scraper
+  before_save :set_repos
   after_commit :update_slug
   
   def set_refreshing
@@ -179,7 +179,7 @@ class VehicleConfig < ApplicationRecord
   end
 
   def set_image_scraper
-    if saved_change_to_source_image_url?
+    if saved_change_to_source_image_url? || new_record? || !image.attached?
       DownloadImageFromSourceWorker.perform_async(id,VehicleConfig)
     end
   end

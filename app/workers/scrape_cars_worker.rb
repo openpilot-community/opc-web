@@ -6,7 +6,7 @@ class ScrapeCarsWorker
     if vc.present?
       year_range = vc.year_range
       
-      begin
+      # begin
         year_range.each do |curr_year|
           trims = []
           
@@ -19,7 +19,7 @@ class ScrapeCarsWorker
           # first_trim = trim_info[:trims].first
           
           trims.each_with_index do |trim, index|
-            vehicle_trim = VehicleTrim.find_or_initialize_by(name: trim.name, year: curr_year, vehicle_model: self.vehicle_model)
+            vehicle_trim = VehicleTrim.find_or_initialize_by(name: trim.name, year: curr_year, vehicle_model: vc.vehicle_model)
             vehicle_trim.sort_order = index
             vehicle_trim.save
             
@@ -52,9 +52,9 @@ class ScrapeCarsWorker
           end
         end
         vc.update_attributes(refreshing: false)
-      rescue
-        vc.update_attributes(refreshing: false)
-      end
+      # rescue
+      #   vc.update_attributes(refreshing: false)
+      # end
     end
   end
 end

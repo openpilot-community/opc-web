@@ -56,9 +56,14 @@
         <%= render "trestle/shared/footer" %>
       </div>
     </div>
-    <script src="https://unpkg.com/react@16/umd/react.<%=Rails.env%>.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.<%=Rails.env%>.js" crossorigin></script>
-
+    
+    <%if Rails.env == "production"%>
+      <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+      <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <% else %>
+      <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+      <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <% end %>
     <%= javascript_include_tag "turbolinks" if Trestle.config.turbolinks %>
     <%= javascript_include_tag "trestle/admin", 'data-turbolinks-track': 'reload' %>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>

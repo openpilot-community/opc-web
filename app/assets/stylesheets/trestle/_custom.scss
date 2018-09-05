@@ -1075,13 +1075,23 @@ body {
       width:initial;
   }
   .app-wrapper {
+    h1.path-heading {
+      display: none;
+    }
     .content-header {
       position: absolute;
       top: 7px;
       right: 9px;
       z-index: 1000;
       width: 20%;
+      padding-top: 0;
+      padding-bottom: 3px;
       background: transparent!important;
     }
+  }
+
+  .app-container {
+    overflow-y: initial!important;
+    overflow-x: initial;
   }
 }

@@ -181,8 +181,13 @@ class VehicleConfig < ApplicationRecord
   end
 
   def set_image_scraper
-    if saved_change_to_source_image_url? || new_record? || !image.attached?
+    if saved_change_to_source_image_url?
+      puts "IMAGE SCRAPER"
       DownloadImageFromSourceWorker.perform_async(id,VehicleConfig)
+    else
+      if new_record? || !image.attached?
+        ScrapeCarImageWorker.perform_async(id)
+      end
     end
   end
   # def difficulty_level

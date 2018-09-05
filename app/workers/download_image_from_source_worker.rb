@@ -4,6 +4,7 @@ class DownloadImageFromSourceWorker
 
   def perform(objid,klass)
     obj = klass.constantize.find(objid)
+    puts obj.to_yaml
     if obj.present?
       if obj.source_image_url.present?
         tempfile = Down.download(obj.source_image_url)

@@ -36,7 +36,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
       else
         page_title = "Vehicle Research & Support Tracker"
       end
-      @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("#{page_title}", "/researching")])
+      @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("#{page_title}", "/vehicles")])
 
       set_meta_tags(
         og: {
@@ -127,19 +127,19 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
 
     def show
       vehicle_config = admin.find_instance(params)
-      @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support","/vehicle_configs")])
+      @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support","/vehicles")])
       imgurl = vehicle_config.image.attached? ? vehicle_config.image.service_url : asset_url("/assets/og/tracker.png")
       
       set_meta_tags(
         og: {
           title: "#{vehicle_config.name} | Openpilot Database",
           image: imgurl,
-          url: Rails.application.routes.url_helpers.research_show_url(id: vehicle_config.id),
+          url: Rails.application.routes.url_helpers.vehicles_show_url(id: vehicle_config.id),
           type: "website"
         },
         keywords: ['openpilot','vehicle','support',vehicle_config.vehicle_make.name, vehicle_config.vehicle_model.name,vehicle_config.name,'of','vehicles','supported','compatible','compatibility'],
         description: "Research and support of comma openpilot for the #{vehicle_config.name}.",
-        canonical: Rails.application.routes.url_helpers.research_show_url(id: vehicle_config.id),
+        canonical: Rails.application.routes.url_helpers.vehicles_show_url(id: vehicle_config.id),
         image_src: imgurl
       )
       super
@@ -252,7 +252,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
       })
 
       vcc.state = vcc.next_state
-      
+
       if vcc.is_included?
         state_message = "included"
       end

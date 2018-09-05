@@ -22,10 +22,13 @@
 
     <%= csrf_meta_tags %>
     <%= display_meta_tags reverse: true,
-      site: Trestle.config.site_title, og: {
-      title: :title,
-      site_name: :site,
-    } %>
+        site: Trestle.config.site_title, 
+        icon: asset_url("/favicon.png?ver=2"),
+        og: {
+          title: :title,
+          site_name: :site,
+          icon: asset_url("/favicon.png?ver=2"),
+        } %>
 
     <%= stylesheet_link_tag "trestle/admin", 'data-turbolinks-track': 'reload' %>
 

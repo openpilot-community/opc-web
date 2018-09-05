@@ -19,10 +19,10 @@ Rails.application.routes.draw do
   root "vehicle_configs_admin/admin#index"
   get '/lookup' => "vehicle_lookups_admin/admin#new"
   get '/garage' => "user_vehicles_admin/admin#index"
-  get "/research" => "vehicle_configs_admin/admin#index"
-  get "/research/make/:q" => "vehicle_configs_admin/admin#index", as: "research_make"
-  get "/research/top" => "vehicle_configs_admin/admin#index", as: "research_top", default: { order: "desc", sort: "cached_votes_score"}
-  get "/research/:id" => "vehicle_configs_admin/admin#show", as: "research_show"
+  get "/vehicles" => "vehicle_configs_admin/admin#index"
+  get "/vehicles/make/:q" => "vehicle_configs_admin/admin#index", as: "vehicles_make"
+  get "/vehicles/top" => "vehicle_configs_admin/admin#index", as: "vehicles_top", default: { order: "desc", sort: "cached_votes_score"}
+  get "/vehicles/:id" => "vehicle_configs_admin/admin#show", as: "vehicles_show"
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

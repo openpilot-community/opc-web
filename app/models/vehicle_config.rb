@@ -140,7 +140,9 @@ class VehicleConfig < ApplicationRecord
 
   validates_numericality_of :year
   validates_with LookupValidator, on: :create
-
+  validates_presence_of :year
+  validates_presence_of :vehicle_make_id
+  validates_presence_of :vehicle_model_id
   after_save :set_image_scraper
   before_save :set_repos
   after_commit :update_slug
@@ -150,10 +152,10 @@ class VehicleConfig < ApplicationRecord
   end
 
   def update_slug
-    unless self.slug.blank? || self.slug.ends_with?(self.hashid.downcase)
+    if !slug.ends_with?(self.hashid.downcase)
       self.slug = nil
       # byebug
-      self.save!
+      self.save
     end
   end
   def set_repos
@@ -291,7 +293,7 @@ class VehicleConfig < ApplicationRecord
   end
 
   def name_for_slug
-    if vehicle_config_type && vehicle_make && vehicle_model
+    if year && vehicle_make && vehicle_model
       "#{year} #{vehicle_make.name} #{vehicle_model.name} #{self.hashid.downcase}"
     end
   end

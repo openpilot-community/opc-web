@@ -13,10 +13,12 @@ Trestle.resource(:vehicle_capabilities) do
   form do |vehicle_capability|
     text_field :name
     editor :description
-    # row do
-    #   col(xs: 6) { datetime_field :updated_at }
-    #   col(xs: 6) { datetime_field :created_at }
-    # end
+    text_field :grouping
+    select(:value_type, [['State Only', "state"], ['Timeout', "timeout"], ['Speed', "speed"]])
+    text_field :default_timeout
+    text_field :default_string
+    text_field :default_state
+    text_field :default_kph
   end
 
   # By default, all parameters passed to the update and create actions will be

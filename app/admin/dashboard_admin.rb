@@ -6,7 +6,7 @@ Trestle.admin(:dashboard) do
       item :lookup, "/lookup", icon: "fa fa-plus", label: "Lookup a vehicle", priority: 0.2
       
       VehicleMake.with_configs.each_with_index do |make, index|
-        item make.name.parameterize.to_sym, "#{Rails.application.routes.url_helpers.research_make_url(q: make.name.parameterize.downcase)}", icon: "fa fa-angle-right", priority: "0.3.#{index+3}".to_f
+        item(make.name.parameterize.to_sym, "/vehicles/make/#{make.name.parameterize.downcase}", icon: "fa fa-angle-right", priority: "0.3.#{index+3}".to_f)
       end
     end
 

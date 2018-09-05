@@ -239,28 +239,50 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
       end
     end
 
-    def quick_add
+    def toggle_capability_state
       self.instance = admin.find_instance(params)
       # byebug
-      instance.vehicle_config_capabilities.new({
+      c = VehicleCapability.find(params['vehicle_capability_id'])
+      type = VehicleConfigType.find(params['vehicle_config_type_id'])
+
+      vcc = VehicleConfigCapability.find_or_initialize_by({
+        vehicle_config_id: instance.id,
         vehicle_capability_id: params['vehicle_capability_id'],
         vehicle_config_type_id: params['vehicle_config_type_id']
       })
-      instance.save!
-      respond_to do |format|
-        format.json { render json: instance, status: 200 }
-      end
-    end
 
-    def quick_delete
-      self.instance = admin.find_instance(params)
-      instance.vehicle_config_capabilities.find_by({
-        vehicle_capability_id: params[:vehicle_capability_id],
-        vehicle_config_type_id: params[:vehicle_config_type_id]
-      }).destroy()
+      vcc.state = vcc.next_state
+      
+      if vcc.is_included?
+        state_message = "included"
+      end
+
+      if vcc.is_excluded?
+        state_message = "excluded"
+      end
+
+      if vcc.not_applicable?
+        state_message = "no longer applicable"
+      end
+
+      if vcc.is_included?
+        case c.value_type
+        when 'timeout'
+          vcc.timeout = c.default_timeout
+        when 'speed'
+          vcc.kph = c.default_kph
+        end
+      end
+
+      vcc.save!
       
       respond_to do |format|
-        format.json { render json: instance, status: 200 }
+        format.html do
+          flash[:message] = flash_message("capability.created", title: "Success!", message: "#{c.name} is now #{state_message} in the #{type.name} configuration.")
+          redirect_to "#{request.referer}#!tab-capabilities"
+          # redirect_to_return_location(:create, instance, default: admin.instance_path(instance), anchor: "!tab-capabilities")
+        end
+        format.json { render json: vcc, status: 200 }
       end
     end
   end
@@ -269,10 +291,9 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
     get :refresh_trims, :on => :member
     get :fork, :on => :member
     get :clone, :on => :member
-    post :quick_add, :on => :member
+    get :toggle_capability_state, :on => :member
     get :vote, :on => :member
     get :add_to_user, :on => :member
-    delete :quick_delete, :on => :member
     get :refreshing_status, :on => :member
     get :trims, :on => :collection
   end
@@ -427,71 +448,54 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
       end
       tab :capabilities do
         config_types = VehicleConfigType.order(:difficulty_level)
-        vehicle_capabilities_common = VehicleCapability.where("vehicle_capabilities.vehicle_config_count > 5").order(:name)
-        vehicle_capabilities_uncommon = VehicleCapability.where.not(id: vehicle_capabilities_common.map(&:id)).order(:name)
-        vccs = vehicle_config.vehicle_config_capabilities
+        vcs = VehicleCapability.order(:name)
+        vcs_common = vcs.select{|vc| vc.vehicle_config_count > 2 }
+        vcs_uncommon = vcs.select{|vc| vc.vehicle_config_count <= 2 }
+        # vehicle_capabilities_uncommon = VehicleCapability.where.not(id: vehicle_capabilities_common.map(&:id)).order(:name)
+        vccs = VehicleConfigCapability.joins(:vehicle_config,:vehicle_capability).where(vehicle_config_id: vehicle_config.id)
         # vct_factory = VehicleConfigType.find_by(name: 'Factory')
         # vct_standard = VehicleConfigType.find_by(name: 'Standard')
         # vct_basic = VehicleConfigType.find_by(name: 'Basic')
         # vct_advanced = VehicleConfigType.find_by(name: 'Advanced')
         render inline: content_tag(:div, "This area is a work in progress and isn't functioning as intended.", class: "alert alert-warning")
-        table vehicle_capabilities_common, admin: :vehicle_capabilities_admin do
+        table vcs, admin: :vehicle_capabilities_admin do
           column :icon, class: "icon" do |instance|
             content_tag(:span, class: "icon-wrap") do
               image_tag(asset_url("/assets/capabilities/#{instance.name.parameterize}.svg"),width:100,height:100)
             end
           end
           column :name, header: "Common Capabilities"
+
+          # DIFFICULTY LEVELS
           config_types.each do |type|
           column type.name.parameterize.to_sym, 
             class: "type-#{type.name.parameterize}", 
             header: %(
               #{type.name}
               <span data-toggle='tooltip' data-container='body' title='#{type.description}' class='fa fa-info'></span>
-            ).html_safe do |c|
-              if (vcc = vccs.find_by(vehicle_config_type: type, vehicle_capability: c))
-                admin_link_to("<span class=\"fa fa-check\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :show, class: "btn btn-success btn-list-edit #{c.value_type.present? ? "type-" + c.value_type.parameterize() : "type-quick-delete"}", params: { 
-                  id: vcc.id
-                })
-              else
-                admin_link_to("<span class=\"fa fa-plus\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :new, class: "btn btn-default btn-list-add #{c.value_type.present? ? "type-" + c.value_type.parameterize() : "type-quick-add"}", params: { 
-                  vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id,
-                  vehicle_config_type_id: type.id,
-                  vehicle_capability_id: c.id
-                })
-              end
-            end
-          end
-        end if vehicle_capabilities_common.present?
-          
-          table vehicle_capabilities_uncommon, admin: :vehicle_capabilities_admin do
-            column :icon, class: "icon" do |instance|
-              content_tag(:span, class: "icon-wrap") do
-                image_tag(asset_url("/assets/capabilities/#{instance.name.parameterize}.svg"),width:100,height:100)
-              end
-            end
-            column :name, header: "Common Capabilities"
-            config_types.each do |type|
-              column type.name.parameterize.to_sym, 
-              class: "type-#{type.name.parameterize}", 
-              header: %(
-                #{type.name}
-                <span data-toggle='tooltip' data-container='body' title='#{type.description}' class='fa fa-info'></span>
-              ).html_safe do |c|
-              if (vcc = vccs.find_by(vehicle_config_type: type, vehicle_capability: c))
-                admin_link_to("<span class=\"fa fa-check\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :show, class: "btn btn-success btn-list-edit #{c.value_type.present? ? "type-" + c.value_type.parameterize() : "type-quick-delete"}", params: { 
-                  id: vcc.id
-                })
-              else
-                admin_link_to("<span class=\"fa fa-plus\"></span>".html_safe, admin: :vehicle_config_capabilities, action: :new, class: "btn btn-default btn-list-add #{c.value_type.present? ? "type-" + c.value_type.parameterize() : "type-quick-add"}", params: { 
-                  vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id,
-                  vehicle_config_type_id: type.id,
-                  vehicle_capability_id: c.id
-                })
-              end
+            ).html_safe do |capability|
+              render 'capability_link', capability: capability, type: type, vehicle: vehicle_config, vehicle_capability: vccs.select{|vcc| vcc.vehicle_capability_id == capability.id && vcc.vehicle_config_type_id == type.id }.first
             end
           end
         end
+        # table vcs, admin: :vehicle_capabilities_admin do
+        #   column :icon, class: "icon" do |instance|
+        #     content_tag(:span, class: "icon-wrap") do
+        #       image_tag(asset_url("/assets/capabilities/#{instance.name.parameterize}.svg"),width:100,height:100)
+        #     end
+        #   end
+        #   column :name, header: "Uncommon Capabilities"
+        #     config_types.each do |type|
+        #       column type.name.parameterize.to_sym, 
+        #       class: "type-#{type.name.parameterize}", 
+        #       header: %(
+        #         #{type.name}
+        #         <span data-toggle='tooltip' data-container='body' title='#{type.description}' class='fa fa-info'></span>
+        #       ).html_safe do |capability|
+        #         render 'capability_link', capability: capability, type: type, vehicle: vehicle_config, vehicle_capability: vccs.select{|vcc| vcc.vehicle_capability_id == capability.id && vcc.vehicle_config_type_id == type.id }.first
+        #       end
+        #   end
+        # end
       end
       tab :modifications, badge: vehicle_config.vehicle_config_modifications.blank? ? nil : vehicle_config.vehicle_config_modifications.size do
         render "tab_toolbar", {

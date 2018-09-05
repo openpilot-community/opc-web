@@ -4,7 +4,7 @@ module Trestle
       extend ActiveSupport::Concern
       
       included do
-        include Pundit
+        # include Pundit
         include ActionView::Helpers::AssetUrlHelper
         before_action :authenticate_user!, except: [:show, :index]
         before_action :set_paper_trail_whodunnit

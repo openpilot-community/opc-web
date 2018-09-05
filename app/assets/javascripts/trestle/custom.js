@@ -1,6 +1,7 @@
 //= require_self
 //= require underscore/underscore
 //= require ./garage
+//= require ./capability_toggler.js
 //= require ./comments
 var originalAddClassMethod = jQuery.fn.addClass;
 var originalRemoveClassMethod = jQuery.fn.removeClass;

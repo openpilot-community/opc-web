@@ -1,0 +1,30 @@
+
+<!-- state -->
+<% if vehicle_capability.present? %>
+  <% if vehicle_capability.is_included? %>
+    <% state_button_icon = '<span class=\'fa fa-check\'></span>'.html_safe %>
+  <% elsif vehicle_capability.is_excluded? %>
+    <% state_button_icon = '<span class=\'fa fa-times\'></span>'.html_safe %>
+  <% else %>
+    <% state_button_icon = '<span class=\'fa fa-plus\'></span>'.html_safe %>
+  <% end %>
+<% else %>
+  <% state_button_icon = '<span class=\'fa fa-plus\'></span>'.html_safe %>
+<% end %>
+
+<!-- value -->
+<% if capability.value_type == 'timeout' %>
+  <% if vehicle_capability.present? %>
+    <% capability_value = vehicle_capability.timeout_friendly %>
+  <% else %>
+    <% capability_value = capability.timeout_friendly%>
+  <% end %>
+<% elsif capability.value_type == 'speed' %>
+  <% if vehicle_capability.present? %>
+    <% capability_value = vehicle_capability.speed %>
+  <% else %>
+    <% capability_value = capability.speed%>
+  <% end %>
+<% end %>
+
+<%=content_tag(:div, nil, class: "vehicle-capability-control", data: { default_state: vehicle_capability.present?  ? vehicle_capability.to_json : vehicle.vehicle_config_capabilities.new(vehicle_capability_id: capability.id, vehicle_config_type_id: type.id).to_json })%>

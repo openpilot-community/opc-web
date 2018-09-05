@@ -70,10 +70,6 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     airbrussh (1.3.0)
       sshkit (>= 1.6.1, != 1.7.0)
-    amoeba (3.1.0)
-      activerecord (>= 3.2.6)
-    archive-zip (0.11.0)
-      io-like (~> 0.3.0)
     arel (9.0.0)
     ast (2.4.0)
     autoprefixer-rails (9.1.3)
@@ -116,16 +112,6 @@ GEM
       capistrano-bundler (~> 1.1)
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
-    chromedriver-helper (1.2.0)
-      archive-zip (~> 0.10)
-      nokogiri (~> 1.8)
-    coffee-rails (4.2.2)
-      coffee-script (>= 2.2.0)
-      railties (>= 4.0.0)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.12.2)
     commontator (5.1.0)
       jquery-rails
       rails (>= 5.0)
@@ -170,15 +156,12 @@ GEM
     get_process_mem (0.2.2)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
-    hashdiff (0.3.7)
     hashid-rails (1.2.2)
       activerecord (>= 4.0)
       hashids (~> 1.0)
     hashids (1.0.4)
     hashie (3.5.7)
     heapy (0.1.4)
-    html2text (0.2.1)
-      nokogiri (~> 1.6)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (1.1.0)
@@ -186,7 +169,6 @@ GEM
     iframely (0.1.0)
       faraday
       hashie
-    io-like (0.3.0)
     jaro_winkler (1.5.1)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -196,7 +178,6 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    json (1.8.6)
     jwt (1.5.6)
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
@@ -289,8 +270,6 @@ GEM
     powerpack (0.1.2)
     public_suffix (3.0.3)
     puma (3.12.0)
-    pundit (2.0.0)
-      activesupport (>= 3.0.0)
     raabro (1.1.6)
     rack (2.0.5)
     rack-cors (1.0.2)
@@ -329,8 +308,6 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
-    rdoc (4.3.0)
-    readingtime (0.4.0)
     redcarpet (3.4.0)
     redis (4.0.2)
     request_store (1.4.1)
@@ -374,9 +351,6 @@ GEM
     sawyer (0.8.1)
       addressable (>= 2.3.5, < 2.6)
       faraday (~> 0.8, < 1.0)
-    sdoc (0.4.2)
-      json (~> 1.7, >= 1.7.7)
-      rdoc (~> 4.0)
     selenium-webdriver (3.14.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
@@ -419,8 +393,6 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (4.1.18)
-      execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
@@ -442,7 +414,6 @@ PLATFORMS
 DEPENDENCIES
   acts_as_votable (~> 0.11.1)
   addressable
-  amoeba
   awesome_nested_set
   aws-sdk-s3
   bootstrap (~> 4.1.3)
@@ -450,8 +421,6 @@ DEPENDENCIES
   capistrano (~> 3.10)
   capistrano-rails (~> 1.4)
   cars!
-  chromedriver-helper
-  coffee-rails (> 4.1.0)
   commontator (~> 5.1.0)
   derailed
   devise
@@ -459,9 +428,7 @@ DEPENDENCIES
   down (~> 4.4)
   font-awesome-sass (~> 5.2.0)
   friendly_id (~> 5.2.0)
-  hashdiff
   hashid-rails (~> 1.0)
-  html2text
   iframely
   jbuilder (~> 2.0)
   jquery-rails
@@ -476,16 +443,12 @@ DEPENDENCIES
   paper_trail-association_tracking
   pg (= 0.21.0)
   puma
-  pundit
   rack-cors
   rack-host-redirect
   rails (= 5.2.1)
-  readingtime
   redcarpet
   rubocop
   sass-rails (~> 5.0)
-  sdoc (~> 0.4.0)
-  selenium-webdriver
   sidekiq
   sidekiq-scheduler
   sidekiq-unique-jobs
@@ -495,8 +458,6 @@ DEPENDENCIES
   trestle-search
   trestle-simplemde
   turbolinks
-  uglifier (>= 1.3.0)
-  watir
 
 BUNDLED WITH
    1.16.4

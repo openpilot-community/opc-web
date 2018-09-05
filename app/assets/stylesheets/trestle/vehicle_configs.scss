@@ -1,9 +1,141 @@
 @import "variables";
-body.controller-admin-user-vehicles {
 
-}
 body.controller-admin-vehicle-configs,body.controller-admin-user-vehicles {
-  
+  &.action-show {
+    .vehicle-capability-control {
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      display:flex;
+      flex-direction: column;
+      a {
+        display:block;
+        width:100%;
+        &:first-child {
+          flex-grow: 5;
+        }
+      }
+      a.configure-link {
+        font-size:10px;
+        flex-grow:1;
+      }
+    }
+    #tab-capabilities {
+      tr {
+        td.icon {
+          width: 47px;
+          padding: 3px 5px;
+          text-align: center;
+          .icon-wrap {
+            padding:5px;
+            display:block;
+            border:1px solid rgba(#000,0.1);
+            border-radius:6px;
+            height:40px;
+            width:40px;
+            background-image: linear-gradient(-180deg, lighten(#212121,4) 0%, darken(#000,4) 90%);
+          }
+          img {
+            // border:1px;
+            width:100%;
+            height:100%;
+          }
+        }
+        .type-factory, .type-easy, .type-intermediate, .type-advanced {
+          text-align:center;
+          width:14%;
+          min-width:14%;
+          .type-label {
+            font-size:10px;
+          }
+          .label-text, .type-label {
+            display:block;
+            line-height: 1em;
+          }
+          .label-text {
+            line-height:1.4em;
+            font-size:14px;
+          }
+          .btn-configure {
+            padding:0;
+            line-height: 1.4em;
+          }
+          .btn-add {
+            opacity:0;
+          }
+          .btn-success,.btn-danger {
+            opacity:1;
+          }
+        }
+        .type-factory, .type-easy, .type-intermediate, .type-advanced {
+          position:relative;
+          &:after {
+            content:"";
+            background-color:rgba(#000,0.1);
+            height:100%;
+            width:1px;
+            position:absolute;
+            right:0;
+            top:0;
+          }
+          .btn {
+            border-radius:0;
+            border:0;
+            .fa {
+              font-size: 19px;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%,-50%);
+              opacity: 0.7;
+            }
+          }
+          .btn-success {
+            background:lighten($green,4);
+            color: #FFF;
+            opacity:1;
+          }
+          .btn-danger {
+            background:lighten($red,4);
+            color: #FFF;
+            opacity:1;
+          }
+        }
+        &:hover {
+          td {
+            background-color:rgba(#000,0.05);
+          }
+          .type-factory, .type-easy, .type-intermediate, .type-advanced {
+            
+            .btn {
+              opacity:1;
+            }
+            .btn-success {
+              opacity:1;
+            }
+          }
+        
+          .btn-success {
+            opacity:1;
+          }
+        }
+      }
+    
+      thead {
+        tr {
+          .type-factory, .type-easy, .type-intermediate, .type-advanced {
+            opacity:1;
+          }
+        
+          .btn-success {
+            opacity:1;
+          }
+        }
+      }
+    }
+  }
   .edit_vehicle_config {
     .app-wrapper {
       &.is-visitor, &.is_editor, &.is_admin {

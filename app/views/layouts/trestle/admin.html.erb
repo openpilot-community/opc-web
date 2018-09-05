@@ -34,18 +34,8 @@
 
     <%= hook :stylesheets %>
 
-    <%= javascript_include_tag "turbolinks" if Trestle.config.turbolinks %>
-    <%= javascript_include_tag "trestle/admin", 'data-turbolinks-track': 'reload' %>
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    <script type="text/javascript">
-    <% Trestle.config.javascript_i18n_keys.each do |key| %>
-      Trestle.i18n['<%= key %>'] = "<%= escape_javascript(t(key, default: t(key, locale: :en))) %>";
-    <% end %>
-    Trestle.localize(<%= i18n_fallbacks.map { |l| "'#{l}'" }.join(", ").html_safe %>);
-    </script>
-
-    <%= hook :javascripts %>
+    
 
     <%= content_for(:head) %>
 
@@ -66,5 +56,19 @@
         <%= render "trestle/shared/footer" %>
       </div>
     </div>
+    <script src="https://unpkg.com/react@16/umd/react.<%=Rails.env%>.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.<%=Rails.env%>.js" crossorigin></script>
+
+    <%= javascript_include_tag "turbolinks" if Trestle.config.turbolinks %>
+    <%= javascript_include_tag "trestle/admin", 'data-turbolinks-track': 'reload' %>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script type="text/javascript">
+    <% Trestle.config.javascript_i18n_keys.each do |key| %>
+      Trestle.i18n['<%= key %>'] = "<%= escape_javascript(t(key, default: t(key, locale: :en))) %>";
+    <% end %>
+    Trestle.localize(<%= i18n_fallbacks.map { |l| "'#{l}'" }.join(", ").html_safe %>);
+    </script>
+    
+    <%= hook :javascripts %>
   </body>
 </html>

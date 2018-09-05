@@ -152,7 +152,7 @@ class VehicleConfig < ApplicationRecord
   end
 
   def update_slug
-    if !slug.ends_with?(self.hashid.downcase)
+    if slug.blank? || !slug.ends_with?(self.hashid.downcase)
       self.slug = nil
       # byebug
       self.save
@@ -293,7 +293,7 @@ class VehicleConfig < ApplicationRecord
   end
 
   def name_for_slug
-    if year && vehicle_make && vehicle_model
+    if id.present? && year && vehicle_make && vehicle_model
       "#{year} #{vehicle_make.name} #{vehicle_model.name} #{self.hashid.downcase}"
     end
   end

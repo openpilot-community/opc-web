@@ -6,6 +6,7 @@
     background-color:#000!important;
     
   }
+
   .main-content-container {
     margin-bottom:0;
   }
@@ -212,6 +213,16 @@
 }
 @media (max-width: 767px) {
   body.controller-admin-vehicle-lookups.action-new {
+    .app-wrapper .content-header {
+        position: relative;
+        top: initial;
+        right: initial;
+        z-index: initial;
+        width: initial;
+        padding-top: initial;
+        padding-bottom: initial;
+        background: initial;
+    }
     .app-wrapper .content-header .btn-toolbar {
         // text-align: right;
         flex: 0 0 100%;

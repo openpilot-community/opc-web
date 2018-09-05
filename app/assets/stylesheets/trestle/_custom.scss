@@ -356,6 +356,13 @@ body {
     .primary-toolbar {
       // opacity:0;
     }
+    .trestle-table {
+      .actions {
+        .btn-danger {
+          display:none;
+        }
+      }
+    }
     .tab-toolbar {
       display:none;
       .actions {
@@ -1051,6 +1058,7 @@ body {
     // }
     .app-main {
       padding:0;
+      padding-top: 0!important;
     }
     .app-sidebar-header .navbar-brand {
         justify-content: center;
@@ -1065,5 +1073,15 @@ body {
       overflow: auto;
       height:initial;
       width:initial;
+  }
+  .app-wrapper {
+    .content-header {
+      position: absolute;
+      top: 7px;
+      right: 9px;
+      z-index: 1000;
+      width: 20%;
+      background: transparent!important;
+    }
   }
 }

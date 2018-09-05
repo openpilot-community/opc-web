@@ -1090,7 +1090,7 @@ body {
     }
   }
 
-  .app-container {
+  .app-wrapper .app-container,.app-container {
     overflow-y: initial!important;
     overflow-x: initial;
   }

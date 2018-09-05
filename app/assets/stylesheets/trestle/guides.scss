@@ -157,3 +157,66 @@ body.controller-admin-guides.action-index {
     }
   }
 }
+
+@media (max-width: 767px) {
+  .documentation {
+      // position: relative;
+      // /* margin: 0 auto; */
+      // max-width: 100%;
+      padding: 0 0 110px 0;
+  }
+  .table > thead > tr > th, .trestle-table > thead > tr > th, .table > thead > tr > td, .trestle-table > thead > tr > td, .table > tbody > tr > th, .trestle-table > tbody > tr > th, .table > tbody > tr > td, .trestle-table > tbody > tr > td, .table > tfoot > tr > th, .trestle-table > tfoot > tr > th, .table > tfoot > tr > td, .trestle-table > tfoot > tr > td {
+    padding:0;
+  }
+  .responses {
+    max-width: 740px;
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0 auto;
+  }
+  .responses .comment {
+    padding:19px 0 0px 16px;
+  }
+  .responses .comment .author-box .detail-inner {
+    padding: 0 14px!important;
+  }
+  .guide-card {
+    display: block;
+    .details {
+      flex: initial;
+      padding: 0 15px;
+      position: relative;
+    }
+    .image {
+      width:100%;
+      flex:initial;
+    }
+    .detail-inner {
+      position: relative;
+      top: initial;
+      left: initial;
+      padding: 0;
+      -webkit-transform: initial;
+      transform: initial;
+    }
+    
+    .title {
+      font-size: 17px;
+      line-height: 19px;
+      letter-spacing: -0.32px;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.84);
+      font-style: normal;
+      margin-bottom: 4px;
+      margin-top: 7px;
+    }
+    .synopsis {
+      overflow: hidden!important;
+      max-height: 40px!important;
+      text-overflow: ellipsis!important;
+      display: -webkit-box!important;
+      -webkit-line-clamp: 2!important;
+      -webkit-box-orient: vertical;
+    }
+  }
+}

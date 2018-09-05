@@ -1059,3 +1059,11 @@ body {
     }
 }
 }
+
+@media (max-width: 767px) {
+  html, body {
+      overflow: auto;
+      height:initial;
+      width:initial;
+  }
+}

@@ -7,6 +7,7 @@
   padding-right: 20px;
   margin:0 auto;
   .comment {
+    font-size: 14px;
     position:relative;
     background: #fff;
     -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.04);
@@ -85,9 +86,11 @@
 .comment {
   .comment_div {
     .comment_votes {
-      position:absolute;
-      top:0;
-      right:0;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 18%;
+      max-width:75px;
     }
     .comment_upvote,.comment_downvote {
       img {
@@ -288,4 +291,52 @@ http://www.strangerstudios.com/sandbox/pagination/diggstyle.php */
 .thread .mentions-input-box .mentions {
   left: -2px !important;
   top: -2px !important;
+}
+.thread_span {
+  display:block;
+}
+.thread_reply {
+  margin-top:22px;
+}
+.thread_actions {
+  display:none;
+}
+.comment_form_field {
+  padding:0 15px;
+}
+.comment_form_actions {
+  padding:0 15px;
+  input {
+    &:nth-child(2) {
+      display:none;
+    }
+  }
+}
+.thread_header {
+  display:none;
+}
+@media (max-width: 767px) {
+  
+  .responses {
+    max-width: 740px;
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0 auto;
+    .thread_comment_list {
+      padding:0 13px;
+    }
+    .comment {
+      margin-top: 10px !important;
+      padding: 10px;
+      padding-top: 0;
+    }
+  }
+  .editor-toolbar {
+    max-height: 37px;
+    white-space: nowrap;
+    width: 100%;
+    overflow-x: auto;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
 }

@@ -90,32 +90,34 @@ var setupVehicleConfigYear = function() {
       }
     })
   })
-  
+  var is_visitor = $(".is-visitor").length;
   var should_disable_fields = false;
   var should_show_trim_styles = false;
-  if (!$("body.controller-admin-vehicle-lookups").length) {
-    should_disable_fields = true;
-  }
-  if ($("body.controller-admin-vehicle-lookups").length && !window.location.href.includes("vehicle_lookups")) {
-    should_disable_fields = true;
-    should_show_trim_styles = true;
-  }
-  if ($('.app-wrapper.is-visitor').length) {
-    if (should_disable_fields) {
-      $(".trestle-table .actions > *").remove();
-      $(".main-content .form-control,.modal-body .form-control").attr('disabled',true);
-    }
+  // if (!$("body.controller-admin-vehicle-lookups").length) {
+  //   should_disable_fields = true;
+  // }
+  // if ($("body.controller-admin-vehicle-lookups").length && !window.location.href.includes("vehicle_lookups")) {
+  //   should_disable_fields = true;
+  //   should_show_trim_styles = true;
+  // }
+  // var is_guides = $("body.controller-admin-guides.action-new,");
+  // if (is_guides && is_visitor) {
+  //   should_disable_fields = false;
+  // }
+  // if ($('.app-wrapper.is-visitor').length) {
+  //   if (should_disable_fields) {
+  //     $(".trestle-table .actions > *").remove();
+  //     $(".main-content .form-control,.modal-body .form-control").attr('disabled',true);
+  //   }
 
-    
-
-    if (should_show_trim_styles) {
-      var $trimStylesTab = $("a[data-toggle='tab'][href='#tab-trim_styles']");
+  //   if (should_show_trim_styles) {
+  //     var $trimStylesTab = $("a[data-toggle='tab'][href='#tab-trim_styles']");
       
-      if ($trimStylesTab.length) {
-        $trimStylesTab.tab("show");
-      }
-    }
-  }
+  //     if ($trimStylesTab.length) {
+  //       $trimStylesTab.tab("show");
+  //     }
+  //   }
+  // }
   
   // console.warn('setupVehicleConfigYear');
   var $year_start = $("#vehicle_config_year");

@@ -21,7 +21,7 @@ gem 'derailed', group: :development
 gem 'mini_magick'
 # gem 'trestle', :path => '/Users/joshua/Projects/trestle'
 gem 'trestle', :git => 'https://github.com/jfrux/trestle'
-gem 'trestle-simplemde', :git => 'https://github.com/jfrux/trestle-simplemde'
+gem 'trestle-simplemde'
 gem 'trestle-search'
 gem 'devise'
 gem 'devise-guests'

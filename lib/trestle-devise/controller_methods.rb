@@ -55,7 +55,7 @@ module Trestle
         set_meta_tags description: "The goal of this is to be a community resource and centralized location for knowledge on Openpilot Vehicles"
       end
       def require_edit_permissions!
-        if current_or_guest_user.is_visitor?
+        if !current_or_guest_user.is_visitor? && !current_or_guest_user.is_admin? && !current_or_guest_user.is_super_admin?
           render "unauthorized" 
           return
         end

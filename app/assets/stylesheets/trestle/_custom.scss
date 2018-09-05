@@ -354,12 +354,12 @@ body {
   }
   &.is-visitor {
     .primary-toolbar {
-      opacity:0;
+      // opacity:0;
     }
     .tab-toolbar {
       display:none;
       .actions {
-        opacity:0;
+        // opacity:0;
       }
     }
   }

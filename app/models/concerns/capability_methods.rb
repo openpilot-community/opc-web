@@ -41,7 +41,7 @@ module CapabilityMethods
 
   def mph
     if kph.present?
-      (kph.to_i*0.621371).to_i.round
+      (kph.to_i*0.621371).round
     end
   end
 end

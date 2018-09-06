@@ -1,0 +1,20 @@
+<div class="guide-card<%=instance.thumbnail_url.present? ? " has-thumbnail" : nil%>">
+  <% if instance.thumbnail_url.present? %>
+  <div class="image">
+    <span class="img" style="background-image:url(<%=instance.thumbnail_url%>)">
+    </span>
+  </div>
+  <% end %>
+
+  <div class="details">
+    <div class="detail-inner">
+      <div class="title"><%=instance.title%></div>
+      <div class="meta">
+        <span class="author"><%=instance.author%></span>
+        <span class="divider">&middot;</span>
+        <span class="date"><%=instance.friendly_date%></span>
+        
+      </div>
+    </div>
+  </div>
+</div>

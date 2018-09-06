@@ -19,8 +19,8 @@ gem 'jquery-rails'
 gem 'mimemagic'
 gem 'derailed', group: :development
 gem 'mini_magick'
-# gem 'trestle', :path => '/Users/joshua/Projects/trestle'
-gem 'trestle', :git => 'https://github.com/jfrux/trestle'
+gem 'trestle', :path => '/Users/joshua/Projects/trestle'
+# gem 'trestle', :git => 'https://github.com/jfrux/trestle'
 gem 'trestle-simplemde'
 gem 'trestle-search'
 gem 'devise'
@@ -28,6 +28,7 @@ gem 'devise-guests'
 gem 'puma'
 gem "socialization"
 # gem 'html2text'
+gem "reverse_markdown"
 gem 'commontator', '~> 5.1.0'
 # gem 'pundit'
 # gem 'selenium-webdriver'
@@ -72,6 +73,7 @@ gem "octokit", "~> 4.0"
 gem 'redcarpet'
 gem 'meta-tags'
 gem "down", "~> 4.4"
+gem 'gaffe'
 gem 'cars', :git => 'https://github.com/openpilot-community/cars_abstraction'
 group :development, :test do
   # gem 'cars', :path => '/Users/joshua/Projects/cars_abstraction'

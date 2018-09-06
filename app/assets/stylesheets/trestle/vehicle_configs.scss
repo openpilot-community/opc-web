@@ -2,6 +2,17 @@
 
 body.controller-admin-vehicle-configs,body.controller-admin-user-vehicles {
   &.action-show {
+    #tab-guides {
+      .trestle-table > thead > tr > td, .trestle-table > thead > tr > td, .trestle-table > tbody > tr > td, .trestle-table > tbody > tr > td, .trestle-table > tfoot > tr > td, .trestle-table > tfoot > tr > td {
+        padding:0;border:0;
+        padding-bottom:10px;
+      }
+      &.tab-pane {
+        .trestle-table thead {
+          display:none;
+        }
+      }
+    }
     .vehicle-capability-control {
       position:absolute;
       top:0;
@@ -199,7 +210,7 @@ body.controller-admin-vehicle-configs,body.controller-admin-user-vehicles {
           background-image: linear-gradient(-180deg, #fafbfc 0%, #eff3f6 90%);
         }
         a.btn.user-owns {
-          background-image: linear-gradient(-180deg, darken($blue,4) 0%, darken($blue,8) 90%);
+          background-image: linear-gradient(-180deg, lighten(#333,4) 0%, darken(#333,8) 90%);
           color: #FFF;
           
         }

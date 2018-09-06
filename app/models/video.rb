@@ -17,14 +17,42 @@
 #
 
 class Video < ApplicationRecord
+  extend FriendlyId
+  include Hashid::Rails
+  acts_as_commontable dependent: :destroy
+  friendly_id :name_for_slug, use: :slugged
   has_many :vehicle_config_videos
   has_many :vehicle_configs, :through => :vehicle_config_videos
   has_many :video_hardware_items
   has_many :hardware_items, :through => :video_hardware_items
   validates_uniqueness_of :video_url, message: "Video has already been added."
-  validates_uniqueness_of :html, message: "Video has already been added."
+  # validates_uniqueness_of :html, message: "Video has already been added."
   before_validation :embed
+  before_save :check_author
+  after_commit :update_slug
   # has_many :hardware_items, :through => :video_hardware
+
+  def hardware_item_ids=(ids)
+    self.hardware_items = Array(ids).reject(&:blank?).map { |id|
+      (id =~ /^\d+$/) ? HardwareItem.find(id) : HardwareItem.new(name: id)
+    }
+  end
+
+  def update_slug
+    unless slug.blank? || slug.ends_with?(self.hashid.downcase)
+      self.slug = nil
+      # byebug
+      self.save
+    end
+  end
+
+  def friendly_date
+    if created_at.year == Date.today.year
+      created_at.strftime("%b %d")
+    else
+      created_at.strftime("%b %d, %Y")
+    end
+  end
   
   def name
     title
@@ -52,7 +80,9 @@ class Video < ApplicationRecord
         self.thumbnail_url = result['links']['thumbnail']['href']
       end
     end
-
+    if self.html.blank?
+      self.html = result['html']
+    end
     if self.author_url.blank?
       self.author_url = result['meta']['author_url']
     end
@@ -68,5 +98,10 @@ class Video < ApplicationRecord
     if self.description.blank?
       self.description = result['meta']['description']
     end
+  end
+
+  
+  def name_for_slug
+    "#{self.title} #{self.hashid if self.id.present?}"
   end
 end

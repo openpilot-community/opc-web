@@ -7,7 +7,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
     end
   end
   find_instance do |params|
-    VehicleConfig.friendly.find(params[:id])
+    VehicleConfig.friendly.includes(:guides,:pull_requests,:repositories).find(params[:id])
   end
   ########
   # SCOPES
@@ -349,7 +349,11 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
       # end
     end
     # column :trim_styles_count, header: "Trims", sort: false
-    actions
+    actions do |toolbar, instance, admin|
+      if current_user.is_super_admin?
+        toolbar.delete if admin && admin.actions.include?(:destroy)
+      end
+    end
   end
 
   ##########
@@ -494,43 +498,87 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
           end
         end
       end
-      tab :modifications, badge: vehicle_config.vehicle_config_modifications.blank? ? nil : vehicle_config.vehicle_config_modifications.size do
+
+      tab :guides, badge: vehicle_config.guides.present? ? vehicle_config.guides.size : nil do
         render "tab_toolbar", {
           :groups => [
             {
+              :class => "filters",
+              :items => [
+                link_to(
+                  "All",
+                  vehicle_configs_admin_url(vehicle_config.id, anchor: "!tab-guides"), 
+                  class: "btn btn-default btn-list-filter"
+                ),
+                VehicleConfigType.where.not(difficulty_level: 0).order(:difficulty_level).map do |difficulty|
+                  link_to(difficulty.name, vehicle_configs_admin_url(vehicle_config.id, params: { difficulty: difficulty.id }, anchor: "!tab-guides"), class: "btn btn-default btn-list-filter")
+                end
+              ].flatten
+            },
+            {
               :class => "actions",
               :items => [
-                admin_link_to("Add Modification", admin: :vehicle_config_modifications, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
+                admin_link_to("<span class=\"fa fa-database\"></span> Add Existing From Database".html_safe, admin: :vehicle_config_guides, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id }),
+                admin_link_to("<span class=\"fa fa-link\"></span> Add Guide From URL".html_safe, admin: :vehicle_config_guides, action: :new, class: "btn btn-default btn-list-add", params: { from_url: true, vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id }),
+                admin_link_to("<span class=\"fa fa-pencil\"></span> Write a Guide".html_safe, admin: :vehicle_config_guides, action: :new, dialog: true, class: "btn btn-default btn-list-add", params: { new: true, vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
               ]
             }
           ]
         }
-        
-        table vehicle_config.vehicle_config_modifications.includes(:modification).order('modifications.name'), admin: :vehicle_config_modifications do
-          # column :image, dialog: true do |instance|
-          #   begin
-          #     hardware_items = instance.modification.modification_hardware_types.map{|mht| mht.modification.hardware_types.map{|ht| ht.hardware_items.map{|hi| { image: hi.image, name: hi.name, purchase_url: hi.purchase_url } }}}.flatten
-          #     if hardware_items.present?
-          #       first_item = hardware_items.first
-          #       image_tag(first_item.image.service_url)
-          #     end
-          #   rescue
 
-          #   end
-          # end
-          column :modification, dialog: true
-          column :purchase_required_hardware do |instance|
-            # byebug
-            begin
-              hardware_items = instance.modification.modification_hardware_types.map{|mht| mht.modification.hardware_types.map{|ht| ht.hardware_items.map{|hi| { image: hi.image, name: hi.name, purchase_url: hi.purchase_url } }}}.flatten
-              if hardware_items.present?
-                first_item = hardware_items.first
-                link_to("<span class=\"fa fa-shopping-cart\"></span> Buy #{first_item[:name]}".html_safe, first_item[:purchase_url], class: "btn btn-success", target: "_blank")
-              end
-            rescue
-
-            end
+        if params['difficulty']
+          difficulty = VehicleConfigType.where(id: params['difficulty'].to_i)
+          if difficulty.present?
+            guides_qry = vehicle_config.vehicle_config_guides.where(vehicle_config_type_id: difficulty.first.id).includes(:guide).order('guides.title')
+          else
+            guides_qry = vehicle_config.vehicle_config_guides.includes(:guide).order('guides.title')
           end
+        else
+          guides_qry = vehicle_config.vehicle_config_guides.includes(:guide).order('guides.title')
+        end
+
+        if guides_qry.present?
+          table guides_qry, admin: :vehicle_config_guides, action: :show, params: { show: true } do
+            row do |guide|
+              { 
+                data: {
+                  url: vehicle_config_guides_admin_url(guide.id, params: { show: true }) 
+                }
+              }
+            end
+            column :row, dialog: true, header: nil do |instance|
+              render "admin/guides/row", instance: instance.guide, vehicle_config_guide: instance, vehicle_config: vehicle_config
+            end
+            # column :title, dialog: true do |instance|
+            #   instance.guide.title
+            # end
+            # column :purchase_required_hardware do |instance|
+            #   # byebug
+            #   begin
+            #     hardware_items = instance.modification.modification_hardware_types.map{|mht| mht.modification.hardware_types.map{|ht| ht.hardware_items.map{|hi| { image: hi.image, name: hi.name, purchase_url: hi.purchase_url } }}}.flatten
+            #     if hardware_items.present?
+            #       first_item = hardware_items.first
+            #       link_to("<span class=\"fa fa-shopping-cart\"></span> Buy #{first_item[:name]}".html_safe, first_item[:purchase_url], class: "btn btn-success", target: "_blank")
+            #     end
+            #   rescue
+
+            #   end
+            # end
+          end
+        else
+          render inline: content_tag(
+            :div, 
+            %(
+              <h4><strong>No Guides for #{vehicle_config.name} Yet!</strong></h4>
+              <p>We need your help linking existing guides or writing new ones for this vehicle. 
+              It's fast and easy and only has to be done once for everyone to benefit. 
+              Teach others from your experiences.
+              </p>
+              <p>Be the first to add one now.</p>
+            ).html_safe, 
+            class: "alert alert-warning", 
+            style: "display: block;"
+          )
         end
       end
 
@@ -587,7 +635,8 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
             {
               :class => "actions",
               :items => [
-                admin_link_to("<span class=\"fa fa-plus\"></span> Video".html_safe, admin: :vehicle_config_videos, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id }),
+                admin_link_to("<span class=\"fa fa-database\"></span> Add Existing From Database".html_safe, admin: :vehicle_config_videos, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id }),
+                admin_link_to("<span class=\"fa fa-link\"></span> Add Video From URL".html_safe, admin: :vehicle_config_videos, action: :new, class: "btn btn-default btn-list-add", params: { from_url: true, vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
               ]
             }
           ]

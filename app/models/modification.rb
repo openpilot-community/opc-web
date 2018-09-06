@@ -20,6 +20,7 @@ class Modification < ApplicationRecord
   has_many :hardware_types, :through => :modification_hardware_types
   has_many :vehicle_config_modifications, dependent: :delete_all
   has_many :vehicle_configs, :through => :vehicle_config_modifications
+
   def name_for_slug
     "#{id} #{name}"
   end

@@ -126,6 +126,8 @@ class VehicleConfig < ApplicationRecord
   has_many :modifications, :through => :vehicle_config_modifications
   has_many :vehicle_config_hardware_items, dependent: :delete_all
   has_many :vehicle_config_capabilities, dependent: :delete_all
+  has_many :vehicle_config_guides, dependent: :delete_all
+  has_many :guides, :through => :vehicle_config_guides
   has_many :vehicle_capabilities, :through => :vehicle_config_capabilities
   has_many :vehicle_config_repositories, dependent: :delete_all
   has_many :repositories, :through => :vehicle_config_repositories

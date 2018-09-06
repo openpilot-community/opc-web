@@ -80,19 +80,24 @@ Trestle.resource(:guides) do
   #
   table do
     column :title, header: "" do |instance|
-      render "row", instance: instance
+      render "row", instance: instance, vehicle_config: {}, vehicle_config_guide: {}
     end
   end
 
   # Customize the form fields shown on the new/edit views.
   #
   form do |guide|
-    text_field :title
-    editor :markdown
-    # row do
-    #   col(xs: 6) { datetime_field :updated_at }
-    #   col(xs: 6) { datetime_field :created_at }
-    # end
+    if params['from_url'].present?
+      text_field :article_source_url
+    else
+      text_field :title
+      select :hardware_item_ids, HardwareItem.all, { label: "Hardware mentioned in this guide" }, { multiple: true, data: { tags: true } }
+      editor :markdown, { label: "" }
+      
+      if current_user.is_super_admin?
+        collection_select :user_id, User.order(:github_username), :id, :github_username, include_blank: true, label: "Author"
+      end
+    end
   end
 
   # By default, all parameters passed to the update and create actions will be

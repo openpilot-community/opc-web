@@ -4,31 +4,66 @@ Trestle.resource(:videos) do
     # item :videos, group: :admin
   # end
   scope :all, -> { Video.order(:uploaded_at => :desc) }, default: true
-  
+
+  to_param do |instance|
+    if instance.slug.present?
+      instance.slug
+    else
+      instance.id
+    end
+  end
+
+  find_instance do |params|
+    Video.friendly.find(params[:id])
+  end
+
   controller do
     include ActionView::Helpers::AssetUrlHelper
     def show
       video = admin.find_instance(params)
-      
-      set_meta_tags og: {
-        title: "#{video.title} | Openpilot Database",
-        image: video.thumbnail_url,
-        type: "website",
-        description: video.description
-      }
-      set_meta_tags keywords: [video.title.split(' '),['openpilot','vehicle','support','master','list','of','vehicles','supported','compatible','compatibility']].flatten
-      set_meta_tags description: video.description
+      commontator_thread_show(video)
+      video_url = File.join(Rails.application.routes.url_helpers.root_url,admin.instance_path(instance))
+      imgurl = video.thumbnail_url
+      # set_meta_tags og: {
+      #   title: "#{video.title} | Openpilot Database",
+      #   image: video.thumbnail_url,
+      #   type: "website",
+      #   description: video.description
+      # }
+      # set_meta_tags keywords: [video.title.split(' '),['openpilot','vehicle','support','master','list','of','vehicles','supported','compatible','compatibility']].flatten
+      # set_meta_tags description: video.description
+      set_meta_tags(
+        og: {
+          title: video.title,
+          image: imgurl,
+          site_name: "Openpilot Database",
+          url: video_url,
+          type: "article",
+          author: video.author
+        },
+        robots: "index, follow",
+        "article:published_time": video.created_at.iso8601(9),
+        "article:publisher": "https://opc.ai/",
+        "article:author": video.author,
+        keywords: ['openpilot','vehicle','support',video.title.split,'of','vehicles','supported','compatible','compatibility'].flatten,
+        description: "Watch #{video.title} and comment. #{video.description}",
+        canonical: video_url,
+        image_src: imgurl,
+        author: video.author,
+        twitter: {
+          creator: "@#{video.author}",
+          title: video.title,
+          card: "summary-large",
+          author: video.author
+        }
+      )
       super
     end
   end
   table do
-    column :thumbnail do |video|
-      image_tag(video.thumbnail_url, width: '150')
+    column :title, header: "" do |instance|
+      render "row", instance: instance
     end
-    column :name
-    # column :vehicle_config_videos
-    column :uploaded_at
-    # column :created_at, align: :center
   end
 
   # Customize the form fields shown on the new/edit views.

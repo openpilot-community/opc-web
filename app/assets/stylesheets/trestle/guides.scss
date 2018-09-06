@@ -1,3 +1,7 @@
+@import "variables";
+body.controller-admin-guides.action-show {
+  
+}
 body.controller-admin-guides.action-index {
   // .app-wrapper.is-visitor .primary-toolbar {
   //   opacity:1!important;
@@ -39,16 +43,35 @@ body.controller-admin-guides.action-index {
   flex-direction: row-reverse;
   background-color: #FFF;
   border: 0;
-  box-shadow: 0 3px 7px rgba(0,0,0,0.2);
-  padding: 10px 0px;
-  margin:10px;
-  position:relative;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 0;
+  position: relative;
   .image {
     display:none;
-    
+    .img {
+      background-color:#CCC;
+    }
+  }
+  .difficulty {
+    position:absolute;
+    top:0;
+    right:0;
+    color:#FFF;
+    padding:5px 10px;
+    &.type-easy {
+      background-color: $blue;
+    }
+    &.type-intermediate {
+      background-color: $yellow;
+    }
+    &.type-advanced {
+      background-color: $red;
+    }
   }
   .details {
     flex: 0 0 100%;
+    
   }
   &.has-thumbnail {
     .image {
@@ -64,7 +87,7 @@ body.controller-admin-guides.action-index {
     position:relative;
     top:50%;
     left:0;
-    min-height:92px;
+    min-height:74px;
     padding:0 15px 0 20px;
     transform:translateY(-50%);
   }
@@ -118,6 +141,16 @@ body.controller-admin-guides.action-index {
   margin:0 auto;
   box-shadow: 0 3px 7px rgba(0,0,0,0.2);
   position:relative;
+  .author-box {
+    position:relative;
+  }
+  .actions.btn-toolbar {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index:100;
+  }
   h1 {
     margin-top:17px;
   }
@@ -154,6 +187,7 @@ body.controller-admin-guides.action-index {
         background-repeat:no-repeat;
         background-size:cover;
         background-position: center center;
+          background-color:#CCC;
       }
     }
 
@@ -240,5 +274,20 @@ body.controller-admin-guides.action-index {
       -webkit-line-clamp: 2!important;
       -webkit-box-orient: vertical;
     }
+  }
+}
+
+.modal-content {
+  .documentation {
+    position: relative;
+    /* margin: 0 auto; */
+    max-width: 100%;
+    padding: 20px 20px 40px 20px;
+  }
+  .guide {
+    max-width: 100%;
+    border: 0;
+    margin: 0 auto;
+    box-shadow: none;
   }
 }

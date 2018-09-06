@@ -1,0 +1,36 @@
+<div class="documentation">
+  <div class="guide">
+    <div class="author-box">
+      <div class="actions btn-toolbar">
+        <div class="btn-group">
+          <%=admin_link_to("Edit", admin: :guides, action: :edit, params: { id: instance.slug }, class: "btn btn-default")%>
+        </div>
+      </div>
+      <div class="image">
+        <span class="img" style="background-image:url()"></span>
+      </div>
+      <div class="details">
+        <div class="detail-inner">
+          <div class="author-name">
+            <%=instance.author%>
+          </div>
+          <div class="meta">
+            <span class="date"><%=instance.friendly_date%></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h1><%=instance.title%></h1>
+
+    <div class="content">
+      <%=instance.html.html_safe%>
+    </div>
+
+    
+  </div>
+  <div class="responses">
+    <h4>Responses</h4>
+    <%= commontator_thread(instance) %>
+  </div>
+</div>

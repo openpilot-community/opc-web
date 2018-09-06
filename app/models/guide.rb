@@ -6,11 +6,23 @@ class Guide < ApplicationRecord
   acts_as_commontable dependent: :destroy
   has_one_attached :image
   friendly_id :name_for_slug, use: :slugged
-  belongs_to :user
+  belongs_to :user, optional: true
+  has_many :vehicle_config_guides
+  has_many :guide_hardware_items
+  has_many :hardware_items, :through => :guide_hardware_items
+  has_many :vehicle_configs, :through => :vehicle_config_guides
+  before_save :guide_from_url
   before_save :find_first_image
   before_save :set_markup
   after_save :set_image_scraper
   after_commit :update_slug
+  validates_uniqueness_of :article_source_url
+  
+  def hardware_item_ids=(ids)
+    self.hardware_items = Array(ids).reject(&:blank?).map { |id|
+      (id =~ /^\d+$/) ? HardwareItem.find(id) : HardwareItem.new(name: id)
+    }
+  end
 
   def update_slug
     unless slug.blank? || slug.ends_with?(self.hashid.downcase)
@@ -41,12 +53,15 @@ class Guide < ApplicationRecord
   end
 
   def find_first_image
-    first_image = self.markdown[/(https:\/\/)(.*).(jpeg|jpg|gif|png)/]
-    # first_image = markdown[/^http(s?):\/\/.*\.(jpeg|jpg|gif|png)/]
-    if first_image.present?
-      self.source_image_url = first_image
+    if self.source_image_url.blank?
+      first_image = self.markdown[/(https:\/\/)(.*).(jpeg|jpg|gif|png)/]
+      # first_image = markdown[/^http(s?):\/\/.*\.(jpeg|jpg|gif|png)/]
+      if first_image.present?
+        self.source_image_url = first_image
+      end
     end
   end
+
   def set_image_scraper
     if saved_change_to_source_image_url?
       puts "Queuing image download..."
@@ -54,8 +69,72 @@ class Guide < ApplicationRecord
     end
   end
 
+  def parse_with_mercury(article_url)
+    require 'net/http'
+    require 'uri'
+
+    uri = URI.parse("https://mercury.postlight.com/parser?url=#{article_url}")
+    request = Net::HTTP::Get.new(uri)
+    request["X-Api-Key"] = ENV['MERCURY_API_KEY']
+
+    req_options = {
+      use_ssl: uri.scheme == "https",
+    }
+
+    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+      http.request(request)
+    end
+
+    JSON.parse(response.body)
+  end
+
+  def parse_with_heckyesmarkdown(article_url)
+    require 'net/http'
+    require 'uri'
+
+    uri = URI.parse("http://heckyesmarkdown.com/go/?u=#{article_url}&output=json")
+    request = Net::HTTP::Get.new(uri)
+
+    # req_options = {
+    #   use_ssl: uri.scheme == "https",
+    # }
+
+    response = Net::HTTP.start(uri.hostname, uri.port) do |http|
+      http.request(request)
+    end
+
+    JSON.parse(response.body)
+  end
+
+  def guide_from_url
+      mercury_parse = parse_with_mercury(article_source_url)
+      heckyesmarkdown_parse = parse_with_heckyesmarkdown(article_source_url)
+      
+      self.title = mercury_parse['title'].present? ? mercury_parse['title'] : heckyesmarkdown_parse['title']
+      self.markdown = ReverseMarkdown.convert(mercury_parse['content'].present? ? mercury_parse['content'] : heckyesmarkdown_parse['content'])
+      self.source_image_url = mercury_parse['lead_image_url']
+      self.author_name = mercury_parse['author'].present? ? mercury_parse['author'] : mercury_parse['domain']
+      self.exerpt = mercury_parse['exerpt']
+      self.published_at = mercury_parse['date_published'].present? ? mercury_parse['date_published'] : Date.today
+      self.reference_domain = mercury_parse['domain']
+
+      if self.title.blank?
+        self.title = "Untitled Guide from #{self.reference_domain}"
+      end
+      check_author
+  end
+
   def name
     title
+  end
+
+  def check_author
+    if author_name.present?
+      found_user = User.where(github_username: author_name).or(User.where(slack_username: author_name))
+      if found_user.present?
+        self.user_id = found_user.first.id
+      end
+    end
   end
   
   def set_markup
@@ -66,44 +145,4 @@ class Guide < ApplicationRecord
   def name_for_slug
     "#{self.title} #{self.hashid if self.id.present?}"
   end
-
-  # def embed
-  #   iframely = Iframely::Requester.new api_key: ENV['IFRAMELY_KEY']
-
-  #   result = iframely.get_iframely_json(self.article_source_url)
-
-  #   if self.created_at.blank?
-  #     d = DateTime.parse(result["meta"]["date"])
-  #     self.created_at = d
-  #   end
-
-  #   if self.title.blank?
-  #     self.title = result['meta']['title']
-  #   end
-
-  #   # puts self.thumbnail_url
-  #   if self.source_image_url.blank?
-  #     if result['links']['thumbnail'].is_a? Array
-  #       self.source_image_url = result['links']['thumbnail'].first['href']
-  #     else
-  #       self.source_image_url = result['links']['thumbnail']['href']
-  #     end
-  #   end
-
-  #   # if self.author_url.blank?
-  #   #   self.author_url = result['meta']['author_url']
-  #   # end
-
-  #   if self.author.blank?
-  #     self.author = result['meta']['author']
-  #   end
-
-  #   # if self.provider_name.blank?
-  #   #   self.provider_name = result['meta']['site']
-  #   # end
-
-  #   # if self.description.blank?
-  #   #   self.description = result['meta']['description']
-  #   # end
-  # end
 end

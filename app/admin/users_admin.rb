@@ -2,14 +2,26 @@ Trestle.resource(:users) do
 
   # Customize the table columns shown on the index view.
   #
-  # table do
-  #   column :name
-  #   column :created_at, align: :center
-  #   actions
-  # end
+  table do
+    column :name
+    column :vehicles do |user|
+      user.vehicles.count()
+    end
+    column :guides do |user|
+      user.guides.count()
+    end
+    column :versions, header: "db edits" do |user|
+      user.versions.count()
+    end
+    column :votes do |user|
+      user.votes.count()
+    end
+  end
 
   # Customize the form fields shown on the new/edit views.
   #
+  scope :all, -> { User.includes(:votes, :vehicles, :guides).where(guest: false) }, default: true
+
   form do |user|
     # text_field :email
     text_field :name

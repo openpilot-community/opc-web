@@ -5,6 +5,7 @@ Trestle.resource(:vehicle_capabilities) do
   table do
     column :name, link: true
     column :description
+    column :vehicle_config_count, header: "Popularity"
     # actions
   end
 

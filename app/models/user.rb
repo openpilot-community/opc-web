@@ -23,7 +23,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :omniauthable, omniauth_providers: %i[github]
   # has_one :login
+  has_many :guides
   belongs_to :user_role
+  has_many :versions, :foreign_key => :whodunnit
   # before_create :set_role
 
   def at_username

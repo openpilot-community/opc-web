@@ -53,9 +53,12 @@ Trestle.resource(:vehicle_config_capabilities) do
       collection_select :vehicle_capability_id, VehicleCapability.order(:name), :id, :name, include_blank: true
     end
     # collection_select :vehicle_capability_id, VehicleCapability.order(:name), :id, :name, include_blank: true
-
-    text_field :kph
-    text_field :timeout
+    if vehicle_config_capability.vehicle_capability.value_type == 'speed'
+      text_field :kph
+    end
+    if vehicle_config_capability.vehicle_capability.value_type == 'timeout'
+      text_field :timeout
+    end
 
     # check_box :confirmed
     collection_select :confirmed_by_id, User.all, :id, :github_username, include_blank: true

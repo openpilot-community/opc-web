@@ -449,17 +449,12 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
       tab :capabilities do
         config_types = VehicleConfigType.order(:difficulty_level)
         vcs = VehicleCapability.order(:name)
-        vcs_common = vcs.select{|vc| vc.vehicle_config_count > 2 }
-        vcs_uncommon = vcs.select{|vc| vc.vehicle_config_count <= 2 }
-        # vehicle_capabilities_uncommon = VehicleCapability.where.not(id: vehicle_capabilities_common.map(&:id)).order(:name)
+        vcs_common = vcs.where("vehicle_capabilities.vehicle_config_count > 5")
+        vcs_uncommon = vcs.where.not(id: vcs_common.map(&:id))
         vccs = VehicleConfigCapability.joins(:vehicle_config,:vehicle_capability).where(vehicle_config_id: vehicle_config.id)
-        # vct_factory = VehicleConfigType.find_by(name: 'Factory')
-        # vct_standard = VehicleConfigType.find_by(name: 'Standard')
-        # vct_basic = VehicleConfigType.find_by(name: 'Basic')
-        # vct_advanced = VehicleConfigType.find_by(name: 'Advanced')
-        render inline: content_tag(:div, "This area is a work in progress and isn't functioning as intended.", class: "alert alert-warning")
-        table vcs, admin: :vehicle_capabilities_admin do
-          column :icon, class: "icon" do |instance|
+        render inline: content_tag(:div, nil, class: "table-filter")
+        table vcs_common, admin: :vehicle_capabilities_admin do
+          column :icon, class: "icon", header: nil do |instance|
             content_tag(:span, class: "icon-wrap") do
               image_tag(asset_url("/assets/capabilities/#{instance.name.parameterize}.svg"),width:100,height:100)
             end
@@ -477,25 +472,27 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
               render 'capability_link', capability: capability, type: type, vehicle: vehicle_config, vehicle_capability: vccs.select{|vcc| vcc.vehicle_capability_id == capability.id && vcc.vehicle_config_type_id == type.id }.first
             end
           end
+        end if vcs_common.present?
+        table vcs_uncommon, admin: :vehicle_capabilities_admin do
+          column :icon, class: "icon", header: nil do |instance|
+            content_tag(:span, class: "icon-wrap") do
+              image_tag(asset_url("/assets/capabilities/#{instance.name.parameterize}.svg"),width:100,height:100)
+            end
+          end
+          column :name, header: "Uncommon Capabilities"
+
+          # DIFFICULTY LEVELS
+          config_types.each do |type|
+          column type.name.parameterize.to_sym, 
+            class: "type-#{type.name.parameterize}", 
+            header: %(
+              #{type.name}
+              <span data-toggle='tooltip' data-container='body' title='#{type.description}' class='fa fa-info'></span>
+            ).html_safe do |capability|
+              render 'capability_link', capability: capability, type: type, vehicle: vehicle_config, vehicle_capability: vccs.select{|vcc| vcc.vehicle_capability_id == capability.id && vcc.vehicle_config_type_id == type.id }.first
+            end
+          end
         end
-        # table vcs, admin: :vehicle_capabilities_admin do
-        #   column :icon, class: "icon" do |instance|
-        #     content_tag(:span, class: "icon-wrap") do
-        #       image_tag(asset_url("/assets/capabilities/#{instance.name.parameterize}.svg"),width:100,height:100)
-        #     end
-        #   end
-        #   column :name, header: "Uncommon Capabilities"
-        #     config_types.each do |type|
-        #       column type.name.parameterize.to_sym, 
-        #       class: "type-#{type.name.parameterize}", 
-        #       header: %(
-        #         #{type.name}
-        #         <span data-toggle='tooltip' data-container='body' title='#{type.description}' class='fa fa-info'></span>
-        #       ).html_safe do |capability|
-        #         render 'capability_link', capability: capability, type: type, vehicle: vehicle_config, vehicle_capability: vccs.select{|vcc| vcc.vehicle_capability_id == capability.id && vcc.vehicle_config_type_id == type.id }.first
-        #       end
-        #   end
-        # end
       end
       tab :modifications, badge: vehicle_config.vehicle_config_modifications.blank? ? nil : vehicle_config.vehicle_config_modifications.size do
         render "tab_toolbar", {

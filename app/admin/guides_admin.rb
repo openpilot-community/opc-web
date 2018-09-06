@@ -87,15 +87,18 @@ Trestle.resource(:guides) do
   # Customize the form fields shown on the new/edit views.
   #
   form do |guide|
-    if params['from_url'].present?
-      text_field :article_source_url
-    else
-      text_field :title
-      select :hardware_item_ids, HardwareItem.all, { label: "Hardware mentioned in this guide" }, { multiple: true, data: { tags: true } }
-      editor :markdown, { label: "" }
-      
-      if current_user.is_super_admin?
-        collection_select :user_id, User.order(:github_username), :id, :github_username, include_blank: true, label: "Author"
+    tab :general do
+      if params['from_url'].present?
+        text_field :article_source_url
+      else
+        text_field :title
+        select :hardware_item_ids, HardwareItem.all, { label: "Tag hardware in this guide" }, { multiple: true, data: { tags: true } }
+        select :vehicle_config_ids, VehicleConfig.all, { label: "Tag vehicles in this guide" }, { multiple: true, data: { tags: true } }
+        editor :markdown, { label: "" }
+        
+        if current_user.is_super_admin?
+          collection_select :user_id, User.order(:github_username), :id, :github_username, include_blank: true, label: "Author"
+        end
       end
     end
   end

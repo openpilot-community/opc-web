@@ -24,6 +24,12 @@ class Guide < ApplicationRecord
     }
   end
 
+  def vehicle_config_ids=(ids)
+    self.vehicle_configs = Array(ids).reject(&:blank?).map { |id|
+      (id =~ /^\d+$/) ? VehicleConfig.find(id) : VehicleConfig.new(name: id)
+    }
+  end
+
   def update_slug
     unless slug.blank? || slug.ends_with?(self.hashid.downcase)
       self.slug = nil

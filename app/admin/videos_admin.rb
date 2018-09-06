@@ -75,16 +75,18 @@ Trestle.resource(:videos) do
         #   content_tag(:div, video.persisted? ? video.html.html_safe : nil, class: "video-output")
         # end
 
-        text_field :title
-        text_field :provider_name
-        text_field :author
-        text_field :author_url
-        text_field :thumbnail_url
-        text_field :description
+        static_field :title, video.title
+        select :hardware_item_ids, HardwareItem.all, { label: "Tag hardware in this video" }, { multiple: true, data: { tags: true } }
+        select :vehicle_config_ids, VehicleConfig.all, { label: "Tag vehicles in this video" }, { multiple: true, data: { tags: true } }
+        static_field :provider_name, video.provider_name
+        static_field :author, video.author
+        static_field :author_url, video.author_url
+        static_field :thumbnail_url, video.thumbnail_url
+        static_field :description, video.description
         # text_field :html
-        text_field :uploaded_at
+        static_field :uploaded_at, video.uploaded_at
       else
-        text_field :video_url
+        static_field :video_url, video.video_url
       end
     end
 

@@ -160,6 +160,7 @@ class VehicleConfig < ApplicationRecord
       self.save
     end
   end
+  
   def set_repos
     if vehicle_config_status.present?
      repository = Repository.find_by(full_name: "commaai/openpilot")

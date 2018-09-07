@@ -24,7 +24,6 @@ gem 'trestle', :git => 'https://github.com/jfrux/trestle'
 gem 'trestle-simplemde'
 gem 'trestle-search'
 gem 'devise'
-gem 'devise-guests'
 gem 'puma'
 gem "socialization"
 # gem 'html2text'

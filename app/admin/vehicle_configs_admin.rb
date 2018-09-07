@@ -186,17 +186,17 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
       self.instance = admin.find_instance(params)
 
       if params['vote'] == "up"
-        if (current_or_guest_user.voted_up_on? instance)
-          instance.unvote_by current_or_guest_user
+        if (current_user.present? && current_user.voted_up_on?(instance))
+          instance.unvote_by current_user
         else
-          instance.upvote_by current_or_guest_user
+          instance.upvote_by current_user
         end
       end
       if params['vote'] == 'down'
-        if (current_or_guest_user.voted_down_on? instance)
-          instance.unvote_by current_or_guest_user
+        if (current_user.present? && current_user.voted_down_on?(instance))
+          instance.unvote_by current_user
         else
-          instance.downvote_by current_or_guest_user
+          instance.downvote_by current_user
         end
       end
       respond_to do |format|
@@ -303,7 +303,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
       { class: "#{vehicle.vehicle_config_status.blank? ? nil : vehicle.vehicle_config_status.name.parameterize} #{vehicle.vehicle_config_type.blank? ? "unknown" : vehicle.vehicle_config_type.slug} vehicle-config" }
     end
     column :votes, align: :center, class: "votes-column" do |instance|
-      content_tag(:div, class: "vote-action #{current_or_guest_user.voted_down_on?(instance) ? "downvoted" : nil} #{current_or_guest_user.voted_up_on?(instance) ? 'upvoted' : nil} #{current_or_guest_user.voted_for?(instance) ? "voted" : nil}") do
+      content_tag(:div, class: "vote-action #{current_user.present? && current_user.voted_down_on?(instance) ? "downvoted" : nil} #{current_user.present? && current_user.voted_up_on?(instance) ? 'upvoted' : nil} #{current_user.present? && current_user.voted_for?(instance) ? "voted" : nil}") do
         %(
         #{link_to('<span class=\'fa fa-arrow-up\'></span>'.html_safe, vote_vehicle_configs_admin_url(instance.id, :format=> :json, params: { vote: 'up' }), remote: true, id: "vote_up_#{instance.id}", class: "vote-up ")}
         #{content_tag :span, instance.cached_votes_score, class: "badge badge-vote-count"}

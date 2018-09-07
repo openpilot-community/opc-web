@@ -141,6 +141,13 @@ body.controller-admin-guides.action-index {
   margin:0 auto;
   box-shadow: 0 3px 7px rgba(0,0,0,0.2);
   position:relative;
+  display:flex;
+  .guide-sidebar {
+    flex: 0 0 25%;
+  }
+  .guide-content {
+    flex: 0 0 75%;
+  }
   .author-box {
     position:relative;
   }

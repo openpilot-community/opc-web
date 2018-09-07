@@ -1,44 +1,62 @@
 <div class="documentation">
-  <div class="guide">
-    <div class="author-box">
-      <div class="actions btn-toolbar">
-        <div class="btn-group">
-          <%=admin_link_to("Edit", admin: :videos, action: :edit, params: { id: instance.slug }, class: "btn btn-default")%>
+  <div class="video">
+    <div class="video-block">
+      <div class="video-header">
+        <%=instance.html.html_safe%>
+      </div>
+      <div class="video-meta">
+        <h1><%=instance.title%></h1>
+        <div class="action-bar">
+          <div class="author-box">
+            <div class="image">
+              <span class="img" style="background-image:url()"></span>
+            </div>
+            <div class="details">
+              <div class="detail-inner">
+                <div class="author-name">
+                  <%=link_to(instance.author,instance.author_url)%>
+                </div>
+                <div class="meta">
+                  <span class="date"><%=instance.friendly_date%></span>
+                </div>
+
+                 <p><%=instance.description%></p>
+              </div>
+            </div>
+          </div>
+          <div class="actions btn-toolbar">
+            <div class="btn-group">
+              <%=admin_link_to("Edit", admin: :videos, action: :edit, params: { id: instance.slug }, class: "btn btn-default")%>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="image">
-        <span class="img" style="background-image:url()"></span>
-      </div>
-      <div class="details">
-        <div class="detail-inner">
-          <div class="author-name">
-            <%=instance.author%>
-          </div>
-          <div class="meta">
-            <span class="date"><%=instance.friendly_date%></span>
-          </div>
-        </div>
+      <div class="responses">
+        <h4>Responses</h4>
+        <%= commontator_thread(instance) %>
       </div>
     </div>
-
-    <h1><%=instance.title%></h1>
-
-    <div class="content">
-      <%=instance.html.html_safe%>
-    </div>
-
-    <div class="hardware-tags tags">
-      <% instance.hardware_items.each do |hardware| %>
-        <a href="">
-          <span><%= image_tag(hardware.image.service_url, width: 150)%></span>
-          <span><%= hardware.name%></span>
-        </a>
+    <div class="video-sidebar">
+      <h3>Hardware</h3>
+      <div class="hardware-tags tags">
+        <% instance.hardware_items.each do |hardware| %>
+          <%=admin_link_to(admin: :hardware_items, action: :show, params: { id: hardware.id }, class: "btn btn-default") do%>
+            <span><%= image_tag(hardware.image.service_url, width: 150)%></span>
+            <span><%= hardware.name%></span>
+          <% end %>
+        <% end %>
       </div>
-      <% end %>
+
+      <h3>Vehicles</h3>
+      <div class="vehicle-tags tags">
+        <% instance.vehicle_configs.each do |vehicle| %>
+          <a href="">
+            <span><%= image_tag(vehicle.image.service_url, width: 150)%></span>
+            <span><%= vehicle.name%></span>
+          </a>
+        <% end %>
+      </div>
     </div>
   </div>
-  <div class="responses">
-    <h4>Responses</h4>
-    <%= commontator_thread(instance) %>
-  </div>
+  
 </div>

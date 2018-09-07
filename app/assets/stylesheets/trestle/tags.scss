@@ -1,0 +1,28 @@
+.tags {
+  margin-bottom: 17px;
+  a {
+    border: 1px solid rgba(#000,0.05);
+    border-radius: 6px;
+    border-top-left-radius: 6px;
+    display: flex;
+    text-decoration:none;
+    span {
+      padding:10px;
+      height:100%;
+      border-right:1px solid rgba(#000,0.05);
+      display:block;
+      img {
+        border-top-left-radius:6px;
+        border-bottom-left-radius:6px;
+      }
+      &:first-child {
+        flex: 0 0 40%;
+      }
+      &:last-child {
+        border-right:0;
+        width:60%;
+        flex: 0 0 60%;
+      }
+    }
+  }
+}

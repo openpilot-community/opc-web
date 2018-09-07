@@ -1,0 +1,55 @@
+.video {
+  display:flex;
+
+  .action-bar {
+    display:flex;
+    border-top:1px solid rgba(#000,0.2);
+
+    .author-box {
+      flex: 0 0 70%;
+      padding:10px;
+
+      .meta {
+        margin-bottom:15px;
+      }
+    }
+    .actions {
+      flex: 0 0 30%;
+      padding:10px;
+      display:flex;
+      justify-content:flex-end;
+    }
+  }
+
+  .video-block {
+    background-color:#FFF;
+    padding:15px;
+    border:1px solid rgba(#000,0.1);
+    flex: 0 0 60%;
+
+    h1 {
+      font-size: 18px;
+      border: 0;
+      font-weight: 500;
+      letter-spacing: -0.04em;
+    }
+  }
+  .video-sidebar {
+    flex: 0 0 40%;
+    background-color:#FFF;
+    padding:15px;
+    border:1px solid rgba(#000,0.1);
+    h2 {
+      margin:0;
+    }
+    h3 {
+      margin: 0;
+      font-size: 15px;
+      position: relative;
+      // top: -7px;
+      // left: 0px;
+      display:block;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+  }
+}

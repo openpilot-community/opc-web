@@ -16,12 +16,15 @@
 @import "vehicle_configs";
 @import "guides";
 @import "commenting";
+@import "videos";
+@import "tags";
 @import "../medium-editor";
 @import "../themes/default";
 
 .content-header .secondary-toolbar {
   margin-top: 0;
 }
+
 .app-wrapper {
   .app-container {
     // overflow-y: visible!important;

@@ -59,7 +59,7 @@ class Guide < ApplicationRecord
   end
 
   def find_first_image
-    if self.source_image_url.blank?
+    if self.source_image_url.blank? && self.markdown.present?
       first_image = self.markdown[/(https:\/\/)(.*).(jpeg|jpg|gif|png)/]
       # first_image = markdown[/^http(s?):\/\/.*\.(jpeg|jpg|gif|png)/]
       if first_image.present?
@@ -147,8 +147,10 @@ class Guide < ApplicationRecord
   end
   
   def set_markup
-    markdown_renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
-    self.markup = markdown_renderer.render(self.markdown)
+    if self.markdown.present?
+      markdown_renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+      self.markup = markdown_renderer.render(self.markdown)
+    end
   end
 
   def name_for_slug

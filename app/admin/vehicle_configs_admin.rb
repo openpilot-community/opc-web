@@ -350,7 +350,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
     end
     # column :trim_styles_count, header: "Trims", sort: false
     actions do |toolbar, instance, admin|
-      if current_user.is_super_admin?
+      if current_or_guest_user.is_super_admin?
         toolbar.delete if admin && admin.actions.include?(:destroy)
       end
     end
@@ -581,55 +581,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
           )
         end
       end
-
-      tab :code, badge: vehicle_config.vehicle_config_repositories.blank? ? nil : vehicle_config.vehicle_config_repositories.size do
-        render "tab_toolbar", {
-          :groups => [
-            {
-              :class => "actions",
-              :items => [
-                admin_link_to("<span class=\"fa fa-plus\"></span> Repository".html_safe, admin: :vehicle_config_repositories, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id }),
-                admin_link_to("<span class=\"fa fa-plus\"></span> Pull Request".html_safe, admin: :vehicle_config_pull_requests, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
-              ]
-            }
-          ]
-        }
-        collection_select :vehicle_config_status_id, VehicleConfigStatus.order(:name), :id, :name, include_blank: true, label: "Status of the codebase"
-        collection_select :primary_repository_id, Repository.order(:full_name), :id, :name, include_blank: true, label: "Primary Repository"
-        collection_select :primary_pull_request_id, PullRequest.order(:pr_updated_at => :desc), :id, :name, include_blank: true, label: "Primary Pull Request"
-
-        table vehicle_config.vehicle_config_repositories, admin: :vehicle_config_repositories do
-          column :name, header: "Repositories" do |vcr|
-            link_to vcr.repository.url, target: "_blank" do
-              "#{image_tag(vcr.repository.owner_avatar_url, width: "20")} #{vcr.repository.full_name}".html_safe
-            end
-          end
-          column :repository_branch
-        end
-
-        table vehicle_config.vehicle_config_pull_requests, admin: :pull_requests do
-            column :name, header: "Pull Requests" do |vcr|
-              link_to vcr.pull_request.html_url, target: "_blank" do
-                vcr.pull_request.name
-              end
-            end
-            column :status do |vcr|
-              vcr.pull_request.state
-            end
-            column :user do |vcr|
-              vcr.pull_request.user
-            end
-
-            column :body do |vcr|
-              vcr.pull_request.body
-            end
-          end
-      end
-
-      #####
-      # CODE TAB
-      #####
-      tab :videos, badge: vehicle_config.vehicle_config_videos.blank? ? nil : vehicle_config.vehicle_config_videos.size do
+      tab :videos, label: '<span class="fa fa-youtube"></span> Videos'.html_safe, badge: vehicle_config.vehicle_config_videos.blank? ? nil : vehicle_config.vehicle_config_videos.size do
         render "tab_toolbar", {
           :groups => [
             {
@@ -647,6 +599,49 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
           end
           column :name
           column :author
+        end
+      end
+
+      tab :repositories, label: '<span class="fa fa-code"></span> Repositories'.html_safe, badge: vehicle_config.vehicle_config_repositories.blank? ? nil : vehicle_config.vehicle_config_repositories.size do
+        render "tab_toolbar", {
+          :groups => [
+            {
+              :class => "actions",
+              :items => [
+                admin_link_to("<span class=\"fa fa-plus\"></span> Repository".html_safe, admin: :vehicle_config_repositories, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id }),
+              ]
+            }
+          ]
+        }
+
+        table vehicle_config.vehicle_config_repositories, admin: :vehicle_config_repositories do
+          column :name, header: "Repositories" do |vcr|
+            link_to vcr.repository.url, target: "_blank" do
+              "#{image_tag(vcr.repository.owner_avatar_url, width: "20")} #{vcr.repository.full_name}".html_safe
+            end
+          end
+          column :repository_branch
+        end
+      end
+      tab :pull_requests, badge: vehicle_config.vehicle_config_pull_requests.blank? ? nil : vehicle_config.vehicle_config_pull_requests.size do
+        render "tab_toolbar", {
+          :groups => [
+            {
+              :class => "actions",
+              :items => [
+                admin_link_to("<span class=\"fa fa-plus\"></span> Pull Request".html_safe, admin: :vehicle_config_pull_requests, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
+              ]
+            }
+          ]
+        }
+        
+        table vehicle_config.vehicle_config_pull_requests, admin: :vehicle_config_pull_requests do
+          column :name, header: "Repositories" do |vcr|
+            link_to vcr.repository.url, target: "_blank" do
+              "#{image_tag(vcr.repository.owner_avatar_url, width: "20")} #{vcr.repository.full_name}".html_safe
+            end
+          end
+          column :repository_branch
         end
       end
       
@@ -672,7 +667,9 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
           render inline: image_tag(vehicle_config.image.service_url, class: "profile-image")
           render inline: content_tag(:div, nil, {style: "margin-top:10px;"})
         end
-        
+        collection_select :vehicle_config_status_id, VehicleConfigStatus.order(:name), :id, :name, include_blank: true, label: "Status of the codebase"
+        collection_select :primary_repository_id, Repository.order(:full_name), :id, :name, include_blank: true, label: "Primary Repository"
+        collection_select :primary_pull_request_id, PullRequest.order(:pr_updated_at => :desc), :id, :name, include_blank: true, label: "Primary Pull Request"
         collection_select :vehicle_config_type_id, VehicleConfigType.order(:name), :id, :name, include_blank: true, label: "Minimum Difficulty"
         slack_channel = make.slack_channel
         # byebug

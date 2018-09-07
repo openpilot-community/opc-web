@@ -19,7 +19,6 @@ class Guide < ApplicationRecord
   validates_uniqueness_of :article_source_url
   
   def hardware_item_ids=(ids)
-    byebug
     self.hardware_items = Array(ids).reject(&:blank?).map { |id|
       (id =~ /^\d+$/) ? HardwareItem.friendly.find(id) : HardwareItem.find_or_initialize_by(name: id)
     }

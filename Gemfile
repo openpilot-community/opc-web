@@ -73,7 +73,6 @@ gem "octokit", "~> 4.0"
 gem 'redcarpet'
 gem 'meta-tags'
 gem "down", "~> 4.4"
-gem 'gaffe'
 gem 'cars', :git => 'https://github.com/openpilot-community/cars_abstraction'
 group :development, :test do
   # gem 'cars', :path => '/Users/joshua/Projects/cars_abstraction'

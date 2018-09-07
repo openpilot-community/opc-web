@@ -112,7 +112,7 @@ class VehicleConfig < ApplicationRecord
   acts_as_followable
   acts_as_likeable
   has_paper_trail
-  paginates_per 10
+  paginates_per 100
   friendly_id :name_for_slug, use: [:slugged]
 
   # BELONGS TO

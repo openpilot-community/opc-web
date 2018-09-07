@@ -13,7 +13,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
   # SCOPES
   ########
   scope :all, -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level") }, default: true
-  scope :top_ranked, -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_configs.cached_votes_score DESC") }, default: true
+  # scope :top_ranked, -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_configs.cached_votes_score DESC") }, default: true
   
   ########
   # SEARCH

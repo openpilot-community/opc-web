@@ -2,7 +2,7 @@ Trestle.admin(:dashboard) do
   menu do
     group :vehicles do
       item :vehicle_configs, "/vehicles", icon: "fa fa-book", label: "Research / Support", priority: 0
-      item :top_vehicle_configs, '/vehicles?order=desc&sort=cached_votes_score', icon: "fa fa-star", label: "Top Voted Vehicles", priority: 0.1
+      # item :top_vehicle_configs, '/vehicles?order=desc&sort=cached_votes_score', icon: "fa fa-star", label: "Top Voted Vehicles", priority: 0.1
       item :lookup, "/lookup", icon: "fa fa-plus", label: "Lookup a vehicle", priority: 0.2
       
       VehicleMake.with_configs.each_with_index do |make, index|

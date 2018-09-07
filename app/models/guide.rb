@@ -16,7 +16,7 @@ class Guide < ApplicationRecord
   before_save :set_markup
   after_save :set_image_scraper
   after_commit :update_slug
-  validates_uniqueness_of :article_source_url
+  validates_uniqueness_of :article_source_url, :on => :create
   
   def hardware_item_ids=(ids)
     self.hardware_items = Array(ids).reject(&:blank?).map { |id|

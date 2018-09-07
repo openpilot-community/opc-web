@@ -629,19 +629,24 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
             {
               :class => "actions",
               :items => [
-                admin_link_to("<span class=\"fa fa-plus\"></span> Pull Request".html_safe, admin: :vehicle_config_pull_requests, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
+                admin_link_to(
+                  "<span class=\"fa fa-plus\"></span> Pull Request".html_safe, 
+                  admin: :vehicle_config_pull_requests, 
+                  action: :new, 
+                  class: "btn btn-default btn-list-add", 
+                    params: { 
+                      vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
               ]
             }
           ]
         }
         
         table vehicle_config.vehicle_config_pull_requests, admin: :vehicle_config_pull_requests do
-          column :name, header: "Repositories" do |vcr|
-            link_to vcr.repository.url, target: "_blank" do
-              "#{image_tag(vcr.repository.owner_avatar_url, width: "20")} #{vcr.repository.full_name}".html_safe
+          column :name, header: "Pull Requests" do |vcr|
+            link_to vcr.pull_request.html_url, target: "_blank" do
+              "#{vcr.pull_request.name}".html_safe
             end
           end
-          column :repository_branch
         end
       end
       

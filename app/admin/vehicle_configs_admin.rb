@@ -350,7 +350,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
     end
     # column :trim_styles_count, header: "Trims", sort: false
     actions do |toolbar, instance, admin|
-      if current_or_guest_user.is_super_admin?
+      if current_user.present? && current_user.is_super_admin?
         toolbar.delete if admin && admin.actions.include?(:destroy)
       end
     end

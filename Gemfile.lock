@@ -134,8 +134,6 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
-    devise-guests (0.6.1)
-      devise
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     down (4.5.0)
@@ -426,7 +424,6 @@ DEPENDENCIES
   commontator (~> 5.1.0)
   derailed
   devise
-  devise-guests
   down (~> 4.4)
   font-awesome-sass (~> 5.2.0)
   friendly_id (~> 5.2.0)

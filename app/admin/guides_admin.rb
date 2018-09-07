@@ -90,10 +90,12 @@ Trestle.resource(:guides) do
     tab :general do
       if params['from_url'].present?
         text_field :article_source_url
+        select :hardware_item_ids, HardwareItem.all.order(:name), { label: "Tag hardware in this guide" }, { multiple: true, data: { tags: true } }
+        select :vehicle_config_ids, VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level"), { label: "Tag vehicles in this guide" }, { multiple: true, data: { tags: true } }
       else
         text_field :title
-        select :hardware_item_ids, HardwareItem.all, { label: "Tag hardware in this guide" }, { multiple: true, data: { tags: true } }
-        select :vehicle_config_ids, VehicleConfig.all, { label: "Tag vehicles in this guide" }, { multiple: true, data: { tags: true } }
+        select :hardware_item_ids, HardwareItem.all.order(:name), { label: "Tag hardware in this guide" }, { multiple: true, data: { tags: true } }
+        select :vehicle_config_ids, VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level"), { label: "Tag vehicles in this guide" }, { multiple: true, data: { tags: true } }
         editor :markdown, { label: "" }
         
         if current_user.is_super_admin?

@@ -8,8 +8,8 @@ class Guide < ApplicationRecord
   friendly_id :name_for_slug, use: :slugged
   belongs_to :user, optional: true
   has_many :vehicle_config_guides
-  has_many :guide_hardware_items
-  has_many :hardware_items, :through => :guide_hardware_items
+  has_many :guide_hardware_items, :validate => false, dependent: :delete_all
+  has_many :hardware_items, :through => :guide_hardware_items, :validate => false, dependent: :delete_all
   has_many :vehicle_configs, :through => :vehicle_config_guides
   before_save :guide_from_url
   before_save :find_first_image
@@ -19,14 +19,15 @@ class Guide < ApplicationRecord
   validates_uniqueness_of :article_source_url
   
   def hardware_item_ids=(ids)
+    byebug
     self.hardware_items = Array(ids).reject(&:blank?).map { |id|
-      (id =~ /^\d+$/) ? HardwareItem.find(id) : HardwareItem.new(name: id)
+      (id =~ /^\d+$/) ? HardwareItem.friendly.find(id) : HardwareItem.find_or_initialize_by(name: id)
     }
   end
 
   def vehicle_config_ids=(ids)
     self.vehicle_configs = Array(ids).reject(&:blank?).map { |id|
-      (id =~ /^\d+$/) ? VehicleConfig.find(id) : VehicleConfig.new(name: id)
+      (id =~ /^\d+$/) ? VehicleConfig.friendly.find(id) : nil
     }
   end
 

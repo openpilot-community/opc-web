@@ -24,7 +24,7 @@ class HardwareItem < ApplicationRecord
   extend FriendlyId
   has_one_attached :image
   friendly_id :name, use: :slugged
-  belongs_to :hardware_type
+  belongs_to :hardware_type, optional: true
   after_save :set_image_scraper
 
   def set_image_scraper

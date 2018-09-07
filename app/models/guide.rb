@@ -7,7 +7,7 @@ class Guide < ApplicationRecord
   has_one_attached :image
   friendly_id :name_for_slug, use: :slugged
   belongs_to :user, optional: true
-  has_many :vehicle_config_guides
+  has_many :vehicle_config_guides, dependent: :delete_all
   has_many :guide_hardware_items, :validate => false, dependent: :delete_all
   has_many :hardware_items, :through => :guide_hardware_items, :validate => false, dependent: :delete_all
   has_many :vehicle_configs, :through => :vehicle_config_guides

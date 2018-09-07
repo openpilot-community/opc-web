@@ -113,21 +113,24 @@ class Guide < ApplicationRecord
   end
 
   def guide_from_url
-      mercury_parse = parse_with_mercury(article_source_url)
-      heckyesmarkdown_parse = parse_with_heckyesmarkdown(article_source_url)
-      
-      self.title = mercury_parse['title'].present? ? mercury_parse['title'] : heckyesmarkdown_parse['title']
-      self.markdown = ReverseMarkdown.convert(mercury_parse['content'].present? ? mercury_parse['content'] : heckyesmarkdown_parse['content'])
-      self.source_image_url = mercury_parse['lead_image_url']
-      self.author_name = mercury_parse['author'].present? ? mercury_parse['author'] : mercury_parse['domain']
-      self.exerpt = mercury_parse['exerpt']
-      self.published_at = mercury_parse['date_published'].present? ? mercury_parse['date_published'] : Date.today
-      self.reference_domain = mercury_parse['domain']
+    unless saved_change_to_article_source_url?
+      return
+    end
+    mercury_parse = parse_with_mercury(article_source_url)
+    heckyesmarkdown_parse = parse_with_heckyesmarkdown(article_source_url)
+    
+    self.title = mercury_parse['title'].present? ? mercury_parse['title'] : heckyesmarkdown_parse['title']
+    self.markdown = ReverseMarkdown.convert(mercury_parse['content'].present? ? mercury_parse['content'] : heckyesmarkdown_parse['content'])
+    self.source_image_url = mercury_parse['lead_image_url']
+    self.author_name = mercury_parse['author'].present? ? mercury_parse['author'] : mercury_parse['domain']
+    self.exerpt = mercury_parse['exerpt']
+    self.published_at = mercury_parse['date_published'].present? ? mercury_parse['date_published'] : Date.today
+    self.reference_domain = mercury_parse['domain']
 
-      if self.title.blank?
-        self.title = "Untitled Guide from #{self.reference_domain}"
-      end
-      check_author
+    if self.title.blank?
+      self.title = "Untitled Guide from #{self.reference_domain}"
+    end
+    check_author
   end
 
   def name

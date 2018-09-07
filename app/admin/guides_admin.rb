@@ -97,9 +97,12 @@ Trestle.resource(:guides) do
         select :hardware_item_ids, HardwareItem.all.order(:name), { label: "Tag hardware in this guide" }, { multiple: true, data: { tags: true } }
         select :vehicle_config_ids, VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level"), { label: "Tag vehicles in this guide" }, { multiple: true, data: { tags: true } }
         editor :markdown, { label: "" }
+        text_field :author_name
+        text_area :exerpt
+        # text_area :exerpt
         
         if current_user.is_super_admin?
-          collection_select :user_id, User.order(:github_username), :id, :github_username, include_blank: true, label: "Author"
+          collection_select :user_id, User.order(:github_username), :id, :github_username, include_blank: true, label: "User"
         end
       end
     end

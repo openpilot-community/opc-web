@@ -70,9 +70,11 @@ Trestle.resource(:vehicle_config_guides) do
         fields_for :guide, vehicle_config_guide.guide || vehicle_config_guide.build_guide do
           # Form helper methods now dispatch to the product.category form scope
           text_field :title
-          select :hardware_item_ids, HardwareItem.all, { label: "Hardware mentioned in this guide" }, { multiple: true, data: { tags: true } }
-          editor :markdown, label: false
-          hidden_field :user_id, :value => current_user.id
+          select :hardware_item_ids, HardwareItem.all.order(:name), { label: "Tag hardware in this guide" }, { multiple: true, data: { tags: true } }
+          select :vehicle_config_ids, VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level"), { label: "Tag vehicles in this guide" }, { multiple: true, data: { tags: true } }
+          editor :markdown, { label: "" }
+          text_field :author_name
+          text_area :exerpt
         end
       else
         collection_select :guide_id, Guide.order(:title), :id, :title, include_blank: true

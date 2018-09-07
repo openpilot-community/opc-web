@@ -24,6 +24,7 @@ gem 'mini_magick'
 gem 'trestle'
 gem 'trestle-simplemde'
 gem 'trestle-search'
+gem 'rubyzip', '~> 1.2.2'
 gem 'devise'
 gem 'puma'
 gem "socialization"

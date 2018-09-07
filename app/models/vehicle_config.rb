@@ -162,25 +162,25 @@ class VehicleConfig < ApplicationRecord
   end
   
   def set_repos
-    if vehicle_config_status.present?
-     repository = Repository.find_by(full_name: "commaai/openpilot")
-     repo_branch = repository.repository_branches.find_by(name: "release2")
-    else
-      if primary_repository.blank?
-        if vehicle_config_repositories.present?
-          repository = vehicle_config_repositories.first.repository
-        end
-      end
+    # if vehicle_config_status.present?
+    #  comma_repo = Repository.find_by(full_name: "commaai/openpilot")
+    #  repo_branch = comma_repo.repository_branches.find_by(name: "release2")
+    # else
+    #   if primary_repository.blank?
+    #     if vehicle_config_repositories.present?
+    #       repository = vehicle_config_repositories.first.repository
+    #     end
+    #   end
 
-      if primary_pull_request.blank?
-        if vehicle_config_pull_requests.present?
-          self.primary_pull_request_id = vehicle_config_pull_requests.first.repository_id
-        end
-      end
-    end
-    if repository.present?
-      self.primary_repository_id = repository.id
-    end
+    #   if primary_pull_request.blank?
+    #     if vehicle_config_pull_requests.present?
+    #       self.primary_pull_request_id = vehicle_config_pull_requests.first.repository_id
+    #     end
+    #   end
+    # end
+    # if repository.present?
+    #   self.primary_repository_id = repository.id
+    # end
   end
 
   def set_image_scraper

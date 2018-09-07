@@ -1,0 +1,1 @@
+heroku run "rails db:migrate" --app vehicledb-api

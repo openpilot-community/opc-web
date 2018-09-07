@@ -1,4 +1,4 @@
-<div class="row-card guide-card<%=instance.image.attached? ? " has-thumbnail" : nil%>">
+<div class="guide-card<%=instance.image.attached? ? " has-thumbnail" : nil%>">
   <% if instance.image.attached? %>
   <div class="image">
     <span class="img" style="background-image:url(<%=instance.image.service_url%>)">
@@ -15,7 +15,7 @@
     
     <div class="detail-inner">
       <div class="title"><%=instance.title%></div>
-      <div class="synopsis"><%=strip_tags(instance.markup).truncate_words(25)%></div>
+      <div class="synopsis"><%=instance.markup.present? ? strip_tags(instance.markup).truncate_words(25) : nil%></div>
       <div class="meta">
         <span class="author"><%=instance.author_name%></span>
         <span class="divider">&middot;</span>

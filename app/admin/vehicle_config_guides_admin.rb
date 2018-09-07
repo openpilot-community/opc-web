@@ -10,7 +10,7 @@ Trestle.resource(:vehicle_config_guides) do
   #   column :created_at, align: :center
   #   actions
   # end
-  form(dialog:true) do |vehicle_config_guide|
+  form(dialog: true) do |vehicle_config_guide|
     is_new_guide = params['new'].present?
     is_edit_guide = params['edit'].present?
     is_from_url = params['from_url'].present?
@@ -67,6 +67,7 @@ Trestle.resource(:vehicle_config_guides) do
       end
     else
       if (is_new_guide || is_edit_guide)
+        
         fields_for :guide, vehicle_config_guide.guide || vehicle_config_guide.build_guide do
           # Form helper methods now dispatch to the product.category form scope
           text_field :title
@@ -74,6 +75,7 @@ Trestle.resource(:vehicle_config_guides) do
           select :vehicle_config_ids, VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level"), { label: "Tag vehicles in this guide" }, { multiple: true, data: { tags: true } }
           editor :markdown, { label: "" }
           text_field :author_name
+          hidden_field :user_id, :value => current_user.id
           text_area :exerpt
         end
       else

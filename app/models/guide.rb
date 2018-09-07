@@ -17,7 +17,9 @@ class Guide < ApplicationRecord
   before_save :set_markup
   after_save :set_image_scraper
   after_commit :update_slug
-  validates_uniqueness_of :article_source_url, :on => :create
+  validates_presence_of :title, :on => :create, if: -> {article_source_url.blank?}
+  validates_presence_of :markdown, :on => :create, if: -> {article_source_url.blank?}
+  validates_uniqueness_of :article_source_url, :on => :create, if: -> {article_source_url.present?}
   
   def hardware_item_ids=(ids)
     self.hardware_items = Array(ids).reject(&:blank?).map { |id|
@@ -48,7 +50,11 @@ class Guide < ApplicationRecord
   end
 
   def word_count
-    ActionView::Base.full_sanitizer.sanitize(markup).split.size
+    if markup.present?
+      ActionView::Base.full_sanitizer.sanitize(markup).split.size
+    else
+      0
+    end
   end
 
   def reading_time

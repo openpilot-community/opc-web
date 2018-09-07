@@ -250,32 +250,12 @@ body.controller-admin-vehicle-configs,body.controller-admin-user-vehicles {
         padding: 0;
         position: relative;
       }
-      .vote-action {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: 100%;
-        transform: translateY(-50%);
-        span.badge {
-          font-size: 14px;
-          padding: 0;
-          cursor: default;
-        }
-        a {
-          text-decoration: none;
-          padding-top: 7px;
-          font-size: 14px;
-          padding-bottom: 7px;
-          &:hover {
-            background-color: rgba(0, 0, 0, 0.02);
-          }
-        }
-      }
+      
       .image-column {
-        width: 100px;
-        min-width: 100px;
-        text-align: center;
-        padding: 0;
+        // width: 100px;
+        // min-width: 100px;
+        // text-align: center;
+        // padding: 0;
         img { 
           height:65px;
           border-radius:4px; 
@@ -312,39 +292,7 @@ body.controller-admin-vehicle-configs,body.controller-admin-user-vehicles {
   }
   
 }
-.vote-action {
-  a,span {
-    display:block;
-    width:100%;
-    color: #888;
-  }
-  a {
-    text-decoration:none;
-  }
 
-  span.badge {
-    background-color:transparent;
-    color:#000;
-  }
-
-  &.upvoted {
-    .fa.fa-arrow-up {
-      color: $green;
-    }
-    span.badge {
-      color: $green;
-    }
-  }
-
-  &.downvoted {
-    .fa.fa-arrow-down {
-      color: $red;
-    }
-    span.badge {
-      color: $red;
-    }
-  }
-}
 @media (max-width: 767px) {
   body.controller-admin-vehicle-configs {
     .app-wrapper .trestle-table .image-column {

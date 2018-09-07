@@ -31,7 +31,6 @@ class CapabilityToggler extends React.Component {
       data: response
     });
   }
-
   handleFailure(response) {
     // console.warn("FAILED!",response);
   }

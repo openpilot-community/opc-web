@@ -13,7 +13,8 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
   # SCOPES
   ########
   scope :all, -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level") }, default: true
-
+  scope :top_ranked, -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_configs.cached_votes_score DESC") }, default: true
+  
   ########
   # SEARCH
   ########
@@ -30,6 +31,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
     skip_before_action :verify_authenticity_token
     skip_before_action :authenticate_user!, :only => [:show, :refreshing_status, :vote]
     include ActionView::Helpers::AssetUrlHelper
+    
     def index
       if params['q']
         page_title = "#{params['q']} | Vehicle Research & Support Tracker"
@@ -129,7 +131,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
       vehicle_config = admin.find_instance(params)
       @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support","/vehicles")])
       imgurl = vehicle_config.image.attached? ? vehicle_config.image.service_url : asset_url("/assets/og/tracker.png")
-      
+      vehicle_config.update_attributes({views_count: vehicle_config.views_count + 1})
       set_meta_tags(
         og: {
           title: "#{vehicle_config.name} | Openpilot Database",
@@ -144,6 +146,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
       )
       super
     end
+
     def trims
       # byebug
       if !params['vehicle_config'].blank?
@@ -181,31 +184,41 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
       flash[:message] = "Vehicle trims list is being refreshed... reload the browser to see results."
       redirect_to admin.path(:show, id: vehicle_config.id)
     end
-    
+
+    def follow
+      self.instance = admin.find_instance(params)
+      current_user.toggle_follow!(instance)
+
+      clear_current_user_state
+      respond_to do |format|
+        format.html { redirect_to :back }
+        format.json { render json: {
+          id: instance.id,
+          follower_count: instance.followers_count,
+          following: current_user_state[:following]
+        }, status: 200 }
+      end
+    end
+
     def vote
       self.instance = admin.find_instance(params)
 
       if params['vote'] == "up"
-        if (current_user.present? && current_user.voted_up_on?(instance))
-          instance.unvote_by current_user
+        if (current_user.present? && current_user.likes(instance))
+          instance.unlike current_user
         else
-          instance.upvote_by current_user
+          instance.unlike current_user
         end
       end
-      if params['vote'] == 'down'
-        if (current_user.present? && current_user.voted_down_on?(instance))
-          instance.unvote_by current_user
-        else
-          instance.downvote_by current_user
-        end
-      end
+
+      clear_current_user_state
       respond_to do |format|
         format.html { redirect_to :back }
-        format.json { render json: instance, status: 200 }
+        format.json { render json: { vehicle: instance, user: current_user_state, current_vote: current_user_state[:vehicle_votes].select{|v| v[:id] == instance.id }.first }, status: 200 }
       end
     end
 
-    def add_to_user
+    def toggle_ownership
       self.instance = admin.find_instance(params)
       # byebug
       if params['vehicle_trim_style_id'].present?
@@ -232,10 +245,11 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
         end
       end
       
-      
+      clear_current_user_state
+
       respond_to do |format|
         format.html { redirect_to :back }
-        format.json { render json: new_user_vehicle, status: 200 }
+        format.json { render json: { vehicle: instance, user: current_user_state }, status: 200 }
       end
     end
 
@@ -292,68 +306,24 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
     get :fork, :on => :member
     get :clone, :on => :member
     get :toggle_capability_state, :on => :member
-    get :vote, :on => :member
-    get :add_to_user, :on => :member
+    get :follow, :on => :member
+    get :toggle_ownership, :on => :member
     get :refreshing_status, :on => :member
     get :trims, :on => :collection
   end
 
   table do |a|
     row do |vehicle|
-      { class: "#{vehicle.vehicle_config_status.blank? ? nil : vehicle.vehicle_config_status.name.parameterize} #{vehicle.vehicle_config_type.blank? ? "unknown" : vehicle.vehicle_config_type.slug} vehicle-config" }
+      { 
+        data: { url: nil },
+        class: "#{vehicle.vehicle_config_status.blank? ? nil : vehicle.vehicle_config_status.name.parameterize} #{vehicle.vehicle_config_type.blank? ? "unknown" : vehicle.vehicle_config_type.slug} vehicle-config" 
+      }
     end
-    column :votes, align: :center, class: "votes-column" do |instance|
-      content_tag(:div, class: "vote-action #{current_user.present? && current_user.voted_down_on?(instance) ? "downvoted" : nil} #{current_user.present? && current_user.voted_up_on?(instance) ? 'upvoted' : nil} #{current_user.present? && current_user.voted_for?(instance) ? "voted" : nil}") do
-        %(
-        #{link_to('<span class=\'fa fa-arrow-up\'></span>'.html_safe, vote_vehicle_configs_admin_url(instance.id, :format=> :json, params: { vote: 'up' }), remote: true, id: "vote_up_#{instance.id}", class: "vote-up ")}
-        #{content_tag :span, instance.cached_votes_score, class: "badge badge-vote-count"}
-        #{link_to('<span class=\'fa fa-arrow-down\'></span>'.html_safe, vote_vehicle_configs_admin_url(instance.id, :format=> :json, params: { vote: 'down' }), remote: true, id: "vote_down_#{instance.id}", class: "vote-down ")}
-        ).html_safe
-      end.html_safe
-    end
-    column :image, class: "image-column" do |vehicle_config|
-      if vehicle_config.image.attached?
-        image_tag(vehicle_config.image.service_url)
-      end
-    end
-    column :vehicle, class: "details-column" do |vehicle_config|
-      render "vehicle_config_details", instance: vehicle_config
-    end
-    column :owners, class: 'owners-column' do |vehicle_config|
-      if current_user.present?
-        owns_this_vehicle = current_user.vehicles.where(vehicle_config_id: vehicle_config.id).count > 0
-      else
-        owns_this_vehicle = false
-      end
-      
-      # if current_user.present?
-        if owns_this_vehicle
-          icon_image = "<span class=\'fa fa-check\'></span> <span class=\"message-text\">Owned</span>".html_safe
-        else
-          icon_image = "<span class=\'fa fa-plus\'></span> <span class=\"message-text\">Own</span>".html_safe
-        end
-
-        link_to(
-          icon_image, 
-          add_to_user_vehicle_configs_admin_url(
-            vehicle_config.id,
-            format: :json
-          ),
-          remote: true,
-          data: {
-            :toggle_link => true
-          },
-          id: "add_to_garage_vc_#{vehicle_config.id}", 
-          class: "btn btn-default btn-own add-vc-link #{owns_this_vehicle ? 'user-owns' : 'user-not-owns'}"
-        ) + "<span class=\"message\"><span>#{vehicle_config.user_count}</span> #{vehicle_config.user_count == 1 ? 'person' : 'people'} #{vehicle_config.user_count == 1 ? 'owns' : 'own'} this vehicle.</span>".html_safe
-      # end
+    column :card do |instance|
+      render 'row', instance: instance
     end
     # column :trim_styles_count, header: "Trims", sort: false
-    actions do |toolbar, instance, admin|
-      if current_user.present? && current_user.is_super_admin?
-        toolbar.delete if admin && admin.actions.include?(:destroy)
-      end
-    end
+    
   end
 
   ##########
@@ -426,7 +396,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
           
                 link_to(
                   icon_image, 
-                  add_to_user_vehicle_configs_admin_url(
+                  toggle_ownership_vehicle_configs_admin_url(
                     vehicle_config.id, 
                     format: :json, 
                     params: { 

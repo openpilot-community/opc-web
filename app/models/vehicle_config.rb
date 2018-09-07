@@ -107,7 +107,10 @@ class VehicleConfig < ApplicationRecord
   include Hashid::Rails
   include ActiveSupport::Inflector
   has_one_attached :image
+  acts_as_mentionable
   acts_as_votable
+  acts_as_followable
+  acts_as_likeable
   has_paper_trail
   paginates_per 10
   friendly_id :name_for_slug, use: [:slugged]
@@ -146,7 +149,6 @@ class VehicleConfig < ApplicationRecord
   validates_presence_of :vehicle_make_id
   validates_presence_of :vehicle_model_id
   after_save :set_image_scraper
-  before_save :set_repos
   after_commit :update_slug
   
   def set_refreshing
@@ -161,28 +163,6 @@ class VehicleConfig < ApplicationRecord
     end
   end
   
-  def set_repos
-    # if vehicle_config_status.present?
-    #  comma_repo = Repository.find_by(full_name: "commaai/openpilot")
-    #  repo_branch = comma_repo.repository_branches.find_by(name: "release2")
-    # else
-    #   if primary_repository.blank?
-    #     if vehicle_config_repositories.present?
-    #       repository = vehicle_config_repositories.first.repository
-    #     end
-    #   end
-
-    #   if primary_pull_request.blank?
-    #     if vehicle_config_pull_requests.present?
-    #       self.primary_pull_request_id = vehicle_config_pull_requests.first.repository_id
-    #     end
-    #   end
-    # end
-    # if repository.present?
-    #   self.primary_repository_id = repository.id
-    # end
-  end
-
   def set_image_scraper
     if saved_change_to_source_image_url?
       puts "IMAGE SCRAPER"
@@ -193,16 +173,7 @@ class VehicleConfig < ApplicationRecord
       end
     end
   end
-  # def difficulty_level
-  #   vehicle_config_type.difficulty_level
-  # end
-  # before_save :set_min_difficulty
 
-  # def set_min_difficulty
-  #   if vehicle_config_capabilities.present?
-  #     self.vehicle_config_type = vehicle_config_capabilities.includes(:vehicle_config_type).where.not("vehicle_config_types.name is 'Factory'").order("vehicle_config_types.difficulty_level ASC").map{|vcc| vcc.vehicle_config_type }.first
-  #   end
-  # end
   def self.find_by_ymm(year, make, model)
     results = where(%(
       (
@@ -233,59 +204,13 @@ class VehicleConfig < ApplicationRecord
   def config_type_ids
     vehicle_config_capabilities.includes(:vehicle_config_type).order("vehicle_config_types.difficulty_level").map(&:vehicle_config_type_id).uniq
   end
-
-  # def combined_capabilities
-  #   cap_ids = []
-  #   cap_ids << vehicle_capabilities.map(&:id)
-    
-  #   forks.each do |fork|
-  #     cap_ids << fork.vehicle_capabilities.map(&:id)
-  #   end
-
-  #   cap_ids = cap_ids.flatten.uniq
-
-  #   VehicleCapability.where(id: cap_ids).order(:name)
-  # end
   def as_json(options={})
     {
+      id: id,
+      owners: user_count,
       votes: cached_votes_score
     }
   end
-  # def capability_matrix
-  #   matrix = {}
-  #   VehicleConfigType.all.each do |type|
-  #     if config_type_ids.include?(type.id)
-  #       matrix[type.name.parameterize.to_sym] = {}
-  #       vehicle_capabilities.uniq.each do |capability|
-  #         cap = VehicleConfigCapability.joins(:vehicle_config).where("(vehicle_configs.parent_id = :id OR vehicle_configs.id = :id) AND vehicle_configs.vehicle_config_type_id = :type_id AND vehicle_config_capabilities.vehicle_capability_id = :capability_id", { id: id, type_id: type.id, capability_id: capability.id })
-  #         if cap.present?
-  #           cap = cap.first
-
-  #           if cap.timeout.present?
-  #             if cap.vehicle_capability.name == "Driver Monitor (advanced, vision)"
-  #               cap_value = "<span class=\"line\">Unlimited</span><span class=\"line\">#{cap.timeout_friendly} if disabled</span>".html_safe
-  #             else
-  #               cap_value = "<span class=\"line\">#{cap.timeout_friendly}</span>".html_safe
-  #             end
-  #           elsif cap.kph.present?
-  #             cap_value = "<span class=\"line\">#{cap.mph} mph</span><span class=\"line\">#{cap.kph} kph</span>".html_safe
-  #           else
-  #             cap_value = "<span class=\"fa fa-check\"></span>".html_safe
-  #           end
-
-  #           matrix[type.name.parameterize.to_sym][:"#{capability.name.parameterize}"] = {
-  #             value: cap_value,
-  #             label: type.name,
-  #             details: type.description,
-  #             capability: cap
-  #           }
-  #         end
-  #       end
-  #     end
-  #   end
-
-  #   matrix
-  # end
 
   def difficulty_class
     case vehicle_config_type.name
@@ -413,26 +338,6 @@ class VehicleConfig < ApplicationRecord
       }
     end
   end
-  
-  # def latest_repository
-  #   if vehicle_config_repositories.present?
-  #     if repositories = vehicle_config_repositories.joins(:repository).order("repositories.id DESC")
-  #       if !repositories.blank?
-  #         repositories.first
-  #       end
-  #     end
-  #   end
-  # end
-
-  # def primary_pull_request
-  #   if !vehicle_config_pull_requests.blank?
-  #     if open_prs = vehicle_config_pull_requests.joins(:pull_request).where(pull_requests: { state: "open" }).order("pull_requests.number DESC")
-  #       if !open_prs.blank?
-  #         open_prs.first.pull_request
-  #       end
-  #     end
-  #   end
-  # end
 
   def set_year_end
     if year.to_i > year_end.to_i
@@ -444,25 +349,12 @@ class VehicleConfig < ApplicationRecord
     new_name = "Untitled"
     if vehicle_make && vehicle_model
       new_name = "#{year_range_str} #{vehicle_make.name} #{vehicle_model.name}"
-      # if vehicle_trims
-      #   new_name = "#{new_name} #{vehicle_trims.map {|trim| trim.name }.join(", ")}"
-      # end
-      # if vehicle_make_package
-      #   new_name = "#{new_name} w/ #{vehicle_make_package.name}"
-      # end
-      # if vehicle_config_type
-      #   new_name = "#{new_name}"
-      # end
+      
     end
 
     new_name
   end
 
-  # def author_ids=(ids)
-  #   self.authors = Array(ids).reject(&:blank?).map { |id|
-  #     (id =~ /^\d+$/) ? Author.find(id) : Author.new(name: id)
-  #   }
-  # end
   def has_year_end?
     !self.year_end.blank?
   end
@@ -539,7 +431,6 @@ class VehicleConfig < ApplicationRecord
     vehicle_config_type.name == 'Basic'
   end
 
-  
   def set_trim_styles_count
     if parent_id.blank?
       if !trim_styles.blank? && trim_styles.count > 0

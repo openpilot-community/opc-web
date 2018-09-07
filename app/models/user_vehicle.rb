@@ -24,6 +24,7 @@ class UserVehicle < ApplicationRecord
 
     new_name.join(' ')
   end
+  
   def update_counts
     if vehicle_config_id.present?
       VehicleConfig.find(vehicle_config_id).update_attributes(user_count: UserVehicle.where(vehicle_config_id: vehicle_config_id).count)

@@ -2,6 +2,7 @@ class Guide < ApplicationRecord
   extend FriendlyId
   include Hashid::Rails
   has_paper_trail
+  acts_as_likeable
   paginates_per 400
   acts_as_commontable dependent: :destroy
   has_one_attached :image

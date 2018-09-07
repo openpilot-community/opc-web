@@ -1,0 +1,198 @@
+@import "variables";
+//reset trestle-tables
+body.controller-admin-vehicle-configs.action-index {
+  table.trestle-table {
+    // max-width:400px;
+    tbody {
+      tr {
+        td {
+          padding:0;
+          border:0;
+          background: none;
+          background-color:transparent;
+
+          &:hover {
+            background-color:transparent;
+          }
+        }
+        &:hover {
+          background-color:transparent;
+        }
+      }
+    }
+  }
+  .table-striped > tbody > tr:nth-of-type(odd), .trestle-table > tbody > tr:nth-of-type(odd) {
+    background-color:transparent;
+    &:hover {
+      background-color:transparent;
+    }
+  }
+}
+$image-size: 100px;
+
+.app-wrapper {
+  
+}
+.row-card {
+  display: flex;
+  background-color: #FFF;
+  position: relative;
+  flex-flow: wrap;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  height: $image-size + 25px;
+  .follow-button {
+    position:relative;
+    .pop-error {
+      position: absolute;
+      right: 64px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: $red;
+      color: #FFF;
+      padding: 15px 16px;
+      height: 100%;
+    }
+    .btn-follow {
+      height:50px;
+      width:50px;
+      border-radius:50%!important;
+      background:none;
+      background-image:none;
+      background-color:none;
+      span.fa {
+        font-size: 20px;
+        color: rgba(0,0,0,0.2);
+      }
+      &:hover,&:active,&:focus {
+        outline:none;
+      }
+      &.following {
+        background-color:#000;
+        span.fa {
+          color:#FFF;
+        }
+
+        &:hover {
+          outline:none;
+         background-color:#000;
+         background-image:none;
+        }
+      }
+    }
+  }
+  .label {
+    border-radius: 0!important;
+    padding: 1px 9px 3px 9px!important;
+    font-size: 11px!important;
+    border: 0!important;
+  }
+  .label-info {
+    background-color: $blue;
+  }
+
+  .label-warning {
+    background-color: $yellow;
+  }
+
+  .label-danger {
+    background-color: $red;
+  }
+  &:after {
+    content: "";
+    background-color: rgba(0, 0, 0, 0.08);
+    width: 97%;
+    bottom: 0;
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    margin: 0 auto;
+    height: 1px;
+  }
+  .vehicle-name {
+    font-size:16px;
+    > span {
+      font-weight:400;
+    }
+    a {
+      text-decoration:none;
+      color:#212121;
+    }
+  }
+  .byline {
+    color: #777;
+    font-size: 12px;
+    margin-top: 6px;
+  }
+  .actions {
+    display:block;
+    width:20%;
+    flex: 0 0 20%;
+    position:absolute;
+    right:0;
+    top:50%;
+    transform:translateY(-50%);
+    padding-right:20px;
+  }
+
+  .meta {
+    list-style-type: none;
+    display: flex;
+
+    li {
+      margin-right:4px;
+    }
+  }
+  .details {
+    flex: 1;
+    position:relative;
+  }
+  .details-inner {
+    position:absolute;
+    top:50%;
+    left:10px;
+    transform:translateY(-50%);
+  }
+  .image {
+    height: 100%;
+    flex: 0 0 $image-size + 10;
+    max-width: $image-size + 10;
+    position: relative;
+    padding: 4px;
+    margin-left:10px;
+    overflow: hidden;
+    span.img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, 0.05);
+      border: 2px solid rgba(0, 0, 0, 0.05);
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      background-size: auto 112%;
+      background-position: center left;
+      background-repeat: no-repeat;
+
+      span.fa {
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        font-size:$image-size * 0.35;
+        color:rgba(#000,0.05);
+      }
+    }
+  }
+  &.status-upstreamed {
+    .image {
+      span.img {
+        // border-color: $green;
+      }
+    }
+  }
+}

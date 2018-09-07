@@ -11,7 +11,30 @@ module Trestle
         before_action :require_super_admin!, only: [:destroy]
         before_action :require_edit_permissions!, only: [:new, :create, :update]
         before_action :set_metatags
- 
+        before_action :clear_current_user_state
+
+        helper_method :current_user_state
+        
+        def clear_current_user_state
+          session[:current_user_state] = nil
+        end
+
+        def current_user_state
+          if current_user.present?
+            if session[:current_user_state].present?
+              session[:current_user_state]
+            else
+              session[:current_user_state] = {
+                following: current_user.followees(VehicleConfig).map(&:id)
+              }
+            end
+          else
+            {
+              following: []
+            }
+          end
+        end
+
         def current_or_guest_user
           if current_user.present?
             current_user

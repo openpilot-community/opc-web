@@ -18,6 +18,7 @@
 @import "commenting";
 @import "videos";
 @import "tags";
+@import "row-card";
 @import "../medium-editor";
 @import "../themes/default";
 
@@ -1022,4 +1023,21 @@ body {
     overflow-y: initial!important;
     overflow-x: initial;
   }
+}
+
+@media (max-width: 1199px) and (min-width: 768px) {
+  .app-sidebar {
+      width: 250px;
+  }
+  .app-nav .nav-label, .app-nav .nav-badge {
+    display: initial;
+  }
+  .app-wrapper .app-sidebar-header {
+    background-image: url(/assets/logo@2x.png);
+  }
+  .app-nav .nav-header a {
+    height: initial;
+    padding: 5px 20px;
+    text-indent: initial;
+}
 }

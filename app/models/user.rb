@@ -19,6 +19,9 @@ class User < ApplicationRecord
   has_one_attached :avatar
   acts_as_voter
   acts_as_commontator
+  acts_as_liker
+  acts_as_mentioner
+  acts_as_follower
   has_many :vehicles, :class_name => "UserVehicle"
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

@@ -2,6 +2,8 @@
 //= require underscore/underscore
 //= require ./garage
 //= require ./capability_toggler
+//= require ./follow-button
+//= require ./voter
 //= require ./table_filter
 //= require ./comments
 var originalAddClassMethod = jQuery.fn.addClass;

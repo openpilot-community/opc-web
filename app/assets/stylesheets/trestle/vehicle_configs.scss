@@ -19,6 +19,12 @@
 }
 body.controller-admin-vehicle-configs.action-show {
   #tab-capabilities {
+    .table-filter {
+      display:flex;
+      .btn {
+        margin-bottom:11px;
+      }
+    }
     // th.type-easy {
     //   background-color:$blue;
     //   color:#FFF;

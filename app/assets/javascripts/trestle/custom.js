@@ -1,10 +1,10 @@
 //= require_self
 //= require underscore/underscore
 //= require ./garage
-//= require ./capability_toggler
+//= require ./capabilities_toggler
+//= require ./capabilities_filter
 //= require ./follow-button
 //= require ./voter
-//= require ./table_filter
 //= require ./comments
 var originalAddClassMethod = jQuery.fn.addClass;
 var originalRemoveClassMethod = jQuery.fn.removeClass;

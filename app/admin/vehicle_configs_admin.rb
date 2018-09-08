@@ -423,41 +423,47 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
       tab :capabilities, label: "<span class=\"fa fa-list\"></span> Capabilities &amp; Limits".html_safe do
         config_types = VehicleConfigType.order(:difficulty_level)
         vcs = VehicleCapability.order(:name)
-        vcs_common = vcs.where("vehicle_capabilities.vehicle_config_count > 5")
-        vcs_uncommon = vcs.where.not(id: vcs_common.map(&:id))
+        vcs_common_ids = vcs.map{|vc| (vc.vehicle_config_count >= 10) ? vc.id : nil }.compact
+        vcs_uncommon_ids = vcs.map{|vc| (vc.vehicle_config_count < 10) ? vc.id : nil }.compact
         vccs = VehicleConfigCapability.joins(:vehicle_config,:vehicle_capability).where(vehicle_config_id: vehicle_config.id)
         render inline: content_tag(:div, nil, class: "table-filter")
-        table vcs_common, admin: :vehicle_capabilities_admin do
+        
+        table vcs, admin: :vehicle_capabilities_admin do
+          row do |capability|
+            row_classes = []
+            
+            uses_capability = config_types.map do |type|
+              vccs.select{|vcc| vcc.vehicle_capability_id == capability.id && vcc.vehicle_config_type_id == type.id && vcc.present? && !vcc.not_applicable? }.first
+            end.flatten.compact.size > 0
+
+            if uses_capability
+              row_classes << "has-capability"
+            end
+
+            if vcs_common_ids.include?(capability.id)
+              row_classes << "common"
+            end
+
+            if vcs_uncommon_ids.include?(capability.id)
+              row_classes << "uncommon"
+            end
+
+            { 
+              class: row_classes.join(" ")
+            }
+          end
+
           column :icon, class: "icon", header: nil do |instance|
             content_tag(:span, class: "icon-wrap") do
               image_tag(asset_url("/assets/capabilities/#{instance.name.parameterize}.svg"),width:100,height:100)
             end
           end
-          column :name, header: "Common Capabilities"
+
+          column :name, header: "Capabilities"
 
           # DIFFICULTY LEVELS
           config_types.each do |type|
-          column type.name.parameterize.to_sym, 
-            class: "type-#{type.name.parameterize}", 
-            header: %(
-              #{type.name}
-              <span data-toggle='tooltip' data-container='body' title='#{type.description}' class='fa fa-info-circle'></span>
-            ).html_safe do |capability|
-              render 'capability_link', capability: capability, type: type, vehicle: vehicle_config, vehicle_capability: vccs.select{|vcc| vcc.vehicle_capability_id == capability.id && vcc.vehicle_config_type_id == type.id }.first
-            end
-          end
-        end if vcs_common.present?
-        table vcs_uncommon, admin: :vehicle_capabilities_admin do
-          column :icon, class: "icon", header: nil do |instance|
-            content_tag(:span, class: "icon-wrap") do
-              image_tag(asset_url("/assets/capabilities/#{instance.name.parameterize}.svg"),width:100,height:100)
-            end
-          end
-          column :name, header: "Uncommon Capabilities"
-
-          # DIFFICULTY LEVELS
-          config_types.each do |type|
-          column type.name.parameterize.to_sym, 
+          column type.name.parameterize.to_sym,
             class: "type-#{type.name.parameterize}", 
             header: %(
               #{type.name}

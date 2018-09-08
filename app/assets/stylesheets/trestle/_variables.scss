@@ -17,6 +17,22 @@ $light-red: #e17572;
 $yellow: #ffc107;
 $teal: #17a2b8;
 
+$not-applicable-bg: #EEE;
+$excluded-bg: #EEE;
+$excluded-fg: #CCC;
+
+$factory-included-bg: lighten(#000,5);
+$factory-included-fg: #FFF;
+
+$easy-included-bg: lighten($blue,15);
+$easy-included-fg: #FFF;
+
+$intermediate-included-bg: darken($yellow,3);
+$intermediate-included-fg: #FFF;
+
+$advanced-included-bg: darken($red,3);
+$advanced-included-fg: #FFF;
+
 :root {
   --blue: #007bff;
   --indigo: #6610f2;

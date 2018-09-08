@@ -88,6 +88,7 @@ body.controller-admin-vehicle-configs,body.controller-admin-user-vehicles {
             height:100%;
           }
         }
+
         .type-factory, .type-easy, .type-intermediate, .type-advanced {
           text-align:center;
           width:14%;
@@ -151,13 +152,61 @@ body.controller-admin-vehicle-configs,body.controller-admin-user-vehicles {
             }
           }
           .btn-success {
-            background:lighten($green,4);
+            background:lighten(#EEE,4);
             color: #FFF;
             opacity:1;
           }
           .btn-danger {
-            background:lighten($red,4);
+            background:lighten(#555,4);
             color: #FFF;
+            opacity:1;
+          }
+        }
+        .type-factory {
+          .btn-success {
+            background:$factory-included-bg;
+            color: $factory-included-fg;
+            opacity:1;
+          }
+          .btn-danger {
+            background:$excluded-bg;
+            color: $excluded-fg;
+            opacity:1;
+          }
+        }
+        .type-easy {
+          .btn-success {
+            background:$easy-included-bg;
+            color: $easy-included-fg;
+            opacity:1;
+          }
+          .btn-danger {
+            background:$excluded-bg;
+            color: $excluded-fg;
+            opacity:1;
+          }
+        }
+        .type-intermediate {
+          .btn-success {
+            background:$intermediate-included-bg;
+            color: $intermediate-included-fg;
+            opacity:1;
+          }
+          .btn-danger {
+            background:$excluded-bg;
+            color: $excluded-fg;
+            opacity:1;
+          }
+        }
+        .type-advanced {
+          .btn-success {
+            background: $advanced-included-bg;
+            color: $advanced-included-fg;
+            opacity:1;
+          }
+          .btn-danger {
+            background:$excluded-bg;
+            color: $excluded-fg;
             opacity:1;
           }
         }

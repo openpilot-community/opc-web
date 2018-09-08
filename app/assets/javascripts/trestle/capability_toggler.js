@@ -118,6 +118,9 @@ class CapabilityToggler extends React.Component {
       }
     }
     
+    if (this.state.data.state === 2) {
+      label = this.getIcon();
+    }
     return e(
       'span',
       {
@@ -142,6 +145,9 @@ class CapabilityToggler extends React.Component {
           label = value_type;
         }
       }
+    }
+    if (this.state.data.state === 2) {
+      label = "";
     }
     return e(
       'span',

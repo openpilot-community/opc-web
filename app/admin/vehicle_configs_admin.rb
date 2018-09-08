@@ -330,7 +330,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
   #  FORM  #
   ##########
   form do |vehicle_config|
-    tab :general do
+    tab :general, label: "<span class=\"fa fa-info-circle\"></span> General".html_safe do
       row do
         col(sm: 3, class: "year-range") do
           row do
@@ -349,7 +349,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
     end
 
     unless vehicle_config.new_record?
-      tab :trim_styles, badge: vehicle_config.refreshing ? "<span class=\"fa fa-spinner fa-spin\"></span>".html_safe : vehicle_config.trim_styles_count do
+      tab :trim_styles, label: "<span class=\"fa fa-car\"></span> Trims".html_safe, badge: vehicle_config.refreshing ? "<span class=\"fa fa-spinner fa-spin\"></span>".html_safe : vehicle_config.trim_styles_count do
         if vehicle_config.refreshing
           render inline: content_tag(:div, "<span class=\"fa fa-spinner fa-spin\"></span><span class='loading-message'>We're refreshing the trim styles...</span>".html_safe, class: "alert alert-warning alert-loading-trims")
         else
@@ -420,7 +420,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
           end
         end
       end
-      tab :capabilities do
+      tab :capabilities, label: "<span class=\"fa fa-list\"></span> Capabilities &amp; Limits".html_safe do
         config_types = VehicleConfigType.order(:difficulty_level)
         vcs = VehicleCapability.order(:name)
         vcs_common = vcs.where("vehicle_capabilities.vehicle_config_count > 5")
@@ -441,7 +441,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
             class: "type-#{type.name.parameterize}", 
             header: %(
               #{type.name}
-              <span data-toggle='tooltip' data-container='body' title='#{type.description}' class='fa fa-info'></span>
+              <span data-toggle='tooltip' data-container='body' title='#{type.description}' class='fa fa-info-circle'></span>
             ).html_safe do |capability|
               render 'capability_link', capability: capability, type: type, vehicle: vehicle_config, vehicle_capability: vccs.select{|vcc| vcc.vehicle_capability_id == capability.id && vcc.vehicle_config_type_id == type.id }.first
             end
@@ -461,7 +461,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
             class: "type-#{type.name.parameterize}", 
             header: %(
               #{type.name}
-              <span data-toggle='tooltip' data-container='body' title='#{type.description}' class='fa fa-info'></span>
+              <span data-toggle='tooltip' data-container='body' title='#{type.description}' class='fa fa-info-circle'></span>
             ).html_safe do |capability|
               render 'capability_link', capability: capability, type: type, vehicle: vehicle_config, vehicle_capability: vccs.select{|vcc| vcc.vehicle_capability_id == capability.id && vcc.vehicle_config_type_id == type.id }.first
             end
@@ -469,7 +469,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
         end
       end
 
-      tab :guides, badge: vehicle_config.guides.present? ? vehicle_config.guides.size : nil do
+      tab :guides, label: "<span class=\"fa fa-file-text\"></span> Guides".html_safe, badge: vehicle_config.guides.present? ? vehicle_config.guides.size : nil do
         render "tab_toolbar", {
           :groups => [
             {
@@ -488,9 +488,10 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
             {
               :class => "actions",
               :items => [
-                admin_link_to("<span class=\"fa fa-database\"></span> Add Existing From Database".html_safe, admin: :vehicle_config_guides, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id }),
-                admin_link_to("<span class=\"fa fa-link\"></span> Add Guide From URL".html_safe, admin: :vehicle_config_guides, action: :new, class: "btn btn-default btn-list-add", params: { from_url: true, vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id }),
-                admin_link_to("<span class=\"fa fa-pencil\"></span> Write a Guide".html_safe, admin: :vehicle_config_guides, action: :new, dialog: true, class: "btn btn-default btn-list-add", params: { new: true, vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
+                content_tag(:span,"Add a guide: ", class: "btn btn-default disabled", style: "color:#212121;"),
+                admin_link_to("<span class=\"fa fa-plus\"></span> Existing".html_safe, admin: :vehicle_config_guides, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id }),
+                admin_link_to("<span class=\"fa fa-plus\"></span> URL".html_safe, admin: :vehicle_config_guides, action: :new, class: "btn btn-default btn-list-add", params: { from_url: true, vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id }),
+                admin_link_to("<span class=\"fa fa-pencil\"></span> Write".html_safe, admin: :vehicle_config_guides, action: :new, dialog: true, class: "btn btn-default btn-list-add", params: { new: true, vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
               ]
             }
           ]
@@ -551,14 +552,15 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
           )
         end
       end
-      tab :videos, label: '<span class="fa fa-youtube"></span> Videos'.html_safe, badge: vehicle_config.vehicle_config_videos.blank? ? nil : vehicle_config.vehicle_config_videos.size do
+      tab :videos, label: '<span class="fa fa-video-camera"></span> Videos'.html_safe, badge: vehicle_config.vehicle_config_videos.blank? ? nil : vehicle_config.vehicle_config_videos.size do
         render "tab_toolbar", {
           :groups => [
             {
               :class => "actions",
               :items => [
-                admin_link_to("<span class=\"fa fa-database\"></span> Add Existing From Database".html_safe, admin: :vehicle_config_videos, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id }),
-                admin_link_to("<span class=\"fa fa-link\"></span> Add Video From URL".html_safe, admin: :vehicle_config_videos, action: :new, class: "btn btn-default btn-list-add", params: { from_url: true, vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
+                content_tag(:span,"Add a video: ", class: "btn btn-default disabled", style: "color:#212121;"),
+                admin_link_to("<span class=\"fa fa-plus\"></span> Existing".html_safe, admin: :vehicle_config_videos, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id }),
+                admin_link_to("<span class=\"fa fa-plus\"></span> From URL".html_safe, admin: :vehicle_config_videos, action: :new, class: "btn btn-default btn-list-add", params: { from_url: true, vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
               ]
             }
           ]
@@ -572,7 +574,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
         end
       end
 
-      tab :repositories, label: '<span class="fa fa-code"></span> Repositories'.html_safe, badge: vehicle_config.vehicle_config_repositories.blank? ? nil : vehicle_config.vehicle_config_repositories.size do
+      tab :repositories, label: '<span class="fa fa-code-fork"></span> Repositories'.html_safe, badge: vehicle_config.vehicle_config_repositories.blank? ? nil : vehicle_config.vehicle_config_repositories.size do
         render "tab_toolbar", {
           :groups => [
             {

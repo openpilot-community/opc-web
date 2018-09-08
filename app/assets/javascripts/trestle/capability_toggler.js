@@ -9,7 +9,8 @@ class CapabilityToggler extends React.Component {
     this.state = {
       data: props.data,
       loading: false,
-      hovered: false
+      hovered: false,
+      hoveredConfigureLink: false
     };
   }
 
@@ -73,9 +74,15 @@ class CapabilityToggler extends React.Component {
         key: 'configure',
         href: `/vehicle_config_capabilities/${this.state.data.id}/edit`, 
         onMouseEnter: () => { 
+          // this.setState({
+          //   hoveredConfigureLink: true
+          // })
           this.enterState()
         },
         onMouseLeave: () => {
+          // this.setState({
+          //   hoveredConfigureLink: false
+          // })
           this.leaveState()
         }
       },
@@ -92,27 +99,65 @@ class CapabilityToggler extends React.Component {
     );
   }
   getLabel() {
+    const { value_type, timeout, kph, friendly_text } = this.state.data
+    const { hoveredConfigureLink } = this.state;
+    let label = this.getIcon();
+    if (hoveredConfigureLink) {
+      label = this.getIcon();
+    } else {
+      if (value_type !== 'state') {
+        if (value_type === 'timeout' && timeout) {
+          label = friendly_text;
+        }
+  
+        if (value_type === 'speed' && kph) {
+          label = friendly_text;
+        }
+      } else {
+        label = this.getIcon()
+      }
+    }
+    
     return e(
       'span',
       {
         className: "label-text"
       },
-      this.state.data.value_type !== 'state' ? this.state.data.friendly_text : this.getIcon()
+      label
     )
   }
   getTypeLabel() {
+    const { value_type, timeout, kph, friendly_text } = this.state.data
+    const { hoveredConfigureLink } = this.state;
+    let label
+    if (hoveredConfigureLink) {
+      label = this.getIcon();
+    } else {
+      if (value_type !== 'state') {
+        if (value_type === 'timeout' && timeout) {
+          label = value_type;
+        }
+
+        if (value_type === 'speed' && kph) {
+          label = value_type;
+        }
+      }
+    }
     return e(
       'span',
       {
         className: "type-label"
       },
-      this.state.data.value_type !== 'state' ? this.state.data.value_type : null
+      label
     )
   }
   getIconClass() {
     let iconClass;
     if (this.state.loading) {
       return "fa fa-spinner fa-spin"
+    }
+    if (this.state.hoveredConfigureLink) {
+      return "fa fa-pencil";
     }
     switch (this.state.data.state) {
       case 0:
@@ -126,13 +171,24 @@ class CapabilityToggler extends React.Component {
     }
   }
   getClasses() {
+    let classes = [];
     if (this.state.data.state === 1) {
-      return "btn btn-success";
+      classes.push("btn");
+      classes.push("btn-success");
     } else if (this.state.data.state === 2) {
-      return "btn btn-danger";
+      classes.push("btn");
+      classes.push("btn-danger");
     } else {
-      return "btn btn-add btn-default";
+      classes.push("btn");
+      classes.push("btn-add");
+      classes.push("btn-default");
     }
+
+    if (this.state.hovered) {
+      classes.push("hovered");
+    }
+
+    return classes.join(" ");
   }
   render() {
     const { data, loading } = this.state;

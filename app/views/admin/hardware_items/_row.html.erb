@@ -1,0 +1,26 @@
+<div class="hardware-card row-card">
+  
+  <div class="image">
+    <% if instance.image.attached? %>
+      <span class="img" style="background-image:url(<%=instance.image.service_url%>)"></span>
+    <% else %>
+      <span class="img"><span class="fa fa-microchip"></span></span>
+    <% end %>
+  </div>
+
+  <div class="details">
+    <div class="details-inner">
+      <div class="name">
+      <%=link_to(admin.instance_path(instance)) do %>
+        <span><%=instance.name%></span>
+      <% end %>
+      </div>
+      <ul class="meta">
+      </ul>
+      <div class="byline"><%=time_ago_in_words(instance.updated_at)%> ago</div>
+    </div>
+  </div>
+  
+  <div class="actions">
+  </div>
+</div>

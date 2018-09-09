@@ -1,32 +1,43 @@
-<div class="guide-card<%=instance.image.attached? ? " has-thumbnail" : nil%>">
-  <% if instance.image.attached? %>
+<% vehicle_config_guide = vehicle_config_guide || nil %>
+<% vehicle_config = vehicle_config || nil %>
+
+<div class="guide-card row-card<%=instance.image.attached? ? " has-thumbnail" : nil%>">
+  
   <div class="image">
-    <span class="img" style="background-image:url(<%=instance.image.service_url%>)">
-    </span>
+    <% if instance.image.attached? %>
+      <span class="img" style="background-image:url(<%=instance.image.service_url%>)"></span>
+    <% else %>
+      <span class="img"><span class="fa fa-microchip"></span></span>
+    <% end %>
   </div>
-  <% end %>
-  <% if vehicle_config_guide.present? && vehicle_config_guide.vehicle_config_type.present? %>
+<% if vehicle_config_guide.present? && vehicle_config_guide.vehicle_config_type.present? %>
     <% difficulty = vehicle_config_guide.vehicle_config_type %>
     <div class="difficulty type-<%=difficulty.name.parameterize%>">
       <%=difficulty.name%>
     </div>
   <% end %>
   <div class="details">
-    
-    <div class="detail-inner">
-      <div class="title"><%=instance.title%></div>
-      <div class="synopsis"><%=instance.markup.present? ? strip_tags(instance.markup).truncate_words(25) : nil%></div>
-      <div class="meta">
-        <span class="author"><%=instance.author_name%></span>
-        <span class="divider">&middot;</span>
-        <span class="date"><%=instance.friendly_date%></span>
-        <span class="divider">&middot;</span>
-        <span class="reading_time"><%=instance.reading_time%> min read</span>
-        <%if vehicle_config.present?%>
-          <span class="divider">&middot;</span>
-          <span class="action"><%=admin_link_to("Edit", admin: :vehicle_config_guides, action: :edit, dialog: true, params: { edit: true, id: vehicle_config_guide.id, vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id } )%></span>
-        <% end %>
+    <div class="details-inner">
+      <div class="name">
+        <%=link_to instance.title, guides_admin_url(instance.slug) %>
       </div>
+      <div class="synopsis"><%=instance.markup.present? ? strip_tags(instance.markup).truncate_words(25) : nil%></div>
+      
+      <ul class="meta">
+        <li><span class="author"><%=instance.author_name%></span></li>
+        <li><span class="divider">&middot;</span></li>
+         <li><span class="date"><%=instance.friendly_date%></span>
+         <li><span class="divider">&middot;</span>
+         <li><span class="reading_time"><%=instance.reading_time%> min read</span>
+        <%if vehicle_config.present?%>
+          <li><span class="divider">&middot;</span></li>
+          <li><span class="action"><%=admin_link_to("Edit", admin: :vehicle_config_guides, action: :edit, dialog: true, params: { edit: true, id: vehicle_config_guide.id, vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id } )%></span></li>
+        <% end %>
+      </ul>
+      <div class="byline"><%=time_ago_in_words(instance.updated_at)%> ago</div>
     </div>
+  </div>
+  
+  <div class="actions">
   </div>
 </div>

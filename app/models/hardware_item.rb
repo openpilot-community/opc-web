@@ -23,9 +23,12 @@
 class HardwareItem < ApplicationRecord
   extend FriendlyId
   has_one_attached :image
+  acts_as_commontable dependent: :destroy
   friendly_id :name, use: :slugged
   belongs_to :hardware_type, optional: true
   after_save :set_image_scraper
+  has_many :guide_hardware_items
+  has_many :guides, :through => :guide_hardware_items
 
   def set_image_scraper
     if saved_change_to_source_image_url?

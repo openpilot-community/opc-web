@@ -212,6 +212,10 @@ class VehicleConfig < ApplicationRecord
     }
   end
 
+  def map_specs_to_capabilities
+    
+  end
+  
   def difficulty_class
     case vehicle_config_type.name
     when "Advanced"

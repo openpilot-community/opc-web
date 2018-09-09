@@ -40,11 +40,10 @@
           <% end %>
 
           <% items.each do |item| %>
-            <li class="<% if current_navigation_item?(item) %>active<% end %> <%= item.present? && item.label.present? ? item.label.parameterize : nil %>">
+            <li class="<% if current_navigation_item?(item) %>active<% end %><% if group.label.present? %> <%=group.label.parameterize%><% end %> <%= item.present? && item.label.present? ? item.label.parameterize : nil %>">
               <%= link_to item.path do %>
                 <%= icon("nav-icon", item.icon) %>
                 <span class="nav-label"><%= item.label %></span>
-
                 <%= content_tag(:span, item.badge.text, class: ["nav-badge", item.badge.html_class]) if item.badge? %>
               <% end %>
             </li>

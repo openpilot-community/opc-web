@@ -1,12 +1,11 @@
 <div class="documentation">
   <div class="guide">
-    <div class="author-box">
-      <div class="actions btn-toolbar">
-        <div class="btn-group">
-          <%=admin_link_to("Edit", admin: :guides, action: :edit, params: { id: instance.slug }, class: "btn btn-default")%>
-        </div>
+    <div class="actions btn-toolbar">
+      <div class="btn-group">
+        <%=admin_link_to("Edit", admin: :guides, action: :edit, params: { id: instance.slug }, class: "btn btn-default")%>
       </div>
-      
+    </div>
+    <div class="author-box">
       <div class="image">
       <% if instance.author_name.present? %>
         <span class="img"></span>

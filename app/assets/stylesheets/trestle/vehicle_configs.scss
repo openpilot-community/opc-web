@@ -39,7 +39,16 @@ body.controller-admin-vehicle-configs.action-show {
     // }
   }
 }
-body.controller-admin-vehicle-configs,body.controller-admin-user-vehicles {
+.vehicle-card.row-card {
+  .image {
+    span.img {
+      background-size: auto 112%;
+      background-position: center left;
+    }
+  }
+}
+body.controller-admin-vehicle-configs,
+body.controller-admin-user-vehicles {
   &.action-show {
     #tab-guides {
       .trestle-table > thead > tr > td, .trestle-table > thead > tr > td, .trestle-table > tbody > tr > td, .trestle-table > tbody > tr > td, .trestle-table > tfoot > tr > td, .trestle-table > tfoot > tr > td {

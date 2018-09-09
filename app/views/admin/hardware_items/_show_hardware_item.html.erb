@@ -1,0 +1,31 @@
+<div class="documentation">
+  <div class="guide">
+    <div class="actions btn-toolbar">
+      <div class="btn-group">
+        <%=admin_link_to("Edit", admin: :hardware_items, action: :edit, params: { id: instance.slug }, class: "btn btn-default")%>
+      </div>
+    </div>
+    <h1><%=instance.name%></h1>
+
+    <div class="content">
+      <div class="image">
+        <% if instance.image.attached? %>
+          <span class="img" style="background-image:url(<%=instance.image.service_url%>)"></span>
+        <% else %>
+          <span class="img"><span class="fa fa-microchip"></span></span>
+        <% end %>
+      </div>
+      <%=instance.description.html_safe%>
+      <% if instance.guides.present? %>
+      <h2>Guides</h2>
+      <% instance.guide_hardware_items.each do |ghi| %>
+        <%= render "admin/guides/row", instance: ghi.guide, guide_hardware_item: ghi, hardware_item: ghi.hardware_item %>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="responses">
+    <h4>Responses</h4>
+    <%= commontator_thread(instance) %>
+  </div>
+</div>

@@ -50,6 +50,10 @@ body.controller-admin-vehicle-configs.action-show {
 body.controller-admin-vehicle-configs,
 body.controller-admin-user-vehicles {
   &.action-show {
+    .flags {
+      list-style-type:none;
+      display:flex;
+    }
     #tab-guides {
       .trestle-table > thead > tr > td, .trestle-table > thead > tr > td, .trestle-table > tbody > tr > td, .trestle-table > tbody > tr > td, .trestle-table > tfoot > tr > td, .trestle-table > tfoot > tr > td {
         padding:0;border:0;

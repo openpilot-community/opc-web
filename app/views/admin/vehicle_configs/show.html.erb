@@ -1,17 +1,43 @@
 <% title = admin.t("titles.edit", default: instance.name ) %>
 <% content_for(:title, instance.name) %>
 <% breadcrumb(instance.name) unless admin.singular? %>
+<% row_state = { 
+  default_state: {
+    id: instance.id,
+    follower_count: instance.followers_count,
+    following: current_user_state[:following]
+  }.to_json}%>
+<% row_class = "" %>
+<% has_status = instance.vehicle_config_status.present?%>
+<% if has_status %>
+  <% status = instance.vehicle_config_status%>
+<% else %>
+  <% status = nil %>
+<% end %>
+<% has_difficulty = instance.vehicle_config_type.present? %>
+<% if has_difficulty %>
+  <% difficulty = instance.vehicle_config_type%>
+<% else %>
+  <% difficulty = nil %>
+<% end %>
+<% status_class = instance.status_classes %>
 
 <% content_for(:primary_toolbar) do %>
-  <% if instance.vehicle_config_type.present? %>
-  <%= content_tag(:span, class: "flag flag-difficulty type-#{instance.vehicle_config_type.name.parameterize}") do %>
-  <span><%=instance.vehicle_config_type.name%></span>
-  <% end %>
-  <% end %>
   <%= button_tag "Save", class: "btn btn-default btn-lg" if admin.actions.include?(:update) %>
   <%= admin_link_to instance, action: :destroy, method: :delete, class: "btn btn-danger", data: { toggle: "confirm-delete", placement: "bottom" } do %>
     <%= icon("fa fa-trash") %>
   <% end if admin.actions.include?(:destroy) %>
+<% end %>
+<% content_for(:secondary_toolbar) do %>
+<ul class="flags">
+  <% if has_status && has_difficulty && status.name != "Researching"%>
+    <li><span class="label label-<%=instance.difficulty_class%>"><%=difficulty.name%></span></li>
+  <% end %>
+  <% if has_status %>
+    <li><span target="_blank" class="label label-<%=status_class[:color]%> repo-link"><span class="<%=status_class[:icon]%>"></span> <%=status.name%></span></li>
+  <% end %>
+  <li><span target="_blank" class="label label-default repo-link" href="<%=status_class[:url]%>"><%=status_class[:label]%></span></li>
+</ul>
 <% end %>
 
 <%= trestle_form_for instance, url: admin.actions.include?(:update) ? admin.instance_path(instance, action: :update) : "#", method: :patch do |f| %>

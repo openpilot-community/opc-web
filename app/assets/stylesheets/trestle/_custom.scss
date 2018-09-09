@@ -271,6 +271,9 @@ body {
     display:none;
   }
   .content-header .btn-toolbar {
+    display:flex;
+  }
+  .content-header .btn-toolbar {
     button,a {
       display:none;
     }

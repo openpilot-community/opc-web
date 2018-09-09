@@ -11,7 +11,7 @@
   <div class="details">
     <div class="details-inner">
       <div class="name">
-      <%=link_to(admin.instance_path(instance)) do %>
+      <%=link_to(hardware_items_admin_url(instance.id)) do %>
         <span><%=instance.name%></span>
       <% end %>
       </div>

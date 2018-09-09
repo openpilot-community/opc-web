@@ -45,7 +45,7 @@ body.controller-admin-hardware-items {
       min-height:500px;
       $image-size: 166px;
 
-      .image {
+      > .content > .image {
         height: $image-size;
         // flex: 0 0 $image-size + 10;
         float:right;

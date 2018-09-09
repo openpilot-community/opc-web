@@ -18,6 +18,28 @@
       <% if instance.description_markup.present? %>
         <%=instance.description_markup.html_safe%>
       <% end %>
+      
+      <% if instance.hardware_type.present? && instance.hardware_type.description_markup.present? %>
+      <h2>About the <%=instance.hardware_type.name%></h2>
+
+      <%= instance.hardware_type.description_markup.html_safe%>
+      <% end %>
+      <% if instance.available_for_purchase %>
+      <h2>Where to purchase</h2>
+        <% if instance.purchase_url.present?%>
+        <p>These are available for purchase <a href="<%=instance.purchase_url%>" target="_blank"></a>here</a>.</p>
+        <% end %>
+        <% if instance.can_be_built%>
+        <p>If you're handy, these can also be built yourself.  Check to see if there is a guide in the Guides section below.</p>
+        <% end %>
+      <% end %>
+
+      <% if instance.requires_assembly %>
+      <h2>Where to purchase</h2>
+      <% if instance.purchase_url.present?%>
+      <p>These are available for purchase <a href="<%=instance.purchase_url%>" target="_blank"></a>here</a>.</p>
+      <% end %>
+      <% end %>
       <% if instance.guides.present? %>
       <h2>Guides</h2>
       <% instance.guide_hardware_items.each do |ghi| %>

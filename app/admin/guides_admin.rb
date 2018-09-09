@@ -9,6 +9,9 @@ Trestle.resource(:guides) do
   find_instance do |params|
     Guide.friendly.find(params[:id])
   end
+  collection do |params|
+    Guide.order(:updated_at => :desc)
+  end
   controller do
     skip_before_action :require_edit_permissions!
     skip_before_action :require_super_admin!

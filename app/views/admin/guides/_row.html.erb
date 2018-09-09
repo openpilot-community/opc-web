@@ -7,7 +7,7 @@
     <% if instance.image.attached? %>
       <span class="img" style="background-image:url(<%=instance.image.service_url%>)"></span>
     <% else %>
-      <span class="img"><span class="fa fa-microchip"></span></span>
+      <span class="img"><span class="fa fa-pencil"></span></span>
     <% end %>
   </div>
 <% if vehicle_config_guide.present? && vehicle_config_guide.vehicle_config_type.present? %>

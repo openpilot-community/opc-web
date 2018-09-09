@@ -43,7 +43,8 @@
   </head>
 
   <body class='<%=raw "controller-#{controller.controller_path.parameterize.dasherize} action-#{controller.action_name.parameterize}" %> <%=raw "sidebar-#{cookies["trestle:sidebar"]}" if cookies["trestle:sidebar"] %>'>
-    <div class="app-wrapper <% if !current_user.blank? %><%if current_user.is_visitor?%>is-visitor<% end %> <%if current_user.is_admin?%>is-admin<% end %> <%if current_user.is_editor?%>is-editor<% end %> <%if current_user.is_super_admin?%>is-super-admin<% end %><% else %>is-visitor<% end %>">
+   
+    <div class="app-wrapper <% if !current_user.blank? %><%if current_user.is_visitor?%>is-visitor<% end %> <%if current_user.is_admin?%>is-admin<% end %> <%if current_user.is_editor?%>is-editor<% end %> <%if current_user.is_super_admin?%>is-super-admin<% end %><% end %>">
       <%= render "trestle/shared/sidebar" %>
 
       <div class="app-container">

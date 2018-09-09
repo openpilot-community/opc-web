@@ -267,6 +267,24 @@ body {
       display:none;
     }
   }
+  .tab-toolbar {
+    display:none;
+  }
+  .content-header .btn-toolbar {
+    button,a {
+      display:none;
+    }
+  }
+  &.is-super-admin,&.is-admin,&.is-editor,&.is-visitor {
+    .tab-toolbar {
+      display:block;
+    }
+    .content-header .btn-toolbar {
+      button,a {
+        display:block;
+      }
+    }
+  }
   &.is-super-admin,&.is-admin,&.is-editor {
     .app-nav {
       ul.admin {
@@ -281,6 +299,7 @@ body {
       }
     }
   }
+  
   &.is-visitor {
     .primary-toolbar {
       // opacity:0;
@@ -292,12 +311,7 @@ body {
         }
       }
     }
-    .tab-toolbar {
-      display:none;
-      .actions {
-        // opacity:0;
-      }
-    }
+    
   }
   .trestle-table {
     .label {
@@ -1019,7 +1033,10 @@ body {
       background: transparent!important;
     }
   }
-
+  .app-wrapper .content-header .btn-toolbar {
+      text-align: right;
+      flex: 0 0 100%;
+  }
   .app-wrapper .app-container,.app-container {
     overflow-y: initial!important;
     overflow-x: initial;

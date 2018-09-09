@@ -82,6 +82,20 @@ body.controller-admin-user-vehicles {
         flex-grow:1;
       }
     }
+    #tab-hardware_items {
+      .trestle-table {
+        thead {
+          display:none;
+        }
+        tbody {
+          tr {
+            td {
+              padding:0;
+            }
+          }
+        }
+      }
+    }
     #tab-capabilities {
       tr {
         td.icon {

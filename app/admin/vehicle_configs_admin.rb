@@ -14,7 +14,6 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
   ########
   scope :all, -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level") }, default: true
   # scope :top_ranked, -> { VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_configs.cached_votes_score DESC") }, default: true
-  
   ########
   # SEARCH
   ########
@@ -26,6 +25,32 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
       VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level")
     end
   end
+
+  # collection do
+  #   if params['make_slug'].present?
+  #     vehicle_make = VehicleMake.friendly.find(params['make_slug'])
+      
+  #     VehicleConfig.includes(
+  #       :vehicle_make,
+  #       :vehicle_model,
+  #       :vehicle_config_type,
+  #       :vehicle_config_status,
+  #       :repositories,
+  #       :pull_requests,
+  #       :vehicle_config_pull_requests
+  #     ).where(vehicle_make_id: vehicle_make.id).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level")
+  #   else
+  #     VehicleConfig.includes(
+  #       :vehicle_make,
+  #       :vehicle_model,
+  #       :vehicle_config_type,
+  #       :vehicle_config_status,
+  #       :repositories,
+  #       :pull_requests,
+  #       :vehicle_config_pull_requests
+  #     ).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level")
+  #   end
+  # end
 
   controller do
     skip_before_action :verify_authenticity_token
@@ -132,6 +157,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
       @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support","/vehicles")])
       imgurl = vehicle_config.image.attached? ? vehicle_config.image.service_url : asset_url("/assets/og/tracker.png")
       vehicle_config.update_attributes({views_count: vehicle_config.views_count + 1})
+      # byebug
       set_meta_tags(
         og: {
           title: "#{vehicle_config.name} | Openpilot Database",
@@ -556,6 +582,33 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
             class: "alert alert-warning", 
             style: "display: block;"
           )
+        end
+      end
+      tab :hardware_items, label: '<span class="fa fa-microchip"></span> Hardware'.html_safe, badge: vehicle_config.vehicle_config_hardware_items.blank? ? nil : vehicle_config.vehicle_config_hardware_items.size do
+        render "tab_toolbar", {
+          :groups => [
+            {
+              :class => "actions",
+              :items => [
+                content_tag(:span,"Add Hardware: ", class: "btn btn-default disabled", style: "color:#212121;"),
+                admin_link_to("<span class=\"fa fa-plus\"></span> Existing".html_safe, admin: :vehicle_config_hardware_items, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id }),
+                admin_link_to("<span class=\"fa fa-pencil\"></span> Write".html_safe, admin: :vehicle_config_hardware_items, action: :new, dialog: true, class: "btn btn-default btn-list-add", params: { new: true, vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
+              ]
+            }
+          ]
+        }
+        table vehicle_config.vehicle_config_hardware_items, admin: :vehicle_config_hardware_items do
+          row do |instance|
+            {
+              data: {
+                url: hardware_items_admin_url(instance.hardware_item.id)
+              }
+            }
+          end
+          column :row do |instance|
+            render "admin/hardware_items/row", instance: instance.hardware_item
+          end
+          # column :author
         end
       end
       tab :videos, label: '<span class="fa fa-video-camera"></span> Videos'.html_safe, badge: vehicle_config.vehicle_config_videos.blank? ? nil : vehicle_config.vehicle_config_videos.size do

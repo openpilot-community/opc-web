@@ -27,6 +27,7 @@ gem 'trestle-search'
 gem 'rubyzip', '~> 1.2.2'
 gem 'devise'
 gem 'puma'
+gem 'redis'
 gem "socialization"
 # gem 'html2text'
 gem "reverse_markdown"
@@ -37,6 +38,7 @@ gem 'commontator', '~> 5.1.0'
 # gem 'watir'
 gem 'omniauth-github'
 # gem 'readingtime'
+gem 'hiredis'
 gem "aws-sdk-s3", require: false
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'

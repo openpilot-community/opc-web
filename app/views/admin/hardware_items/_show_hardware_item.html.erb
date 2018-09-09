@@ -15,7 +15,9 @@
           <span class="img"><span class="fa fa-microchip"></span></span>
         <% end %>
       </div>
-      <%=instance.description.html_safe%>
+      <% if instance.description.present? %>
+        <%=instance.description.html_safe%>
+      <% end %>
       <% if instance.guides.present? %>
       <h2>Guides</h2>
       <% instance.guide_hardware_items.each do |ghi| %>

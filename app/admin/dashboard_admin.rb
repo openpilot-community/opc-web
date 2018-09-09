@@ -12,6 +12,7 @@ Trestle.admin(:dashboard) do
     group :getting_started do
       item :guides, '/guides', icon: "fa fa-pencil", priority: 3.0
       item :hardware_items, '/hardware_items', icon: "fa fa-microchip", label: "Hardware", priority: 3.3
+      item :videos, '/videos', icon: "fa fa-play", priority: 3.6
     end
 
     group :tools do
@@ -23,7 +24,6 @@ Trestle.admin(:dashboard) do
 
     group :support do
       item :slack, 'https://comma.slack.com/', priority: 6.0
-      item :videos, '/videos', icon: "fa fa-play", priority: 6.3
       item :pull_requests, '/pull_requests', icon: "fa fa-github", priority: 6.6
       item :repositories, '/repositories', icon: "fa fa-github", priority: 6.9
       item :contributors, '/contributors', icon: "fa fa-users", priority: 6.12

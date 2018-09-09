@@ -90,20 +90,26 @@ Trestle.resource(:guides) do
     tab :general do
       if params['from_url'].present?
         text_field :article_source_url
-        select :hardware_item_ids, HardwareItem.all.order(:name), { label: "Tag hardware in this guide" }, { multiple: true, data: { tags: true } }
-        select :vehicle_config_ids, VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level"), { label: "Tag vehicles in this guide" }, { multiple: true, data: { tags: true } }
       else
         text_field :title
-        select :hardware_item_ids, HardwareItem.all.order(:name), { label: "Tag hardware in this guide" }, { multiple: true, data: { tags: true } }
-        select :vehicle_config_ids, VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level"), { label: "Tag vehicles in this guide" }, { multiple: true, data: { tags: true } }
         editor :markdown, { label: "" }
-        text_field :author_name
         text_area :exerpt
         # text_area :exerpt
+      end
+    end
+
+    sidebar do
+      if guide.image.attached?
+        render inline: image_tag(guide.image.service_url, class: "profile-image")
         
-        if current_user.is_super_admin?
-          collection_select :user_id, User.order(:github_username), :id, :github_username, include_blank: true, label: "User"
-        end
+        render inline: content_tag(:div, nil, {style: "margin-top:10px;"})
+      end
+      text_field :source_image_url, label: "Change Image", placeholder: "Enter URL to Update"
+      select :hardware_item_ids, HardwareItem.all.order(:name), { label: "Tag hardware in this guide" }, { multiple: true, data: { tags: true } }
+      select :vehicle_config_ids, VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level"), { label: "Tag vehicles in this guide" }, { multiple: true, data: { tags: true } }
+      if params['from_url'].blank?
+        text_field :author_name
+        text_area :exerpt
       end
     end
   end

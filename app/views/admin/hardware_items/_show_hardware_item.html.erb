@@ -24,10 +24,12 @@
 
       <%= instance.hardware_type.description_markup.html_safe%>
       <% end %>
-      <% if instance.available_for_purchase %>
-      <h2>Where to purchase</h2>
+      <% if instance.available_for_purchase == true %>
+        <h2>Where to purchase</h2>
         <% if instance.purchase_url.present?%>
         <p>These are available for purchase <a href="<%=instance.purchase_url%>" target="_blank">here</a>.</p>
+        <% else %>
+        <p>We've not found any url's where this can be purchased yet but if you check the Comma Slack, you may find someone that can sell you one.</p>
         <% end %>
         <% if instance.can_be_built%>
         <p>If you're handy, these can also be built yourself.  Check to see if there is a guide in the Guides section below.</p>

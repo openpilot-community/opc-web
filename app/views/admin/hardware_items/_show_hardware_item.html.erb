@@ -27,7 +27,7 @@
       <% if instance.available_for_purchase %>
       <h2>Where to purchase</h2>
         <% if instance.purchase_url.present?%>
-        <p>These are available for purchase <a href="<%=instance.purchase_url%>" target="_blank"></a>here</a>.</p>
+        <p>These are available for purchase <a href="<%=instance.purchase_url%>" target="_blank">here</a>.</p>
         <% end %>
         <% if instance.can_be_built%>
         <p>If you're handy, these can also be built yourself.  Check to see if there is a guide in the Guides section below.</p>

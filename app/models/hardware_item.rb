@@ -35,6 +35,13 @@ class HardwareItem < ApplicationRecord
       DownloadImageFromSourceWorker.perform_async(id,HardwareItem)
     end
   end
+
+  def description_markup
+    if self.description.present?
+      description_renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+      description_renderer.render(self.description)
+    end
+  end
   # has_many :vehicle_config_hardware_items
   # has_many :video_hardware_items
   # has_many :videos, :through => :video_hardware

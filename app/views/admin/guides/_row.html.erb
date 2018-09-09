@@ -21,7 +21,7 @@
       <div class="name">
         <%=link_to instance.title, guides_admin_url(instance.slug) %>
       </div>
-      <div class="synopsis"><%=instance.markup.present? ? strip_tags(instance.markup).truncate_words(25) : nil%></div>
+      <div class="synopsis"><%=instance.markup.present? ? strip_tags(instance.markup).truncate_words(10) : nil%></div>
       
       <ul class="meta">
         <li><span class="author"><%=instance.author_name%></span></li>

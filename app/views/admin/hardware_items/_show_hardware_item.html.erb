@@ -15,8 +15,8 @@
           <span class="img"><span class="fa fa-microchip"></span></span>
         <% end %>
       </div>
-      <% if instance.description.present? %>
-        <%=instance.description.html_safe%>
+      <% if instance.description_markup.present? %>
+        <%=instance.description_markup.html_safe%>
       <% end %>
       <% if instance.guides.present? %>
       <h2>Guides</h2>

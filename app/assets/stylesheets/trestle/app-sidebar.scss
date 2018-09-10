@@ -1,0 +1,33 @@
+.app-wrapper {
+  .app-sidebar {
+    background: #000;
+  }
+  .app-sidebar-header {
+    height: 50px;
+    background-image: url(/assets/logo@2x.png);
+    background-size: 250px;
+    background-color: #000;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: flex;
+    align-items: center;
+    color:#000;
+  }
+  
+  .app-sidebar-header .navbar-brand {
+    color:#212121;
+  }
+  .navbar-brand {
+    color:#212121;
+    font-size:0;
+    opacity:0;
+    > span {
+      display:block;
+      width:100%;
+      text-align:center;
+      span {
+        font-weight:100;
+      }
+    }
+  }
+}

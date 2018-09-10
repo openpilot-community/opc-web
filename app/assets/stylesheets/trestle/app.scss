@@ -1,14 +1,130 @@
-
-
 body {
   background-color:#000000;
   // overflow:auto;
 }
 .app-wrapper {
+  background-color: #f6f8fa !important;
+  .list-content-wrap {
+    &.show-scopes {
+      display:flex;
+      flex-direction: row-reverse;
+      .list-content-scopes {
+        flex: 0 0 20%;
+      }
+      .list-content-table {
+        flex: 0 0 80%;
+      }
+    }
+    
+  }
+  .title-section {
+    a {
+      color:#212121;
+    }
+  }
+
+  .breadcrumb {
+    position: relative;
+    float: left;
+    max-width: 635px;
+    padding-left: 18px;
+    font-size: 18px;
+    line-height: 26px;
+    color: #586069;
+    > li {
+     
+    }
+  }
+  
+  .content-header {
+    padding-bottom: 0;
+    background: #f6f8fa !important;
+    flex-direction: row-reverse;
+    padding-top: 15px;
+    padding-bottom: 3px;
+    .primary-toolbar, .secondary-toolbar {
+      .btn {
+        font-size: 14px;
+        padding: 6px 12px;
+        i {
+            font-size: 16px;
+        }
+      }
+    }
+  }
+  h1.path-heading {
+    position: relative;
+    // float: left;
+    flex: 0 0 80%;
+    // max-width: 635px;
+    padding-left: 18px;
+    font-size: 18px;
+    line-height: 26px;
+    color: #586069;
+    font-weight:normal;
+
+    .opc-icon {
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin-top: 5px;
+      color: #959da5;
+    }
+    span {
+      a {
+        font-weight:normal;
+      }
+    }
+    span.active {
+      a {
+        font-weight:bold;
+      }
+    }
+  }
+  .tab-toolbar {
+    display:none;
+  }
   .app-container {
     // overflow-y: visible!important;
     // overflow-x: visible!important;
     -webkit-overflow-scrolling: touch;
     overflow-y: auto !important;
+  }
+
+  &.is-super-admin,&.is-admin,&.is-editor,&.is-visitor {
+    .tab-toolbar {
+      display:block;
+    }
+    .content-header .btn-toolbar {
+      button,a {
+        display:block;
+      }
+    }
+  }
+  &.is-super-admin,&.is-admin,&.is-editor {
+    .app-nav {
+      ul.admin {
+        display:block;
+      }
+    }
+  }
+  &.is-super-admin {
+    .app-nav {
+      ul.super-admin {
+        display:block;
+      }
+    }
+  }
+  
+  &.is-visitor {
+    
+    .trestle-table {
+      .actions {
+        .btn-danger {
+          display:none;
+        }
+      }
+    }
+    
   }
 }

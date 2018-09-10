@@ -6,3 +6,11 @@
 .btn-toolbar .btn-group .btn + .btn, .btn-toolbar .btn-group .btn + .btn-group, .btn-toolbar .btn-group .btn-group + .btn, .btn-toolbar .btn-group .btn-group + .btn-group {
   margin-left: -5px;
 }
+.content-header .btn-toolbar {
+  display:flex;
+}
+.content-header .btn-toolbar {
+  button,a {
+    display:none;
+  }
+}

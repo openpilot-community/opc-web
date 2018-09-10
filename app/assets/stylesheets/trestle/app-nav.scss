@@ -1,4 +1,12 @@
 .app-nav {
+  ul.super-admin {
+    display:none;
+  }
+  ul.admin {
+    display:none;
+  }
+}
+.app-nav {
   background-color: #000000;
 
   ul {

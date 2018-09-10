@@ -12,7 +12,7 @@ Trestle.admin(:dashboard) do
     group :getting_started do
       item :guides, '/guides', icon: "fa fa-pencil", priority: 3.0
       item :hardware_items, '/hardware_items', icon: "fa fa-microchip", label: "Hardware", priority: 3.3
-      item :videos, '/videos', icon: "fa fa-play", priority: 3.6
+      item :videos, '/videos', icon: "fa fa-video-camera", priority: 3.6
     end
 
     group :tools do

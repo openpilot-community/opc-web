@@ -14,11 +14,16 @@ require "action_cable/engine"
 # require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
+
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 module Vehicledb
   class Application < Rails::Application
+    Raven.configure do |config|
+      config.dsn = 'https://2b88028b4568489e8b6be0005f5bf9bf:e224b8af6ca24507b0fe0573612e4725@sentry.io/1277450'
+    end
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
     config.active_job.queue_adapter = :sidekiq

@@ -1,0 +1,32 @@
+.app-sidebar {
+  width: 250px;
+}
+.app-nav .nav-label, .app-nav .nav-badge {
+display: initial;
+}
+.app-wrapper .app-sidebar-header {
+background-image: url(/assets/logo@2x.png);
+}
+.app-nav .nav-header a {
+  height: initial;
+  padding: 5px 20px;
+  text-indent: initial;
+}
+
+.app-wrapper {
+  .app-sidebar-header {
+    background-image:none;
+  }
+  .app-header {
+    width: calc(100% - 54px);
+    .searchbox {
+      flex: 0 0 75%;
+      max-width:75%;
+    }
+    .nav {
+      flex: 0 0 25%;
+      max-width:25%;
+      margin:0 0 0 auto;
+    }
+  }
+}

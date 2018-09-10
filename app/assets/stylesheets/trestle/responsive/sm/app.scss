@@ -1,0 +1,90 @@
+html, body {
+  overflow: auto;
+  height:initial;
+  width:initial;
+}
+
+.app-wrapper {
+  h1.path-heading {
+    display: none;
+  }
+  .content-header {
+    position: absolute;
+    top: 7px;
+    right: 9px;
+    z-index: 1000;
+    width: 20%;
+    padding-top: 0;
+    padding-bottom: 3px;
+    background: transparent!important;
+  }
+}
+
+.app-wrapper .content-header .btn-toolbar {
+  text-align: right;
+  flex: 0 0 100%;
+}
+
+.app-wrapper .app-container,.app-container {
+  overflow-y: initial!important;
+  overflow-x: initial;
+}
+
+.navbar-nav > li {
+  float: left;
+  width: 100%;
+}
+
+
+
+.app-wrapper {
+  .app-header {
+    position:relative;
+    display:none;
+  }
+  .external-actions {
+    display:block;
+  }
+  h1.path-heading {
+    flex: 0 0 60%;
+    font-size: 19px;
+    line-height: 1.8em;
+    height: 100%;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+    white-space:nowrap;
+    overflow:hidden;
+    display:block;
+    &.has-multiple {
+      .first {
+        display:none;
+      }
+    }
+
+    // .first {
+    //   display:none;
+    // }
+    .opc-icon {    
+      margin-top: 10px;
+    }
+  }
+  .content-header {
+    margin-bottom:10px;
+  }
+  .content-header .btn-toolbar {
+      text-align: right;
+      flex: 0 0 40%;
+  }
+  // .main-content-container {
+  //   overflow-x: auto;
+  // }
+  .app-main {
+    padding:0;
+    padding-top: 0!important;
+  }
+  .app-sidebar-header .navbar-brand {
+      justify-content: center;
+      margin-right: 65px;
+      padding: 10px 5px;
+  }
+}

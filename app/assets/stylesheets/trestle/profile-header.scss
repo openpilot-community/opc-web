@@ -1,0 +1,8 @@
+
+.content-header .secondary-toolbar {
+  margin-top: 0;
+}
+
+.btn-toolbar .btn-group .btn + .btn, .btn-toolbar .btn-group .btn + .btn-group, .btn-toolbar .btn-group .btn-group + .btn, .btn-toolbar .btn-group .btn-group + .btn-group {
+  margin-left: -5px;
+}

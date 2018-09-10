@@ -1,0 +1,14 @@
+
+
+body {
+  background-color:#000000;
+  // overflow:auto;
+}
+.app-wrapper {
+  .app-container {
+    // overflow-y: visible!important;
+    // overflow-x: visible!important;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto !important;
+  }
+}

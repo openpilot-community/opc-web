@@ -50,9 +50,56 @@ body.controller-admin-vehicle-configs.action-show {
 body.controller-admin-vehicle-configs,
 body.controller-admin-user-vehicles {
   &.action-show {
+    .app-wrapper .content-header .btn-toolbar.primary-toolbar {
+      display: flex;
+      // flex: 0 0 10%;
+      justify-content: flex-end;
+    }
+
+    .app-wrapper .content-header .btn-toolbar.secondary-toolbar {
+      display: flex;
+      flex: 0 0 40%;
+      justify-content: flex-end;
+    }
+
+    .app-wrapper .content-header h1.path-heading {
+      // display: flex;
+      flex: 0 0 50%;
+    }
     .flags {
-      list-style-type:none;
-      display:flex;
+      list-style-type: none;
+      display: flex;
+      margin-bottom: 0;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      justify-content: flex-end;
+      > li {
+        padding:0;
+        margin:0;
+        // flex: 0 0 33.33333%;
+        padding-right:5px;
+        position:relative;
+        > span {
+          display: block;
+          line-height: 1em;
+          font-size: 13px;
+          margin-top: 5px;
+          padding: 7px 13px;
+          border-radius: 0;
+          text-align: center;
+          position:relative;
+          &.label-info {
+            background-color:$blue;
+          }
+          &.label-success {
+            background-color:$green;
+          }
+          &.label-default {
+            background-color:#000;
+          }
+        }
+      }
     }
     #tab-guides {
       .trestle-table > thead > tr > td, .trestle-table > thead > tr > td, .trestle-table > tbody > tr > td, .trestle-table > tbody > tr > td, .trestle-table > tfoot > tr > td, .trestle-table > tfoot > tr > td {

@@ -43,10 +43,16 @@
       <% end %>
       <% end %>
       <% if instance.guides.present? %>
-      <h2>Guides</h2>
-      <% instance.guide_hardware_items.each do |ghi| %>
-        <%= render "admin/guides/row", instance: ghi.guide, guide_hardware_item: ghi, hardware_item: ghi.hardware_item %>
+        <h2>Guides</h2>
+        <% instance.guide_hardware_items.each do |ghi| %>
+          <%= render "admin/guides/row", instance: ghi.guide, guide_hardware_item: ghi, hardware_item: ghi.hardware_item %>
+        <% end %>
       <% end %>
+      <% if instance.videos.present? %>
+        <h2>Videos</h2>
+        <% instance.video_hardware_items.each do |vhi| %>
+          <%= render "admin/videos/row", instance: vhi.video, video_hardware_item: vhi, hardware_item: vhi.hardware_item %>
+        <% end %>
       <% end %>
     </div>
   </div>

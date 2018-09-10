@@ -71,7 +71,32 @@ Trestle.resource(:hardware_items) do
       text_field :install_guide_url
       text_field :source_image_url
     end
-
+    tab :videos, label: '<span class="fa fa-video-camera"></span> Videos'.html_safe, badge: hardware_item.video_hardware_items.blank? ? nil : hardware_item.video_hardware_items.size do
+      render "tab_toolbar", {
+        :groups => [
+          {
+            :class => "actions",
+            :items => [
+              content_tag(:span,"Add a video: ", class: "btn btn-default disabled", style: "color:#212121;"),
+              admin_link_to("<span class=\"fa fa-plus\"></span> Existing".html_safe, admin: :video_hardware_items, action: :new, class: "btn btn-default btn-list-add", params: { hardware_item_id: hardware_item.blank? ? nil : hardware_item.id }),
+              admin_link_to("<span class=\"fa fa-plus\"></span> From URL".html_safe, admin: :video_hardware_items, action: :new, class: "btn btn-default btn-list-add", params: { from_url: true, hardware_item_id: hardware_item.blank? ? nil : hardware_item.id })
+            ]
+          }
+        ]
+      }
+      table hardware_item.video_hardware_items, admin: :video_hardware_items do
+        row do |instance|
+          {
+            data: {
+              url: videos_admin_url(instance.video.slug)
+            }
+          }
+        end
+        column :row, header: false do |video_hardware_item|
+          render "admin/videos/row", instance: video_hardware_item.video
+        end
+      end
+    end
     tab :guides, label: "<span class=\"fa fa-file-text\"></span> Guides".html_safe, badge: hardware_item.guides.present? ? hardware_item.guides.size : nil do
       render "tab_toolbar", {
         :groups => [

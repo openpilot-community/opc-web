@@ -10,7 +10,7 @@
   <div class="details">
     <div class="details-inner">
       <div class="name">
-      <%=link_to(admin.instance_path(instance)) do %>
+      <%=link_to(videos_admin_url(instance.id)) do %>
         <span><%=instance.title%></span>
       <% end %>
       </div>

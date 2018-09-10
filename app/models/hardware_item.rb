@@ -29,7 +29,8 @@ class HardwareItem < ApplicationRecord
   after_save :set_image_scraper
   has_many :guide_hardware_items
   has_many :guides, :through => :guide_hardware_items
-
+  has_many :video_hardware_items
+  has_many :videos, :through => :video_hardware_items
   def set_image_scraper
     if saved_change_to_source_image_url?
       DownloadImageFromSourceWorker.perform_async(id,HardwareItem)

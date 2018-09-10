@@ -12,4 +12,9 @@
 class VideoHardwareItem < ApplicationRecord
   belongs_to :video
   belongs_to :hardware_item
+  accepts_nested_attributes_for :video
+
+  def name
+    "#{video.title}"
+  end
 end

@@ -140,6 +140,8 @@ $image-size: 100px;
   .meta {
     list-style-type: none;
     display: flex;
+    margin-left:0;
+    padding-left:0;
 
     li {
       margin-right:4px;

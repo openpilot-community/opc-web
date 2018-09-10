@@ -155,13 +155,14 @@ class Guide < ApplicationRecord
   
   def set_markup
     if self.markdown.present?
-      self.markup = Kramdown::Document.new(
-        self.markdown, 
-        input: 'GFM',
-        syntax_highlighter_opts: {
-          css: "style"
-        }
-      ).to_html
+      self.markup = Octokit.markdown(self.markdown, :mode => "gfm", :context => "commaai/openpilot")
+      # self.markup = Kramdown::Document.new(
+      #   self.markdown, 
+      #   input: 'GFM',
+      #   syntax_highlighter_opts: {
+      #     css: "style"
+      #   }
+      # ).to_html
     end
   end
 

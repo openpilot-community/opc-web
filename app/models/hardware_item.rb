@@ -31,23 +31,21 @@ class HardwareItem < ApplicationRecord
   has_many :guides, :through => :guide_hardware_items
   has_many :video_hardware_items
   has_many :videos, :through => :video_hardware_items
+
+  before_save :set_markup
+  
   def set_image_scraper
     if saved_change_to_source_image_url?
       DownloadImageFromSourceWorker.perform_async(id,HardwareItem)
     end
   end
 
-  def description_markup
+  def set_markup
     if self.description.present?
-      Kramdown::Document.new(
-        self.description, 
-        input: 'GFM',
-        syntax_highlighter_opts: {
-          css: "style"
-        }
-      ).to_html
+      self.description_markup = Octokit.markdown(self.description, :mode => "gfm", :context => "commaai/openpilot")
     end
   end
+  
   # has_many :vehicle_config_hardware_items
   # has_many :video_hardware_items
   # has_many :videos, :through => :video_hardware

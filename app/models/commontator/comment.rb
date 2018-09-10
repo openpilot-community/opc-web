@@ -7,7 +7,7 @@ module Commontator
     validates_presence_of :editor, on: :update
     validates_presence_of :thread
     validates_presence_of :body
-
+    before_save :set_markup
     validates_uniqueness_of :body,
       scope: [:creator_type, :creator_id, :thread_id, :deleted_at],
       message: I18n.t('commontator.comment.errors.double_posted')
@@ -22,6 +22,11 @@ module Commontator
       !editor.nil?
     end
 
+    def set_markup
+      if self.body.present?
+        self.body_markup = Octokit.markdown(self.body, :mode => "gfm", :context => "commaai/openpilot")
+      end
+    end
     def is_latest?
       thread.comments.last == self
     end

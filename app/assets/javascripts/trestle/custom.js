@@ -5,7 +5,6 @@
 //= require ./capabilities_filter
 //= require ./follow-button
 //= require ./highlight.pack.js
-//= require ./code_highlighter
 //= require ./voter
 //= require ./comments
 var originalAddClassMethod = jQuery.fn.addClass;

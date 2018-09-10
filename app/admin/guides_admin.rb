@@ -18,11 +18,12 @@ Trestle.resource(:guides) do
     def show
       self.instance = admin.find_instance(params)
       commontator_thread_show(instance)
-      # @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support","/vehicle_configs")])
       imgurl = instance.image.attached? ? instance.image.service_url : asset_url("/assets/og/tracker.png")
       article_url = File.join(Rails.application.routes.url_helpers.root_url,admin.instance_path(instance))
+      # @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new(instance.title,article_url)])
       author_name = instance.user.github_username
       set_meta_tags(
+        title: instance.title,
         og: {
           title: "#{instance.title}",
           image: imgurl,

@@ -74,8 +74,9 @@ gem 'sidekiq'
 gem 'sidekiq-scheduler'
 gem 'sidekiq-unique-jobs'
 gem "octokit", "~> 4.0"
-gem 'redcarpet'
+gem 'kramdown'
 gem 'meta-tags'
+gem 'rouge'
 gem "down", "~> 4.4"
 gem 'cars', :git => 'https://github.com/openpilot-community/cars_abstraction'
 group :development, :test do

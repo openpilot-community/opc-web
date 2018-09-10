@@ -155,8 +155,13 @@ class Guide < ApplicationRecord
   
   def set_markup
     if self.markdown.present?
-      markdown_renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
-      self.markup = markdown_renderer.render(self.markdown)
+      self.markup = Kramdown::Document.new(
+        self.markdown, 
+        input: 'GFM',
+        syntax_highlighter_opts: {
+          css: "style"
+        }
+      ).to_html
     end
   end
 

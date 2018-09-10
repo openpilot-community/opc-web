@@ -16,8 +16,13 @@ class HardwareType < ApplicationRecord
 
   def description_markup
     if self.description.present?
-      description_renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
-      description_renderer.render(self.description)
+      Kramdown::Document.new(
+        self.description, 
+        input: 'GFM',
+        syntax_highlighter_opts: {
+          css: "style"
+        }
+      ).to_html
     end
   end
 end

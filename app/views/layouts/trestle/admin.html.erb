@@ -11,7 +11,7 @@
       gtag('config', 'UA-122297332-2');
     </script>
 
-    <meta charset='utf-8'>
+    <meta charset='utf-8'> d
     <meta content='width=device-width, initial-scale=1' name='viewport'>
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
 
@@ -35,7 +35,22 @@
     <%= hook :stylesheets %>
 
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    
+    <%if Rails.env == "production"%>
+      <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+      <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <% else %>
+      <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+      <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <% end %>
+    <%= javascript_include_tag "turbolinks" if Trestle.config.turbolinks %>
+    <%= javascript_include_tag "trestle/admin", 'data-turbolinks-track': 'reload' %>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script type="text/javascript">
+    <% Trestle.config.javascript_i18n_keys.each do |key| %>
+      Trestle.i18n['<%= key %>'] = "<%= escape_javascript(t(key, default: t(key, locale: :en))) %>";
+    <% end %>
+    Trestle.localize(<%= i18n_fallbacks.map { |l| "'#{l}'" }.join(", ").html_safe %>);
+    </script>
 
     <%= content_for(:head) %>
 
@@ -58,22 +73,7 @@
       </div>
     </div>
     
-    <%if Rails.env == "production"%>
-      <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-      <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
-    <% else %>
-      <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-      <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    <% end %>
-    <%= javascript_include_tag "turbolinks" if Trestle.config.turbolinks %>
-    <%= javascript_include_tag "trestle/admin", 'data-turbolinks-track': 'reload' %>
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    <script type="text/javascript">
-    <% Trestle.config.javascript_i18n_keys.each do |key| %>
-      Trestle.i18n['<%= key %>'] = "<%= escape_javascript(t(key, default: t(key, locale: :en))) %>";
-    <% end %>
-    Trestle.localize(<%= i18n_fallbacks.map { |l| "'#{l}'" }.join(", ").html_safe %>);
-    </script>
+    
     
     <%= hook :javascripts %>
   </body>

@@ -86,9 +86,10 @@ Trestle.resource(:hardware_items) do
       }
       table hardware_item.video_hardware_items, admin: :video_hardware_items do
         row do |instance|
+          key = instance.video.slug.present? ? instance.video.slug : instance.video.id
           {
             data: {
-              url: videos_admin_url(instance.video.slug)
+              url: videos_admin_url(key)
             }
           }
         end

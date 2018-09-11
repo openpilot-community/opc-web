@@ -1,11 +1,10 @@
 <% vehicle_config_guide = vehicle_config_guide || nil %>
 <% vehicle_config = vehicle_config || nil %>
 
-<div class="guide-card row-card<%=instance.image.attached? ? " has-thumbnail" : nil%>">
-  
+<div class="guide-card row-card<%=instance.latest_image.present? ? " has-thumbnail" : nil%>">
   <div class="image">
-    <% if instance.image.attached? %>
-      <span class="img" style="background-image:url(<%=instance.image.service_url%>)"></span>
+    <% if instance.latest_image.present? %>
+      <span class="img" style="background-image:url(<%=instance.latest_image%>)"></span>
     <% else %>
       <span class="img"><span class="fa fa-pencil"></span></span>
     <% end %>

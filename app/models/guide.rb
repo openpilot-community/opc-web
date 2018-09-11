@@ -5,9 +5,11 @@ class Guide < ApplicationRecord
   paginates_per 400
   acts_as_commontable dependent: :destroy
   acts_as_likeable
-  has_one_attached :image
+  # has_one_attached :image
   friendly_id :name_for_slug, use: :slugged
   belongs_to :user, optional: true
+  has_many :guide_images
+  has_many :images, :through => :guide_images
   has_many :vehicle_config_guides, dependent: :delete_all
   has_many :guide_hardware_items, :validate => false, dependent: :delete_all
   has_many :hardware_items, :through => :guide_hardware_items, :validate => false, dependent: :delete_all
@@ -21,6 +23,13 @@ class Guide < ApplicationRecord
   validates_presence_of :markdown, :on => :create, if: -> {article_source_url.blank?}
   validates_uniqueness_of :article_source_url, :on => :create, if: -> {article_source_url.present?}
   
+  def latest_image
+    imgs = guide_images.order(:created_at => :desc)
+    if imgs.present?
+      imgs.first.image.attachment.service_url
+    end
+  end
+
   def hardware_item_ids=(ids)
     self.hardware_items = Array(ids).reject(&:blank?).map { |id|
       (id =~ /^\d+$/) ? HardwareItem.friendly.find(id) : HardwareItem.find_or_initialize_by(name: id)

@@ -17,8 +17,8 @@ Trestle.resource(:hardware_item_images) do
     # before_action :set_current_user, only: ['create','update']
     def create
       self.instance = admin.build_instance(permitted_params, params)
-      self.instance.hardware_item_id = params['hardware_item_id']
-      self.instance.image.name = permitted_params['image_attributes']['attachment'].original_filename
+     instance.hardware_item_id = params['hardware_item_id']
+     instance.image.name = permitted_params['image_attributes']['attachment'].original_filename
       
       if admin.save_instance(instance)
         respond_to do |format|

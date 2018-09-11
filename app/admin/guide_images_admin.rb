@@ -18,8 +18,8 @@ Trestle.resource(:guide_images) do
     def create
       # byebug
       self.instance = admin.build_instance(permitted_params, params)
-      self.instance.guide_id = params['guide_id']
-      self.instance.image.name = permitted_params['image_attributes']['attachment'].original_filename
+      instance.guide_id = params['guide_id']
+      instance.image.name = permitted_params['image_attributes']['attachment'].original_filename
       
       if admin.save_instance(instance)
         respond_to do |format|

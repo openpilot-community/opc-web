@@ -1,4 +1,8 @@
 .app-wrapper {
+  .main-content-container {
+      flex-direction: column;
+      margin-bottom: 10px;
+  }
   h1.path-heading {
     // display: none;
   }
@@ -21,16 +25,16 @@
     padding-top: 0;
     padding-bottom: 3px;
     background: transparent !important;
-    flex-direction: column-reverse!important;
+    flex-direction: row-reverse!important;
     
     h1.path-heading {
-      width: 100%;
-      flex: 0 0 100%!important;
+      width: 40%;
+      flex: 0 0 40%!important;
     }
     .btn-toolbar {
       margin-left:0;
       .flags {
-        justify-content: space-between!important;
+        justify-content: flex-end;
         width:100%;
         flex: 0 0 100%;
 
@@ -39,10 +43,15 @@
           text-align:center;
         }
       }
-      &.primary-toolbar,&.secondary-toolbar{
+      &.primary-toolbar {
         width:100%;
         max-width:100%;
         flex: 0 0 100%!important;
+      }
+      &.secondary-toolbar {
+        width: 40%;
+        max-width: 40%;
+        flex: 0 0 40%!important;
       }
     }
   }

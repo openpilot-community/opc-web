@@ -10,13 +10,10 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require commontator/application
  *= require_self
  */
- @import "bootstrap";
- @import "font-awesome-sprockets";
- @import "font-awesome";
+
  body {
   background-color: darken(#343a40,20);
   color:#FFF;

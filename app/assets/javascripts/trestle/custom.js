@@ -248,7 +248,7 @@ $(Trestle).on("init",function() {
   // $(".thread").show();
   // var simplemde = new SimpleMDE({ element: document.getElementById("comment_body") });
   var $sidebar = $(".app-sidebar");
-  var $contentContainer = $(".main-content-container");
+  var $contentContainer = $(".app-container,main-content-container");
   var resizeDocument = function() {
     var is_lookup_form = $("body.controller-admin-vehicle-lookups.action-new").length;
     var sidebarWidth = $sidebar.outerWidth();
@@ -259,7 +259,7 @@ $(Trestle).on("init",function() {
           width: $(document).width()-sidebarWidth
         });
       } else {
-        if ($(document).width() >= 768) {
+        if ($(document).width() >= 768 ) {
           $contentContainer.css({
             width: $(document).width()-sidebarWidth
           });

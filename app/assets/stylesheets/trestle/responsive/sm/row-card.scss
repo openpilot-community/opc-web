@@ -1,0 +1,96 @@
+.row-card {
+  $image-size: 75px;
+  display:table;
+  width: 100%;
+  height:initial;
+  .image,.details,.actions {
+    padding:5px 5px;
+  }
+  .image {
+    width:20%;
+    display:table-cell;
+    max-width:initial;
+    flex:initial;
+    height:initial;
+    vertical-align:middle;
+    text-align:center;
+    span.img {
+      margin:0 auto;
+      width: $image-size;
+      height: $image-size;
+      position:relative;
+      transform: initial;
+      top:initial;
+      left:initial;
+      span.fa {
+        font-size:$image-size * 0.35;
+      }
+    }
+  }
+
+  .name {
+    width:100%;
+    // white-space:wrap;
+    line-height:1em;
+  }
+
+  .follow-button {
+    .btn-follow {
+      height:45px;
+      width:45px;
+
+      span.fa {
+        font-size:18px;
+      }
+    }
+  } 
+  .details {
+    // flex: 0 0 calc(67% - #{$image-size});
+    display:table-cell;
+    height:100%;
+    vertical-align:middle;
+    
+    width:75%;
+  }
+  .details-inner {
+    width: 100%;
+    position:relative;
+    top:initial;
+    left:initial;
+    height:100%;
+    display:block;
+    transform:initial;
+    margin:0 auto;
+    .synopsis {
+      display:none!important;
+    }
+    a {
+      white-space: initial;
+    }
+  }
+  .meta {
+    flex-flow: wrap;
+  }
+  .actions {
+    display:table-cell;
+    width: initial;
+    flex: initial;
+    position:initial;
+    left:initial;
+    top:initial;
+    right:initial;
+    height:100%;
+    transform:initial;
+    vertical-align:middle;
+    .difficulty {
+      display:block;
+      position:initial;
+      top:initial;
+      left:initial;
+      right:initial;
+      font-size:0;
+      width:20px;
+      height:20px;
+    }
+  }
+}

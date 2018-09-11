@@ -2,6 +2,11 @@ body {
   background-color:#000000;
   // overflow:auto;
 }
+
+.navbar-nav > li > a.btn {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
 .app-wrapper {
   background-color: #f6f8fa !important;
   .list-content-wrap {

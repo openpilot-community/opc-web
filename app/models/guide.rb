@@ -6,7 +6,7 @@ class Guide < ApplicationRecord
   acts_as_commontable dependent: :destroy
   acts_as_likeable
   # has_one_attached :image
-  friendly_id :name_for_slug, use: :slugged
+  friendly_id :name_for_slug, use: [:slugged, :history]
   belongs_to :user, optional: true
   has_many :guide_images
   has_many :images, :through => :guide_images
@@ -43,7 +43,7 @@ class Guide < ApplicationRecord
   end
 
   def update_slug
-    unless slug.blank? || slug.ends_with?(self.hashid.downcase)
+    unless slug.blank? || slug.ends_with?(self.hashid.downcase) && slug != self.hashid.downcase
       self.slug = nil
       # byebug
       self.save

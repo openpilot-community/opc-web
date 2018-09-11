@@ -8,7 +8,7 @@
     <div class="author-box">
       <div class="image">
       <% if instance.author_name.present? %>
-        <span class="img"></span>
+        <span class="img"><span class="fa fa-user"></span></span>
       <% else %>
         <%if instance.user.present? && instance.user.avatar.attached? %>
           <span class="img" style="background-image:url(<%=instance.user.avatar.service_url%>)"></span>

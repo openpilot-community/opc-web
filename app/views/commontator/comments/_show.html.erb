@@ -4,20 +4,24 @@
 %>
 
 <% creator = comment.creator
-   name = Commontator.commontator_name(creator) || ''
-   link = Commontator.commontator_link(creator, main_app) || ''
-   avatar = Commontator.commontator_avatar(creator, self) || ''
+   name = Commontator.commontator_name(creator) || nil
+   link = Commontator.commontator_link(creator, main_app) || nil
+   avatar = Commontator.commontator_avatar(creator, self) || nil
 %>
 
 <div id="comment_<%= comment.id.to_s %>_div" class="comment">
   <div class="author-box">
     <div class="image">
-      <span class="img" style="background-image:url(<%=user.avatar.service_url%>)"></span>
+      <% if avatar.present? %>
+        <span class="img" style="background-image:url(<%=avatar%>)"></span>
+      <% else %>
+        <span class="img"><span class="fa fa-user"></span></span>
+      <% end %>
     </div>
     <div class="details">
       <div class="detail-inner">
         <div class="author-name">
-          <%=user.github_username%>
+          <%=name%>
         </div>
         <div class="meta">
           <span class="date"><%=comment.created_at.strftime("%b %d")%></span>
@@ -25,7 +29,6 @@
       </div>
     </div>
   </div>
-  
   <div id="comment_<%= comment.id.to_s %>_middle_div" class="comment_div">
     <div id="comment_<%= comment.id.to_s %>_body_div" class="comment_body">
       <%= render partial: 'commontator/comments/body',

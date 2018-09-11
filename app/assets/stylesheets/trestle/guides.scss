@@ -11,7 +11,7 @@ body.controller-admin-guides.action-index {
   }
   .trestle-table {
     thead {
-      display: none;
+      display: none; 
     }
   }
   .table > thead > tr > th, .trestle-table > thead > tr > th, .table > thead > tr > td, .trestle-table > thead > tr > td, .table > tbody > tr > th, .trestle-table > tbody > tr > th, .table > tbody > tr > td, .trestle-table > tbody > tr > td, .table > tfoot > tr > th, .trestle-table > tfoot > tr > th, .table > tfoot > tr > td, .trestle-table > tfoot > tr > td {
@@ -190,7 +190,18 @@ body.controller-admin-guides.action-index {
         background-repeat:no-repeat;
         background-size:cover;
         background-position: center center;
-          background-color:#CCC;
+        background-color: #F7F7F7;
+        position: relative;
+        border: 1px solid rgba(0,0,0,0.05);
+
+        span.fa {
+          position: absolute;
+          top: 50%;
+          font-size: 25px;
+          color: rgba(0,0,0,0.15);
+          left: 50%;
+          transform: translate(-50%,-50%);
+        }
       }
     }
 

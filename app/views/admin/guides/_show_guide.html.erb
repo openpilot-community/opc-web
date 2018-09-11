@@ -2,23 +2,23 @@
   <div class="guide">
     <div class="actions btn-toolbar">
       <div class="btn-group">
-        <%=admin_link_to("Edit", admin: :guides, action: :edit, params: { id: instance.slug }, class: "btn btn-default")%>
+        <%=admin_link_to("Edit", admin: :guides, action: :edit, params: { id: instance.id }, class: "btn btn-default")%>
       </div>
     </div>
     <div class="author-box">
       <div class="image">
-      <% if instance.author_name.present? %>
+      <% if instance.author[:image].blank? %>
         <span class="img"><span class="fa fa-user"></span></span>
       <% else %>
-        <%if instance.user.present? && instance.user.avatar.attached? %>
-          <span class="img" style="background-image:url(<%=instance.user.avatar.service_url%>)"></span>
+        <%if instance.author.present? && instance.author[:image] %>
+          <span class="img" style="background-image:url(<%=instance.author[:image]%>)"></span>
         <% end %>
       <% end %>
       </div>
       <div class="details">
         <div class="detail-inner">
           <div class="author-name">
-            <% if instance.author_name.present? %>
+            <% if instance.author.present? %>
               <%=instance.author_name%>
             <% else %>
               <%=instance.user.github_username %>

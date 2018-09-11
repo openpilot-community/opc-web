@@ -9,8 +9,7 @@ module Trestle
         before_action :set_raven_context
         before_action :authenticate_user!, except: [:show, :index]
         before_action :set_paper_trail_whodunnit
-        before_action :require_super_admin!, only: [:destroy]
-        before_action :require_edit_permissions!, only: [:new, :create, :update]
+        before_action :require_edit_permissions!, only: [:new, :create, :update, :destroy]
         before_action :set_metatags
         before_action :clear_current_user_state
         helper_method :current_user_state

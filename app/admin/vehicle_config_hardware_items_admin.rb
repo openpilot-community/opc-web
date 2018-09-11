@@ -61,7 +61,7 @@ Trestle.resource(:vehicle_config_hardware_items) do
       fields_for :hardware_item, vehicle_config_hardware_item.hardware_item || vehicle_config_hardware_item.build_hardware_item do
         # Form helper methods now dispatch to the product.category form scope
         text_field :name, label: "Name of hardware"
-        editor :description, { label: false, placeholder: "Details about the hardware. (markdown format)" }
+        text_area :description, { label: false, class: "simplemde-inline", placeholder: "Details about the hardware. (markdown format)" }
         text_field :source_image_url, { label: "Image URL" }
       end
     else

@@ -10,6 +10,22 @@ Trestle.resource(:vehicle_config_guides) do
   #   column :created_at, align: :center
   #   actions
   # end
+  controller do
+    def new
+      new_guide = Guide.new(user: current_user, title: "New Untitled Guide", markdown: "The beginning of a new article...")
+      new_vcg = VehicleConfigGuide.create(vehicle_config: VehicleConfig.find(params[:vehicle_config_id]), guide: new_guide)
+      
+      self.instance = admin.find_instance(new_vcg)
+      
+      @uploader_model_name = "guide"
+      @uploader_model_id = new_vcg.guide_id
+    end
+    def edit
+      super
+      @uploader_model_name = "guide"
+      @uploader_model_id = self.instance.guide_id
+    end
+  end
   form(dialog: true) do |vehicle_config_guide|
     is_new_guide = params['new'].present?
     is_edit_guide = params['edit'].present?
@@ -73,7 +89,7 @@ Trestle.resource(:vehicle_config_guides) do
           text_field :title
           select :hardware_item_ids, HardwareItem.all.order(:name), { label: "Tag hardware in this guide" }, { multiple: true, data: { tags: true } }
           select :vehicle_config_ids, VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level"), { label: "Tag vehicles in this guide" }, { multiple: true, data: { tags: true } }
-          editor :markdown, { label: "" }
+          text_area :markdown, { label: "", class: "simplemde-inline" }
           text_field :author_name
           hidden_field :user_id, :value => current_user.id
           text_area :exerpt

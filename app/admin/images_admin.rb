@@ -2,7 +2,7 @@ Trestle.resource(:images) do
 
   controller do
     skip_before_action :require_edit_permissions!
-    skip_before_action :require_super_admin!
+    # skip_before_action :require_super_admin!
     def create
       self.instance = admin.build_instance(permitted_params, params)
       # self.instance = Image.create! file: params[:attachment]

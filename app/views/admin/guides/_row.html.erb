@@ -13,12 +13,12 @@
   <div class="details">
     <div class="details-inner">
       <div class="name">
-        <%=link_to instance.title, guides_admin_url(instance.slug) %>
+        <%=link_to instance.title, guides_admin_url(instance.slug || instance.id) %>
       </div>
       <div class="synopsis"><%=instance.markup.present? ? strip_tags(instance.markup).truncate_words(10) : nil%></div>
       
       <ul class="meta">
-        <li><span class="author"><%=instance.author_name%></span></li>
+        <li><span class="author"><%=instance.author[:name]%></span></li>
         <li><span class="divider">&middot;</span></li>
          <li><span class="date"><%=instance.friendly_date%></span>
          <li><span class="divider">&middot;</span>

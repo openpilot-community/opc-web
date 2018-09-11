@@ -15,7 +15,7 @@ Trestle.resource(:hardware_items) do
 
   controller do
     skip_before_action :require_edit_permissions!
-    skip_before_action :require_super_admin!
+    # skip_before_action :require_super_admin!
     def show
       self.instance = admin.find_instance(params)
       commontator_thread_show(instance)

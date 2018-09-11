@@ -16,6 +16,7 @@ Trestle.resource(:guides) do
     skip_before_action :require_edit_permissions!
     # skip_before_action :require_super_admin!
     include ActionView::Helpers::AssetUrlHelper
+    include ActionView::Helpers::SanitizeHelper
 
     def new
       super
@@ -33,11 +34,15 @@ Trestle.resource(:guides) do
       article_url = File.join(Rails.application.routes.url_helpers.root_url,admin.instance_path(instance))
       # @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new(instance.title,article_url)])
       author_name = instance.author[:name]
+      exerpt = (instance.markup.present? ? strip_tags(instance.markup).truncate_words(25) : nil).strip!
       set_meta_tags(
         title: instance.title,
         og: {
           title: "#{instance.title}",
           image: imgurl,
+          "image:width": instance.latest_image.width,
+          "image:height": instance.latest_image.height,
+          description: exerpt,
           site_name: "Openpilot Database",
           url: article_url,
           type: "article",
@@ -48,14 +53,15 @@ Trestle.resource(:guides) do
         "article:publisher": "https://opc.ai/",
         "article:author": author_name,
         keywords: ['openpilot','vehicle','support',instance.title.split,'of','vehicles','supported','compatible','compatibility'].flatten,
-        description: "Research and support of comma openpilot for the #{instance.name}.",
+        description: exerpt,
         canonical: article_url,
         image_src: imgurl,
         author: author_name,
         twitter: {
           creator: "@#{author_name}",
           title: instance.title,
-          card: "summary-large",
+          # card: "summary-large",
+          description: exerpt,
           author: author_name,
           label1: "Reading time",
           data1: "#{instance.reading_time} min read"

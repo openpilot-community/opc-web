@@ -4,7 +4,11 @@
 //= require ./capabilities_toggler
 //= require ./capabilities_filter
 //= require ./follow-button
-//= require ./highlight.pack.js
+//= require ./inline-attachment
+//= require ./input.inline-attachment
+//= require ./codemirror-4.inline-attachment
+//= require ./highlight.pack
+//= require ./editor
 //= require ./voter
 //= require ./comments
 var originalAddClassMethod = jQuery.fn.addClass;

@@ -64,7 +64,7 @@ Trestle.resource(:hardware_items) do
     tab :general do
       text_field :name
       text_field :alternate_name
-      editor :description
+      text_area :description, { class: "simplemde-inline" }
       
       text_area :notes
       text_field :image_url

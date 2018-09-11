@@ -2,9 +2,9 @@ class Guide < ApplicationRecord
   extend FriendlyId
   include Hashid::Rails
   has_paper_trail
-  acts_as_likeable
   paginates_per 400
   acts_as_commontable dependent: :destroy
+  acts_as_likeable
   has_one_attached :image
   friendly_id :name_for_slug, use: :slugged
   belongs_to :user, optional: true

@@ -96,7 +96,7 @@ Trestle.resource(:guides) do
         text_field :article_source_url
       else
         text_field :title
-        editor :markdown, { label: "" }
+        text_area :markdown, { label: "", class: "simplemde-inline" }
         text_area :exerpt
         # text_area :exerpt
       end

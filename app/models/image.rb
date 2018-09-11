@@ -5,6 +5,6 @@ class Image < ApplicationRecord
   include Rails.application.routes.url_helpers
 
   def attachment_url
-    File.join(root_url,rails_blob_path(attachment))
+    rails_blob_url(attachment)
   end
 end

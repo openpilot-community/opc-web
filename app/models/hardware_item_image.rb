@@ -9,7 +9,7 @@ class HardwareItemImage < ApplicationRecord
   def as_json(options={})
     {
       created_at: created_at,
-      guide_id: guide_id,
+      hardware_item_id: hardware_item_id,
       id: id,
       name: image.name,
       image_id: image_id,

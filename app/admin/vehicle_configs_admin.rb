@@ -591,8 +591,8 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
               :class => "actions",
               :items => [
                 content_tag(:span,"Add Hardware: ", class: "btn btn-default disabled", style: "color:#212121;"),
-                admin_link_to("<span class=\"fa fa-plus\"></span> Existing".html_safe, admin: :vehicle_config_hardware_items, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id }),
-                admin_link_to("<span class=\"fa fa-pencil\"></span> Write".html_safe, admin: :vehicle_config_hardware_items, action: :new, dialog: true, class: "btn btn-default btn-list-add", params: { new: true, vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
+                admin_link_to("<span class=\"fa fa-plus\"></span> Hardware".html_safe, admin: :vehicle_config_hardware_items, action: :new, class: "btn btn-default btn-list-add", params: { vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
+                # admin_link_to("<span class=\"fa fa-pencil\"></span> Write".html_safe, admin: :vehicle_config_hardware_items, action: :new, dialog: true, class: "btn btn-default btn-list-add", params: { new: true, vehicle_config_id: vehicle_config.blank? ? nil : vehicle_config.id })
               ]
             }
           ]

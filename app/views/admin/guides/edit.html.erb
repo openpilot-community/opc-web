@@ -9,7 +9,7 @@ window.model_name= 'guide';
 window.model_id = <%=instance.id%>
 </script>
 <% content_for(:secondary_toolbar) do %>
-  <% if current_user.is_super_admin? %>
+  <% if current_user.is_super_admin? || current_user.id == instance.user_id %>
   <%= admin_link_to instance, action: :destroy, method: :delete, class: "btn btn-danger", data: { toggle: "confirm-delete", placement: "bottom" } do %>
     <%= icon("fa fa-trash") %> Delete
   <% end if admin.actions.include?(:destroy) %>

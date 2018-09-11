@@ -12,7 +12,7 @@ Trestle.resource(:hardware_item_images) do
   #
   controller do
     skip_before_action :require_edit_permissions!
-    skip_before_action :require_super_admin!
+    # skip_before_action :require_super_admin!
     
     # before_action :set_current_user, only: ['create','update']
     def create

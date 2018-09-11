@@ -10,19 +10,29 @@ Trestle.resource(:guides) do
     Guide.friendly.find(params[:id])
   end
   collection do |params|
-    Guide.order(:updated_at => :desc)
+    Guide.where.not(slug: nil,title: "New Untitled Guide").order(:updated_at => :desc)
   end
   controller do
     skip_before_action :require_edit_permissions!
-    skip_before_action :require_super_admin!
+    # skip_before_action :require_super_admin!
     include ActionView::Helpers::AssetUrlHelper
+
+    def new
+      super
+      self.instance = admin.build_instance(title: "New Untitled Guide", markdown: "The beginning of a new article...")
+
+      self.instance.save!
+
+      redirect_to(File.join(admin.instance_path(instance),'/edit'))
+    end
+
     def show
       self.instance = admin.find_instance(params)
       commontator_thread_show(instance)
       imgurl = instance.latest_image.present? ? instance.latest_image.attachment_url : asset_url("/assets/og/tracker.png")
       article_url = File.join(Rails.application.routes.url_helpers.root_url,admin.instance_path(instance))
       # @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new(instance.title,article_url)])
-      author_name = instance.user.github_username
+      author_name = instance.author[:name]
       set_meta_tags(
         title: instance.title,
         og: {

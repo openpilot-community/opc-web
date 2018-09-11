@@ -15,9 +15,9 @@ class Guide < ApplicationRecord
   has_many :hardware_items, :through => :guide_hardware_items, :validate => false, dependent: :delete_all
   has_many :vehicle_configs, :through => :vehicle_config_guides
   before_save :guide_from_url
-  before_save :find_first_image
+  # before_save :find_first_image
   before_save :set_markup
-  after_save :set_image_scraper
+  # after_save :set_image_scraper
   after_commit :update_slug
   validates_presence_of :title, :on => :create, if: -> {article_source_url.blank?}
   validates_presence_of :markdown, :on => :create, if: -> {article_source_url.blank?}
@@ -74,22 +74,22 @@ class Guide < ApplicationRecord
     sanitize(markup)
   end
 
-  def find_first_image
-    if self.source_image_url.blank? && self.markdown.present?
-      first_image = self.markdown[/(https:\/\/)(.*).(jpeg|jpg|gif|png)/]
-      # first_image = markdown[/^http(s?):\/\/.*\.(jpeg|jpg|gif|png)/]
-      if first_image.present?
-        self.source_image_url = first_image
-      end
-    end
-  end
+  # def find_first_image
+  #   if self.source_image_url.blank? && self.markdown.present?
+  #     first_image = self.markdown[/(https:\/\/)(.*).(jpeg|jpg|gif|png)/]
+  #     # first_image = markdown[/^http(s?):\/\/.*\.(jpeg|jpg|gif|png)/]
+  #     if first_image.present?
+  #       self.source_image_url = first_image
+  #     end
+  #   end
+  # end
 
-  def set_image_scraper
-    if saved_change_to_source_image_url?
-      puts "Queuing image download..."
-      DownloadImageFromSourceWorker.perform_async(id,Guide)
-    end
-  end
+  # def set_image_scraper
+  #   if saved_change_to_source_image_url?
+  #     puts "Queuing image download..."
+  #     DownloadImageFromSourceWorker.perform_async(id,Guide)
+  #   end
+  # end
 
   def parse_with_mercury(article_url)
     require 'net/http'

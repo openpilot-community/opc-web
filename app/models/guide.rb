@@ -22,11 +22,12 @@ class Guide < ApplicationRecord
   validates_presence_of :title, :on => :create, if: -> {article_source_url.blank?}
   validates_presence_of :markdown, :on => :create, if: -> {article_source_url.blank?}
   validates_uniqueness_of :article_source_url, :on => :create, if: -> {article_source_url.present?}
-  
+  include ActionView::Helpers::AssetUrlHelper
+    
   def latest_image
     imgs = guide_images.order(:created_at => :desc)
     if imgs.present?
-      imgs.first.image.attachment.service_url
+        imgs.first.image
     end
   end
 
@@ -73,23 +74,6 @@ class Guide < ApplicationRecord
   def text
     sanitize(markup)
   end
-
-  # def find_first_image
-  #   if self.source_image_url.blank? && self.markdown.present?
-  #     first_image = self.markdown[/(https:\/\/)(.*).(jpeg|jpg|gif|png)/]
-  #     # first_image = markdown[/^http(s?):\/\/.*\.(jpeg|jpg|gif|png)/]
-  #     if first_image.present?
-  #       self.source_image_url = first_image
-  #     end
-  #   end
-  # end
-
-  # def set_image_scraper
-  #   if saved_change_to_source_image_url?
-  #     puts "Queuing image download..."
-  #     DownloadImageFromSourceWorker.perform_async(id,Guide)
-  #   end
-  # end
 
   def parse_with_mercury(article_url)
     require 'net/http'
@@ -165,13 +149,6 @@ class Guide < ApplicationRecord
   def set_markup
     if self.markdown.present?
       self.markup = Octokit.markdown(self.markdown, :mode => "gfm", :context => "commaai/openpilot")
-      # self.markup = Kramdown::Document.new(
-      #   self.markdown, 
-      #   input: 'GFM',
-      #   syntax_highlighter_opts: {
-      #     css: "style"
-      #   }
-      # ).to_html
     end
   end
 

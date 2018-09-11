@@ -14,7 +14,7 @@ class GuideImage < ApplicationRecord
       name: image.name,
       image_id: image_id,
       updated_at: updated_at,
-      url: image.attachment.service_url
+      url: image.attachment_url
     }
   end
 end

@@ -43,6 +43,27 @@ class Guide < ApplicationRecord
     }
   end
 
+  def author
+    if author_name.present?
+      {
+        name: author_name,
+        image: nil
+      }
+    else
+      if user.present?
+        {
+          name: user.github_username,
+          image: user.avatar_url
+        }
+      else
+        {
+          name: "Anonymous",
+          image: nil
+        }
+      end
+    end
+  end
+
   def update_slug
     unless slug.blank? || slug.ends_with?(self.hashid.downcase) && slug != self.hashid.downcase
       self.slug = nil

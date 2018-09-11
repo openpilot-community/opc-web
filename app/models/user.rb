@@ -15,6 +15,7 @@ require 'open-uri'
 #
 
 class User < ApplicationRecord
+  include Rails.application.routes.url_helpers
   default_scope -> { where(guest: false) }
   has_one_attached :avatar
   acts_as_voter
@@ -50,6 +51,10 @@ class User < ApplicationRecord
 
   def is_super_admin?
     user_role.name == 'Super Admin'
+  end
+
+  def avatar_url
+    rails_blob_url(avatar)
   end
 
   def self.from_omniauth(auth)

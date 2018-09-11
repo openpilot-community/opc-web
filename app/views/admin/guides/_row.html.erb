@@ -9,12 +9,7 @@
       <span class="img"><span class="fa fa-pencil"></span></span>
     <% end %>
   </div>
-<% if vehicle_config_guide.present? && vehicle_config_guide.vehicle_config_type.present? %>
-    <% difficulty = vehicle_config_guide.vehicle_config_type %>
-    <div class="difficulty type-<%=difficulty.name.parameterize%>">
-      <%=difficulty.name%>
-    </div>
-  <% end %>
+  
   <div class="details">
     <div class="details-inner">
       <div class="name">
@@ -38,5 +33,11 @@
   </div>
   
   <div class="actions">
+  <% if vehicle_config_guide.present? && vehicle_config_guide.vehicle_config_type.present? %>
+    <% difficulty = vehicle_config_guide.vehicle_config_type %>
+    <div class="difficulty type-<%=difficulty.name.parameterize%>">
+      <%=difficulty.name%>
+    </div>
+  <% end %>
   </div>
 </div>

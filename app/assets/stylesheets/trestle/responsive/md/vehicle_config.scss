@@ -1,0 +1,29 @@
+.app-wrapper {}
+
+.edit_vehicle_config {
+  #tab-trim_styles {
+
+    .trestle-table {
+      thead th, tbody td {
+        padding:5px;
+        &:nth-child(3),&:nth-child(5),&:nth-child(6) {
+          display:none;
+        }
+      }
+    }
+
+  }
+
+  #tab-guides {
+    padding:0;
+  }
+  #tab-capabilities {
+    white-space: nowrap;
+    overflow: auto;
+    .trestle-table {
+      thead th, tbody td {
+        padding:5px;
+      }
+    }
+  }
+}

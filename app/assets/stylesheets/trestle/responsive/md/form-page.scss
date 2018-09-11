@@ -1,0 +1,53 @@
+.app-wrapper {
+  h1.path-heading {
+    // display: none;
+  }
+  .main-content-sidebar {
+    padding:30px 10px 10px 10px;
+  }
+  .tab-pane {
+    padding-top:10px;
+    padding-left:10px;
+    padding-right:10px;
+  }
+  
+  .content-header {
+    position: relative;
+    top: initial;
+    right: initial;
+    width: 100%;
+    display: flex;
+    flex-flow: wrap;
+    padding-top: 0;
+    padding-bottom: 3px;
+    background: transparent !important;
+    flex-direction: column-reverse!important;
+    
+    h1.path-heading {
+      width: 100%;
+      flex: 0 0 100%!important;
+    }
+    .btn-toolbar {
+      margin-left:0;
+      .flags {
+        justify-content: space-between!important;
+        width:100%;
+        flex: 0 0 100%;
+
+        li {
+          padding:0;
+          text-align:center;
+        }
+      }
+      &.primary-toolbar,&.secondary-toolbar{
+        width:100%;
+        max-width:100%;
+        flex: 0 0 100%!important;
+      }
+    }
+  }
+
+  .app-container {
+    width:100%;
+  }
+}

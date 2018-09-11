@@ -4,7 +4,7 @@
 <div class="guide-card row-card<%=instance.latest_image.present? ? " has-thumbnail" : nil%>">
   <div class="image">
     <% if instance.latest_image.present? %>
-      <span class="img" style="background-image:url(<%=instance.latest_image%>)"></span>
+      <span class="img" style="background-image:url(<%=instance.latest_image.attachment_url%>)"></span>
     <% else %>
       <span class="img"><span class="fa fa-pencil"></span></span>
     <% end %>

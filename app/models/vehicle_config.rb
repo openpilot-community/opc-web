@@ -162,11 +162,11 @@ class VehicleConfig < ApplicationRecord
       new_board.save!
       first_topic_title = "Let's discuss the #{name}!"
       first_topic_content = <<-MARKDOWN
-        Welcome to issues and discussions about the #{name}.
+Welcome to issues and discussions about the #{name}.
 
-        Keep in mind that this is a community driven website and this is not officialy supported by Comma.ai, Inc.
-        Issues posted here are not necessarily going to be seen by Comma staff.
-      MARKDOWN
+Keep in mind that this is a community driven website and this is not officialy supported by Comma.ai, Inc.
+Issues posted here are not necessarily going to be seen by Comma staff.
+MARKDOWN
       topic = Thredded::Topic.create!(
         messageboard: new_board,
         user: jfrux,

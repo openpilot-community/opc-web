@@ -18,8 +18,8 @@
       <div class="details">
         <div class="detail-inner">
           <div class="author-name">
-            <% if instance.author.present? %>
-              <%=instance.author_name%>
+            <% if instance.author[:name].present? %>
+              <%=instance.author[:name]%>
             <% else %>
               <%=instance.user.github_username %>
             <% end %>

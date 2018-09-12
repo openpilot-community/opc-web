@@ -86,7 +86,7 @@ Trestle.resource(:videos) do
         # text_field :html
         static_field :uploaded_at, video.uploaded_at
       else
-        text_field :video_url, video.video_url
+        text_field :video_url
       end
     end
 

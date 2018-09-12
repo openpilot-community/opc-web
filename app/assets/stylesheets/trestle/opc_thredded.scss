@@ -1,0 +1,47 @@
+@import "thredded";
+
+.thredded--main-header {
+  // display:none;
+}
+.thredded--main-container {
+  max-width:100%;
+  padding:0;
+}
+.thredded--user-navigation--private-topics,.thredded--user-navigation--standalone--profile,.thredded--user-navigation--standalone--session {
+  display:none;
+}
+.thredded--topic-following .thredded--topics--follow-icon {
+  position:initial;
+  display:initial;
+}
+.thredded--topics--title {
+  display:table-cell;
+}
+.thredded--topics--topic {
+  display:table;
+  > div.thredded--topics--posts-count {
+    position:initial;
+  }
+  
+  > div, > h1, > cite {
+    display:table-cell;
+    vertical-align:middle;
+    padding:10px;
+  }
+}
+.thredded--navigation-breadcrumbs {
+  > li {
+    &:nth-child(2) {
+      > a {
+        font-size:0;
+        &:before {
+          content: "Back";
+          font-size:16px;
+        }
+      }
+    }
+    &:first-child {
+      display:none;
+    }
+  }
+}

@@ -151,6 +151,38 @@ class VehicleConfig < ApplicationRecord
   after_save :set_image_scraper
   after_commit :update_slug
   
+  belongs_to :thredded_messageboard, :class_name => "Thredded::Messageboard", :optional => true
+  before_save :setup_messageboard
+  accepts_nested_attributes_for :thredded_messageboard
+  def setup_messageboard
+    puts "TESTING SETUP_MESSAGEBOARD"
+    if self.thredded_messageboard.blank?
+      new_board = Thredded::Messageboard.new(name: self.name, description: "Issues & discussions specific to the #{self.name}")
+      jfrux = User.find_by(:github_username => "jfrux")
+      new_board.save!
+      first_topic_title = "Let's discuss the #{name}!"
+      first_topic_content = <<-MARKDOWN
+        Welcome to issues and discussions about the #{name}.
+
+        Keep in mind that this is a community driven website and this is not officialy supported by Comma.ai, Inc.
+        Issues posted here are not necessarily going to be seen by Comma staff.
+      MARKDOWN
+      topic = Thredded::Topic.create!(
+        messageboard: new_board,
+        user: jfrux,
+        title: first_topic_title
+      )
+      Thredded::Post.create!(
+        messageboard: new_board,
+        user: jfrux,
+        postable: topic,
+        content: first_topic_content
+      )
+      true
+      self.thredded_messageboard = new_board;
+    end
+  end
+
   def set_refreshing
     self.refreshing = true
   end

@@ -446,6 +446,13 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
           end
         end
       end
+      
+      if vehicle_config.thredded_messageboard.present?
+        tab :discuss, label: '<span class="fa fa-comments"></span> Discuss'.html_safe, badge: vehicle_config.thredded_messageboard.present? ? vehicle_config.thredded_messageboard.topics_count : nil do
+          render "discussion", instance: vehicle_config
+        end
+      end
+      
       tab :capabilities, label: "<span class=\"fa fa-list\"></span> Capabilities &amp; Limits".html_safe do
         config_types = VehicleConfigType.order(:difficulty_level)
         vcs = VehicleCapability.order(:name)

@@ -21,11 +21,11 @@ Thredded.user_name_column = :github_username
 # the path or url to your user. This lambda is evaluated in the view context.
 # If the lambda returns nil, a span element is returned instead of a link; so
 # setting this to always return nil effectively disables all user links.
-# Thredded.user_path = ->(user) {
-#   user_path = :"#{Thredded.user_class_name.demodulize.underscore}_path"
-#   main_app.respond_to?(user_path) ? main_app.send(user_path, user) : "/users/#{user.to_param}"
-# }
-Thredded.user_path = nil
+Thredded.user_path = ->(user) {
+  # user_path = :"#{Thredded.user_class_name.demodulize.underscore}_path"
+  # main_app.respond_to?(user_path) ? main_app.send(user_path, user) : "/users/#{user.to_param}"
+}
+# Thredded.user_path = nil
 
 # This method is used by Thredded controllers and views to fetch the currently signed-in user
 Thredded.current_user_method = :"current_#{Thredded.user_class_name.demodulize.underscore}"
@@ -58,13 +58,13 @@ Thredded.content_visible_while_pending_moderation = true
 Thredded.messageboards_order = :position
 
 # Whether users that are following a topic are listed on the topic page.
-Thredded.show_topic_followers = false
+Thredded.show_topic_followers = true
 
 # Whether the list of users who are currently online is displayed.
-Thredded.currently_online_enabled = true
+Thredded.currently_online_enabled = false
 
 # Whether private messaging functionality is enabled.
-Thredded.private_messaging_enabled = true
+Thredded.private_messaging_enabled = false
 
 # The number of topics to display per page.
 # Thredded.topics_per_page = 50
@@ -73,7 +73,7 @@ Thredded.private_messaging_enabled = true
 # Thredded.posts_per_page = 25
 
 # The layout for rendering Thredded views.
-Thredded.layout = 'trestle/admin'
+Thredded.layout = 'thredded/application'
 
 # ==> Email Configuration
 # Email "From:" field will use the following
@@ -88,7 +88,20 @@ Thredded.parent_mailer = 'ActionMailer::Base'
 # ==> Model configuration
 # The range of valid topic title lengths. Default:
 # Thredded.topic_title_length_range = (1..200)
-
+Rails.application.config.to_prepare do
+  Thredded::ApplicationController.module_eval do
+    # Require authentication to access the forums:
+    # skip_before_action :thredded_require_login!
+    skip_before_action :authenticate_user!
+    # You may also want to render a login form after the
+    # "Please sign in first" message:
+    # rescue_from Thredded::Errors::LoginRequired do |exception|
+    #   # Place the code for rendering the login form here, for example:
+    #   @message = exception.message
+    #   render template: 'sessions/new', status: :forbidden
+    # end
+  end
+end
 # ==> Routes and URLs
 # How Thredded generates URL slugs from text:
 
@@ -125,14 +138,7 @@ Thredded.parent_mailer = 'ActionMailer::Base'
 # By default Thredded just renders a flash alert on errors such as Topic not found, or Login required.
 # Below is an example of overriding the default behavior on LoginRequired:
 #
-# Rails.application.config.to_prepare do
-#   Thredded::ApplicationController.module_eval do
-#     rescue_from Thredded::Errors::LoginRequired do |exception|
-#       @message = exception.message
-#       render template: 'sessions/new', status: :forbidden
-#     end
-#   end
-# end
+
 
 # ==> View hooks
 #
@@ -175,3 +181,6 @@ Thredded.parent_mailer = 'ActionMailer::Base'
 #
 # add in (must install separate gem (under development) as well):
 # Thredded.notifiers = [Thredded::EmailNotifier.new, Thredded::PushoverNotifier.new(ENV['PUSHOVER_APP_ID'])]
+# Rails.application.config.to_prepare do
+  
+# end

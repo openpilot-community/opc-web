@@ -1,0 +1,37 @@
+<% frame_id = "iframe_#{instance.id}" %>
+<% frame_method = "resize_#{instance.id}_iframe" %>
+<% frame_url = File.join(root_url,"/discuss/#{instance.thredded_messageboard.slug}") %>
+<iframe id="<%=frame_id%>" scrolling="no" frameborder="0" src="<%=frame_url%>" margin="0" class="discussion_frame"></iframe>
+<script>
+(function() {
+  var $iframe = $("#<%=frame_id%>");
+  $(Trestle).on("init",function() {
+    var initialHeight = $('.main-content').innerHeight();
+  
+    $("#tab-discuss").css({ height: initialHeight });
+    $iframe.css({ "min-height": initialHeight });
+  });
+  $iframe.on("load",function() {
+    var obj = this;
+    var resizeFrame = function() {
+      obj.style.height = parseInt(obj.contentWindow.document.body.scrollHeight) + 50 + 'px';
+    };
+    $(obj.contentWindow).ready(function() {
+      var $iframeContent = $(this);
+      $iframeContent.find("#topic_title").on("focus",function() {
+        resizeFrame();
+      });
+    });
+    console.warn("Switched discussions url: " + obj.contentWindow.location);
+    console.log(obj.contentWindow.location.href);
+    var isAllowed = obj.contentWindow.location.href.startsWith('<%=frame_url%>');
+    console.warn(isAllowed);
+    if (!isAllowed) {
+      obj.contentWindow.location = '<%=frame_url%>';
+    }
+
+    resizeFrame();
+  });
+  
+})();
+</script>

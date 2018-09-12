@@ -26,12 +26,11 @@
 @import "tags";
 @import "row-card";
 @import "hardware";
-
+@import "discussions";
 @import "../medium-editor";
 @import "../themes/default";
-
-  @import "profile-header";
-  @import "profile-tabs";
+@import "profile-header";
+@import "profile-tabs";
 
 .edit_vehicle_config {
   .title-section.first, .path-divider.first {

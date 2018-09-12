@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   get "/vehicles/make/:q" => "vehicle_configs_admin/admin#index", as: "vehicles_make"
   get "/vehicles/top" => "vehicle_configs_admin/admin#index", as: "vehicles_top", default: { order: "desc", sort: "cached_votes_score"}
   get "/vehicles/:id" => "vehicle_configs_admin/admin#show", as: "vehicles_show"
+
+  mount Thredded::Engine => '/discuss'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

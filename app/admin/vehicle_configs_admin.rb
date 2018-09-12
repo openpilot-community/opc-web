@@ -156,7 +156,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
       vehicle_config = admin.find_instance(params)
       @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support","/vehicles")])
       imgurl = vehicle_config.image.attached? ? vehicle_config.image.service_url : asset_url("/assets/og/tracker.png")
-      vehicle_config.update_attributes({views_count: vehicle_config.views_count + 1})
+      # vehicle_config.update_attributes({views_count: vehicle_config.views_count + 1})
       # byebug
       set_meta_tags(
         og: {

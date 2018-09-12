@@ -64,7 +64,7 @@ gem 'jbuilder', '~> 2.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
+gem 'sparkpost_rails'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -75,6 +75,7 @@ gem 'sidekiq-scheduler'
 gem 'sidekiq-unique-jobs'
 gem "octokit", "~> 4.0"
 gem 'meta-tags'
+gem 'thredded', '~> 0.15.4'
 gem 'fastimage'
 gem "down", "~> 4.4"
 gem 'cars', :git => 'https://github.com/openpilot-community/cars_abstraction'

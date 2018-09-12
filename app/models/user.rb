@@ -54,7 +54,9 @@ class User < ApplicationRecord
   end
 
   def avatar_url
-    rails_blob_url(avatar)
+    if avatar.present?
+      rails_blob_url(avatar)
+    end
   end
 
   def self.from_omniauth(auth)

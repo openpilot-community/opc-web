@@ -40,8 +40,8 @@ Trestle.resource(:guides) do
         og: {
           title: "#{instance.title}",
           image: imgurl,
-          "image:width": instance.latest_image.width,
-          "image:height": instance.latest_image.height,
+          "image:width": instance.latest_image.width.present? ? instance.latest_image.width : nil,
+          "image:height": instance.latest_image.height.present? ? instance.latest_image.height : nil,
           description: exerpt,
           site_name: "Openpilot Database",
           url: article_url,

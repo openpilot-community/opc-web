@@ -14,13 +14,17 @@
 
   <div class="content-header-toolbars">
     <div class="btn-toolbar primary-toolbar">
+      <% if current_user.present? %>
       <%= render_toolbar(toolbar(:primary)) %>
       <%= deprecated_toolbar(:primary) %>
+      <% end %>
     </div>
 
     <div class="btn-toolbar secondary-toolbar">
+      <% if current_user.present? %>
       <%= render_toolbar(toolbar(:secondary)) %>
       <%= deprecated_toolbar(:secondary) %>
+      <% end %>
     </div>
   </div>
 </header>

@@ -16,7 +16,16 @@ Trestle.resource(:topics, model: Thredded::Topic) do
     end
   end
 
-  
+  form do |topic|
+    text_field :title
+    fields_for :first_post, topic.first_post || topic.build_first_post do
+      # Form helper methods now dispatch to the product.category form scope
+      hidden_field :messageboard_id, value: topic.messageboard_id
+      hidden_field :user_id, value: current_user.id
+      hidden_field :moderation_state, value: "approved"
+      text_area :content, { label: false, class: "simplemde-inline", placeholder: "What's on your mind?" }
+    end
+  end
 
   table do
     row do

@@ -8,13 +8,6 @@
   <% end %>
 <% end %>
 
-<% new_post = Thredded::Post.new(
-  user: current_user,
-  postable: instance
-) %>
-<%= trestle_form_for new_post, url: '/posts', method: :post do |f| %>
-  <%= render partial: "admin/posts/form", layout: dialog_request? ? "dialog" : "layout", locals: { admin: Trestle.lookup('/posts') }  %>
-<% end %>
 <%=admin_link_to(
   "<span class=\"fa fa-plus\"></span> New Reply".html_safe, 
   admin: :posts, 

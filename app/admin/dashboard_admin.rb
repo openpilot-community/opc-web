@@ -2,8 +2,8 @@ Trestle.admin(:dashboard) do
   menu do
     
     group :getting_started do
-      item :lookup, "/lookup", icon: "fa fa-search", label: "Lookup your vehicle", priority: 0.1
-      item :vehicle_configs, "/vehicles", icon: "fa fa-car", label: "Vehicles", priority: 0.2
+      item :vehicle_configs, "/vehicles", icon: "fa fa-car", label: "Vehicles", priority: 0.1
+      item :lookup, "/lookup", icon: "fa fa-search", label: "Lookup your vehicle", priority: 0.2
       item :hardware_items, '/hardware_items', icon: "fa fa-microchip", label: "Hardware", priority: 0.3
       item :guides, '/guides', icon: "fa fa-graduation-cap", priority: 0.5
       item :videos, '/videos', icon: "fa fa-video-camera", priority: 0.8

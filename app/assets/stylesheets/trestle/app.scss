@@ -8,7 +8,8 @@ html,body,.nav.nav-tabs {
 }
 html::-webkit-scrollbar,
 .nav.nav-tabs::-webkit-scrollbar,
-body::-webkit-scrollbar {
+body::-webkit-scrollbar,
+.app-sidebar .app-sidebar-inner::-webkit-scrollbar {
   display: none; /*  might be enought */
   background: transparent;
   visibility: hidden;

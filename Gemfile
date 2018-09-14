@@ -17,7 +17,7 @@ gem 'addressable'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'mimemagic'
-gem 'sqreen'
+# gem 'sqreen'
 gem 'derailed', group: :development
 gem 'mini_magick'
 # gem 'trestle', :path => '/Users/joshua/Projects/trestle'

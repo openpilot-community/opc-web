@@ -441,9 +441,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sq_mini_racer (0.2.0.sqreen1)
-    sqreen (1.14.0)
-      sq_mini_racer (~> 0.2.0.beta3)
     sshkit (1.17.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
@@ -558,7 +555,6 @@ DEPENDENCIES
   sidekiq-unique-jobs
   socialization
   sparkpost_rails
-  sqreen
   thredded (~> 0.15.4)
   trestle
   trestle-search

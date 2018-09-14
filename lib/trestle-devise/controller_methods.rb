@@ -6,7 +6,7 @@ module Trestle
       included do
         # include Pundit
         include ActionView::Helpers::AssetUrlHelper
-        before_action :set_raven_context
+        # before_action :set_raven_context
         before_action :authenticate_user!, except: [:show, :index]
         before_action :set_paper_trail_whodunnit
         before_action :require_edit_permissions!, only: [:new, :create, :update, :destroy]
@@ -43,12 +43,12 @@ module Trestle
         end
         private
 
-        def set_raven_context
-          if Rails.env.production?
-            Raven.user_context(id: session[:current_user_id]) # or anything else in session
-            Raven.extra_context(params: params.to_unsafe_h, url: request.url)
-          end
-        end
+        # def set_raven_context
+        #   if Rails.env.production?
+        #     Raven.user_context(id: session[:current_user_id]) # or anything else in session
+        #     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+        #   end
+        # end
       end
 
       protected

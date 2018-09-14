@@ -32,7 +32,7 @@ gem 'redis'
 gem "socialization"
 # gem 'html2text'
 gem "reverse_markdown"
-gem "sentry-raven"
+# gem "sentry-raven"
 gem 'commontator', '~> 5.1.0'
 # gem 'pundit'
 # gem 'selenium-webdriver'

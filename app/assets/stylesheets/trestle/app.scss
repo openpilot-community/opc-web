@@ -2,7 +2,31 @@ body {
   background-color:#000000;
   // overflow:auto;
 }
-
+html,body,.nav.nav-tabs {
+  -ms-overflow-style: none;  // IE 10+
+   overflow: -moz-scrollbars-none;  // Firefox
+}
+html::-webkit-scrollbar,
+.nav.nav-tabs::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.app-sidebar .app-sidebar-inner::-webkit-scrollbar {
+  display: none; /*  might be enought */
+  background: transparent;
+  visibility: hidden;
+  width: 0px;
+}
+.breadcrumb a,.breadcrumb .active, .breadcrumb .active a {
+  font-weight:normal;
+  font-size:14px;
+  color: #777777;
+  text-decoration:none;
+}
+.breadcrumb .active, .breadcrumb .active a {
+  // font-weight: bold;
+}
+.nav.nav-tabs {
+  padding-top:18px;
+}
 .navbar-nav > li > a.btn {
   padding-top: 5px;
   padding-bottom: 5px;
@@ -41,10 +65,23 @@ body {
     }
   }
   
+  .app-nav .nav-badge {
+    background-color: $green;
+    border-radius:30px;
+    position:absolute;
+    right: 14px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:10px;
+  }
+  .app-nav a {
+    position:relative;
+  }
+
   .content-header {
     padding-bottom: 0;
     background: #f6f8fa !important;
-    flex-direction: row-reverse;
+    // flex-direction: row-reverse;
     padding-top: 15px;
     padding-bottom: 3px;
     .primary-toolbar, .secondary-toolbar {
@@ -131,5 +168,93 @@ body {
       }
     }
     
+  }
+}
+
+.app-wrapper {
+  .content-header {
+    position: relative;
+    top: initial;
+    right: initial;
+    width: 100%;
+    display: flex;
+    flex-flow: wrap;
+    padding-top: 0;
+    padding-bottom: 3px;
+    left: 0;
+    background: transparent !important;
+    padding: 0;
+    position: fixed;
+    z-index: 9;
+    padding-left: 250px;
+    .content-header-title {
+      flex: 0 0 100%;
+      margin: 0;
+      padding: 4px 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      background: #FFF;
+      box-shadow: rgba(22, 23, 26, 0.15) 0px 2px 8px;;
+      h1 {
+        display:none;
+      }
+      ol {
+        padding-left:0;
+      }
+      .breadcrumb .active, .breadcrumb .active a {
+        font-size:15px;
+      }
+    }
+    .content-header-toolbars {
+      flex: 0 0 100%;
+      display: flex;
+      position: absolute;
+      right: 0;
+      top: 0;
+      .primary-toolbar,.secondary-toolbar {
+        flex: 0 0 100%;
+      }
+      .btn {
+        display: flex !important;
+        width: 100%;
+        padding: 7px 15px 6px 15px;
+        border: 0;
+        background-color: initial;
+        color:$blue;
+        border-left: 1px solid rgba(0, 0, 0, 0.08);
+        border-bottom: 0;
+        border-radius: 0;
+        background-image: initial;
+        &:hover {
+          background-color:rgba(#000,0.05);
+        }
+        .fa {
+          font-size: 22px;
+          text-align:center;
+        }
+      }
+      
+    }
+    h1.path-heading {
+      width: 100%;
+      flex: 0 0 100%!important;
+    }
+    .btn-toolbar {
+      margin-left:0;
+      .flags {
+        justify-content: space-between!important;
+        width:100%;
+        flex: 0 0 100%;
+
+        li {
+          padding:0;
+          text-align:center;
+        }
+      }
+      &.primary-toolbar,&.secondary-toolbar{
+        width:100%;
+        max-width:100%;
+        flex: 0 0 100%!important;
+      }
+    }
   }
 }

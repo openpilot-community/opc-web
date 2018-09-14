@@ -67,7 +67,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
 
       set_meta_tags(
         og: {
-          title: "#{page_title} | Openpilot Database",
+          title: "#{page_title} | Openpilot Community",
           image: asset_url("/assets/og/tracker.png"),
           url: File.join(Rails.application.routes.url_helpers.root_url,admin.path),
           type: "website"
@@ -154,13 +154,14 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
 
     def show
       vehicle_config = admin.find_instance(params)
-      @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support","/vehicles")])
+      @breadcrumbs = Trestle::Breadcrumb::Trail.new([])
       imgurl = vehicle_config.image.attached? ? vehicle_config.image.service_url : asset_url("/assets/og/tracker.png")
-      vehicle_config.update_attributes({views_count: vehicle_config.views_count + 1})
+      # vehicle_config.update_attributes({views_count: vehicle_config.views_count + 1})
       # byebug
       set_meta_tags(
+        title: "#{vehicle_config.name}",
         og: {
-          title: "#{vehicle_config.name} | Openpilot Database",
+          title: "#{vehicle_config.name}",
           image: imgurl,
           url: Rails.application.routes.url_helpers.vehicles_show_url(id: vehicle_config.id),
           type: "website"
@@ -341,7 +342,6 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
   table do |a|
     row do |vehicle|
       { 
-        data: { url: nil },
         class: "#{vehicle.vehicle_config_status.blank? ? nil : vehicle.vehicle_config_status.name.parameterize} #{vehicle.vehicle_config_type.blank? ? "unknown" : vehicle.vehicle_config_type.slug} vehicle-config" 
       }
     end
@@ -369,7 +369,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
       end
     
       if vehicle_config.persisted?
-        collection_select :vehicle_make_package_id, VehicleMakePackage.where(vehicle_make: vehicle_config.vehicle_make).order(:name), :id, :name, include_blank: true, label: "Required Factory Installed Option"
+        # collection_select :vehicle_make_package_id, VehicleMakePackage.where(vehicle_make: vehicle_config.vehicle_make).order(:name), :id, :name, include_blank: true, label: "Required Factory Installed Option"
         text_field :source_image_url, label: "Image"
       end
     end
@@ -449,7 +449,10 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
       
       if vehicle_config.thredded_messageboard.present?
         tab :discuss, label: '<span class="fa fa-comments"></span> Discuss'.html_safe, badge: vehicle_config.thredded_messageboard.present? ? vehicle_config.thredded_messageboard.topics_count : nil do
-          render "discussion", instance: vehicle_config
+          # render "discussion", instance: vehicle_config
+          table vehicle_config.thredded_messageboard.topics, admin: :thredded_topics do
+            column :title
+          end
         end
       end
       

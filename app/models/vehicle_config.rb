@@ -164,7 +164,7 @@ class VehicleConfig < ApplicationRecord
       first_topic_content = <<-MARKDOWN
 Welcome to issues and discussions about the #{name}.
 
-Keep in mind that this is a community driven website and this is not officialy supported by Comma.ai, Inc.
+Keep in mind that this is a community driven website and this is not officially supported by Comma.ai, Inc.
 Issues posted here are not necessarily going to be seen by Comma staff.
 MARKDOWN
       topic = Thredded::Topic.create!(

@@ -41,9 +41,22 @@ body.controller-admin-vehicle-configs.action-show {
 }
 .vehicle-card.row-card {
   .image {
+    height: 84px;
+    max-width:inherit;
+    flex: 0 0 150px;
+    // width: 130px;
+    position: relative;
+    padding: 4px;
+    // margin-left: 10px;
+    // margin-top: 21px;
+    overflow: hidden;
     span.img {
-      background-size: auto 112%;
-      background-position: center left;
+      width: 100%;
+      height: 100%;
+      border-radius:0;
+    }
+    span.fa {
+      font-size: 34px;
     }
   }
 }
@@ -120,22 +133,22 @@ body.controller-admin-vehicle-configs.action-show {
 body.controller-admin-vehicle-configs,
 body.controller-admin-user-vehicles {
   &.action-show {
-    .app-wrapper .content-header .btn-toolbar.primary-toolbar {
-      display: flex;
-      // flex: 0 0 10%;
-      justify-content: flex-end;
-    }
+    // .app-wrapper .content-header .btn-toolbar.primary-toolbar {
+    //   display: flex;
+    //   // flex: 0 0 10%;
+    //   justify-content: flex-end;
+    // }
 
-    .app-wrapper .content-header .btn-toolbar.secondary-toolbar {
-      display: flex;
-      flex: 0 0 40%;
-      justify-content: flex-end;
-    }
+    // .app-wrapper .content-header .btn-toolbar.secondary-toolbar {
+    //   display: flex;
+    //   flex: 0 0 40%;
+    //   justify-content: flex-end;
+    // }
 
-    .app-wrapper .content-header h1.path-heading {
-      // display: flex;
-      flex: 0 0 50%;
-    }
+    // .app-wrapper .content-header h1.path-heading {
+    //   // display: flex;
+    //   flex: 0 0 50%;
+    // }
     .flags {
       list-style-type: none;
       display: flex;
@@ -430,19 +443,12 @@ body.controller-admin-user-vehicles {
         border: 1px solid rgba(255,255,255,0.05);
       }
     }
-    .app-wrapper .app-main {
-      padding-top: 50px;
-    }
-    .app-wrapper h1.path-heading {
-      display:none;
-    }
-    .content-header {
-      display:none;
-      padding: 0;
-    }
-    .app-wrapper .main-content {
-      padding:0;
-    }
+    // .app-wrapper h1.path-heading {
+    //   display:none;
+    // }
+    // .app-wrapper .main-content {
+    //   padding:0;
+    // }
     .trestle-table {
       .owners-column {
         cursor:default;

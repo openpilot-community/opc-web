@@ -15,7 +15,15 @@
   padding: 5px 20px;
   text-indent: initial;
 }
-
+.app-nav .nav-header a::before {
+  display:none;
+}
+.app-nav .collapsed .nav-header a::before {
+  display: none;
+}
+.app-nav .collapsed .nav-header a::after {
+  display: none;
+}
 .app-wrapper {
   .app-header {
     .searchbox {

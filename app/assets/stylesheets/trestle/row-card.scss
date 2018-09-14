@@ -1,47 +1,46 @@
 @import "variables";
 //reset trestle-tables
-body.controller-admin-vehicle-configs.action-index,
-body.controller-admin-hardware-items.action-index {
-  table.trestle-table {
-    // max-width:400px;
-    tbody {
-      tr {
-        td {
-          padding:0;
-          border:0;
-          background: none;
-          background-color:transparent;
+// body.controller-admin-vehicle-configs.action-index,
+// body.controller-admin-hardware-items.action-index {
+//   table.trestle-table {
+//     // max-width:400px;
+//     tbody {
+//       tr {
+//         td {
+//           padding:0;
+//           border:0;
+//           background: none;
+//           background-color:transparent;
 
-          &:hover {
-            background-color:transparent;
-          }
-        }
-        &:hover {
-          background-color:transparent;
-        }
-      }
-    }
-  }
-  .table-striped > tbody > tr:nth-of-type(odd), .trestle-table > tbody > tr:nth-of-type(odd) {
-    background-color:transparent;
-    &:hover {
-      background-color:transparent;
-    }
-  }
-}
-$image-size: 100px;
+//           &:hover {
+//             background-color:transparent;
+//           }
+//         }
+//         &:hover {
+//           background-color:transparent;
+//         }
+//       }
+//     }
+//   }
+//   .table-striped > tbody > tr:nth-of-type(odd), .trestle-table > tbody > tr:nth-of-type(odd) {
+//     background-color:transparent;
+//     &:hover {
+//       background-color:transparent;
+//     }
+//   }
+// }
+$image-size: 130px;
 
 .app-wrapper {
   
 }
 .row-card {
-  display: flex;
-  background-color: #FFF;
+  // background-color: #FFF;
   position: relative;
-  flex-flow: wrap;
+  
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
   margin: 0;
-  height: $image-size + 25px;
+  
   .follow-button {
     position:relative;
     .pop-error {
@@ -112,6 +111,7 @@ $image-size: 100px;
     height: 1px;
   }
   .name {
+    padding-top: 5px;
     font-size:16px;
     > span {
       font-weight:400;
@@ -152,10 +152,17 @@ $image-size: 100px;
     position:relative;
   }
   .details-inner {
-    position:absolute;
-    top:50%;
-    left:10px;
-    transform:translateY(-50%);
+    position:relative;
+    top:initial;
+    left:initial;
+    transform:initial;
+  }
+  .card-header {
+    display: flex;
+    flex-flow: wrap;
+  }
+  .card-content {
+
   }
   .image {
     height: $image-size;
@@ -168,8 +175,8 @@ $image-size: 100px;
     margin-top: 10px;
     overflow: hidden;
     span.img {
-      width: 100px;
-      height: 100px;
+      width: $image-size;
+      height: $image-size;
       border-radius: 50%;
       background-color: rgba(0, 0, 0, 0.05);
       // border: 2px solid rgba(0, 0, 0, 0.05);
@@ -193,6 +200,25 @@ $image-size: 100px;
       }
     }
   }
+  .image {
+    height: 84px;
+    max-width:inherit;
+    flex: 0 0 150px;
+    // width: 130px;
+    position: relative;
+    padding: 4px;
+    // margin-left: 10px;
+    // margin-top: 21px;
+    overflow: hidden;
+    span.img {
+      width: 100%;
+      height: 100%;
+      border-radius:0;
+    }
+    span.fa {
+      font-size: 34px;
+    }
+  }
   &.status-upstreamed {
     .image {
       span.img {
@@ -202,12 +228,111 @@ $image-size: 100px;
   }
 }
 
-body.controller-admin-hardware-items.action-index {
-  .row-card {
-    .image {
-      span.img {
-        background-position:center center;
+// body.controller-admin-hardware-items.action-index {
+//   .row-card {
+//     .image {
+//       span.img {
+//         background-position:center center;
+//       }
+//     }
+//   }
+// }
+
+.row-card {
+  box-shadow:none;
+  h1 {
+    margin:0;
+    font-size: 28px;
+    font-weight: 600;
+  }
+  &:after {
+    display:none;
+  }
+  .short-header {
+    margin-bottom: 8px;
+  }
+  $image-size: 80px;
+  .heading {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(73, 76, 87);
+    pointer-events: auto;
+    position: relative;
+    z-index: 2;
+  }
+  .subheading {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(130, 140, 153);
+    line-height: 1.28;
+    pointer-events: auto;
+    position: relative;
+    z-index: 2;
+  }
+  .subsubheading {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(130, 140, 153);
+    line-height: 1.28;
+    pointer-events: auto;
+    display:block;
+    position: relative;
+    z-index: 2;
+  }
+  .meta {
+    margin-top:8px;
+    li {
+      display: flex;
+      -webkit-box-align: center;
+      align-items: center;
+      margin-right: 12px;
+      a {
+        color: rgb(130, 140, 153);
       }
     }
   }
+  .details {
+    padding:12px;
+  }
+  .details-inner {
+    a {
+      font-size: 16px;
+      font-weight: 400;
+      color: rgb(22, 23, 26);
+      max-width: 100%;
+      line-height: 1.4;
+    }
+  }
+  // .image {
+  //   vertical-align:top;
+  //   height: $image-size;
+  //   flex: 0 0 $image-size + 15px;
+  //   max-width: $image-size + 15px;
+  //   width: $image-size;
+  //   padding:0;
+  //   span.img {
+  //     width: $image-size;
+  //     height: $image-size;
+
+  //     span.fa {
+  //       font-size:$image-size * 0.35;
+  //     }
+  //   }
+  // }
+  thead {
+    display:none;
+  }
+
+  .card-content {
+    padding:10px 20px;
+  }
+  &.expanded {
+    border-top:1px solid rgba(#000,0.1);
+  }
+}
+.table-striped > tbody > tr:nth-of-type(odd), .trestle-table > tbody > tr:nth-of-type(odd) {
+  background:#FFF;
+}
+.table-hover > tbody > tr:hover, .trestle-table > tbody > tr:hover {
+  background:#FFF;
 }

@@ -1,8 +1,11 @@
 .row-card {
-  $image-size: 75px;
+  $image-size: 50px;
   display:table;
   width: 100%;
   height:initial;
+  &:after {
+    display:none;
+  }
   .image,.details,.actions {
     padding:5px 5px;
   }

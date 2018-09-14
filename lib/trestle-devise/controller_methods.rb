@@ -54,7 +54,7 @@ module Trestle
       protected
       def set_metatags
         set_meta_tags og: {
-          title: "Openpilot Database",
+          title: "Openpilot Community",
           image: asset_url("/assets/og/default.png"),
           type: "website"
         }

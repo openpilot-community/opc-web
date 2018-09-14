@@ -1,4 +1,4 @@
-# Openpilot Database
+# Openpilot Community
 
 This is the initial interface for managing the data.  It has just enough front-end capabililties to be efficient to build.  It's not a work of art and won't ever be.
 

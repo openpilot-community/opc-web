@@ -3,12 +3,7 @@ body.controller-admin-guides.action-show {
   
 }
 body.controller-admin-guides.action-index {
-  // .app-wrapper.is-visitor .primary-toolbar {
-  //   opacity:1!important;
-  // }
-  .main-content {
-    padding:0;
-  }
+
   .trestle-table {
     thead {
       display: none; 
@@ -40,15 +35,7 @@ body.controller-admin-guides.action-index {
   }
 }
 .guide-card.row-card {
-  // display: flex;
-  // flex-direction: row-reverse;
-  // background-color: #FFF;
-  // border: 0;
-  // box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2);
-  // padding: 20px;
-  // margin: 0;
-  // position: relative;
-  
+
   .difficulty {
     position:absolute;
     top:0;
@@ -66,68 +53,12 @@ body.controller-admin-guides.action-index {
       background-color: $red;
     }
   }
-  // .details {
-  //   flex: 0 0 100%;
-    
-  // }
-  // &.has-thumbnail {
-  //   .image {
-  //     display:block;
-  //     flex: 0 0 25%;
-      
-  //   }
-  //   .details {
-  //     flex: 0 0 75%;
-  //   }
-  // } 
-  // .detail-inner {
-  //   position:relative;
-  //   top:50%;
-  //   left:0;
-  //   min-height:74px;
-  //   padding:0 15px 0 20px;
-  //   transform:translateY(-50%);
-  // }
-  // .title {
-  //   font-size: 22px;
-  //   line-height: 24px;
-  //   letter-spacing: -0.32px;
-  //   font-weight: 600;
-  //   color: rgba(0, 0, 0, 0.84);
-  //   font-style: normal;
-  // }
+  
   .synopsis {
     font-size: 15px;
     color: rgba(0, 0, 0, 0.54);
     line-height: 20px;
   }
-  // .image {
-  //   padding:0 15px;
-  //   span.img {
-  //     width:100%;
-  //     height: 104px;
-  //     display:block;
-  //     background-repeat:no-repeat;
-  //     background-size:cover;
-  //     background-position: center center;
-  //   }
-  // }
-  // .details {
-  //   padding:0 15px;
-  //   position: relative;
-  // }
-
-  // .meta {
-  //   margin-top:5px;
-  //   span {
-  //     &.divider {
-  //       margin:0 5px;
-  //     }
-  //     &.date {
-  //       color: #b6b6b6
-  //     }
-  //   }
-  // }
 }
 
 .guide {
@@ -229,7 +160,7 @@ body.controller-admin-guides.action-index {
 @media (max-width: 767px) {
   .main-content, .main-content-sidebar {
     padding: 0;
-}
+  }
   .documentation {
       // position: relative;
       // /* margin: 0 auto; */
@@ -251,45 +182,45 @@ body.controller-admin-guides.action-index {
   .responses .comment .author-box .detail-inner {
     padding: 0 14px!important;
   }
-  .guide-card {
-    display: block;
-    .details {
-      flex: initial;
-      padding: 0 15px;
-      position: relative;
-    }
-    .image {
-      width:100%;
-      flex:initial;
-    }
-    .detail-inner {
-      position: relative;
-      top: initial;
-      left: initial;
-      padding: 0;
-      -webkit-transform: initial;
-      transform: initial;
-    }
+  // .guide-card {
+  //   display: block;
+  //   .details {
+  //     flex: initial;
+  //     padding: 0 15px;
+  //     position: relative;
+  //   }
+    // .image {
+    //   width:100%;
+    //   flex:initial;
+    // }
+    // .detail-inner {
+    //   position: relative;
+    //   top: initial;
+    //   left: initial;
+    //   padding: 0;
+    //   -webkit-transform: initial;
+    //   transform: initial;
+    // }
     
-    .title {
-      font-size: 17px;
-      line-height: 19px;
-      letter-spacing: -0.32px;
-      font-weight: 600;
-      color: rgba(0, 0, 0, 0.84);
-      font-style: normal;
-      margin-bottom: 4px;
-      margin-top: 7px;
-    }
-    .synopsis {
-      overflow: hidden!important;
-      max-height: 40px!important;
-      text-overflow: ellipsis!important;
-      display: -webkit-box!important;
-      -webkit-line-clamp: 2!important;
-      -webkit-box-orient: vertical;
-    }
-  }
+    // .title {
+    //   font-size: 17px;
+    //   line-height: 19px;
+    //   letter-spacing: -0.32px;
+    //   font-weight: 600;
+    //   color: rgba(0, 0, 0, 0.84);
+    //   font-style: normal;
+    //   margin-bottom: 4px;
+    //   margin-top: 7px;
+    // }
+    // .synopsis {
+    //   overflow: hidden!important;
+    //   max-height: 40px!important;
+    //   text-overflow: ellipsis!important;
+    //   display: -webkit-box!important;
+    //   -webkit-line-clamp: 2!important;
+    //   -webkit-box-orient: vertical;
+    // }
+//   }
 }
 
 .modal-content {

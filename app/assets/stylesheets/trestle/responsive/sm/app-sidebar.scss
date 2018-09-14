@@ -1,0 +1,30 @@
+.app-wrapper {
+  .app-sidebar {
+    z-index:10;
+  }
+  .app-sidebar-header {
+    width:100%;
+  }
+
+  .searchbox {
+    position: relative;
+    top: initial;
+    left: initial;
+    width: initial;
+    max-width: none;
+    padding: 5px 12px 0 12px;
+    background: initial;
+    z-index: 0;
+    box-shadow: initial;
+    border-radius: initial;
+
+    .form-control {
+      border-bottom: 0;
+      padding-left:30px;
+      background: rgba(255,255,255,0.1);
+      border-radius:100px;
+    }
+  }
+  /* line 44, /Users/joshua/.asdf/installs/ruby/2.5.0/lib/ruby/gems/2.5.0/gems/trestle-search-0.2.1/app/assets/stylesheets/trestle/search.scss */
+  
+} 

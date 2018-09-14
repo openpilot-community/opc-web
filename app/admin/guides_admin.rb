@@ -28,7 +28,13 @@ Trestle.resource(:guides) do
     end
 
     def show
+      
       self.instance = admin.find_instance(params)
+      # if instance.present?
+      #   @breadcrumbs = Trestle::Breadcrumb::Trail.new([])
+      # else
+      #   @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Discuss", "/thredded_topics")])
+      # end
       commontator_thread_show(instance)
       imgurl = instance.latest_image.present? ? instance.latest_image.attachment_url : asset_url("/assets/og/tracker.png")
       article_url = File.join(Rails.application.routes.url_helpers.root_url,admin.instance_path(instance))
@@ -43,7 +49,7 @@ Trestle.resource(:guides) do
           "image:width": instance.latest_image.present? && instance.latest_image.width.present? ? instance.latest_image.width : nil,
           "image:height": instance.latest_image.present? && instance.latest_image.height.present? ? instance.latest_image.height : nil,
           description: exerpt,
-          site_name: "Openpilot Database",
+          site_name: "Openpilot Community",
           url: article_url,
           type: "article",
           author: author_name

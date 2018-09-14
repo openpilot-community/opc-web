@@ -1,0 +1,25 @@
+.list-content-wrap {
+  .trestle-table {
+    tbody {
+      tr {
+        td {
+          position:relative;
+          border:0;
+          &:before {
+            content: "";
+            height:1px;
+            width:100%;
+            background-color:rgba(0, 0, 0, 0.09);
+            position:absolute;
+            bottom:0;
+            left:0;
+          }
+          &:hover {          
+              background: rgb(245, 248, 252);
+              cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

@@ -3,3 +3,53 @@
   padding:0;
   margin:0;
 }
+.main-content {
+  padding:0;
+}
+
+body.controller-admin-thredded-topics.action-index {
+  
+}
+
+.trestle-table thead { display: none; }
+
+.topic-card.row-card {
+  $image-size: 40px;
+  
+  .image {
+    height: $image-size;
+    flex: 0 0 $image-size + 10;
+    max-width: $image-size + 10;
+    width: $image-size;
+    position: relative;
+    // padding: 4px;
+    // margin-left:10px;
+    // margin-top: 10px;
+    overflow: hidden;
+    span.img {
+      width: $image-size;
+      height: $image-size;
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, 0.05);
+      // border: 2px solid rgba(0, 0, 0, 0.05);
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      background-size: 105% auto;
+      background-position: center center;
+      background-repeat: no-repeat;
+
+      span.fa {
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        font-size:$image-size * 0.35;
+        color:rgba(#000,0.05);
+      }
+    }
+  }
+}

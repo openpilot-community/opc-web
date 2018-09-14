@@ -1,0 +1,9 @@
+<div class="btn-toolbar tab-toolbar">
+  <% groups.each do |group| %>
+  <div class="btn-group <%=group[:class]%>">
+    <% group[:items].each do |item| %>
+      <%=item%>
+    <% end %>
+  </div>
+  <% end %>
+</div>

@@ -25,7 +25,7 @@ Trestle.resource(:videos) do
       video_url = File.join(Rails.application.routes.url_helpers.root_url,admin.instance_path(instance))
       imgurl = video.thumbnail_url
       # set_meta_tags og: {
-      #   title: "#{video.title} | Openpilot Database",
+      #   title: "#{video.title} | Openpilot Community",
       #   image: video.thumbnail_url,
       #   type: "website",
       #   description: video.description
@@ -36,7 +36,7 @@ Trestle.resource(:videos) do
         og: {
           title: video.title,
           image: imgurl,
-          site_name: "Openpilot Database",
+          site_name: "Openpilot Community",
           url: video_url,
           type: "article",
           author: video.author

@@ -1,10 +1,12 @@
 @import "variables";
-
+.controller-admin-vehicle-lookups.action-new .app-wrapper .content-header {
+  display:none;
+}
 .controller-admin-vehicle-lookups.action-new {
   background-color:#000;
   .app-wrapper {
     background-color:#000!important;
-    
+
   }
 
   .main-content-container {
@@ -25,7 +27,7 @@
   }
   
   .app-sidebar {
-    display:none;
+    // display:none;
   }
   .app-wrapper {
     .app-header {

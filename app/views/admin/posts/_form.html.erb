@@ -1,0 +1,21 @@
+<% if admin.form -%>
+<% if defined?(@uploader_model_id) %>
+  <% model_id = @uploader_model_id %>
+<% else %>
+  <% model_id = instance.id %>
+<% end %>
+<% if defined?(@uploader_model_name) %>
+  <% model_name = @uploader_model_name %>
+<% else %>
+  <% model_name = instance.class.name.underscore %>
+<% end %>
+<% if model_id.present? %>
+  <script>
+  window.model_name='<%=model_name%>';
+  window.model_id=<%=model_id%>
+  </script>
+<% end %>
+  <%= admin.form.render(self, instance) %>
+<% else %>
+  <p><%= t("trestle.onboarding.no_form", default: "Please define a form block or create a <code>_form.html</code> partial.").html_safe %></p>
+<% end %>

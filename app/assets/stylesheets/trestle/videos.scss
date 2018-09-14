@@ -5,9 +5,6 @@ body.controller-admin-videos.action-index {
   // .app-wrapper.is-visitor .primary-toolbar {
   //   opacity:1!important;
   // }
-  .main-content {
-    padding:0;
-  }
   .trestle-table {
     thead {
       display: none;
@@ -44,11 +41,11 @@ body.controller-admin-videos.action-index {
     height: 84px;
     max-width:inherit;
     flex: 0 0 150px;
-    width: 130px;
+    // width: 130px;
     position: relative;
     padding: 4px;
-    margin-left: 10px;
-    margin-top: 21px;
+    // margin-left: 10px;
+    // margin-top: 21px;
     overflow: hidden;
     span.img {
       width: 100%;

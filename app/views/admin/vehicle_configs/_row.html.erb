@@ -19,38 +19,39 @@
 <% end %>
 <% status_class = instance.status_classes %>
 <div class="vehicle-card row-card status-<%= has_status ? status.name.parameterize : "researching" %>">
-  
-  <div class="image">
-    <% if instance.image.attached? %>
-      <span class="img" style="background-image:url(<%=instance.image.service_url%>)"></span>
-    <% else %>
-      <span class="img"><span class="fa fa-car"></span></span>
-    <% end %>
-  </div>
-
-  <div class="details">
-    <div class="details-inner">
-      <div class="name">
-      <%=link_to(admin.instance_path(instance)) do %>
-        <span><%=instance.vehicle_make.name%> <%=instance.vehicle_model.name%></span>, <%=instance.year_range_str%>
+  <div class="card-header">
+    <div class="image">
+      <% if instance.image.attached? %>
+        <span class="img" style="background-image:url(<%=instance.image.service_url%>)"></span>
+      <% else %>
+        <span class="img"><span class="fa fa-car"></span></span>
       <% end %>
-      </div>
-      <ul class="meta">
-        <% if has_status && has_difficulty && status.name != "Researching"%>
-        <li><span class="label label-<%=instance.difficulty_class%>"><%=difficulty.name%></span></li>
-        <% end %>
-        <% if has_status %>
-        <li><span target="_blank" class="label label-<%=status_class[:color]%> repo-link"><span class="<%=status_class[:icon]%>"></span> <%=status.name%></span></li>
-        <% end %>
-        <li><span target="_blank" class="label label-default repo-link" href="<%=status_class[:url]%>"><%=status_class[:label]%></span></li>
-      </ul>
-      <div class="byline"><%=time_ago_in_words(instance.updated_at)%> ago</div>
     </div>
-  </div>
 
-  
-  
-  <div class="actions">
-    <%=content_tag(:div, nil, class: "follow-button", data: row_state)%>
+    <div class="details">
+      <div class="details-inner">
+        <div class="name">
+        <%=link_to(admin.instance_path(instance)) do %>
+          <span><%=instance.vehicle_make.name%> <%=instance.vehicle_model.name%></span>, <%=instance.year_range_str%>
+        <% end %>
+        </div>
+        <ul class="meta">
+          <% if has_status && has_difficulty && status.name != "Researching"%>
+          <li><span class="label label-<%=instance.difficulty_class%>"><%=difficulty.name%></span></li>
+          <% end %>
+          <% if has_status %>
+          <li><span target="_blank" class="label label-<%=status_class[:color]%> repo-link"><span class="<%=status_class[:icon]%>"></span> <%=status.name%></span></li>
+          <% end %>
+          <li><span target="_blank" class="label label-default repo-link" href="<%=status_class[:url]%>"><%=status_class[:label]%></span></li>
+        </ul>
+        <div class="byline"><%=time_ago_in_words(instance.updated_at)%> ago</div>
+      </div>
+    </div>
+
+    
+    
+    <div class="actions">
+      <%=content_tag(:div, nil, class: "follow-button", data: row_state)%>
+    </div>
   </div>
 </div>

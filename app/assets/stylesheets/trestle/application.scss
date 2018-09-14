@@ -17,7 +17,6 @@
 @import "app-header";
 @import "footer";
 @import "documentation";
-@import "vehicle_lookup_form";
 @import "vehicle_configs";
 @import "guides";
 @import "commenting";
@@ -25,12 +24,15 @@
 @import "buttons";
 @import "tags";
 @import "row-card";
+@import "form-page";
+@import "list-page";
 @import "hardware";
 @import "discussions";
 @import "../medium-editor";
 @import "../themes/default";
 @import "profile-header";
 @import "profile-tabs";
+@import "vehicle_lookup_form";
 
 .edit_vehicle_config {
   .title-section.first, .path-divider.first {
@@ -78,7 +80,7 @@
     }
   }
   .app-main {
-    padding-top:60px;
+    padding-top:0;
   }
   
   .scopes {
@@ -123,7 +125,11 @@
     overflow-x: visible;
   }
   
+.main-content {
+  padding: 35px 0 0 0;
 }
+}
+
 
 @media (max-width: 1199px) and (min-width: 768px) {
   //MEDIUM
@@ -133,6 +139,7 @@
 @media (max-width: 767px) {
   //SMALL
   @import "./responsive/sm/app";
+  @import "./responsive/sm/app-sidebar";
   @import "./responsive/sm/form-page";
   @import "./responsive/sm/list-page";
   @import "./responsive/sm/row-card";

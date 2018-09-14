@@ -102,8 +102,13 @@ if (Trestle) {
     e.preventDefault();
 
     var url = $(this).data('url') || $(this).attr('href');
+    var type = $(this).data('type');
 
     var dialog = new Trestle.Dialog();
+
+    if (type) {
+      this.el.addClass('type-' + type);
+    }
     Trestle.activeDialog = dialog;
     dialog.load(url);
   });

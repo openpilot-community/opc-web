@@ -6,27 +6,20 @@
       </div>
       <div class="video-meta">
         <h1><%=instance.title%></h1>
-        <div class="action-bar">
-          <div class="author-box">
-            <div class="image">
-              <span class="img" style="background-image:url()"></span>
-            </div>
-            <div class="details">
-              <div class="detail-inner">
-                <div class="author-name">
-                  <%=link_to(instance.author,instance.author_url)%>
-                </div>
-                <div class="meta">
-                  <span class="date"><%=instance.friendly_date%></span>
-                </div>
-
-                 <p><%=instance.description%></p>
-              </div>
-            </div>
+        <div class="author-box">
+          <div class="image">
+            <span class="img" style="background-image:url()"></span>
           </div>
-          <div class="actions btn-toolbar">
-            <div class="btn-group">
-              <%=admin_link_to("Edit", admin: :videos, action: :edit, params: { id: instance.slug }, class: "btn btn-default")%>
+          <div class="details">
+            <div class="detail-inner">
+              <div class="author-name">
+                <%=link_to(instance.author,instance.author_url)%>
+              </div>
+              <div class="meta">
+                <span class="date"><%=instance.friendly_date%></span>
+              </div>
+
+                <p><%=instance.description%></p>
             </div>
           </div>
         </div>

@@ -17,6 +17,7 @@ gem 'addressable'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'mimemagic'
+gem 'sqreen'
 gem 'derailed', group: :development
 gem 'mini_magick'
 # gem 'trestle', :path => '/Users/joshua/Projects/trestle'
@@ -56,6 +57,7 @@ gem 'bootstrap', '~> 4.1.3'
 gem 'paper_trail'
 gem 'paper_trail-association_tracking'
 gem 'iframely'
+gem "puma_worker_killer"
 gem 'acts_as_votable', '~> 0.11.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'

@@ -5,6 +5,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
+      <span class="fa fa-times"></span>
     </button>
 
     <%= link_to Trestle.config.root, class: "navbar-brand" do %>
@@ -14,20 +15,20 @@
 
   <div class="app-sidebar-inner">
     <nav class="app-nav">
-      <ul class="external-actions">
-        <li role="presentation" class="shop">
-          <%= link_to "https://comma.ai/shop?ref=7", target: "_blank" do %>
-            <%=icon('fa', 'fa-shopping-cart')%> Order Your Hardware
-          <% end %>
-        </li>
-        <% if !current_user.blank? %>
-        <li role="presentation">
-          <%=link_to('Logout', '/sign_out')%>
-        </li>
-        <% else %>
+      <div class="searchbox<% if params[:q] %> has-query<% end %>">
+        <%= form_tag admin.path, method: :get do %>
+          <div class="input-group">
+            <span class="input-group-addon"><icon class="fa fa-search"></icon></span>
+            <%= link_to icon("fa fa-times"), admin.path, class: "clear-search" if params[:q].present? %>
+            <%= search_field_tag :q, params[:q], class: "form-control", autocomplete: "off", placeholder: admin.t("search.placeholder", default: "Search") %>
+          </div>
+        <% end %>
+      </div>
+      <ul class="user-nav">
+        <% if current_user.blank? %>
         <li role="presentation" class="sign-in">
-          <%= link_to "/users/auth/github" do %>
-            <%=icon('fa', 'fa-github')%> Sign In with GitHub
+          <%= link_to "/users/auth/github", class: "" do %>
+            <%=icon("nav-icon", 'fa', 'fa-github')%> Sign In with GitHub
           <% end %>
         </li>
         <% end %>
@@ -40,20 +41,33 @@
           <% end %>
 
           <% items.each do |item| %>
-            <li class="<% if current_navigation_item?(item) %>active<% end %><% if group.label.present? %> <%=group.label.parameterize%><% end %> <%= item.present? && item.label.present? ? item.label.parameterize : nil %>">
+            <li class="<% if current_navigation_item?(item) %>active<% end %><% if group.present? && group.label.present? %> <%=group.label.parameterize%><% end %> <%= item.present? && item.label.present? && item.label.present? ? item.label.parameterize : nil %>">
               <%= link_to item.path do %>
                 <%= icon("nav-icon", item.icon) %>
                 <span class="nav-label"><%= item.label %></span>
-                <%= content_tag(:span, item.badge.text, class: ["nav-badge", item.badge.html_class]) if item.badge? %>
+                <%= content_tag(:span, item.badge.text, class: ["nav-badge"]) if item.badge? %>
               <% end %>
             </li>
           <% end %>
         </ul>
       <% end %>
+      <% if current_user.present? %>
+        <ul class="settings-nav">
+          <li class="nav-header"><%= link_to "Settings", "#settings" %><%=icon('fa','fa-caret-down')%></li>
+          <li>
+              <a data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="user-icon nav-icon"><%=image_tag(current_user.avatar_url)%></span>
+                <%=current_user.at_username%>
+                <span class="caret"></span>
+              </a>
+          </li>
+          <li><%=link_to('/sign_out') do%>
+            <%= icon("nav-icon", "fa", "fa-angle-right") %>
+            Log Out
+          <% end %>
+          </li>
+        </ul>
+      <% end %>
     </nav>
-
-    <button class="toggle-sidebar">
-      <span class="sr-only"><%= t("trestle.ui.toggle_sidebar", default: "Toggle sidebar") %></span>
-    </button>
   </div>
 </aside>

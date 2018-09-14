@@ -1,6 +1,62 @@
 .app-wrapper {
+  .user-nav {
+    .user-icon {
+      width:25px;
+      height:25px;
+      img {
+        object-fit: cover;
+      }
+    }
+  }
+  .app-sidebar .toggle-sidebar {
+    display:none;
+  }
   .app-sidebar {
     background: #000;
+    z-index: 10;
+  }
+  .searchbox {
+    float: initial;
+    max-width: 100%;
+    padding: 0;
+    .clear-search {
+      position:absolute;
+      right:0;
+      top:3px;
+      z-index:3;
+    }
+    .form-control {
+      border-bottom: 0;
+      padding-left:30px;
+      background-color: rgba(255,255,255,0.1);
+      border-radius:100px;
+    }
+    .input-group-addon {
+      position: absolute;
+      z-index: 0;
+      height: 100%;
+      margin-left: 10px;
+    }
+
+    &.has-query {
+      .form-control {
+        color: #FFF;
+        background-color:rgba(255,255,255,0.07);
+      }
+    }
+  }
+  .app-sidebar {
+      padding-top: 40px;
+  }
+  .app-sidebar-header .icon-bar {
+      background: rgba(255,255,255,0.5);
+  }
+  .app-sidebar-header .navbar-toggle {
+      float: left;
+      margin-left: 10px;
+      padding: 7px 6px;
+      border: 0;
+      border-radius: 4px;
   }
   .app-sidebar-header {
     height: 50px;
@@ -12,11 +68,19 @@
     display: flex;
     align-items: center;
     color:#000;
+    position:fixed;
+    top:0;
+    left:0;
+    width: 250px;
   }
-  
+  .app-sidebar-header .fa {
+      display:none;
+      color:rgba(#FFF,0.5);
+  }
   .app-sidebar-header .navbar-brand {
     color:#212121;
   }
+  
   .navbar-brand {
     color:#212121;
     font-size:0;
@@ -28,6 +92,18 @@
       span {
         font-weight:100;
       }
+    }
+  }
+}
+
+body.mobile-nav-expanded {
+  .app-wrapper .app-sidebar-header {
+    .fa {
+      display:block;
+      font-size: 22px;
+    }
+    .icon-bar {
+      display:none;
     }
   }
 }

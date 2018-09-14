@@ -38,7 +38,7 @@ Rails.application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
-
+  
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
   config.log_level = :debug
@@ -48,7 +48,7 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   config.cache_store = :redis_cache_store, { url: ENV['REDIS_URL'] }
-  config.session_store :cache_store, key: ENV['APP_SESSION_KEY']
+  config.session_store :cache_store, key: ENV['APP_SESSION_KEY'], expire_after: 1.years.from_now
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   config.active_job.queue_adapter     = :sidekiq

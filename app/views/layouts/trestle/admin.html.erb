@@ -22,14 +22,13 @@
 
     <%= csrf_meta_tags %>
     <%= display_meta_tags reverse: true,
-        site: Trestle.config.site_title, 
-        icon: asset_url("/favicon.png?ver=2"),
+        site: Trestle.config.site_title,
         og: {
           title: :title,
           site_name: :site,
-          icon: asset_url("/favicon.png?ver=2"),
+          icon: asset_url("/favicon.png?ver=3"),
         } %>
-
+    <link rel="icon" type="image/x-icon" class="js-site-favicon" href="<%=asset_url("/favicon.ico?ver=3")%>">
     <%= stylesheet_link_tag "trestle/admin", 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag "trestle/application", 'data-turbolinks-track': 'reload' %>
 
@@ -43,6 +42,8 @@
       <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
       <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <% end %>
+    <link rel="mask-icon" href="<%=File.join(root_url,"favicon.svg")%>" color="#000000">
+    <link rel="fluid-icon" href="<%=asset_url("/fluidicon.png")%>" title="Openpilot Community">
     <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
     <%= javascript_include_tag "turbolinks" if Trestle.config.turbolinks %>
@@ -67,7 +68,7 @@
       <%= render "trestle/shared/sidebar" %>
 
       <div class="app-container">
-        <%= render "trestle/shared/header" %>
+        <%#= render "trestle/shared/header" %>
 
         <main class="app-main" data-context="<%= request.fullpath %>">
           <%= content_for?(:content) ? yield(:content) : yield %>

@@ -1,0 +1,27 @@
+<% title = admin.t("titles.edit", default: instance.title ) %>
+<% content_for(:title, instance.title) %>
+<% breadcrumb(instance.title) unless admin.singular? %>
+
+<%= render layout: dialog_request? ? "dialog" : "layout" do %>
+  <% instance.posts.each do |post| %>
+    <%= render "show_thread", instance: post, is_first_post: (post.id == instance.first_post.id), type: "post" %>
+  <% end %>
+<% end %>
+
+<% new_post = Thredded::Post.new(
+  user: current_user,
+  postable: instance
+) %>
+<%= trestle_form_for new_post, url: '/posts', method: :post do |f| %>
+  <%= render partial: "admin/posts/form", layout: dialog_request? ? "dialog" : "layout", locals: { admin: Trestle.lookup('/posts') }  %>
+<% end %>
+<%=admin_link_to(
+  "<span class=\"fa fa-plus\"></span> New Reply".html_safe, 
+  admin: :posts, 
+  action: :new,
+  dialog: true,
+  class: "btn btn-default btn-list-add", 
+  params: { 
+    postable_id: instance.blank? ? nil : instance.id 
+  }
+)%>

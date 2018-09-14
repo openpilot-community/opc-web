@@ -1,0 +1,12 @@
+<% title = admin.t("titles.new", default: "New %{model_name}") %>
+
+<% content_for(:title, title) %>
+<% breadcrumb(title) %>
+
+<% content_for(:primary_toolbar) do %>
+  <%= button_tag "Save", class: "btn btn-success btn-lg" if admin.actions.include?(:create) %>
+<% end %>
+
+<%= trestle_form_for instance, url: admin.path(:create), method: :post do |f| %>
+  <%= render partial: "form", layout: dialog_request? ? "dialog" : "layout" %>
+<% end %>

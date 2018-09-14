@@ -1,62 +1,70 @@
-.app-wrapper {
-  .main-content-container {
-      flex-direction: column;
-      margin-bottom: 10px;
+form[data-behavior="trestle-form"]  {
+  .main-content-area {
+      padding-top: 0;
   }
-  h1.path-heading {
-    // display: none;
-  }
-  .main-content-sidebar {
-    padding:30px 10px 10px 10px;
-  }
-  .tab-pane {
-    padding-top:10px;
-    padding-left:10px;
-    padding-right:10px;
-  }
-  
-  .content-header {
-    position: relative;
-    top: initial;
-    right: initial;
-    width: 100%;
-    display: flex;
-    flex-flow: wrap;
-    padding-top: 0;
-    padding-bottom: 3px;
-    background: transparent !important;
-    flex-direction: row-reverse!important;
-    
-    h1.path-heading {
-      width: 40%;
-      flex: 0 0 40%!important;
+}
+body.action-show,body.action-edit {
+  .app-wrapper {
+    .main-content-container {
+        flex-direction: column;
+        margin-bottom: 10px;
     }
-    .btn-toolbar {
-      margin-left:0;
-      .flags {
-        justify-content: flex-end;
-        width:100%;
-        flex: 0 0 100%;
-
-        li {
-          padding:0;
-          text-align:center;
-        }
-      }
-      &.primary-toolbar {
-        width:100%;
-        max-width:100%;
-        flex: 0 0 100%!important;
-      }
-      &.secondary-toolbar {
+    h1.path-heading {
+      // display: none;
+    }
+    .main-content-sidebar {
+      padding:30px 10px 10px 10px;
+    }
+    .tab-pane {
+      padding-top:10px;
+      padding-left:10px;
+      padding-right:10px;
+    }
+    
+    .content-header {
+      position: relative;
+      top: initial;
+      right: initial;
+      width: 100%;
+      display: flex;
+      flex-flow: wrap;
+      padding-top: 0;
+      padding-bottom: 3px;
+      background: transparent !important;
+      flex-direction: row-reverse!important;
+      padding-left:0;
+      
+      h1.path-heading {
         width: 40%;
-        max-width: 40%;
         flex: 0 0 40%!important;
       }
-    }
-  }
+      .btn-toolbar {
+        margin-left:0;
+        .flags {
+          justify-content: flex-end;
+          width:100%;
+          flex: 0 0 100%;
 
-  .app-container {
-    width:100%;
+          li {
+            padding:0;
+            text-align:center;
+          }
+        }
+        &.primary-toolbar {
+          width:100%;
+          max-width:100%;
+          flex: 0 0 100%!important;
+        }
+        &.secondary-toolbar {
+          width: 40%;
+          max-width: 40%;
+          flex: 0 0 40%!important;
+        }
+      }
+    }
+
+    .app-container {
+      width:100%;
+    }
   }
 }

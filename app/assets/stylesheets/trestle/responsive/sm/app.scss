@@ -11,24 +11,7 @@ html, body {
 }
 .main-content-area {
   position:relative;
-  &:before {
-    content: " ";
-    display: block;
-    width: 50px;
-    position: absolute;
-    top: 0;
-    z-index: 10000;
-    right: 0;
-    height: 41px;
-    border: 0;
-    background-color: initial;
-    background: initial;
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,0.65+100 */
-    background: -moz-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=1 ); /* IE6-9 */
-  }
+ 
 }
 .app-wrapper {
   h1.path-heading {
@@ -41,8 +24,6 @@ html, body {
     padding-top:10px;
     padding-left:10px;
     padding-right:10px;
-
-    
   }
   
   .content-header {
@@ -55,8 +36,50 @@ html, body {
     padding-top: 0;
     padding-bottom: 3px;
     background: transparent !important;
-    flex-direction: column-reverse!important;
-    
+    padding:0;
+    .content-header-title {
+      flex: 0 0 100%;
+      margin: 0;
+      padding: 4px 10px;
+      background-image: linear-gradient(-180deg, #fafbfc 0%, #eff3f6 90%);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      h1 {
+        display:none;
+      }
+      ol {
+        padding-left:0;
+      }
+      .breadcrumb .active, .breadcrumb .active a {
+        font-size:15px;
+      }
+    }
+    .content-header-toolbars {
+      flex: 0 0 100%;
+      display: flex;
+      position: absolute;
+      right: 0;
+      top: 0;
+      .primary-toolbar,.secondary-toolbar {
+        flex: 0 0 100%;
+      }
+      .btn {
+        display:flex!important;
+        width:100%;
+        padding: 7px 15px 6px 15px;
+        border:0;
+        background-color:#eff3f6;
+        color: #24292e;
+        border-left:1px solid rgba(#000,0.08);
+        border-bottom:1px solid rgba(#000,0.08);
+        border-radius:0;
+        background-image: linear-gradient(-180deg, darken(#fafbfc,2) 0%, darken(#eff3f6,2) 90%);
+        .fa {
+          font-size: 22px;
+          text-align:center;
+        }
+      }
+      
+    }
     h1.path-heading {
       width: 100%;
       flex: 0 0 100%!important;
@@ -135,11 +158,17 @@ html, body {
     }
   }
   .content-header {
-    margin-bottom:10px;
+    // margin-bottom:10px;
+    position:sticky;
+    top:50px;
+    left:0;
   }
   .content-header .btn-toolbar {
       text-align: right;
       flex: 0 0 40%;
+  }
+  .main-content {
+    padding:0;
   }
   // .main-content-container {
   //   overflow-x: auto;

@@ -1,28 +1,27 @@
 <div class="video-card row-card<%=instance.thumbnail_url.present? ? " has-thumbnail" : nil%>">
-  <div class="image">
-    <% if instance.thumbnail_url.present? %>
-    <span class="img" style="background-image:url(<%=instance.thumbnail_url%>)">
-    <% else %>
-      <span class="img"><span class="fa fa-video-camera"></span></span>
-    <% end %>
-  </div>
-
-  <div class="details">
-    <div class="details-inner">
-      <div class="name">
-      <%=link_to(videos_admin_url(instance.id)) do %>
-        <span><%=instance.title%></span>
+  <div class="card-header">
+    <div class="image">
+      <% if instance.thumbnail_url.present? %>
+      <span class="img" style="background-image:url(<%=instance.thumbnail_url%>)">
+      <% else %>
+        <span class="img"><span class="fa fa-video-camera"></span></span>
       <% end %>
-      </div>
-      <ul class="meta">
-        <li><span class="author"><%=instance.author%></span></li>
-        <li><span class="divider">&middot;</span></li>
-        <li><span class="date"><%=instance.friendly_date%></span></li>
-      </ul>
-      <div class="byline"><%=time_ago_in_words(instance.friendly_date)%> ago</div>
     </div>
-  </div>
-  
-  <div class="actions">
+
+    <div class="details">
+      <div class="details-inner">
+        <div class="name">
+        <%=link_to(videos_admin_url(instance.id)) do %>
+          <span><%=instance.title%></span>
+        <% end %>
+        </div>
+        <ul class="meta">
+          <li><span class="author"><%=instance.author%></span></li>
+          <li><span class="divider">&middot;</span></li>
+          <li><span class="date"><%=instance.friendly_date%></span></li>
+        </ul>
+        <div class="byline"><%=time_ago_in_words(instance.friendly_date)%> ago</div>
+      </div>
+    </div>
   </div>
 </div>

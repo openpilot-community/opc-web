@@ -88,6 +88,7 @@ class User < ApplicationRecord
     new_user.save
     new_user
   end
+
   def self.new_with_session(params, session)
     super.tap do |user|
       if data = session["devise.github_data"] && session["devise.github_data"]["extra"]["raw_info"]
@@ -95,10 +96,14 @@ class User < ApplicationRecord
       end
     end
   end
-  def username
-    github_username
+  
+  def display_name
+    if self.name.present?
+      self.name
+    end
   end
-  def name
+
+  def username
     github_username
   end
 

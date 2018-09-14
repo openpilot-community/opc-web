@@ -27,7 +27,7 @@ Trestle.resource(:hardware_items) do
         og: {
           title: "#{instance.name}",
           image: imgurl,
-          site_name: "Openpilot Database",
+          site_name: "Openpilot Community",
           url: article_url,
           type: "article",
           author: author_name

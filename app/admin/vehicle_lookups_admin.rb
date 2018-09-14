@@ -1,6 +1,5 @@
 Trestle.resource(:vehicle_lookups) do
 
-
   form do |vehicle_lookup|
     row do
       col(md: 6, class: "lookup-header") do
@@ -36,7 +35,7 @@ Trestle.resource(:vehicle_lookups) do
       @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Vehicle Research and Support", "/lookup")])
       
       set_meta_tags og: {
-        title: "Request / Research Vehicle Portability | Openpilot Database",
+        title: "Request / Research Vehicle Portability | Openpilot Community",
         image: asset_url("/assets/compatibility-check-header.png"),
         type: "website"
       }

@@ -318,6 +318,9 @@ GEM
       method_source (~> 0.9.0)
     public_suffix (3.0.3)
     puma (3.12.0)
+    puma_worker_killer (0.1.0)
+      get_process_mem (~> 0.2)
+      puma (>= 2.7, < 4)
     pundit (2.0.0)
       activesupport (>= 3.0.0)
     raabro (1.1.6)
@@ -438,6 +441,9 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    sq_mini_racer (0.2.0.sqreen1)
+    sqreen (1.14.0)
+      sq_mini_racer (~> 0.2.0.beta3)
     sshkit (1.17.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
@@ -535,6 +541,7 @@ DEPENDENCIES
   paper_trail-association_tracking
   pg (= 0.21.0)
   puma
+  puma_worker_killer
   rack-cors
   rack-host-redirect
   rack-livereload
@@ -551,6 +558,7 @@ DEPENDENCIES
   sidekiq-unique-jobs
   socialization
   sparkpost_rails
+  sqreen
   thredded (~> 0.15.4)
   trestle
   trestle-search

@@ -16,6 +16,8 @@ gem 'addressable'
 # gem 'therubyracer', platforms: :ruby
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+
+gem "barnes"
 gem 'mimemagic'
 # gem 'sqreen'
 gem 'derailed', group: :development

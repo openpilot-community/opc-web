@@ -1,0 +1,17 @@
+<div class="login-block col-lg-6 col-md-8 col-sm-10 mx-auto">
+  <div class="download-logo"><%=image_tag('workbench-logo.svg', class: "img-fluid")%></div>
+  <h4 class="mt-2 mb-2 text-center">Easily connect and manage your EON</h4>
+  <div class="download-gif"><%=image_tag('workbench-shell.gif', class: "img-fluid")%></div>
+
+  <h5 class="mt-3 text-center">Download Latest Release</h5>
+  <div class="btn-group d-flex mx-auto">
+    <% @releases.keys.each do |key| %>
+      <% release = @releases[key] %>
+      <% if !(release[:os_name] == @release_info[:os_name]) %>
+        <a href="<%=release[:download_link]%>" class = "btn btn-dark flex-fill">
+          <%=release[:os_name]%>
+        </a>
+      <% end %>
+    <% end %>
+  </div>
+</div>

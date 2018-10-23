@@ -129,6 +129,7 @@ GEM
       rack (>= 1)
       rake (> 10, < 13)
       thor (~> 0.19)
+    device_detector (1.0.1)
     devise (4.5.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -516,6 +517,7 @@ DEPENDENCIES
   cars!
   commontator (~> 5.1.0)
   derailed
+  device_detector
   devise
   down (~> 4.4)
   fastimage

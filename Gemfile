@@ -16,7 +16,7 @@ gem 'addressable'
 # gem 'therubyracer', platforms: :ruby
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-
+gem 'device_detector'
 gem "barnes"
 gem 'mimemagic'
 # gem 'sqreen'

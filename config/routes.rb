@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
   # You can have the root of your site routed with "root"
   root "vehicle_configs_admin/admin#index"
+  get '/workbench' => 'workbench#index'
   get "/sitemap.xml" => "sitemap#index", :format => "xml", :as => :sitemap
   get '/lookup' => "vehicle_lookups_admin/admin#new"
   get '/garage' => "user_vehicles_admin/admin#index"

@@ -20,41 +20,41 @@ Trestle.resource(:videos) do
   controller do
     include ActionView::Helpers::AssetUrlHelper
     def show
-      video = admin.find_instance(params)
-      commontator_thread_show(video)
-      video_url = File.join(Rails.application.routes.url_helpers.root_url,admin.instance_path(instance))
-      imgurl = video.thumbnail_url
+      self.instance = admin.find_instance(params)
+      # commontator_thread_show(video)
+      self.instance.full_url = File.join(Rails.application.routes.url_helpers.root_url,admin.instance_path(instance))
+      imgurl = instance.thumbnail_url
       # set_meta_tags og: {
-      #   title: "#{video.title} | Openpilot Community",
-      #   image: video.thumbnail_url,
+      #   title: "#{instance.title} | Openpilot Community",
+      #   image: instance.thumbnail_url,
       #   type: "website",
-      #   description: video.description
+      #   description: instance.description
       # }
-      # set_meta_tags keywords: [video.title.split(' '),['openpilot','vehicle','support','master','list','of','vehicles','supported','compatible','compatibility']].flatten
-      # set_meta_tags description: video.description
+      # set_meta_tags keywords: [instance.title.split(' '),['openpilot','vehicle','support','master','list','of','vehicles','supported','compatible','compatibility']].flatten
+      # set_meta_tags description: instance.description
       set_meta_tags(
         og: {
-          title: video.title,
+          title: instance.title,
           image: imgurl,
           site_name: "Openpilot Community",
-          url: video_url,
+          url: @video_url,
           type: "article",
-          author: video.author
+          author: instance.author
         },
         robots: "index, follow",
-        "article:published_time": video.created_at.iso8601(9),
+        "article:published_time": instance.created_at.iso8601(9),
         "article:publisher": "https://opc.ai/",
-        "article:author": video.author,
-        keywords: ['openpilot','vehicle','support',video.title.split,'of','vehicles','supported','compatible','compatibility'].flatten,
-        description: "Watch #{video.title} and comment. #{video.description}",
-        canonical: video_url,
+        "article:author": instance.author,
+        keywords: ['openpilot','vehicle','support',instance.title.split,'of','vehicles','supported','compatible','compatibility'].flatten,
+        description: "Watch #{instance.title} and comment. #{instance.description}",
+        canonical: @video_url,
         image_src: imgurl,
-        author: video.author,
+        author: instance.author,
         twitter: {
-          creator: "@#{video.author}",
-          title: video.title,
+          creator: "@#{instance.author}",
+          title: instance.title,
           card: "summary-large",
-          author: video.author
+          author: instance.author
         }
       )
       super
@@ -83,7 +83,6 @@ Trestle.resource(:videos) do
         static_field :author_url, video.author_url
         static_field :thumbnail_url, video.thumbnail_url
         static_field :description, video.description
-        # text_field :html
         static_field :uploaded_at, video.uploaded_at
       else
         text_field :video_url

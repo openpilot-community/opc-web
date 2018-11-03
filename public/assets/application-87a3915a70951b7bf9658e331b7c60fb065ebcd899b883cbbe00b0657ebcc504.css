@@ -1,0 +1,60 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+
+ */
+/* line 17, /Users/joshua/Projects/openpilotdb-app/app/assets/stylesheets/application.scss */
+body {
+  background-color: #060708;
+  color: #FFF;
+}
+
+/* line 26, /Users/joshua/Projects/openpilotdb-app/app/assets/stylesheets/application.scss */
+.download-logo {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+/* line 31, /Users/joshua/Projects/openpilotdb-app/app/assets/stylesheets/application.scss */
+.login-logo {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* line 36, /Users/joshua/Projects/openpilotdb-app/app/assets/stylesheets/application.scss */
+.login-button {
+  margin: 0 auto;
+  display: block;
+}
+
+/* line 40, /Users/joshua/Projects/openpilotdb-app/app/assets/stylesheets/application.scss */
+.comma-message {
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-size: 14px;
+  background-color: #1d2124;
+  color: #626d78;
+  border-color: var(--gray-dark);
+}
+/* line 46, /Users/joshua/Projects/openpilotdb-app/app/assets/stylesheets/application.scss */
+.comma-message a {
+  color: #626d78;
+}
+
+/* line 52, /Users/joshua/Projects/openpilotdb-app/app/assets/stylesheets/application.scss */
+.login-block {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}

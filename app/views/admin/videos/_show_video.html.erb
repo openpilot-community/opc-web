@@ -18,15 +18,12 @@
               <div class="meta">
                 <span class="date"><%=instance.friendly_date%></span>
               </div>
-
-                <p><%=instance.description%></p>
+              <p><%=instance.description%></p>
+              <h2>Discuss</h2>
+              <%= render 'admin/comments', instance: instance %>
             </div>
           </div>
         </div>
-      </div>
-      <div class="responses">
-        <h4>Responses</h4>
-        <%= commontator_thread(instance) %>
       </div>
     </div>
     <div class="video-sidebar">
@@ -34,7 +31,7 @@
       <div class="hardware-tags tags">
         <% instance.hardware_items.each do |hardware| %>
           <%=admin_link_to(admin: :hardware_items, action: :show, params: { id: hardware.id }, class: "btn btn-default") do%>
-            <span><%= image_tag(hardware.image.service_url, width: 150)%></span>
+            <span><% if hardware.image.attached? %><%= image_tag(hardware.image.service_url, width: 150)%><% end %></span>
             <span><%= hardware.name%></span>
           <% end %>
         <% end %>
@@ -44,7 +41,7 @@
       <div class="vehicle-tags tags">
         <% instance.vehicle_configs.each do |vehicle| %>
           <a href="">
-            <span><%= image_tag(vehicle.image.service_url, width: 150)%></span>
+            <span><% if vehicle.image.attached? %><%= image_tag(vehicle.image.service_url, width: 150)%> <% end %></span>
             <span><%= vehicle.name%></span>
           </a>
         <% end %>

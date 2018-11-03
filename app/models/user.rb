@@ -19,7 +19,6 @@ class User < ApplicationRecord
   default_scope -> { where(guest: false) }
   has_one_attached :avatar
   acts_as_voter
-  acts_as_commontator
   acts_as_liker
   acts_as_mentioner
   acts_as_follower

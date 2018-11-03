@@ -16,7 +16,6 @@ var Trestle = Trestle || {}
 //= require jquery_ujs
 //= require inline-attachment
 //= require codemirror-4.inline-attachment
-//= require underscore/underscore
 //= require mentionsInput/jquery.mentionsInput
 //= require turbolinks
 //= require_tree .

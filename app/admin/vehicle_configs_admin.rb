@@ -153,22 +153,21 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
     end
 
     def show
-      vehicle_config = admin.find_instance(params)
+      self.instance = admin.find_instance(params)
       @breadcrumbs = Trestle::Breadcrumb::Trail.new([])
-      imgurl = vehicle_config.image.attached? ? vehicle_config.image.service_url : asset_url("/assets/og/tracker.png")
-      # vehicle_config.update_attributes({views_count: vehicle_config.views_count + 1})
-      # byebug
+      imgurl = instance.image.attached? ? instance.image.service_url : asset_url("/assets/og/tracker.png")
+      self.instance.full_url = File.join(Rails.application.routes.url_helpers.root_url,admin.instance_path(instance))
       set_meta_tags(
-        title: "#{vehicle_config.name}",
+        title: "#{instance.name}",
         og: {
-          title: "#{vehicle_config.name}",
+          title: "#{instance.name}",
           image: imgurl,
-          url: Rails.application.routes.url_helpers.vehicles_show_url(id: vehicle_config.id),
+          url: Rails.application.routes.url_helpers.vehicles_show_url(id: instance.id),
           type: "website"
         },
-        keywords: ['openpilot','vehicle','support',vehicle_config.vehicle_make.name, vehicle_config.vehicle_model.name,vehicle_config.name,'of','vehicles','supported','compatible','compatibility'],
-        description: "Research and support of comma openpilot for the #{vehicle_config.name}.",
-        canonical: Rails.application.routes.url_helpers.vehicles_show_url(id: vehicle_config.id),
+        keywords: ['openpilot','vehicle','support',instance.vehicle_make.name, instance.vehicle_model.name,instance.name,'of','vehicles','supported','compatible','compatibility'],
+        description: "Research and support of comma openpilot for the #{instance.name}.",
+        canonical: Rails.application.routes.url_helpers.vehicles_show_url(id: instance.id),
         image_src: imgurl
       )
       super
@@ -448,11 +447,11 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
       end
       
       if vehicle_config.thredded_messageboard.present?
-        tab :discuss, label: '<span class="fa fa-comments"></span> Discuss'.html_safe, badge: vehicle_config.thredded_messageboard.present? ? vehicle_config.thredded_messageboard.topics_count : nil do
-          # render "discussion", instance: vehicle_config
-          table vehicle_config.thredded_messageboard.topics, admin: :thredded_topics do
-            column :title
-          end
+        tab :discuss, class: '', label: "<span class=\"fa fa-comments\"></span> Discuss <span class=\"badge disqus-comment-count\" data-disqus-identifier=\"#{vehicle_config.slug}\"></span>".html_safe do
+          render "admin/comments", instance: vehicle_config
+          # table vehicle_config.thredded_messageboard.topics, admin: :thredded_topics do
+          #   column :title
+          # end
         end
       end
       

@@ -28,17 +28,10 @@ Trestle.resource(:guides) do
     end
 
     def show
-      
       self.instance = admin.find_instance(params)
-      # if instance.present?
-      #   @breadcrumbs = Trestle::Breadcrumb::Trail.new([])
-      # else
-      #   @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new("Discuss", "/thredded_topics")])
-      # end
-      commontator_thread_show(instance)
+      self.instance.full_url = File.join(Rails.application.routes.url_helpers.root_url,admin.instance_path(instance))
       imgurl = instance.latest_image.present? ? instance.latest_image.attachment_url : asset_url("/assets/og/tracker.png")
       article_url = File.join(Rails.application.routes.url_helpers.root_url,admin.instance_path(instance))
-      # @breadcrumbs = Trestle::Breadcrumb::Trail.new([Trestle::Breadcrumb.new(instance.title,article_url)])
       author_name = instance.author[:name]
       exerpt = (instance.markup.present? ? strip_tags(instance.markup).truncate_words(25) : nil).strip!
       set_meta_tags(

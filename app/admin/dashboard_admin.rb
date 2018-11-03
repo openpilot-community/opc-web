@@ -10,7 +10,7 @@ Trestle.admin(:dashboard) do
     end
 
     group :external_tools do
-      item :download_workbench, '/workbench', icon: "workbench", priority: 1.6
+      item :download_workbench, 'https://github.com/openpilot-community/workbench/releases', icon: "fa fa-download", priority: 1.6
       item :explorer, 'https://my.comma.ai/', icon: "fa fa-road", priority: 1.63
       item :cabana, 'https://community.comma.ai/cabana', icon: "fa fa-bug", priority: 1.65
       item :driving_explorer, 'https://community.comma.ai/explorer.php', icon: "fa fa-play", priority: 1.66

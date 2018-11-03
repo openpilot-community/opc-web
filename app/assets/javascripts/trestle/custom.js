@@ -1,5 +1,4 @@
 //= require_self
-//= require underscore/underscore
 //= require ./garage
 //= require ./capabilities_toggler
 //= require ./capabilities_filter
@@ -10,7 +9,6 @@
 //= require ./highlight.pack
 //= require ./editor
 //= require ./voter
-//= require ./comments
 var originalAddClassMethod = jQuery.fn.addClass;
 var originalRemoveClassMethod = jQuery.fn.removeClass;
 function pollRefreshingStatus(){

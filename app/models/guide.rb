@@ -3,7 +3,6 @@ class Guide < ApplicationRecord
   include Hashid::Rails
   has_paper_trail
   paginates_per 400
-  acts_as_commontable dependent: :destroy
   acts_as_likeable
   # has_one_attached :image
   friendly_id :name_for_slug, use: [:slugged, :history]

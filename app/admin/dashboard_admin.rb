@@ -1,21 +1,21 @@
 Trestle.admin(:dashboard) do
   menu do
-    
     group :getting_started do
       item :vehicle_configs, "/vehicles", icon: "fa fa-car", label: "Vehicles", priority: 0.1
       item :lookup, "/lookup", icon: "fa fa-search", label: "Lookup your vehicle", priority: 0.2
       item :hardware_items, '/hardware_items', icon: "fa fa-microchip", label: "Hardware", priority: 0.3
       item :guides, '/guides', icon: "fa fa-graduation-cap", priority: 0.5
       item :videos, '/videos', icon: "fa fa-video-camera", priority: 0.8
-      item :topics, '/topics', icon: "fa fa-comments", label: "Discuss", priority: 0.9, badge: 0
+      # item :topics, '/topics', icon: "fa fa-comments", label: "Discuss", priority: 0.9, badge: 0
     end
 
     group :external_tools do
-      item :slack, 'https://comma.slack.com/', priority: 1.3
-      item :cabana, 'https://community.comma.ai/cabana', icon: "fa fa-bug", priority: 1.6
-      item :explorer, 'https://my.comma.ai/', icon: "fa fa-road", priority: 1.9
-      item :driving_explorer, 'https://community.comma.ai/explorer.php', icon: "fa fa-play", priority: 1.13
-      # item :slack_archives, 'http://comma.advil0.com/', icon: 'fa fa-slack', priority: 4.9
+      item :download_workbench, '/workbench', icon: "workbench", priority: 1.6
+      item :explorer, 'https://my.comma.ai/', icon: "fa fa-road", priority: 1.63
+      item :cabana, 'https://community.comma.ai/cabana', icon: "fa fa-bug", priority: 1.65
+      item :driving_explorer, 'https://community.comma.ai/explorer.php', icon: "fa fa-play", priority: 1.66
+      # item :slack_archives, 'https://comma.advil0.com/', icon: 'fa fa-slack', priority: 4.9
+      item :comma_slack, 'https://comma.slack.com/', priority: 1.67
     end
 
     group :admin do

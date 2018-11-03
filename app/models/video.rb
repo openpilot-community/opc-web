@@ -19,7 +19,6 @@
 class Video < ApplicationRecord
   extend FriendlyId
   include Hashid::Rails
-  acts_as_commontable dependent: :destroy
   friendly_id :name_for_slug, use: :slugged
   has_many :vehicle_config_videos
   has_many :vehicle_configs, :through => :vehicle_config_videos
@@ -28,16 +27,13 @@ class Video < ApplicationRecord
   validates_uniqueness_of :video_url, message: "Video has already been added."
   validates_uniqueness_of :html, message: "Video has already been added."
   before_validation :embed
-  # before_save :check_author
   after_commit :update_slug
-  # has_many :hardware_items, :through => :video_hardware
 
   def hardware_item_ids=(ids)
     self.hardware_items = Array(ids).reject(&:blank?).map { |id|
       (id =~ /^\d+$/) ? HardwareItem.find(id) : HardwareItem.new(name: id)
     }
   end
-
   def update_slug
     unless slug.blank? || slug.ends_with?(self.hashid.downcase)
       self.slug = nil

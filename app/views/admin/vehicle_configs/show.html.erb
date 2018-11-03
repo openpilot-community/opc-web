@@ -23,8 +23,10 @@
 <% status_class = instance.status_classes %>
 
 <% content_for(:primary_toolbar) do %>
+  <% if current_user.present? %>
+   <%= button_tag icon("fa","fa-check"), class: "btn btn-default btn-lg" if admin.actions.include?(:update) %>
+  <% end %>
   <% if current_user.present? && current_user.is_super_admin? %>
-    <%= button_tag icon("fa","fa-check"), class: "btn btn-default btn-lg" if admin.actions.include?(:update) %>
     <%= admin_link_to instance, action: :destroy, method: :delete, class: "btn btn-danger", data: { toggle: "confirm-delete", placement: "bottom" } do %>
       <%= icon("fa fa-trash") %>
     <% end if admin.actions.include?(:destroy) %>

@@ -52,7 +52,7 @@ class WorkbenchController < ApplicationController
     end
     title = "Download Workbench"
     author = "jfrux"
-    imgurl = asset_url("/workbench-screenshot.png")
+    imgurl = asset_url("/assets/workbench-icon.png")
     linkurl = "https://opc.ai/workbench"
     desc = "A desktop application for porting and managing Openpilot and EON"
     set_meta_tags(

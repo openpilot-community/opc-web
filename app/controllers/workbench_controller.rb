@@ -1,4 +1,6 @@
 class WorkbenchController < ApplicationController
+  include ActionView::Helpers::AssetUrlHelper
+  include ActionView::Helpers::SanitizeHelper
   skip_before_action :authenticate_user!
   
   def download
@@ -48,6 +50,41 @@ class WorkbenchController < ApplicationController
       end.browser_download_url
       release[:os_name] = key.capitalize
     end
+    title = "Download Workbench"
+    author = "jfrux"
+    imgurl = asset_url("/workbench-screenshot.png")
+    linkurl = "https://opc.ai/workbench"
+    desc = "A desktop application for porting and managing Openpilot and EON"
+    set_meta_tags(
+      title: title,
+      og: {
+        title: title,
+        image: imgurl,
+        "image:width": 2482,
+        "image:height": 1534,
+        description: desc,
+        site_name: "Openpilot Community",
+        url: linkurl,
+        type: "article",
+        author: author
+      },
+      robots: "index, follow",
+      # "article:published_time": ,
+      "article:publisher": "https://opc.ai/",
+      "article:author":  author,
+      keywords: ['download','workbench', 'openpilot','vehicle','support','of','vehicles','supported','compatible','compatibility'].flatten,
+      description: desc,
+      canonical: linkurl,
+      image_src: imgurl,
+      author: author,
+      twitter: {
+        creator: "@#{author}",
+        title: title,
+        # card: "summary-large",
+        description: desc,
+        author: author
+      }
+    )
   end
 
 end

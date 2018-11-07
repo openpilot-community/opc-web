@@ -75,4 +75,5 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  get '/:id' => "shortener/shortened_urls#show"
 end

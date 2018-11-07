@@ -58,6 +58,7 @@ gem 'bootstrap', '~> 4.1.3'
 gem 'paper_trail'
 gem 'paper_trail-association_tracking'
 gem 'iframely'
+gem 'shortener'
 # gem "puma_worker_killer"
 gem 'acts_as_votable', '~> 0.11.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

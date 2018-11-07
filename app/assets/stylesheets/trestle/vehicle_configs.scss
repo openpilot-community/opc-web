@@ -19,6 +19,9 @@
 }
 body.controller-admin-vehicle-configs.action-show {
   #tab-capabilities {
+    .trestle-table thead {
+      display:block!important;
+    }
     .table-filter {
       display:flex;
       .btn {

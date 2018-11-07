@@ -8,8 +8,8 @@ class WorkbenchController < ApplicationController
   end
   
   def index
-    ua=request.env['HTTP_USER_AGENT'].downcase
-    client = DeviceDetector.new(ua)
+    # ua=request.env['HTTP_USER_AGENT'].downcase
+    # client = DeviceDetector.new(ua)
 
     octokit = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
     octokit.auto_paginate = false
@@ -27,20 +27,20 @@ class WorkbenchController < ApplicationController
       }
     }
 
-    @release_info = {
-      :os_name => client.os_name,
-      :download_link => nil
-    }
-    if client.os_name == 'Windows'
-      file_ext = "exe"
-    elsif client.os_name == 'Mac'
-      file_ext = "dmg"
-    elsif client.os_name == 'Linux'
-      file_ext = "deb"
-    end
-    @release_info[:download_link] = latest_assets.find do |asset|
-      asset.name.ends_with?(".#{file_ext}")
-    end.browser_download_url
+    # @release_info = {
+    #   :os_name => client.os_name,
+    #   :download_link => nil
+    # }
+    # if client.os_name == 'Windows'
+    #   file_ext = "exe"
+    # elsif client.os_name == 'Mac'
+    #   file_ext = "dmg"
+    # elsif client.os_name == 'Linux'
+    #   file_ext = "deb"
+    # end
+    # @release_info[:download_link] = latest_assets.find do |asset|
+    #   asset.name.ends_with?(".#{file_ext}")
+    # end.browser_download_url
 
     @releases.keys.each do |key|
       release = @releases[key]

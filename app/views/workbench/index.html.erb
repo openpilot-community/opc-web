@@ -1,27 +1,39 @@
-<%= display_meta_tags reverse: true,
-  site: "Workbench",
-  og: {
-    title: "Download Workbench",
-    site_name: "Openpilot Community",
-    icon: asset_url("/workbench-icon.png?ver=1"),
-    image: asset_url("/workbench-screenshot.png")
-  } %>
-<div class="login-block col-lg-6 col-md-8 col-sm-10 mx-auto">
+<% title "Download Workbench" %>
+<div class="col-lg-6 col-md-8 col-sm-10 mx-auto">
   <div class="download-logo"><%=image_tag('workbench-icon.png', style: "width:150px;margin:0 auto;display:block;")%></div>
-  <h4 class="mt-2 mb-2 text-center">Easily connect and manage your EON</h4>
+  <h1 class="mt-2 mb-2 text-center">Workbench</h1>
+  <h3 class="mt-2 mb-4 text-center">Easily connect and manage your EON</h3>
   <div class="download-gif">
   <%=video_tag("https://s3.us-east-2.amazonaws.com/vehicledb-storage/connect-to-workbench.mp4", muted: true, autoplay: true, loop: true, style: "width:100%;")%>
   </div>
-
-  <h5 class="mt-3 text-center">Download Latest Release</h5>
+  <hr />
+  <h3 class="mt-5 mb-2 text-center">Download Workbench</h3>
   <div class="btn-group d-flex mx-auto">
     <% @releases.keys.each do |key| %>
       <% release = @releases[key] %>
-      <% if !(release[:os_name] == @release_info[:os_name]) %>
-        <a href="<%=release[:download_link]%>" class = "btn btn-dark flex-fill">
-          <%=release[:os_name]%>
-        </a>
-      <% end %>
+      <a href="<%=release[:download_link]%>" class = "btn btn-dark flex-fill" style="font-size:22px; border-left:1px solid rgba(0,0,0,0.5);">
+        <%=release[:os_name]%>
+      </a>
     <% end %>
   </div>
+  <hr /><h4 class="mt-5 mb-2 text-center">Connecting to EON in Seconds!</h4>
+  <p class="text-center">With Workbench, you don’t even have to think about connecting. Just open, scan and click EON to jump into a shell in seconds.</p>
+  <p class="text-center"><%=image_tag('https://cdn-images-1.medium.com/max/800/1*nTeYuvhpcYwh_eR0S37r9w.gif', style: "width:100%;margin:0 auto;display:block;")%></p>
+  <p class="text-center">Never fuss with installing SSH keys, or finding the IP of your EON again!</p>
+  <hr /><h4 class="mt-5 mb-2 text-center">Installing Openpilot with Ease!</h4>
+  <p class="text-center">You no longer need to worry about how to install a fork, or remember those pesky git commands. Workbench remembers for you!</p>
+  <p class="text-center"><%=image_tag('https://cdn-images-1.medium.com/max/800/1*yV-pfy4ZkCwy8UtBF8zYeg.gif', style: "width:100%;margin:0 auto;display:block;")%></p>
+  <hr /><h4 class="mt-5 mb-2 text-center">and reboot to boot!</h4>
+  <p class="text-center"><%=image_tag('https://cdn-images-1.medium.com/max/800/1*YQY4D0QUNLANo-kMLDjJLQ.gif', style: "width:100%;margin:0 auto;display:block;")%></p>
+  <hr /><h4 class="mt-5 mb-2 text-center">Take a screenshot</h4>
+  <p class="text-center">Ever wanted to show someone something on your EON screen but holding down all the buttons in the world doesn’t land you a nice clean screenshot?</p>
+  <p class="text-center">Now you get screenshots delivered directly to your desktop with 2 clicks.</p>
+  <p class="text-center"><%=image_tag('https://cdn-images-1.medium.com/max/800/1*fbEUB-u3g713OPP35nJofQ.gif', style: "width:100%;margin:0 auto;display:block;")%></p>
+  <hr /><h4 class="mt-5 mb-2 text-center">Tmux for free?</h4>
+  <p class="text-center">You can see the same messages as with <code>tmux a</code> except without the <code>tmux a</code></p>
+  <p class="text-center">Simply click on Log Messages. And… you can toggle the depth, pause the message and freeze it in place, and press play to pick back up where you left off. (and soon(tm), you’ll be navigating through the messages.</p>
+  <p class="text-center"><%=image_tag('https://cdn-images-1.medium.com/max/800/1*zw_6YIJjm2EVOhzK7SoNZg.gif', style: "width:100%;margin:0 auto;display:block;")%></p>
+  <hr /><h4 class="mt-5 mb-2 text-center">Sample CAN data</h4>
+  <p class="text-center"><%=image_tag('https://cdn-images-1.medium.com/max/800/1*lUW0NtkSWHstBJWnUiOMBQ.gif', style: "width:100%;margin:0 auto;display:block;")%></p>
+  <p class="text-center">❤ jfrux</p>
 </div>

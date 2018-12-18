@@ -1,6 +1,6 @@
 Trestle.admin(:dashboard) do
   menu do
-    group :getting_started do
+    group :database do
       item :vehicle_configs, "/vehicles", icon: "fa fa-car", label: "Vehicles", priority: 0.1
       item :lookup, "/lookup", icon: "fa fa-search", label: "Lookup your vehicle", priority: 0.2
       item :hardware_items, '/hardware_items', icon: "fa fa-microchip", label: "Hardware", priority: 0.3
@@ -9,15 +9,18 @@ Trestle.admin(:dashboard) do
       # item :topics, '/topics', icon: "fa fa-comments", label: "Discuss", priority: 0.9, badge: 0
     end
 
-    group :external_tools do
-      item :download_workbench, 'https://github.com/openpilot-community/workbench/releases', icon: "fa fa-download", priority: 1.6
-      item :explorer, 'https://my.comma.ai/', icon: "fa fa-road", priority: 1.63
-      item :cabana, 'https://community.comma.ai/cabana', icon: "fa fa-bug", priority: 1.65
-      item :driving_explorer, 'https://community.comma.ai/explorer.php', icon: "fa fa-play", priority: 1.66
+    group :resources do
+      item :discord, 'https://discord.gg/Wyna3qy', label: "<span class=\"fa\"><img src=\"https://img.icons8.com/color/180/discord-new-logo.png\" style=\"width: 40px;position:absolute;left:18px;top:4px;\" /></span> <span style=\"color:#FFFFFF;padding-left:15px;\"><strong>Discord</strong></span>&nbsp;&nbsp;<span style=\"padding-left: 48px;font-size: 12px;display:block;font-weight: 400;\">Join the discussion!</span>".html_safe, icon: "fa fa-discord", priority: 1.60
+      item :workbench, '/workbench', label: "<span class=\"fa\"><img src=\"https://opc.ai/assets/workbench-icon-f733d1c9b5e50e4165cbe8e72c6919391e766bfb276da0f4642530e6d6f539cc.png\" style=\"width: 40px;position:absolute;left:18px;top:4px;\" /></span> <span style=\"color:#FFFFFF;padding-left:15px;\"><strong>Workbench</strong></span><span style=\"padding-left: 48px;font-size: 12px;display:block;font-weight: 400;\">A new tool to manage EON!</span>".html_safe, icon: "fa fa-download", priority: 1.61
       # item :slack_archives, 'https://comma.advil0.com/', icon: 'fa fa-slack', priority: 4.9
-      item :comma_slack, 'https://comma.slack.com/', priority: 1.67
     end
-
+    
+    group :comma do
+      item :explorer, 'https://my.comma.ai/', label: "Explorer", icon: "fa fa-road", priority: 1.63
+      item :cabana, 'https://community.comma.ai/cabana', label: "Cabana", icon: "fa fa-bug", priority: 1.65
+      item :driving_explorer, 'https://community.comma.ai/explorer.php', label: "Drive Explorer", icon: "fa fa-play", priority: 1.66
+      item :slack, 'https://comma.slack.com/', icon: "fa fa-slack", priority: 1.67
+    end
     group :admin do
       item :pull_requests, '/pull_requests', icon: "fa fa-github", priority: 6.6
       item :contributors, '/contributors', icon: "fa fa-users", priority: 6.12

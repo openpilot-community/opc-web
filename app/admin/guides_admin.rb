@@ -9,6 +9,16 @@ Trestle.resource(:guides) do
   find_instance do |params|
     Guide.friendly.find(params[:id])
   end
+
+  search do |query|
+    if query
+      query = query.titleize
+      Guide.where("guides.title ILIKE :query", { query: "%#{query}%" }).order("guides.title").limit(1)
+    else
+      Guide.order("guides.title").limit(1)
+    end
+  end
+
   collection do |params|
     Guide.where.not(slug: nil,title: "New Untitled Guide").order(:updated_at => :desc)
   end

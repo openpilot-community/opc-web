@@ -1,6 +1,18 @@
 class Guide < ApplicationRecord
   extend FriendlyId
+  include PgSearch
   include Hashid::Rails
+  include ActionView::Helpers::SanitizeHelper
+  pg_search_scope :search_for, :against => {
+                    :title => 'A',
+                    :markdown => 'B',
+                    :author_name => 'C'
+                  },
+                  :using => {
+                    :tsearch => {:highlight => true, :any_word => true, :dictionary => "english"}
+                  }
+  multisearchable :against => [:title, :markdown],
+                  :if => :published?
   has_paper_trail
   paginates_per 400
   acts_as_likeable
@@ -158,6 +170,10 @@ class Guide < ApplicationRecord
   def name
     title
   end
+  
+  def published?
+    self.title != "New Untitled Guide"
+  end
 
   def check_author
     if author_name.present?
@@ -168,6 +184,19 @@ class Guide < ApplicationRecord
     end
   end
   
+  def plain_text
+    "Published by: #{author[:name]}\n\n" + strip_tags(self.markup).truncate(250, separator: ' ', omission: ' ... (Continued)').split().join(' ')
+  end
+
+  def as_json(options={})
+    {
+      id: id,
+      title: title,
+      body: plain_text,
+      slug: slug,
+      author: author
+    }
+  end
   def set_markup
     if self.markdown.present?
       self.markup = Octokit.markdown(self.markdown, :mode => "gfm", :context => "commaai/openpilot")

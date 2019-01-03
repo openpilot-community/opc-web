@@ -69,10 +69,7 @@
       <%= render "trestle/shared/sidebar" %>
 
       <div class="app-container">
-        <%#= render "trestle/shared/header" %>
-
         <main class="app-main" data-context="<%= request.fullpath %>">
-
         <%= content_for?(:content) ? yield(:content) : yield %>
         </main>
 

@@ -6,6 +6,7 @@ Trestle.resource(:guides) do
       instance.id
     end
   end
+  
   find_instance do |params|
     Guide.friendly.find(params[:id])
   end
@@ -13,9 +14,9 @@ Trestle.resource(:guides) do
   search do |query|
     if query
       query = query.titleize
-      Guide.where("guides.title ILIKE :query", { query: "%#{query}%" }).order("guides.title").limit(1)
+      Guide.search_for("#{query}").select { |r| r.published? }
     else
-      Guide.order("guides.title").limit(1)
+      # Guide.where.not(slug: nil,title: "New Untitled Guide").order(:updated_at => :desc)
     end
   end
 
@@ -29,12 +30,12 @@ Trestle.resource(:guides) do
     include ActionView::Helpers::SanitizeHelper
 
     def new
-      super
-      self.instance = admin.build_instance(title: "New Untitled Guide", markdown: "The beginning of a new article...")
-
-      self.instance.save!
-
-      redirect_to(File.join(admin.instance_path(instance),'/edit'))
+      new_guide = Guide.new(user: current_user, title: "New Untitled Guide", markdown: "The beginning of a new article...")
+      new_guide.save!
+      self.instance = admin.find_instance(new_guide)
+      
+      @uploader_model_name = "guide"
+      @uploader_model_id = instance.id
     end
 
     def show
@@ -119,7 +120,7 @@ Trestle.resource(:guides) do
   form do |guide|
     tab :general do
       if params['from_url'].present?
-        text_field :article_source_url
+        text_field :article_source_url, { label: "Add Guide from URL:", placeholder: "Type the URL of the article to scrape it"}
       else
         text_field :title
         text_area :markdown, { label: "", class: "simplemde-inline" }

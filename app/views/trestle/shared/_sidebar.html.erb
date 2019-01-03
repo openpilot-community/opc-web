@@ -15,15 +15,17 @@
 
   <div class="app-sidebar-inner">
     <nav class="app-nav">
+      <% if admin.searchable? %>
       <div class="searchbox<% if params[:q] %> has-query<% end %>">
         <%= form_tag admin.path, method: :get do %>
           <div class="input-group">
             <span class="input-group-addon"><icon class="fa fa-search"></icon></span>
             <%= link_to icon("fa fa-times"), admin.path, class: "clear-search" if params[:q].present? %>
-            <%= search_field_tag :q, params[:q], class: "form-control", autocomplete: "off", placeholder: admin.t("search.placeholder", default: "Search") %>
+            <%= search_field_tag :q, params[:q], class: "form-control", autocomplete: "off", placeholder: admin.t("search.placeholder", default: "Search #{admin.human_admin_name}") %>
           </div>
         <% end %>
       </div>
+      <% end %>
       <ul class="user-nav">
         <% if current_user.blank? %>
         <li role="presentation" class="sign-in">

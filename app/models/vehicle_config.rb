@@ -104,8 +104,17 @@ class LookupValidator < ActiveModel::Validator
 end
 class VehicleConfig < ApplicationRecord
   extend FriendlyId
+  include PgSearch
   include Hashid::Rails
   include ActiveSupport::Inflector
+  pg_search_scope :search_for, :against => {
+    :title => 'A',
+    :year => 'B',
+    :slug => 'C'
+  },
+  :using => {
+    :tsearch => {:any_word => false, :dictionary => "english"}
+  }
   has_one_attached :image
   acts_as_mentionable
   acts_as_votable
@@ -236,9 +245,29 @@ MARKDOWN
   def config_type_ids
     vehicle_config_capabilities.includes(:vehicle_config_type).order("vehicle_config_types.difficulty_level").map(&:vehicle_config_type_id).uniq
   end
+  
   def as_json(options={})
+    lines = []
+
+    if vehicle_config_type.present?
+      difficulty = vehicle_config_type.name
+      lines << "Difficulty: #{difficulty}"
+    end
+    if vehicle_config_status.present?
+      status = vehicle_config_status.name
+      lines << "Status: #{status}"
+    end
+    if primary_repository.present?
+      latest_repo = primary_repository.blank? ? nil : primary_repository
+      latest_repo_branch = primary_repository.repository_branches.blank? ? nil : primary_repository.repository_branches.first
+      lines << "Primary Repository: https://github.com/#{latest_repo.name}"
+    end
+
     {
       id: id,
+      title: title,
+      body: lines.join("\n"),
+      slug: slug,
       owners: user_count,
       votes: cached_votes_score
     }

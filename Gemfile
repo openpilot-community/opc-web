@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '5.2.1'
 # Use sqlite3 as the database for Active Record
 gem 'pg', '0.21.0'
+gem 'pg_search'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets

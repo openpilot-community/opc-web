@@ -44,10 +44,9 @@ Trestle.admin(:dashboard) do
   end
 
   controller do
-
   end
 
   routes do
-
   end
+
 end

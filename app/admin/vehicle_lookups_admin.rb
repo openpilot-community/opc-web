@@ -23,7 +23,6 @@ Trestle.resource(:vehicle_lookups) do
       end
     end
   end
-
   controller do
     include ActionView::Helpers::AssetUrlHelper
     skip_before_action :authenticate_user!, :only => [:new, :create, :show, :refreshing_status]

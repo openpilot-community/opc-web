@@ -247,28 +247,48 @@ MARKDOWN
   end
   
   def as_json(options={})
+    imgurl = self.image.attached? ? self.image.service_url : File.join(Rails.application.routes.url_helpers.root_url,asset_url("/assets/og/tracker.png"))
     lines = []
-
+    fields = []
     if vehicle_config_type.present?
       difficulty = vehicle_config_type.name
-      lines << "Difficulty: #{difficulty}"
+      fields << {
+        name: "Difficulty",
+        value: difficulty
+      }
     end
     if vehicle_config_status.present?
       status = vehicle_config_status.name
-      lines << "Status: #{status}"
+      fields << {
+        name: "Status",
+        value: status
+      }
     end
     if primary_repository.present?
       latest_repo = primary_repository.blank? ? nil : primary_repository
       latest_repo_branch = primary_repository.repository_branches.blank? ? nil : primary_repository.repository_branches.first
-      lines << "Primary Repository: https://github.com/#{latest_repo.name}"
+      if latest_repo.present?
+        fields << {
+          name: "Primary Repository",
+          value: "https://github.com/#{latest_repo.name}"
+        }
+      end
+
+      if latest_repo_branch.present?
+        fields << {
+          name: "Branch",
+          value: "#{latest_repo_branch.name}"
+        }
+      end
     end
 
     {
       id: id,
       title: title,
-      body: lines.join("\n"),
+      image: imgurl,
       slug: slug,
       owners: user_count,
+      fields: fields,
       votes: cached_votes_score
     }
   end

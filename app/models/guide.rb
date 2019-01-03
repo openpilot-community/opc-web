@@ -35,7 +35,7 @@ class Guide < ApplicationRecord
   validates_uniqueness_of :article_source_url, :on => :create, if: -> {article_source_url.present?}
   include ActionView::Helpers::AssetUrlHelper
     
-  def latest_image
+  def latest_image  
     imgs = guide_images.order(:created_at => :desc)
     if imgs.present?
         imgs.first.image
@@ -185,12 +185,15 @@ class Guide < ApplicationRecord
   end
   
   def plain_text
-    "Published by: #{author[:name]}\n\n" + strip_tags(self.markup).truncate(250, separator: ' ', omission: ' ... (Continued)').split().join(' ')
+    strip_tags(self.markup).truncate(250, separator: ' ', omission: ' ...').split().join(' ')
   end
 
   def as_json(options={})
+    imgurl = self.latest_image.present? ? self.latest_image.attachment_url : nil
+    
     {
       id: id,
+      image: imgurl,
       title: title,
       body: plain_text,
       slug: slug,

@@ -5,6 +5,13 @@ Trestle.resource(:videos) do
   # end
   scope :all, -> { Video.order(:uploaded_at => :desc) }, default: true
 
+  search do |query|
+    if query
+      query = query.titleize
+      Video.search_for("#{query}")
+    end
+  end
+
   to_param do |instance|
     if instance.slug.present?
       instance.slug

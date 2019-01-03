@@ -18,7 +18,18 @@
 
 class Video < ApplicationRecord
   extend FriendlyId
+  include PgSearch
   include Hashid::Rails
+  pg_search_scope :search_for, :against => {
+    :title => 'A',
+    :description => 'B',
+    :author => 'C'
+  },
+  :using => {
+    :tsearch => {:highlight => true, :any_word => true, :dictionary => "english"}
+  }
+multisearchable :against => [:title, :markdown],
+  :if => :published?
   friendly_id :name_for_slug, use: :slugged
   has_many :vehicle_config_videos
   has_many :vehicle_configs, :through => :vehicle_config_videos
@@ -49,7 +60,21 @@ class Video < ApplicationRecord
       created_at.strftime("%b %d, %Y")
     end
   end
-  
+  def as_json(options={})
+    # imgurl = self.latest_image.present? ? self.latest_image.attachment_url : File.join(Rails.application.routes.url_helpers.root_url,asset_url("/assets/og/tracker.png"))
+    
+    {
+      id: id,
+      image: thumbnail_url,
+      title: title,
+      body: description,
+      slug: slug,
+      author: {
+        name: self.author,
+        url: self.author_url
+      }
+    }
+  end
   def name
     title
   end

@@ -20,7 +20,7 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
   search do |query|
     if query
       query = query.titleize
-      ids = VehicleConfig.search_for("#{query}").pluck(:id)
+      ids = VehicleConfig.search_for("#{query}").pluck(:id).to_a.uniq
       VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).where(id: ids)
     else
       VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level")

@@ -16,13 +16,14 @@ Trestle.resource(:guides) do
       query = query.titleize
       Guide.search_for("#{query}").select { |r| r.published? }
     else
-      # Guide.where.not(slug: nil,title: "New Untitled Guide").order(:updated_at => :desc)
+      Guide.where.not(slug: nil,title: "New Untitled Guide").order(:updated_at => :desc)
     end
   end
 
   collection do |params|
     Guide.where.not(slug: nil,title: "New Untitled Guide").order(:updated_at => :desc)
   end
+  
   controller do
     skip_before_action :require_edit_permissions!
     # skip_before_action :require_super_admin!

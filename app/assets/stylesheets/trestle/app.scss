@@ -172,6 +172,11 @@ body::-webkit-scrollbar,
 }
 
 .app-wrapper {
+  .alert.alert-dismissable {
+    position:absolute;
+    top:0;
+    z-index:10000;
+  }
   .content-header {
     position: relative;
     top: initial;

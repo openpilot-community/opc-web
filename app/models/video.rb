@@ -28,8 +28,7 @@ class Video < ApplicationRecord
   :using => {
     :tsearch => {:highlight => true, :any_word => true, :dictionary => "english"}
   }
-multisearchable :against => [:title, :markdown],
-  :if => :published?
+  multisearchable :against => [:title, :description, :author]
   friendly_id :name_for_slug, use: :slugged
   has_many :vehicle_config_videos
   has_many :vehicle_configs, :through => :vehicle_config_videos

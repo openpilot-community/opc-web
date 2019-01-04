@@ -124,9 +124,9 @@
     overflow-x: visible;
   }
   
-.main-content {
-  padding: 35px 0 0 0;
-}
+  .main-content, .list-content-wrap .main-content {
+    padding: 35px 0 0 0;
+  }
 }
 
 
@@ -134,6 +134,7 @@
   //MEDIUM
   @import "./responsive/md/app";
   @import "./responsive/md/form-page";
+  @import "./responsive/md/videos";
 }
 @media (max-width: 767px) {
   //SMALL
@@ -143,4 +144,5 @@
   @import "./responsive/sm/list-page";
   @import "./responsive/sm/row-card";
   @import "./responsive/sm/vehicle_configs";
+  @import "./responsive/sm/videos";
 }

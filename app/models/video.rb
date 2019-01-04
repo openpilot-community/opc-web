@@ -36,6 +36,7 @@ class Video < ApplicationRecord
   has_many :hardware_items, :through => :video_hardware_items
   validates_uniqueness_of :video_url, message: "Video has already been added."
   validates_uniqueness_of :html, message: "Video has already been added."
+  validates_uniqueness_of :title, scope: :author, message: "Video has already been added."
   before_validation :embed
   after_commit :update_slug
 

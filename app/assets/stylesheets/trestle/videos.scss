@@ -56,7 +56,13 @@ body.controller-admin-videos.action-index {
 }
 .video {
   display:flex;
-
+  flex-flow:wrap;
+  .comments {
+    display:block;
+    width:100%;
+    max-width:100%;
+    flex:0 0 100%;
+  }
   .action-bar {
     display:flex;
     border-top:1px solid rgba(#000,0.2);

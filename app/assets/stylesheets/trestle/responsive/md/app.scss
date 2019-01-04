@@ -25,6 +25,12 @@
   display: none;
 }
 .app-wrapper {
+  .main-content {
+    padding: 0 0 0 0;
+  }
+  .list-content-wrap .main-content {
+    padding: 35px 0 0 0;
+  }
   .app-header {
     .searchbox {
       flex: 0 0 50%;

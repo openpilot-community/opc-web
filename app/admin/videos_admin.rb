@@ -9,6 +9,8 @@ Trestle.resource(:videos) do
     if query
       query = query.titleize
       Video.search_for("#{query}")
+    else
+      Video.order(:updated_at => :desc)
     end
   end
 

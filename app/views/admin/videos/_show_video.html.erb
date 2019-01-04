@@ -19,8 +19,6 @@
                 <span class="date"><%=instance.friendly_date%></span>
               </div>
               <p><%=instance.description%></p>
-              <h2>Discuss</h2>
-              <%= render 'admin/comments', instance: instance %>
             </div>
           </div>
         </div>
@@ -46,6 +44,10 @@
           </a>
         <% end %>
       </div>
+    </div>
+    <div class="comments">
+      <h2>Discuss</h2>
+      <%= render 'admin/comments', instance: instance %>
     </div>
   </div>
   

@@ -14,6 +14,9 @@ html, body {
  
 }
 .app-wrapper {
+  .main-content, .list-content-wrap .main-content {
+    padding: 0 0 0 0;
+  }
   h1.path-heading {
     display: none;
   }

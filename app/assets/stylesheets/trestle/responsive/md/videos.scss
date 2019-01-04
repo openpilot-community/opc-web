@@ -1,0 +1,15 @@
+.main-content .video {
+  flex-flow: wrap;
+  .video-block {
+    width:100%;
+    display:block;
+    flex: 0 0 100%;
+    max-width:100%;
+  }
+  .video-sidebar {
+    width:100%;
+    display:block;
+    flex: 0 0 100%;
+    max-width:100%;
+  }
+}

@@ -10,7 +10,7 @@ Trestle.resource(:videos) do
       query = query.titleize
       Video.search_for("#{query}")
     else
-      Video.order(:updated_at => :desc)
+      Video.order(:uploaded_at => :desc)
     end
   end
 
@@ -47,11 +47,11 @@ Trestle.resource(:videos) do
           image: imgurl,
           site_name: "Openpilot Community",
           url: @video_url,
-          type: "article",
+          type: "video",
           author: instance.author
         },
         robots: "index, follow",
-        "article:published_time": instance.created_at.iso8601(9),
+        "article:published_time": instance.uploaded_at.iso8601(9),
         "article:publisher": "https://opc.ai/",
         "article:author": instance.author,
         keywords: ['openpilot','vehicle','support',instance.title.split,'of','vehicles','supported','compatible','compatibility'].flatten,

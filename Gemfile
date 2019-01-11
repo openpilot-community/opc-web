@@ -19,6 +19,7 @@ gem 'addressable'
 gem 'jquery-rails'
 gem 'device_detector'
 gem "barnes"
+gem "exception_handler", "~> 0.8.0.0"
 gem 'mimemagic'
 # gem 'sqreen'
 gem 'derailed', group: :development

@@ -144,6 +144,10 @@ GEM
     et-orbi (1.1.6)
       tzinfo
     eventmachine (1.2.7)
+    exception_handler (0.8.0.0)
+      bundler
+      rails (>= 4.2.0)
+      responders
     execjs (2.7.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
@@ -524,6 +528,7 @@ DEPENDENCIES
   device_detector
   devise
   down (~> 4.4)
+  exception_handler (~> 0.8.0.0)
   fastimage
   font-awesome-sass (~> 5.2.0)
   foreman

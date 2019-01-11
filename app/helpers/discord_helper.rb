@@ -1,0 +1,2 @@
+module DiscordHelper
+end

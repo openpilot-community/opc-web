@@ -54,10 +54,10 @@ class Video < ApplicationRecord
   end
 
   def friendly_date
-    if created_at.year == Date.today.year
-      created_at.strftime("%b %d")
+    if uploaded_at.year == Date.today.year
+      uploaded_at.strftime("%b %d")
     else
-      created_at.strftime("%b %d, %Y")
+      uploaded_at.strftime("%b %d, %Y")
     end
   end
   def as_json(options={})

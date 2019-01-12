@@ -1,4 +1,4 @@
-Trestle.resource(:guides) do
+Trestle.resource(:faqs) do
   to_param do |instance|
     if instance.slug.present?
       instance.slug
@@ -8,20 +8,20 @@ Trestle.resource(:guides) do
   end
   
   find_instance do |params|
-    Guide.friendly.find(params[:id])
+    Faq.friendly.find(params[:id])
   end
 
   search do |query|
     if query
       query = query.titleize
-      Guide.search_for("#{query}").select { |r| r.published? }
+      Faq.search_for("#{query}").select { |r| r.published? }
     else
-      Guide.where.not(slug: nil, title: "New Untitled Guide").where(type: [nil, ""]).order(:updated_at => :desc)
+      Faq.where.not(slug: nil,title: "New Untitled Question").order(:updated_at => :desc)
     end
   end
 
   collection do |params|
-    Guide.where(type: [nil, ""]).not(slug: nil, title: "New Untitled Guide").order(:updated_at => :desc)
+    Faq.where.not(slug: nil,title: "New Untitled Question").order(:updated_at => :desc)
   end
   
   controller do
@@ -31,11 +31,11 @@ Trestle.resource(:guides) do
     include ActionView::Helpers::SanitizeHelper
 
     def new
-      new_guide = Guide.new(user: current_user, title: "New Untitled Guide", markdown: "The beginning of a new article...")
-      new_guide.save!
-      self.instance = admin.find_instance(new_guide)
+      new_faq = Faq.new(user: current_user, title: "New Untitled Question", markdown: "Answer text goes here...")
+      new_faq.save!
+      self.instance = admin.find_instance(new_faq)
       
-      @uploader_model_name = "guide"
+      @uploader_model_name = "faq"
       @uploader_model_id = instance.id
     end
 
@@ -63,7 +63,7 @@ Trestle.resource(:guides) do
         "article:published_time": instance.created_at.iso8601(9),
         "article:publisher": "https://opc.ai/",
         "article:author": author_name,
-        keywords: ['openpilot','vehicle','support',instance.title.split,'of','vehicles','supported','compatible','compatibility'].flatten,
+        keywords: ['openpilot','frequently','asked','question',instance.title.split].flatten,
         description: exerpt,
         canonical: article_url,
         image_src: imgurl,
@@ -112,16 +112,16 @@ Trestle.resource(:guides) do
   #
   table do
     column :title, header: "" do |instance|
-      render "row", instance: instance, vehicle_config: {}, vehicle_config_guide: {}
+      render "row", instance: instance, vehicle_config: {}, vehicle_config_faq: {}
     end
   end
 
   # Customize the form fields shown on the new/edit views.
   #
-  form do |guide|
+  form do |faq|
     tab :general do
       if params['from_url'].present?
-        text_field :article_source_url, { label: "Add Guide from URL:", placeholder: "Type the URL of the article to scrape it"}
+        text_field :article_source_url, { label: "Add Faq from URL:", placeholder: "Type the URL of the article to scrape it"}
       else
         text_field :title
         text_area :markdown, { label: "", class: "simplemde-inline" }
@@ -131,14 +131,14 @@ Trestle.resource(:guides) do
     end
 
     sidebar do
-      if guide.latest_image.present?
-        render inline: image_tag(guide.latest_image.attachment_url, class: "profile-image")
+      if faq.latest_image.present?
+        render inline: image_tag(faq.latest_image.attachment_url, class: "profile-image")
         
         render inline: content_tag(:div, nil, {style: "margin-top:10px;"})
       end
       # text_field :source_image_url, label: "Change Image", placeholder: "Enter URL to Update"
-      select :hardware_item_ids, HardwareItem.all.order(:name), { label: "Tag hardware in this guide" }, { multiple: true, data: { tags: true } }
-      select :vehicle_config_ids, VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level"), { label: "Tag vehicles in this guide" }, { multiple: true, data: { tags: true } }
+      select :hardware_item_ids, HardwareItem.all.order(:name), { label: "Tag hardware in this faq" }, { multiple: true, data: { tags: true } }
+      select :vehicle_config_ids, VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level"), { label: "Tag vehicles in this faq" }, { multiple: true, data: { tags: true } }
       if params['from_url'].blank?
         text_field :author_name
         text_area :exerpt
@@ -151,9 +151,9 @@ Trestle.resource(:guides) do
   # define the list of permitted parameters.
   #
   # For further information, see the Rails documentation on Strong Parameters:
-  #   http://guides.rubyonrails.org/action_controller_overview.html#strong-parameters
+  #   http://faqs.rubyonrails.org/action_controller_overview.html#strong-parameters
   #
   # params do |params|
-  #   params.require(:guide).permit(:name, ...)
+  #   params.require(:faq).permit(:name, ...)
   # end
 end

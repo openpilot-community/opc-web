@@ -1,0 +1,3 @@
+class Faq < Guide
+  
+end

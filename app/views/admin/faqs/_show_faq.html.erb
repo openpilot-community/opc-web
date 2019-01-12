@@ -1,0 +1,37 @@
+<div class="documentation">
+  <div class="guide">
+    <div class="author-box">
+      <div class="image">
+      <% if instance.author[:image].blank? %>
+        <span class="img"><span class="fa fa-user"></span></span>
+      <% else %>
+        <%if instance.author.present? && instance.author[:image] %>
+          <span class="img" style="background-image:url(<%=instance.author[:image]%>)"></span>
+        <% end %>
+      <% end %>
+      </div>
+      <div class="details">
+        <div class="detail-inner">
+          <div class="author-name">
+            <% if instance.author[:name].present? %>
+              <%=instance.author[:name]%>
+            <% else %>
+              <%=instance.user.github_username %>
+            <% end %>
+          </div>
+          <div class="meta">
+            <span class="date"><%=instance.friendly_date%></span><span class="divider">&middot;</span><span class="reading_time"><%=instance.reading_time%> min read</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h1><%=instance.title%></h1>
+
+    <div class="content markdown-body">
+      <%=instance.markup.html_safe%>
+    </div>
+
+    <%= render 'admin/comments', instance: instance %>
+  </div>
+  
+</div>

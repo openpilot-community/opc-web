@@ -201,8 +201,9 @@ class Guide < ApplicationRecord
     }
   end
   def set_markup
+    client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
     if self.markdown.present?
-      self.markup = Octokit.markdown(self.markdown, :mode => "gfm", :context => "commaai/openpilot")
+      self.markup = client.markdown(self.markdown, :mode => "gfm", :context => "commaai/openpilot")
     end
   end
 

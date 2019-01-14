@@ -8,11 +8,13 @@ class CheckOpenpilotReposWorker
     
     client = Octokit::Client.new(:client_id => ENV['GITHUB_OPC_CLIENT_ID'], :client_secret => ENV['GITHUB_OPC_CLIENT_SECRET'])
     client.auto_paginate = true
-    forks = client.forks('commaai/openpilot');
+    forks = client.forks('commaai/openpilot', {
+      sort: "stargazers"
+    });
     # "pushed_at": "2011-01-26T19:06:43Z",
     # "created_at": "2011-01-26T19:01:12Z",
     # "updated_at": "2011-01-26T19:14:43Z",
-    commaai_repo = Repository.find_or_initialize_by(:full_name => 'commaai/openpilot')
+    commaai_repo = Repository.find_or_initialize_by(:full_name => 'commaai/stargazers')
     commaai_repo.scrape_branches
     forks.each do |fork|
       new_repo = Repository.find_or_initialize_by(:full_name => fork.full_name)

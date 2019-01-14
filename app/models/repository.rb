@@ -44,6 +44,7 @@ class Repository < ApplicationRecord
 
     {
       id: id,
+      image: File.join(Rails.application.routes.url_helpers.root_url,asset_url("assets/github-logo.png")),
       author: author,
       title: self.full_name,
       url: url,

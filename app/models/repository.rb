@@ -53,7 +53,7 @@ class Repository < ApplicationRecord
     }
   end
   def scrape_branches
-    client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
+    client = Octokit::Client.new(:client_id => ENV['GITHUB_OPC_CLIENT_ID'], :client_secret => ENV['GITHUB_OPC_CLIENT_SECRET'])
     client.auto_paginate = true
     gh_branches = client.branches(self.full_name)
     gh_branches.each do |branch|

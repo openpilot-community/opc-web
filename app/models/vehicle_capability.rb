@@ -7,7 +7,6 @@
 #  description :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#
 
 class VehicleCapability < ApplicationRecord
   include CapabilityMethods
@@ -19,13 +18,12 @@ class VehicleCapability < ApplicationRecord
   has_many :vehicle_config, :through => :vehicle_config_capabilities
   include PgSearch
   pg_search_scope :search_for, :against => {
-                    :name => 'A',
-                    :description => 'B'
+                    :name => 'A'
                   },
                   :using => {
                     :tsearch => {:highlight => true, :any_word => true, :dictionary => "english"}
                   }
-  multisearchable :against => [:name, :description]
+  multisearchable :against => [:name]
   def should_generate_new_friendly_id?
     name_changed?
   end
@@ -37,7 +35,9 @@ class VehicleCapability < ApplicationRecord
       0
     end
   end
-
+  def title
+    self.name
+  end
   def kph
     if default_kph.present?
       default_kph

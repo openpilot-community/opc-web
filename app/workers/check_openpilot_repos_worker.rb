@@ -6,7 +6,7 @@ class CheckOpenpilotReposWorker
   def perform(*args)
     # Do something later
     
-    client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
+    client = Octokit::Client.new(:client_id => ENV['GITHUB_OPC_CLIENT_ID'], :client_secret => ENV['GITHUB_OPC_CLIENT_SECRET'])
     client.auto_paginate = true
     forks = client.forks('commaai/openpilot');
     # "pushed_at": "2011-01-26T19:06:43Z",
@@ -40,8 +40,6 @@ class CheckOpenpilotReposWorker
       rescue Exception => e
         puts "Failed to fetch branches...", e
       end
-
-
     end
   end
 end

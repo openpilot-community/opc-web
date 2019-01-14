@@ -58,6 +58,14 @@ class HardwareItem < ApplicationRecord
     imgurl = self.image.present? ? self.image_url : nil
     lines = []
     fields = []
+
+    if self.purchase_url
+      fields << {
+        name: "Purchase",
+        value: self.purchase_url
+      }
+    end
+
     # if vehicle_config_type.present?
     #   difficulty = vehicle_config_type.name
     #   fields << {
@@ -94,7 +102,8 @@ class HardwareItem < ApplicationRecord
       id: id,
       title: self.name,
       body: self.description,
-      image: imgurl
+      image: imgurl,
+      fields: fields
     }
   end
   # has_many :vehicle_config_hardware_items

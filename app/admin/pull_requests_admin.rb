@@ -2,8 +2,6 @@ Trestle.resource(:pull_requests) do
   
   scope :all, -> { PullRequest.order(:pr_updated_at => :desc) }, default: true
   
-  # Customize the table columns shown on the index view.
-  #
   search do |query|
     if query
       PullRequest.search_for("#{query}")

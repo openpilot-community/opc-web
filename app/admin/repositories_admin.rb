@@ -14,7 +14,7 @@ Trestle.resource(:repositories) do
     if query
       Repository.search_for("#{query}")
     else
-      Repository.order
+      Repository.order(:created_at => :desc)
     end
   end
   # Customize the form fields shown on the new/edit views.

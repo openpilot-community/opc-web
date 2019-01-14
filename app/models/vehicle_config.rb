@@ -107,6 +107,7 @@ class VehicleConfig < ApplicationRecord
   include PgSearch
   include Hashid::Rails
   include ActiveSupport::Inflector
+  include ActionView::Helpers::AssetUrlHelper
   pg_search_scope :search_for, :against => {
     :title => 'A',
     :year => 'B',

@@ -9,6 +9,13 @@ Trestle.resource(:vehicle_capabilities) do
     # actions
   end
 
+  search do |query|
+    if query
+      VehicleCapability.search_for("#{query}")
+    else
+      VehicleCapability.order(:name => :asc)
+    end
+  end
   # Customize the form fields shown on the new/edit views.
   #
   form do |vehicle_capability|

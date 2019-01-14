@@ -4,6 +4,14 @@ Trestle.resource(:pull_requests) do
   
   # Customize the table columns shown on the index view.
   #
+  search do |query|
+    if query
+      PullRequest.search_for("#{query}")
+    else
+      PullRequest.order(:updated_at => :desc)
+    end
+  end
+
   table do
     column :name, header: "Title", link: true do |pull_request|
       link_to pull_request.html_url, target: "_blank" do

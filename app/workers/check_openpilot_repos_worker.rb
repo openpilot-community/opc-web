@@ -7,7 +7,7 @@ class CheckOpenpilotReposWorker
     # Do something later
     
     client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
-    client.auto_paginate = false
+    client.auto_paginate = true
     forks = client.forks('commaai/openpilot');
     # "pushed_at": "2011-01-26T19:06:43Z",
     # "created_at": "2011-01-26T19:01:12Z",

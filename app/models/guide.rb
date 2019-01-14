@@ -28,13 +28,28 @@ class Guide < ApplicationRecord
   before_save :guide_from_url
   # before_save :find_first_image
   before_save :set_markup
-  # after_save :set_image_scraper
+  after_save :set_image_scraper
   after_commit :update_slug
   validates_presence_of :title, :on => :create, if: -> {article_source_url.blank?}
   validates_presence_of :markdown, :on => :create, if: -> {article_source_url.blank?}
   validates_uniqueness_of :article_source_url, :on => :create, if: -> {article_source_url.present?}
   include ActionView::Helpers::AssetUrlHelper
-    
+  
+  def set_image_scraper
+    if source_image_url.present?
+      puts "Dispatching Image Scraper"
+      DownloadImageFromSourceWorker.perform_async(id,Guide)
+    end
+  end
+
+  def first_image
+    image_matches = self.markdown.match(/!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/)
+
+    if image_matches
+      image_matches[1]
+    end
+  end
+
   def latest_image  
     imgs = guide_images.order(:created_at => :desc)
     if imgs.present?

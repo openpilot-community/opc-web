@@ -17,11 +17,39 @@ class Repository < ApplicationRecord
   has_many :vehicle_config_repositories
   has_many :vehicle_configs, :through => :vehicle_config_repositories
   has_many :repository_branches
-
+  include PgSearch
+  pg_search_scope :search_for, :against => {
+      :full_name => 'A',
+      :owner_login => 'B',
+      :name => 'C'
+    },
+    :using => {
+      :tsearch => {:prefix => true, :any_word => true}
+    }
+  multisearchable :against => [:full_name, :owner_login, :name]
   def name
     full_name
   end
+  def author
+    if owner_login.present?
+      {
+        name: owner_login,
+        url: owner_url,
+        image: owner_avatar_url
+      }
+    end
+  end
+  def as_json(options={})
+    imgurl = self.owner_avatar_url
 
+    {
+      id: id,
+      author: author,
+      title: self.full_name,
+      url: url,
+      body: "`git clone #{url}.git`"
+    }
+  end
   def scrape_branches
     client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
     client.auto_paginate = true

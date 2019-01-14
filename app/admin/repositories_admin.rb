@@ -10,7 +10,13 @@ Trestle.resource(:repositories) do
     
     # actions
   end
-
+  search do |query|
+    if query
+      Repository.search_for("#{query}")
+    else
+      Repository.order
+    end
+  end
   # Customize the form fields shown on the new/edit views.
   #
   form do |repository|

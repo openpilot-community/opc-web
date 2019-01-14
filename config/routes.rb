@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   root "vehicle_configs_admin/admin#index"
   get '/workbench' => 'workbench#index'
   get '/discord' => 'discord#index'
+  get '/patreon' => 'patreon#index'
   get "/sitemap.xml" => "sitemap#index", :format => "xml", :as => :sitemap
   get '/lookup' => "vehicle_lookups_admin/admin#new"
   get '/garage' => "user_vehicles_admin/admin#index"

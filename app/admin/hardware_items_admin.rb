@@ -13,6 +13,13 @@ Trestle.resource(:hardware_items) do
     HardwareItem.friendly.find(params[:id])
   end
 
+  search do |query|
+    if query
+      HardwareItem.search_for("#{query}")
+    else
+      HardwareItem.order(:updated_at => :desc)
+    end
+  end
   controller do
     skip_before_action :require_edit_permissions!
     # skip_before_action :require_super_admin!

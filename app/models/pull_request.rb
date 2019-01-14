@@ -25,7 +25,16 @@
 class PullRequest < ApplicationRecord
   has_many :vehicle_config_pull_requests
   has_many :vehicle_configs, :through => :vehicle_config_pull_requests
-
+  include PgSearch
+  pg_search_scope :search_for, :against => {
+                    :name => 'A',
+                    :title => 'B',
+                    :body => 'C'
+                  },
+                  :using => {
+                    :tsearch => {:highlight => true, :any_word => true, :dictionary => "english"}
+                  }
+  multisearchable :against => [:name, :title, :body]
   def vehicles
     if !vehicle_configs.blank?
       vehicle_configs.map(&:name).join(", ")

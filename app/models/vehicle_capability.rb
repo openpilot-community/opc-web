@@ -7,7 +7,6 @@
 #  description :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#
 
 class VehicleCapability < ApplicationRecord
   include CapabilityMethods
@@ -36,7 +35,9 @@ class VehicleCapability < ApplicationRecord
       0
     end
   end
-
+  def title
+    self.name
+  end
   def kph
     if default_kph.present?
       default_kph

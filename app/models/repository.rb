@@ -14,6 +14,7 @@
 #
 
 class Repository < ApplicationRecord
+  include ActionView::Helpers::AssetUrlHelper
   has_many :vehicle_config_repositories
   has_many :vehicle_configs, :through => :vehicle_config_repositories
   has_many :repository_branches

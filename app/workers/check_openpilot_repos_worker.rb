@@ -3,6 +3,7 @@ class CheckOpenpilotReposWorker
   include Sidekiq::Worker
   sidekiq_options :retry => false
   def process_fork(fork)
+    begin
     client = Octokit::Client.new(:client_id => ENV['GITHUB_OPC_CLIENT_ID'], :client_secret => ENV['GITHUB_OPC_CLIENT_SECRET'])
     client.auto_paginate = false
     
@@ -24,7 +25,6 @@ class CheckOpenpilotReposWorker
         process_fork(fork_of_fork)
       end
     end
-    # begin
     #   branches = client.branches(new_repo.full_name)
 
     #   if branches.present?
@@ -36,9 +36,9 @@ class CheckOpenpilotReposWorker
     #   else
     #     puts "NO BRANCHES RETURNED FOR #{new_repo.full_name}"
     #   end
-    # rescue Exception => e
-    #   puts "Failed to fetch branches...", e
-    # end
+    rescue Exception => e
+      puts "Failed to fetch branches...", e
+    end
   end
   def perform(*args)
     # Do something later

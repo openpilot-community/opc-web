@@ -44,7 +44,9 @@ class CheckOpenpilotReposWorker
     # Do something later
     client = Octokit::Client.new(:client_id => ENV['GITHUB_OPC_CLIENT_ID'], :client_secret => ENV['GITHUB_OPC_CLIENT_SECRET'])
     client.auto_paginate = true
-    forks = client.forks('commaai/openpilot');
+    forks = client.forks('commaai/openpilot', {
+      sort: "stargazers"
+    });
     # "pushed_at": "2011-01-26T19:06:43Z",
     # "created_at": "2011-01-26T19:01:12Z",
     # "updated_at": "2011-01-26T19:14:43Z",

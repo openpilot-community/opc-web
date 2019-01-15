@@ -35,7 +35,7 @@ Trestle.resource(:faqs) do
       new_faq.save!
       self.instance = admin.find_instance(new_faq)
       
-      @uploader_model_name = "faq"
+      @uploader_model_name = "guide"
       @uploader_model_id = instance.id
     end
 

@@ -16,5 +16,5 @@
 !/log/.keep
 /tmp
 mech.log
-
+*.dump
 log/scrapes/*.html

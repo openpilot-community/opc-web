@@ -12,6 +12,7 @@ Trestle.resource(:guides) do
   end
 
   search do |query|
+    byebug
     if query
       query = query.titleize
       Guide.search_for("#{query}").select { |r| r.published? }

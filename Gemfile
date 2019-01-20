@@ -32,7 +32,6 @@ gem 'trestle-search'
 gem 'rubyzip', '~> 1.2.2'
 gem 'devise'
 gem 'puma'
-gem 'redis'
 gem "socialization"
 # gem 'html2text'
 gem "reverse_markdown"
@@ -43,7 +42,8 @@ gem "sentry-raven"
 # gem 'watir'
 gem 'omniauth-github'
 # gem 'readingtime'
-gem 'hiredis'
+gem "hiredis", "~> 0.6.0"
+gem "redis", ">= 3.2.0"
 gem "aws-sdk-s3", require: false
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -84,6 +84,7 @@ gem 'meta-tags'
 gem 'thredded', '~> 0.15.4'
 gem 'fastimage'
 gem "down", "~> 4.4"
+gem 'dotenv-rails', groups: [:development, :test]
 gem 'cars', :git => 'https://github.com/openpilot-community/cars_abstraction'
 group :development, :test do
   # gem 'cars', :path => '/Users/joshua/Projects/cars_abstraction'
@@ -92,7 +93,6 @@ group :development, :test do
   gem "capistrano", "~> 3.10", require: false
   gem "capistrano-rails", "~> 1.4", require: false
 end
-
 group :production do
 end
 group :development do

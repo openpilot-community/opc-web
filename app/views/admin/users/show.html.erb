@@ -1,0 +1,21 @@
+<% title = admin.t("titles.edit", default: instance.name ) %>
+<% content_for(:title, instance.name) %>
+<% breadcrumb(instance.name) %>
+
+<% content_for(:primary_toolbar) do %>
+  <% if current_user.present? && current_user.id == instance.id || current_user.present? && current_user.is_super_admin? %>
+    <%= admin_link_to instance, action: :edit, method: :get, class: "btn btn-primary" do %>
+      <%= icon("fa fa-pencil") %>
+    <% end %>
+    <% if current_user.present? && current_user.is_super_admin? %>
+      <%= admin_link_to instance, action: :destroy, method: :delete, class: "btn btn-danger", data: { toggle: "confirm-delete", placement: "bottom" } do %>
+        <%= icon("fa fa-trash") %>
+      <% end if admin.actions.include?(:destroy) %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= render layout: "layout" do %>
+  <%= render "trestle/shared/fundraiser" %>
+  <%= render 'admin/users/show_user', instance: instance%>
+<% end %>

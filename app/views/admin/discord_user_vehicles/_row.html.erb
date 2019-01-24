@@ -1,0 +1,21 @@
+<div class="hardware-card row-card">
+  <div class="card-header">
+    <div class="image">
+        <span class="img"><span class="fa fa-car"></span></span>
+    </div>
+
+    <div class="details">
+      <div class="details-inner">
+        <div class="name">
+        <%=link_to(discord_user_vehicles_admin_url(instance.id)) do %>
+          <span><%=instance.vehicle_year%> <%=instance.vehicle_make%> <%=instance.vehicle_model%> <%=instance.vehicle_trim%></span>
+        <% end %>
+        </div>
+        <div class="synopsis"></div>
+        
+        <ul class="meta">
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

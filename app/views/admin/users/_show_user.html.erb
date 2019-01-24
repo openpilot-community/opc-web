@@ -1,0 +1,38 @@
+<div class="documentation">
+  <div class="guide">
+    <div class="author-box">
+      <div class="image">
+      <% if instance.avatar_url.blank? %>
+        <span class="img"><span class="fa fa-user"></span></span>
+      <% else %>
+          <span class="img" style="background-image:url(<%=instance.avatar_url%>)"></span>
+      <% end %>
+      </div>
+      <div class="details">
+        <div class="detail-inner">
+          <div class="author-name">
+            <% if instance[:name].present? %>
+              <h1><%=instance.name%>
+              <% if instance.name != instance.discord_username %>
+              <span>(<%=instance.discord_username%>)</span>
+              <% end %>
+              </h1>
+            <% else %>
+              <%=instance.user.discord_username %>
+            <% end %>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="content markdown-body">
+      <% instance.discord_user.discord_user_vehicles.each do |vehicle| %>
+        <div><%=vehicle.vehicle_year %> <%=vehicle.vehicle_make %> <%=vehicle.vehicle_model %> <%=vehicle.vehicle_trim %></div>
+      <% end %>
+    </div>
+
+  </div>
+  
+</div>

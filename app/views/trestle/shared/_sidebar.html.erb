@@ -29,8 +29,8 @@
       <ul class="user-nav">
         <% if current_user.blank? %>
         <li role="presentation" class="sign-in">
-          <%= link_to "/users/auth/github", class: "" do %>
-            <%=icon("nav-icon", 'fa', 'fa-github')%> Sign In with GitHub
+          <%= link_to "/sign_in", class: "" do %>
+            <%=icon("nav-icon", 'fa', 'fa-lock')%> Sign In
           <% end %>
         </li>
         <% end %>
@@ -59,7 +59,7 @@
           <li>
               <a data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                 <span class="user-icon nav-icon"><%=image_tag(current_user.avatar_url)%></span>
-                <%=current_user.at_username%>
+                <%=current_user.name%>
                 <span class="caret"></span>
               </a>
           </li>

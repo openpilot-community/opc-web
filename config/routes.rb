@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get '/patreon' => 'patreon#index'
   get "/sitemap.xml" => "sitemap#index", :format => "xml", :as => :sitemap
   get '/lookup' => "vehicle_lookups_admin/admin#new"
+  get "/u/:id" => "users_admin/admin#show"
   get '/garage' => "user_vehicles_admin/admin#index"
   get "/vehicles" => "vehicle_configs_admin/admin#index"
   get "/vehicles/make/:q" => "vehicle_configs_admin/admin#index", as: "vehicles_make"

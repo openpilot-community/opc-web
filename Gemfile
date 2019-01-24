@@ -40,6 +40,7 @@ gem "sentry-raven"
 # gem 'selenium-webdriver'
 # gem 'chromedriver-helper'
 # gem 'watir'
+gem 'omniauth-discord'
 gem 'omniauth-github'
 # gem 'readingtime'
 gem "hiredis", "~> 0.6.0"

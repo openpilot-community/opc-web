@@ -7,6 +7,7 @@
 //= require ./input.inline-attachment
 //= require ./codemirror-4.inline-attachment
 //= require ./highlight.pack
+//= require ./components/_dialog
 //= require ./editor
 //= require ./voter
 var originalAddClassMethod = jQuery.fn.addClass;

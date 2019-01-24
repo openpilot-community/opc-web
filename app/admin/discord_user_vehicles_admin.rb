@@ -1,7 +1,4 @@
 Trestle.resource(:discord_user_vehicles) do
-  menu do
-    item :discord_user_vehicles, icon: "fa fa-star"
-  end
 
   # Customize the table columns shown on the index view.
   #

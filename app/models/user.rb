@@ -55,9 +55,11 @@ class User < ApplicationRecord
   end
 
   def avatar_url
-    if avatar.present?
+    if avatar && avatar.present?
       rails_blob_url(avatar)
     end
+  rescue
+    nil
   end
 
   

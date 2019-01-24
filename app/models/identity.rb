@@ -15,17 +15,20 @@ class Identity < ActiveRecord::Base
     if auth.provider == "discord"
       new_identity.user.discord_username = auth.info.nickname || auth.info.name
     end
-
-    if !new_identity.user.avatar.attached?
+    if !auth.info.blank? && !auth.info.image.blank? && !new_identity.user.avatar.attached?
       # address_parsed = Addressable::URI.parse(auth.info.image)
-      avatar_img_file = open(auth.info.image)
-      mime_type = MimeMagic.by_magic(avatar_img_file)
-      new_identity.user.avatar.attach(
-        io: avatar_img_file,
-        filename: "#{auth.info.nickname}.#{mime_type.extensions.last}",
-        content_type: mime_type.type
+      begin
+        avatar_img_file = open(auth.info.image)
+        mime_type = MimeMagic.by_magic(avatar_img_file)
+        new_identity.user.avatar.attach(
+          io: avatar_img_file,
+          filename: "#{auth.info.nickname}.#{mime_type.extensions.last}",
+          content_type: mime_type.type
 
-      )
+        )
+      rescue
+        puts "Error downloading avatar..."
+      end
     end
     if new_identity.user.new_record?
       is_contributor = Contributor.find_by(username: new_identity.user.github_username)
@@ -43,10 +46,6 @@ class Identity < ActiveRecord::Base
     if self.provider == "discord"
       discord_user = DiscordUser.find(self.uid)
       
-      if discord_user.blank?
-        discord_user = DiscordUser.find(self.uid)
-      end
-
       if (discord_user.present?)
         discord_user.user = self.user
 

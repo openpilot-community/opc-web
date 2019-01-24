@@ -26,8 +26,6 @@ Trestle.resource(:users) do
     begin
       User.find_by(discord_username: params['id']) || User.find(params['id'])
     rescue
-    ensure
-      
     end
   end
 
@@ -74,19 +72,22 @@ Trestle.resource(:users) do
 
   controller do
     # before_action :require_super_admin!, :except => :show
+    before_action :authenticate_user!
+    before_action :set_instance
     before_action :require_self_or_admin!, :only => [:show, :edit, :update]
     # def show
     #   self.instance = admin.find_instance(params)
       
     # end
     
-    def require_self_or_admin!
-      begin
-        instance = admin.find_instance(params)
-      ensure
-        render "unauthorized"
-        return
+    def set_instance
+      instance = admin.find_instance(params)
+      if instance.blank?
+        redirect_to '/'
       end
+    end
+    def require_self_or_admin!
+      
       if !current_user.is_super_admin? && current_user.id != instance.id
         render "unauthorized" 
         return

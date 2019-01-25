@@ -26,15 +26,34 @@
         <% end %>
       </div>
       <% end %>
+      <% unless current_user.present? %>
       <ul class="user-nav">
         <% if current_user.blank? %>
         <li role="presentation" class="sign-in">
-          <%= link_to "/sign_in", class: "" do %>
-            <%=icon("nav-icon", 'fa', 'fa-lock')%> Sign In
+          <%= link_to "/users/auth/discord", class: "" do %>
+            <%=icon("nav-icon", 'fa', 'fa-lock')%> Sign In with Discord
           <% end %>
         </li>
         <% end %>
       </ul>
+      <% end %>
+      <% if current_user.present? %>
+        <ul class="settings-nav">
+          <li class="nav-header"><%= link_to "Your Account", "#settings" %><%=icon('fa','fa-caret-down')%></li>
+          <li>
+              <a data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="user-icon nav-icon"><% if current_user.avatar_url %><%=image_tag(current_user.avatar_url)%><% end %></span>
+                <%=current_user.name%>
+                <span class="caret"></span>
+              </a>
+          </li>
+          <li><%=link_to('/sign_out') do%>
+            <%= icon("nav-icon", "fa", "fa-angle-right") %>
+            Log Out
+          <% end %>
+          </li>
+        </ul>
+      <% end %>
       <% collapsed = cookies["trestle:navigation:collapsed"].try(:split, ",") || [] %>
       <% Trestle.navigation.visible(self).each do |group, items| %>
         <ul class="<%= group.present? && group.label.present? ? group.label.parameterize : nil %> <% if group.present? && collapsed.include?(group.id) %>collapsed<% end %>">
@@ -53,23 +72,7 @@
           <% end %>
         </ul>
       <% end %>
-      <% if current_user.present? %>
-        <ul class="settings-nav">
-          <li class="nav-header"><%= link_to "Settings", "#settings" %><%=icon('fa','fa-caret-down')%></li>
-          <li>
-              <a data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                <span class="user-icon nav-icon"><% if current_user.avatar_url %><%=image_tag(current_user.avatar_url)%><% end %></span>
-                <%=current_user.name%>
-                <span class="caret"></span>
-              </a>
-          </li>
-          <li><%=link_to('/sign_out') do%>
-            <%= icon("nav-icon", "fa", "fa-angle-right") %>
-            Log Out
-          <% end %>
-          </li>
-        </ul>
-      <% end %>
+      
     </nav>
   </div>
 </aside>

@@ -39,15 +39,15 @@ class Identity < ActiveRecord::Base
       end
     end
     new_identity.save
-    
+    self.link_to_discord_user(new_identity)
     new_identity
   end
-  def link_to_discord_user
-    if self.provider == "discord"
-      discord_user = DiscordUser.find(self.uid)
+  def self.link_to_discord_user(identity)
+    if identity.provider == "discord"
+      discord_user = DiscordUser.find(identity.uid)
       
       if (discord_user.present?)
-        discord_user.user = self.user
+        discord_user.user = identity.user
 
         discord_user.save
       end

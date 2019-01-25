@@ -40,7 +40,34 @@ $image-size: 130px;
   
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
   margin: 0;
-  
+  .edit-button {
+    position:relative;
+    .pop-error {
+      position: absolute;
+      right: 64px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: $red;
+      color: #FFF;
+      padding: 15px 16px;
+      height: 100%;
+    }
+    .btn-edit {
+      height:50px;
+      width:50px;
+      border-radius:50%!important;
+      background:none;
+      background-image:none;
+      background-color:none;
+      span.fa {
+        font-size: 20px;
+        color: rgba(0,0,0,0.2);
+      }
+      &:hover,&:active,&:focus {
+        outline:none;
+      }
+    }
+  }
   .follow-button {
     position:relative;
     .pop-error {

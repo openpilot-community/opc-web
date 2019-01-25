@@ -447,13 +447,11 @@ Trestle.resource(:vehicle_configs, path: "/vehicles") do
         end
       end
       
-      if vehicle_config.thredded_messageboard.present?
-        tab :discuss, class: '', label: "<span class=\"fa fa-comments\"></span> Discuss <span class=\"badge disqus-comment-count\" data-disqus-identifier=\"#{vehicle_config.slug}\"></span>".html_safe do
-          render "admin/comments", instance: vehicle_config
-          # table vehicle_config.thredded_messageboard.topics, admin: :thredded_topics do
-          #   column :title
-          # end
-        end
+      tab :discuss, class: '', label: "<span class=\"fa fa-comments\"></span> Discuss <span class=\"badge disqus-comment-count\" data-disqus-identifier=\"#{vehicle_config.slug}\"></span>".html_safe do
+        render "admin/comments", instance: vehicle_config
+        # table vehicle_config.thredded_messageboard.topics, admin: :thredded_topics do
+        #   column :title
+        # end
       end
       
       tab :capabilities, label: "<span class=\"fa fa-list\"></span> Capabilities &amp; Limits".html_safe do

@@ -47,6 +47,17 @@
       }
     }
   } 
+
+  .edit-button {
+    .btn-edit {
+      height:45px;
+      width:45px;
+
+      span.fa {
+        font-size:18px;
+      }
+    }
+  } 
   .details {
     // flex: 0 0 calc(67% - #{$image-size});
     display:table-cell;

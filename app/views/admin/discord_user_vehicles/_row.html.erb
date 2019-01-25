@@ -1,21 +1,85 @@
-<div class="hardware-card row-card">
-  <div class="card-header">
-    <div class="image">
-        <span class="img"><span class="fa fa-car"></span></span>
-    </div>
-
-    <div class="details">
-      <div class="details-inner">
-        <div class="name">
-        <%=link_to(discord_user_vehicles_admin_url(instance.id)) do %>
-          <span><%=instance.vehicle_year%> <%=instance.vehicle_make%> <%=instance.vehicle_model%> <%=instance.vehicle_trim%></span>
+<% if instance.vehicle_config %>
+  <% row_state = { 
+    default_state: {
+      id: instance.vehicle_config.id,
+      follower_count: instance.vehicle_config.followers_count,
+      following: current_user_state[:following]
+    }.to_json}%>
+  <% row_class = "" %>
+  <% has_status = instance.vehicle_config.vehicle_config_status.present?%>
+  <% if has_status %>
+    <% status = instance.vehicle_config.vehicle_config_status%>
+  <% else %>
+    <% status = nil %>
+  <% end %>
+  <% has_difficulty = instance.vehicle_config.vehicle_config_type.present? %>
+  <% if has_difficulty %>
+    <% difficulty = instance.vehicle_config.vehicle_config_type%>
+  <% else %>
+    <% difficulty = nil %>
+  <% end %>
+  <% status_class = instance.vehicle_config.status_classes %>
+  <div class="vehicle-card row-card status-<%= has_status ? status.name.parameterize : "researching" %>">
+    <div class="card-header">
+      <div class="image">
+        <% if instance.vehicle_config.image.attached? %>
+          <span class="img" style="background-image:url(<%=instance.vehicle_config.image.service_url%>)"></span>
+        <% else %>
+          <span class="img"><span class="fa fa-car"></span></span>
         <% end %>
+      </div>
+
+      <div class="details">
+        <div class="details-inner">
+          <div class="name">
+            <span><%=instance.vehicle_config.vehicle_make.name%> <%=instance.vehicle_config.vehicle_model.name%></span>, <%=instance.vehicle_config.year_range_str%>
+          </div>
+          <ul class="meta">
+            <% if has_status && has_difficulty && status.name != "Researching"%>
+            <li><span class="label label-<%=instance.vehicle_config.difficulty_class%>"><%=difficulty.name%></span></li>
+            <% end %>
+            <% if has_status %>
+            <li><span target="_blank" class="label label-<%=status_class[:color]%> repo-link"><span class="<%=status_class[:icon]%>"></span> <%=status.name%></span></li>
+            <% end %>
+            <li><span target="_blank" class="label label-default repo-link" href="<%=status_class[:url]%>"><%=status_class[:label]%></span></li>
+          </ul>
+          <div class="byline"><%=time_ago_in_words(instance.vehicle_config.updated_at)%> ago</div>
         </div>
-        <div class="synopsis"></div>
-        
-        <ul class="meta">
-        </ul>
+      </div>
+
+      
+      
+      <div class="actions">
+        <%=content_tag(:div, nil, class: "follow-button", data: row_state)%>
       </div>
     </div>
   </div>
-</div>
+<% else %>
+  <div class="vehicle-card row-card status-researching" %>
+    <div class="card-header">
+      <div class="image">
+        <span class="img"><span class="fa fa-car"></span></span>
+      </div>
+
+      <div class="details">
+        <div class="details-inner">
+          <div class="name">
+            <span><%=instance.vehicle_make%> <%=instance.vehicle_model%></span>, <%=instance.vehicle_year%>
+          </div>
+          <ul class="meta">
+           <li><span target="_blank" class="label label-default repo-link"><span class="fa fa-attention"></span> Unlinked</span></li>
+          </ul>
+          <div class="byline">Link to a Vehicle Configuration to Track</div>
+        </div>
+      </div>
+
+      
+      
+      <div class="actions">
+        <div class="edit-button">
+        <button class="btn btn-default btn-edit"><span class="fa fa-cog"></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

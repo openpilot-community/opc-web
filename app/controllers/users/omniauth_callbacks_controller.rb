@@ -5,7 +5,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @identity.persisted?
       sign_in @identity.user, event: :authentication #this will throw if @user is not activated
       set_flash_message(:notice, :success, kind: "Discord") if is_navigational_format?
-      @identity.link_to_discord_user
+      
       redirect_to after_sign_in_path_for(@identity.user)
     else
       session["devise.discord_data"] = request.env["omniauth.auth"]

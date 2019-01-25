@@ -91,6 +91,11 @@ Trestle.resource(:users) do
       if !current_user.is_super_admin? && current_user.id != instance.id
         render "unauthorized" 
         return
+      else
+        ident = instance.identities.find_by(:provider => "discord")
+        if ident.present?
+          Identity.link_to_discord_user(ident)
+        end
       end
     end
   end

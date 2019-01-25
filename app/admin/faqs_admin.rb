@@ -137,8 +137,8 @@ Trestle.resource(:faqs) do
         render inline: content_tag(:div, nil, {style: "margin-top:10px;"})
       end
       # text_field :source_image_url, label: "Change Image", placeholder: "Enter URL to Update"
-      select :hardware_item_ids, HardwareItem.all.order(:name), { label: "Tag hardware in this faq" }, { multiple: true, data: { tags: true } }
-      select :vehicle_config_ids, VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level"), { label: "Tag vehicles in this faq" }, { multiple: true, data: { tags: true } }
+      select :hardware_item_ids, HardwareItem.all.order(:name), { label: "Tag hardware in this faq" }, { multiple: true }
+      select :vehicle_config_ids, VehicleConfig.includes(:vehicle_make, :vehicle_model, :vehicle_config_type, :vehicle_config_status, :repositories, :pull_requests, :vehicle_config_pull_requests).order("vehicle_makes.name, vehicle_models.name, year, vehicle_config_types.difficulty_level"), { label: "Tag vehicles in this faq" }, { multiple: true }
       if params['from_url'].blank?
         text_field :author_name
         text_area :exerpt

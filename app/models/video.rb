@@ -79,6 +79,10 @@ class Video < ApplicationRecord
     title
   end
 
+  def name_with_author
+    "[#{author}] #{title}"
+  end
+
   def embed
     iframely = Iframely::Requester.new api_key: ENV['IFRAMELY_KEY']
 

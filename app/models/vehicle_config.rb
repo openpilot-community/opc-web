@@ -297,7 +297,9 @@ MARKDOWN
   def map_specs_to_capabilities
     
   end
-  
+  def name_for_selector
+    "#{vehicle_make.name} #{vehicle_model.name}, #{year_range_str}"
+  end
   def difficulty_class
     case vehicle_config_type.name
     when "Advanced"
@@ -441,6 +443,16 @@ MARKDOWN
     new_name
   end
 
+  def name_expanded
+    new_name = "Untitled"
+    if vehicle_make && vehicle_model
+      new_name = "#{year_range_expanded_str} #{vehicle_make.name} #{vehicle_model.name}"
+      
+    end
+
+    new_name
+  end
+
   def has_year_end?
     !self.year_end.blank?
   end
@@ -474,6 +486,16 @@ MARKDOWN
       (year..year)
     else
       (1917..1917)
+    end
+  end
+
+  def year_range_expanded_str
+    if has_year_end? && year != year_end
+      year.upto(year_end).to_sentence
+    elsif has_year_end? && year.blank?
+      "#{year_end}"
+    else
+      "#{year}"
     end
   end
 

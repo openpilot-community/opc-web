@@ -82,7 +82,6 @@ gem 'sidekiq-scheduler'
 gem 'sidekiq-unique-jobs'
 gem "octokit", "~> 4.0"
 gem 'meta-tags'
-gem 'thredded', '~> 0.15.4'
 gem 'fastimage'
 gem "down", "~> 4.4"
 gem 'dotenv-rails', groups: [:development, :test]

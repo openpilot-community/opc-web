@@ -29,11 +29,24 @@ class User < ApplicationRecord
   # has_one :login
   has_many :guides
   has_many :identities
+  has_many :user_hardware_items
+  has_many :hardware_items, :through => :user_hardware_items
   belongs_to :user_role
   has_one :discord_user
+  has_many :user_videos
+  has_many :videos, :through => :user_videos
   has_many :versions, :foreign_key => :whodunnit
   # before_create :set_role
-
+  def hardware_item_ids=(ids)
+    self.hardware_items = Array(ids).reject(&:blank?).map { |id|
+      (id =~ /^\d+$/) ? HardwareItem.find(id) : HardwareItem.new(name: id)
+    }
+  end
+  def vehicle_ids=(ids)
+    self.vehicles = Array(ids).reject(&:blank?).map { |id|
+      (id =~ /^\d+$/) ? VehicleConfig.find(id) : ""
+    }
+  end
   def at_username
     "@#{github_username}"
   end

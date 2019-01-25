@@ -80,13 +80,9 @@ Trestle.resource(:videos) do
   form do |video|
     tab :general do
       if video.persisted?
-        # static_field :html, label: "Preview", class: "video-output" do
-        #   content_tag(:div, video.persisted? ? video.html.html_safe : nil, class: "video-output")
-        # end
-
         static_field :title, video.title
-        select :hardware_item_ids, HardwareItem.all, { label: "Tag hardware in this video" }, { multiple: true, data: { tags: true } }
-        select :vehicle_config_ids, VehicleConfig.all, { label: "Tag vehicles in this video" }, { multiple: true, data: { tags: true } }
+        select :hardware_item_ids, HardwareItem.all, { label: "Tag hardware in this video" }, { multiple: true }
+        select :vehicle_config_ids, VehicleConfig.all, { label: "Tag vehicles in this video" }, { multiple: true }
         static_field :provider_name, video.provider_name
         static_field :author, video.author
         static_field :author_url, video.author_url

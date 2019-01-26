@@ -119,8 +119,8 @@ Trestle.resource(:vehicle_lookups) do
     end
 
     def create
-      self.instance = admin.build_instance(permitted_params, params)
-      
+      self.instance = admin.build_instance(admin.permitted_params(params), params)
+
       if admin.save_instance(instance)
         # SAVED
         respond_to do |format|

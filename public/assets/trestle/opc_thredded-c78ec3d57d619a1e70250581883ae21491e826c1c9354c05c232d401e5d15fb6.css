@@ -1,0 +1,50 @@
+/* line 5, /Users/joshua/Projects/openpilotdb-app/app/assets/stylesheets/trestle/opc_thredded.scss */
+.thredded--main-container {
+  max-width: 100%;
+  padding: 0;
+}
+
+/* line 9, /Users/joshua/Projects/openpilotdb-app/app/assets/stylesheets/trestle/opc_thredded.scss */
+.thredded--user-navigation--private-topics, .thredded--user-navigation--standalone--profile, .thredded--user-navigation--standalone--session {
+  display: none;
+}
+
+/* line 12, /Users/joshua/Projects/openpilotdb-app/app/assets/stylesheets/trestle/opc_thredded.scss */
+.thredded--topic-following .thredded--topics--follow-icon {
+  position: initial;
+  display: initial;
+}
+
+/* line 16, /Users/joshua/Projects/openpilotdb-app/app/assets/stylesheets/trestle/opc_thredded.scss */
+.thredded--topics--title {
+  display: table-cell;
+}
+
+/* line 19, /Users/joshua/Projects/openpilotdb-app/app/assets/stylesheets/trestle/opc_thredded.scss */
+.thredded--topics--topic {
+  display: table;
+}
+/* line 21, /Users/joshua/Projects/openpilotdb-app/app/assets/stylesheets/trestle/opc_thredded.scss */
+.thredded--topics--topic > div.thredded--topics--posts-count {
+  position: initial;
+}
+/* line 25, /Users/joshua/Projects/openpilotdb-app/app/assets/stylesheets/trestle/opc_thredded.scss */
+.thredded--topics--topic > div, .thredded--topics--topic > h1, .thredded--topics--topic > cite {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 10px;
+}
+
+/* line 34, /Users/joshua/Projects/openpilotdb-app/app/assets/stylesheets/trestle/opc_thredded.scss */
+.thredded--navigation-breadcrumbs > li:nth-child(2) > a {
+  font-size: 0;
+}
+/* line 36, /Users/joshua/Projects/openpilotdb-app/app/assets/stylesheets/trestle/opc_thredded.scss */
+.thredded--navigation-breadcrumbs > li:nth-child(2) > a:before {
+  content: "Back";
+  font-size: 16px;
+}
+/* line 42, /Users/joshua/Projects/openpilotdb-app/app/assets/stylesheets/trestle/opc_thredded.scss */
+.thredded--navigation-breadcrumbs > li:first-child {
+  display: none;
+}

@@ -8,6 +8,9 @@
 //= require ./codemirror-4.inline-attachment
 //= require ./highlight.pack
 //= require ./components/_dialog
+//= require ./components/_form
+//= require ./components/_sidebar
+//= require ./components/_tabs
 //= require ./editor
 //= require ./voter
 var originalAddClassMethod = jQuery.fn.addClass;

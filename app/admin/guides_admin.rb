@@ -83,7 +83,7 @@ Trestle.resource(:guides) do
     end
     # before_action :set_current_user, only: ['create','update']
     def create
-      self.instance = admin.build_instance(permitted_params, params)
+      self.instance = admin.build_instance(admin.permitted_params(params), params)
       self.instance.user = current_user
       if admin.save_instance(instance)
         respond_to do |format|

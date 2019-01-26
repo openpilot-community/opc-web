@@ -8,3 +8,6 @@
   check_openpilot_repos:
     cron: '15 */1 * * *'
     class: CheckOpenpilotReposWorker
+  check_openpilot_releases:
+    cron: '45 */1 * * *'
+    class: CheckOpenpilotReleases

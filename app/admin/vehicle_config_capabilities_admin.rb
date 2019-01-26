@@ -72,7 +72,7 @@ Trestle.resource(:vehicle_config_capabilities) do
 
   controller do
     def quick_add
-      self.instance = admin.build_instance(permitted_params, params)
+      self.instance = admin.build_instance(admin.permitted_params(params), params)
 
       if admin.save_instance(instance)
         respond_to do |format|

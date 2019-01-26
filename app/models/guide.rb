@@ -16,8 +16,7 @@ class Guide < ApplicationRecord
   has_paper_trail
   paginates_per 400
   acts_as_likeable
-  # has_one_attached :image
-  friendly_id :name_for_slug, use: [:slugged, :history]
+  friendly_id
   belongs_to :user, optional: true
   has_many :guide_images
   has_many :images, :through => :guide_images
@@ -26,7 +25,6 @@ class Guide < ApplicationRecord
   has_many :hardware_items, :through => :guide_hardware_items, :validate => false, dependent: :delete_all
   has_many :vehicle_configs, :through => :vehicle_config_guides
   before_save :guide_from_url
-  # before_save :find_first_image
   before_save :set_markup
   after_save :set_image_scraper
   after_commit :update_slug
@@ -50,7 +48,7 @@ class Guide < ApplicationRecord
     end
   end
 
-  def latest_image  
+  def latest_image
     imgs = guide_images.order(:created_at => :desc)
     if imgs.present?
         imgs.first.image
@@ -78,7 +76,7 @@ class Guide < ApplicationRecord
     else
       if user.present?
         {
-          name: user.github_username,
+          name: user.discord_username,
           image: user.avatar_url
         }
       else
@@ -91,12 +89,9 @@ class Guide < ApplicationRecord
   end
 
   def update_slug
-    if title != "New Untitled Guide"
-      unless slug.blank? || slug.ends_with?(self.hashid.downcase) && slug != self.hashid.downcase
-        self.slug = nil
-        # byebug
-        self.save
-      end
+    unless slug.blank? || slug.ends_with?(self.hashid.downcase) && slug != self.hashid.downcase
+      self.slug = nil
+      self.save
     end
   end
   
@@ -187,7 +182,7 @@ class Guide < ApplicationRecord
   end
   
   def published?
-    self.title != "New Untitled Guide"
+    self.title != self.new_title
   end
 
   def check_author
@@ -221,9 +216,11 @@ class Guide < ApplicationRecord
       self.markup = client.markdown(self.markdown, :mode => "gfm", :context => "commaai/openpilot")
     end
   end
-
+  def new_title
+    "New Untitled Guide"
+  end
   def name_for_slug
-    if title != "New Untitled Guide"
+    if title != self.new_title
       "#{self.title} #{self.hashid if self.id.present?}"
     end
   end

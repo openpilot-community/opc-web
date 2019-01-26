@@ -4,8 +4,8 @@ Trestle.resource(:images) do
     skip_before_action :require_edit_permissions!
     # skip_before_action :require_super_admin!
     def create
-      self.instance = admin.build_instance(permitted_params, params)
-      # self.instance = Image.create! file: params[:attachment]
+      self.instance = admin.build_instance(admin.permitted_params(params), params)
+# self.instance = Image.create! file: params[:attachment]
       if admin.save_instance(instance)
         respond_to do |format|
           format.html do

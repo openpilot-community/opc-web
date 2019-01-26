@@ -17,8 +17,8 @@ Trestle.resource(:guide_images) do
     # before_action :set_current_user, only: ['create','update']
     def create
       # byebug
-      self.instance = admin.build_instance(permitted_params, params)
-      instance.guide_id = params['guide_id']
+      self.instance = admin.build_instance(admin.permitted_params(params), params)
+instance.guide_id = params['guide_id']
       instance.image.name = permitted_params['image_attributes']['attachment'].original_filename
       
       if admin.save_instance(instance)

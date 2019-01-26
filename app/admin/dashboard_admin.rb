@@ -24,7 +24,8 @@ Trestle.admin(:dashboard) do
       # item :slack, 'https://comma.slack.com/', icon: "fa fa-slack", priority: 1.67
     end
     group :admin do
-      item :releases, icon: "fa fa-github", priority: 6.5
+      item :releases, '/releases', icon: "fa fa-github", priority: 6.5
+      item :release_features, '/release_features', icon: "fa fa-github", priority: 6.56
       item :pull_requests, '/pull_requests', icon: "fa fa-github", priority: 6.6
       item :contributors, '/contributors', icon: "fa fa-users", priority: 6.12
       item :repositories, '/repositories', icon: "fa fa-github", priority: 6.9

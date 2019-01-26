@@ -7,6 +7,13 @@ Trestle.resource(:releases) do
   #   column :created_at, align: :center
   #   actions
   # end
+  search do |query|
+    if query
+      Release.search_for("#{query}")
+    else
+      Release.order(:updated_at => :desc)
+    end
+  end
   form(dialog: true) do |release_feature|
     text_field :name
   end

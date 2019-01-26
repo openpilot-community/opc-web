@@ -13,7 +13,7 @@ class ReleaseFeature < ApplicationRecord
     {
       id: id,
       title: "#{self.release.name}",
-      body: "#{self.release.features.map{|feature| feature.id == self.id ? "- **#{feature.name}**" : "- #{feature.name}" }.join("\n")}",
+      body: "#{self.release.release_features.map{|feature| feature.id == self.id ? "- **#{feature.name}**" : "- #{feature.name}" }.join("\n")}",
       author: {
         name: "Comma.ai",
         url: "https://github.com/commaai"

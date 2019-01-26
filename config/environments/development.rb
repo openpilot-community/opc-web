@@ -28,7 +28,12 @@ Rails.application.configure do
   end
 
   config.cache_store = :redis_cache_store, { url: ENV['REDIS_URL'] }
-  config.session_store :cache_store, key: ENV['APP_SESSION_KEY']
+  config.session_store :redis_store, {
+    servers: [
+      { url: ENV['REDIS_URL'] }
+    ],
+    key: ENV['APP_SESSION_KEY']
+  }
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = :amazon
   config.active_job.queue_adapter     = :sidekiq

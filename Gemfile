@@ -43,6 +43,7 @@ gem "sentry-raven"
 gem 'omniauth-discord'
 gem 'omniauth-github'
 # gem 'readingtime'
+gem 'redis-rails'
 gem "hiredis", "~> 0.6.0"
 gem "redis", ">= 3.2.0"
 gem "aws-sdk-s3", require: false

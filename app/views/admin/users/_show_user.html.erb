@@ -13,7 +13,7 @@
           <div class="author-name">
             <% if instance[:name].present? %>
               <h1><%=instance.name%>
-              <% if instance.name != instance.discord_username %>
+              <% if instance.discord_username.present? && instance.name != instance.discord_username %>
               <span>(<%=instance.discord_username%>)</span>
               <% end %>
               </h1>
@@ -28,8 +28,10 @@
     
 
     <div class="content markdown-body">
-      <% instance.discord_user.discord_user_vehicles.each do |vehicle| %>
-        <div><%=vehicle.vehicle_year %> <%=vehicle.vehicle_make %> <%=vehicle.vehicle_model %> <%=vehicle.vehicle_trim %></div>
+      <% if instance.discord_user.present? %>
+        <% instance.discord_user.discord_user_vehicles.each do |vehicle| %>
+          <div><%=vehicle.vehicle_year %> <%=vehicle.vehicle_make %> <%=vehicle.vehicle_model %> <%=vehicle.vehicle_trim %></div>
+        <% end %>
       <% end %>
     </div>
 

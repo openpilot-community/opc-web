@@ -1,4 +1,6 @@
 //= require_self
+//= require ./react.production.min
+//= require ./react-dom.production.min
 //= require ./garage
 //= require ./capabilities_toggler
 //= require ./capabilities_filter

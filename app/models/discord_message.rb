@@ -10,7 +10,8 @@ class DiscordMessage < ApplicationRecord
   include PgSearch
   belongs_to :discord_user
   pg_search_scope :search_for, :against => {
-    :content => 'A'
+    :id => 'A',
+    :content => 'B'
   }, :associated_against => {
     :discord_user => [:username]
   }, :using => {
@@ -49,6 +50,7 @@ class DiscordMessage < ApplicationRecord
         image: discord_user.avatar
       },
       url: jump_url,
+      attachment_url: attachment_ids.present? ? attachment_ids["0"]["url"] : nil,
       created_at: created_at,
       updated_at: updated_at
     }

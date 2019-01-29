@@ -48,6 +48,7 @@ class DiscordMessage < ApplicationRecord
         name: discord_user.username,
         image: discord_user.avatar
       },
+      url: jump_url,
       created_at: created_at,
       updated_at: updated_at
     }

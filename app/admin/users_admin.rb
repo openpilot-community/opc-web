@@ -31,6 +31,7 @@ Trestle.resource(:users) do
 
   form do |user|
     tab :general, label: '<span class="fa fa-user mr-1" style="margin-right:5px;"></span> Profile'.html_safe do
+      text_area :bio_markdown, { label: "Bio", class: "simplemde-inline" }
       select :openpilot_experience, [
           "Just Researching",
           "Purchased Hardware",
@@ -44,7 +45,7 @@ Trestle.resource(:users) do
       select :hardware_item_ids, HardwareItem.all.order(:name), { label: "Hardware I've already purchased and/or installed..." }, { multiple: true }
       text_field :youtube_channel_url
     end
-    tab :vehicles, label: '<span class="fa fa-car mr-1" style="margin-right:5px;"></span> Garage'.html_safe, badge: instance.discord_user.discord_user_vehicles.blank? ? nil : instance.discord_user.discord_user_vehicles.size do
+    tab :vehicles, label: '<span class="fa fa-car mr-1" style="margin-right:5px;"></span> Garage'.html_safe, badge: instance.discord_user.present? ? (instance.discord_user.discord_user_vehicles.blank? ? nil : instance.discord_user.discord_user_vehicles.size) : nil do
       render "tab_toolbar", {
         :groups => [
           {
@@ -55,7 +56,7 @@ Trestle.resource(:users) do
           }
         ]
       }
-      table instance.discord_user.discord_user_vehicles, admin: :discord_user_vehicles do
+      table instance.discord_user.present? ? instance.discord_user.discord_user_vehicles : [], admin: :discord_user_vehicles do
         # row do |row|
         #   {
         #     data: {
@@ -104,7 +105,7 @@ Trestle.resource(:users) do
       static_field :name, instance.name
       static_field :linked_discord_username, instance.discord_username
       static_field :linked_github_username, instance.github_username
-      static_field :linked_discord_user, instance.discord_user.id
+      static_field :linked_discord_user, instance.discord_user.present? ? instance.discord_user.id : nil
     end
   end
 

@@ -66,7 +66,7 @@ gem 'shortener'
 # gem "puma_worker_killer"
 gem 'acts_as_votable', '~> 0.11.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder', '~> 2.0', :require => "jbuilder"
 # bundle exec rake doc:rails generates the API under doc/api.
 # gem 'sdoc', '~> 0.4.0', group: :doc
 

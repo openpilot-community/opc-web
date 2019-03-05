@@ -1,4 +1,4 @@
-require 'barnes'
+# require 'barnes'
 # Puma can serve each request in a thread from an internal thread pool.
 # The `threads` method setting takes two numbers: a minimum and maximum.
 # Any libraries that use thread pools should be configured to match
@@ -13,11 +13,11 @@ threads threads_count, threads_count
 port        ENV.fetch("PORT") { 3000 }
 
 
-before_fork do
+# before_fork do
   # worker specific setup
 
-  Barnes.start
-end
+  # Barnes.start
+# end
 # Specifies the `environment` that Puma will run in.
 #
 # environment ENV.fetch("RAILS_ENV") { "development" }
@@ -35,7 +35,7 @@ end
 # before forking the application. This takes advantage of Copy On Write
 # process behavior so workers use less memory.
 #
-preload_app!
+# preload_app!
 
 # Allow puma to be restarted by `rails restart` command.
-plugin :tmp_restart
+# plugin :tmp_restart

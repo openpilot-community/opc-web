@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.4.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.2.1'
@@ -57,7 +57,7 @@ gem 'listen'
 gem 'mechanize'
 gem 'awesome_nested_set'
 gem 'font-awesome-sass', '~> 5.2.0'
-gem 'friendly_id', '~> 5.2.0'
+gem 'friendly_id', '~> 5.2.0', :require => "friendly_id"
 gem 'bootstrap', '~> 4.1.3'
 gem 'paper_trail'
 gem 'paper_trail-association_tracking'

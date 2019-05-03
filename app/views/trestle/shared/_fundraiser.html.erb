@@ -1,61 +1,113 @@
 <% if !cookies[:fundraiser_closed] %>
-        <style>
-        .alert.alert-warning.fundraiser-alert  {
-          margin-bottom:0;
-          font-size:14px;
-          position:relative;
-        }
-        .alert.alert-warning.fundraiser-alert a {
-          color:#8a6d3b;
-          text-decoration:underline;
-        }
-        .alert.alert-warning.fundraiser-alert .btn.btn-primary {
-          background-color: #269f42;
-          background-image: linear-gradient(-180deg, #2fcb53 0%, #269f42 90%);
-          background-position: -.5em;
-          border-color: rgba(27, 31, 35, 0.5);
-          color:#FFF;
-        }
+  <style>
+  .alert.alert-warning.fundraiser-alert  {
+    margin-bottom:0;
+    font-size:14px;
+    position:relative;
+  }
+  .alert.alert-warning.fundraiser-alert a {
+    color:#8a6d3b;
+    text-decoration:underline;
+  }
+  .alert.alert-warning.fundraiser-alert .btn.btn-primary {
+    background-color: #269f42;
+    background-image: linear-gradient(-180deg, #2fcb53 0%, #269f42 90%);
+    background-position: -.5em;
+    border-color: rgba(27, 31, 35, 0.5);
+    color:#FFF;
+  }
 
-       .alert.alert-warning.fundraiser-alert .btn {
-           text-decoration:none;
-           display:inline-block;margin-top: 10px;
-       }
-       .alert.alert-warning.fundraiser-alert .btn-link {
-          background:transparent;
-          border:none;
-          font-weight:normal;
-          margin-left:20px;
-          text-decoration:underline;
-       }
-        // .alert.alert-warning.fundraiser-alert .close-button {
-        //   position:absolute;
-        //   top:0;
-        //   right:0;
-        // }
-        </style>
-        
-        <div class="fundraiser-alert alert alert-warning">
-          <p>
-            <strong>Dear Community:</strong><br />
-            The Openpilot Community needs your help to continue to keep 
-            opc.ai's lights on and support the path to <strong>Workbench v0.2</strong>. 
-            With only a one person crew and without commercial funding it's not 
-            always financially feasible to fund these services out of pocket.
-            Please consider becoming a Patreon supporter of the Openpilot Community project 
-            and receive exclusive perks and benefits!<br />
-            <a target="_blank" class="btn btn-primary" href="https://www.patreon.com/join/openpilotcommunity?from_fundraiser=true">Become a patreon</a>
-            <a target="_blank" class="btn btn-link" href="https://www.patreon.com/openpilotcommunity?from_fundraiser=true">Learn more</a>
-            <a class="close-button btn btn-link">Maybe Later</a>
-          </p>
-        </div>
-        <script>
-        $(document).ready(function() {
-          $('.alert.alert-warning.fundraiser-alert .close-button').on("click",function() {
-            console.warn("Closing fundraiser");
-            Cookies.set('fundraiser_closed', true, { expires: 1 });
-            $(".fundraiser-alert").hide();
-          });
-        });
-        </script>
-        <% end %>
+  .alert.alert-warning.fundraiser-alert .btn {
+      text-decoration:none;
+      display:inline-block;margin-top: 10px;
+  }
+  .alert.alert-warning.fundraiser-alert .btn-link {
+    background:transparent;
+    border:none;
+    font-weight:normal;
+    margin-left:20px;
+    text-decoration:underline;
+  }
+  // .alert.alert-warning.fundraiser-alert .close-button {
+  //   position:absolute;
+  //   top:0;
+  //   right:0;
+  // }
+  </style>
+  
+  <div class="fundraiser-alert alert alert-warning">
+    <p>
+      <strong>Dear Community:</strong><br />
+      The Openpilot Community needs your help to continue to keep 
+      opc.ai's lights on and support the path to <strong>Workbench v0.2</strong>. 
+      With only a one person crew and without commercial funding it's not 
+      always financially feasible to fund these services out of pocket.
+      Please consider becoming a Patreon supporter of the Openpilot Community project 
+      and receive exclusive perks and benefits!<br />
+      <a target="_blank" class="btn btn-primary" href="https://www.patreon.com/join/openpilotcommunity?from_fundraiser=true">Become a patreon</a>
+      <a target="_blank" class="btn btn-link" href="https://www.patreon.com/openpilotcommunity?from_fundraiser=true">Learn more</a>
+      <a class="close-button btn btn-link">Maybe Later</a>
+    </p>
+  </div>
+  <script>
+  $(document).ready(function() {
+    $('.alert.alert-warning.fundraiser-alert .close-button').on("click",function() {
+      console.warn("Closing fundraiser");
+      Cookies.set('fundraiser_closed', true, { expires: 1 });
+      $(".fundraiser-alert").hide();
+    });
+  });
+  </script>
+  <% end %>
+<% if !cookies[:disclaimer_closed] %>
+  <style>
+  .alert.alert-warning.disclaimer-alert  {
+    margin-bottom:0;
+    font-size:14px;
+    position:relative;
+  }
+  .alert.alert-warning.disclaimer-alert a {
+    /* color:#8a6d3b; */
+    text-decoration:underline;
+  }
+  .alert.alert-warning.disclaimer-alert .btn.btn-primary {
+    background-color: #269f42;
+    background-image: linear-gradient(-180deg, #2fcb53 0%, #269f42 90%);
+    background-position: -.5em;
+    border-color: rgba(27, 31, 35, 0.5);
+    color:#FFF;
+  }
+
+  .alert.alert-warning.disclaimer-alert .btn {
+      text-decoration:none;
+      display:inline-block;margin-top: 10px;
+  }
+  .alert.alert-warning.disclaimer-alert .btn-link {
+    background:transparent;
+    border:none;
+    font-weight:normal;
+    margin-left:20px;
+    text-decoration:underline;
+  }
+  // .alert.alert-warning.disclaimer-alert .close-button {
+  //   position:absolute;
+  //   top:0;
+  //   right:0;
+  // }
+  </style>
+  
+  <div class="disclaimer-alert alert alert-danger">
+    <p>
+      <strong>DISCLAIMER:</strong> This website is maintained by openpilot users and contributors. The content found here (including Workbench and Oppey the Bot) are not approved, supported, affiliated or funded by Comma.ai, Inc. Please <strong>DO NOT</strong> contact Comma.ai, Inc. staff about these things as they <strong>WILL NOT</strong> provide support.  For support on openpilot, opc.ai, oppey, workbench, etc. please contact a community member on <a href="/discord">Discord</a>.
+    </p>
+  </div>
+  <script>
+  $(document).ready(function() {
+    $('.alert.alert-danger.disclaimer-alert .close-button').on("click",function() {
+      console.warn("Closing disclaimer");
+      Cookies.set('disclaimer_closed', true, { expires: 1 });
+      $(".disclaimer-alert").hide();
+    });
+  });
+  </script>
+  <% end %>
